@@ -1,0 +1,3161 @@
+-- BRWPLC1 Script 2 - AccountMap (Excel ile yazılan).
+
+USE [NetTrexAcc-GCC]
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- HEADER STARTED -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+GO
+
+SET XACT_ABORT ON;
+
+BEGIN TRANSACTION;
+
+BEGIN TRY
+    DECLARE
+        @tempTable TABLE
+                   (
+                       Id INT
+                   );
+    DECLARE
+        @StateId INT=18,
+        @stateDate datetime = getdate(),
+        @stateMaker nvarchar(80) = N'SYSTEM';
+
+    DECLARE
+        @lastAccEngineDynamicRuleId INT = 0,
+        @accEngineDynamicRuleColumnTypeId INT = 1,
+        @lastAccAccountMapId INT = 0,
+        @accAccountMapColumnTypeId INT = 11;
+
+    DECLARE
+        @dynamicRuleUseExternalGLAccountEqualTrueId INT = 0,
+        @dynamicRuleUseExternalGLAccountEqualFalseId INT = 0,
+        @dynamicRuleIsAccountNeededEqualTrueId INT = 0,
+        @dynamicRuleIsAccountNeededEqualFalseId INT = 0,
+        @dynamicRuleCustomerLocationEqualDOMId INT = 0,
+        @dynamicRuleCustomerLocationEqualFRGNId INT = 0,
+        @dynamicRuleTermEqualSHORTId INT = 0,
+        @dynamicRuleTermEqualLONGId INT = 0,
+        @dynamicRuleMarketCodeEqualOTCId INT = 0,
+        @dynamicRuleMarketCodeEqualTCMBId INT = 0,
+        @dynamicRuleMarketCodeEqualTAKASId INT = 0,
+        @dynamicRuleMarketCodeEqualBISTId INT = 0,
+        @dynamicRuleMaliKesimId INT = 0,
+        @dynamicRuleKamuMevduatBankalariId INT = 0,
+        @dynamicRuleOzelMevduatBankalariId INT = 0,
+        @dynamicRuleYabanciMevduatBankalariId INT = 0,
+        @dynamicRuleOzelKanunlaraGoreMevduatKabuluneYetkiliKuruluslarId INT = 0,
+        @dynamicRuleKatilimBankalariId INT = 0,
+        @dynamicRuleKamuKalkinmaVeYatirimBankalariId INT = 0,
+        @dynamicRuleOzelKalkinmaVeYatirimBankalariId INT = 0,
+        @dynamicRuleYurtdisiBankalarId INT = 0,
+        @DynamicRuleKalkinmaVeYatirimBankalariId INT = 0,
+        @dynamicRuleTeminatliId INT=0,
+        @dynamicRuleTeminatsizId INT=0,
+        @dynamicRuleBankalarId INT=0,
+        @dynamicRuleExternalCustomerNoId INT = 0,
+        @dynamicRuleExternalAccountNoId INT = 0,
+        @dynamicRuleExternalGLAccountId INT = 0,
+        @dynamicRuleProductEqualMoneyMarketId INT = 0,
+        @dynamicRuleProductEqualInterbankLoanId INT = 0,
+        @dynamicRuleProductEqualWakalaId INT = 0,
+        @dynamicRuleProductEqualMurabahaId INT = 0,
+        @dynamicRuleProductEqualPassId INT = 0,
+        @dynamicRuleProductEqualGilId INT = 0;
+
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Definition Number Generation
+    ------------------------------------------------------------------------------------------------------------------------
+    --#region DefNumberGen
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Accounting Engine Dynamic Rule Last Number
+    ------------------------------------------------------------------------------------------------------------------------
+    SELECT @lastAccEngineDynamicRuleId = LastNumber + 1
+    FROM dbo.DefNumberGen
+    WHERE EntityColumnType = @accEngineDynamicRuleColumnTypeId
+      AND Definition = N'AccEngineDynamicRule Id'
+
+    IF (@lastAccEngineDynamicRuleId = 0)
+        THROW 500001, 'AccEngineDynamicRule Last Id Not Found', 1
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Accounting Account Map Last Number
+    ------------------------------------------------------------------------------------------------------------------------
+    SELECT @lastAccAccountMapId = LastNumber + 1
+    FROM dbo.DefNumberGen
+    WHERE EntityColumnType = @accAccountMapColumnTypeId
+      AND Definition = N'AccAccountMap Id'
+
+    IF (@lastAccAccountMapId = 0)
+        THROW 500001, 'AccAccountMap Last Id Not Found', 1
+    --#endregion
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Accounting Engine Dynamic Rule
+    ------------------------------------------------------------------------------------------------------------------------
+    --#region AccEngineDynamicRule
+    ------------------------------------------------------------------------------------------------------------------------
+    -- UseExternalGLAccount = 1 => TxnModel.UseExternalGLAccount === true
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.UseExternalGLAccount === true')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'UseExternalGLAccount = 1', N'TxnModel.UseExternalGLAccount === true',
+                    0,
+                    N'', @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleUseExternalGLAccountEqualTrueId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleUseExternalGLAccountEqualTrueId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.UseExternalGLAccount === true';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- UseExternalGLAccount = 0 => TxnModel.UseExternalGLAccount === false
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.UseExternalGLAccount === false')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'UseExternalGLAccount = 0',
+                    N'TxnModel.UseExternalGLAccount === false',
+                    0, N'', @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleUseExternalGLAccountEqualFalseId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleUseExternalGLAccountEqualFalseId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.UseExternalGLAccount === false';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- IsAccountNeeded = 1 => TxnModel.IsAccountNeeded === true
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.IsAccountNeeded === true')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'IsAccountNeeded = 1', N'TxnModel.IsAccountNeeded === true', 0, N'',
+                    @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleIsAccountNeededEqualTrueId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleIsAccountNeededEqualTrueId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.IsAccountNeeded === true';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- IsAccountNeeded = 0 => TxnModel.IsAccountNeeded === false
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.IsAccountNeeded === false')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'IsAccountNeeded = 0', N'TxnModel.IsAccountNeeded === false', 0, N'',
+                    @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleIsAccountNeededEqualFalseId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleIsAccountNeededEqualFalseId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.IsAccountNeeded === false';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Customer Location = DOM => TxnModel.CustomerLocation === 'DOM'
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.CustomerLocation === ''DOM''')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'Customer Location = DOM', N'TxnModel.CustomerLocation === ''DOM''',
+                    0, N'', @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleCustomerLocationEqualDOMId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleCustomerLocationEqualDOMId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.CustomerLocation === ''DOM''';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- IsAccountNeeded = 1 => TxnModel.CustomerLocation === 'FRGN'
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.CustomerLocation === ''FRGN''')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'Customer Location = FRGN', N'TxnModel.CustomerLocation === ''FRGN''',
+                    0, N'', @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleCustomerLocationEqualFRGNId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleCustomerLocationEqualFRGNId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.CustomerLocation === ''FRGN''';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Term = Short => TxnModel.TermCode === 'SHORT'
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.TermCode === ''SHORT''')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'Term = Short', N'TxnModel.TermCode === ''SHORT''', 0, N'',
+                    @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleTermEqualSHORTId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleTermEqualSHORTId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.TermCode === ''SHORT''';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Term = Long => TxnModel.TermCode === 'LONG'
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.TermCode === ''LONG''')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'Term = Long', N'TxnModel.TermCode === ''LONG''', 0, N'',
+                    @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleTermEqualLONGId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleTermEqualLONGId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.TermCode === ''LONG''';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Market = OTC => TxnModel.MarketCode === 'OTC'
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.MarketCode === ''OTC''')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'Market = OTC', N'TxnModel.MarketCode === ''OTC''', 0, N'', @StateId,
+                    @stateDate, @stateMaker);
+            SELECT @dynamicRuleMarketCodeEqualOTCId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleMarketCodeEqualOTCId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.MarketCode === ''OTC''';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Market = TCMB => TxnModel.MarketCode === 'TCMB'
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.MarketCode === ''TCMB''')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'Market = TCMB', N'TxnModel.MarketCode === ''TCMB''', 0, N'',
+                    @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleMarketCodeEqualTCMBId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleMarketCodeEqualTCMBId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.MarketCode === ''TCMB''';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Market = TAKAS => TxnModel.MarketCode === 'TAKAS'
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.MarketCode === ''TAKAS''')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'Market = TAKAS', N'TxnModel.MarketCode === ''TAKAS''', 0, N'',
+                    @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleMarketCodeEqualTAKASId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleMarketCodeEqualTAKASId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.MarketCode === ''TAKAS''';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Market = BIST => TxnModel.MarketCode === 'BIST'
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.MarketCode === ''BIST''')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'Market = BIST', N'TxnModel.MarketCode === ''BIST''', 0, N'',
+                    @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleMarketCodeEqualBISTId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleMarketCodeEqualBISTId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.MarketCode === ''BIST''';
+        END;
+
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Teminatlı => TxnModel.IsCollateralized === true
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.IsCollateralized === true')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'Teminatlı', N'TxnModel.IsCollateralized === true', 0, N'', @StateId,
+                    @stateDate, @stateMaker);
+            SELECT @dynamicRuleTeminatliId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleTeminatliId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.IsCollateralized === true';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Teminatsız => TxnModel.IsCollateralized === false
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.IsCollateralized === false')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'Teminatsız', N'TxnModel.IsCollateralized === false', 0, N'',
+                    @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleTeminatsizId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleTeminatsizId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.IsCollateralized === false';
+        END;
+
+    ------------------------------------------------------------------------------------------------------------------------
+    -- ExternalCustomerNo => TxnModel.ExternalCustomerNo
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1
+                   FROM dbo.AccEngineDynamicRule
+                   WHERE [Rule] = N'TxnModel.ExternalCustomerNo')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'ExternalCustomerNo',
+                    N'TxnModel.ExternalCustomerNo', 1, N'', @StateId, @stateDate,
+                    @stateMaker);
+            SELECT @dynamicRuleExternalCustomerNoId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleExternalCustomerNoId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.ExternalCustomerNo';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- ExternalAccountNo => TxnModel.ExternalAccountNo
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1
+                   FROM dbo.AccEngineDynamicRule
+                   WHERE [Rule] = N'TxnModel.ExternalAccountNo')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'ExternalAccountNo',
+                    N'TxnModel.ExternalAccountNo', 1, N'', @StateId, @stateDate,
+                    @stateMaker);
+            SELECT @dynamicRuleExternalAccountNoId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleExternalAccountNoId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.ExternalAccountNo';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- ExternalGLAccount => TxnModel.ExternalGLAccount
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1
+                   FROM dbo.AccEngineDynamicRule
+                   WHERE [Rule] = N'TxnModel.ExternalGLAccount')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'ExternalGLAccount',
+                    N'TxnModel.ExternalGLAccount', 1, N'', @StateId, @stateDate,
+                    @stateMaker);
+            SELECT @dynamicRuleExternalGLAccountId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleExternalGLAccountId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.ExternalGLAccount';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Money Market => TxnModel.ProductId === 1
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1
+                   FROM dbo.AccEngineDynamicRule
+                   WHERE [Rule] = N'TxnModel.ProductId === 1')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'Money Market',
+                    N'TxnModel.ProductId === 1', 0, N'', @StateId, @stateDate,
+                    @stateMaker);
+            SELECT @dynamicRuleProductEqualMoneyMarketId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleProductEqualMoneyMarketId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.ProductId === 1';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Interbank LOAN => TxnModel.ProductId === 2
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1
+                   FROM dbo.AccEngineDynamicRule
+                   WHERE [Rule] = N'TxnModel.ProductId === 2')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'Interbank LOAN',
+                    N'TxnModel.ProductId === 2', 0, N'', @StateId, @stateDate,
+                    @stateMaker);
+            SELECT @dynamicRuleProductEqualInterbankLoanId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleProductEqualInterbankLoanId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.ProductId === 2';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Wakala => TxnModel.ProductId === 4
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1
+                   FROM dbo.AccEngineDynamicRule
+                   WHERE [Rule] = N'TxnModel.ProductId === 4')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'Wakala',
+                    N'TxnModel.ProductId === 4', 0, N'', @StateId, @stateDate,
+                    @stateMaker);
+            SELECT @dynamicRuleProductEqualWakalaId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleProductEqualWakalaId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.ProductId === 4';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Murabaha => TxnModel.ProductId === 5
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1
+                   FROM dbo.AccEngineDynamicRule
+                   WHERE [Rule] = N'TxnModel.ProductId === 5')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'Murabaha',
+                    N'TxnModel.ProductId === 5', 0, N'', @StateId, @stateDate,
+                    @stateMaker);
+            SELECT @dynamicRuleProductEqualMurabahaId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleProductEqualMurabahaId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.ProductId === 5';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Pas => TxnModel.ProductId === 7
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1
+                   FROM dbo.AccEngineDynamicRule
+                   WHERE [Rule] = N'TxnModel.ProductId === 7')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'Pas',
+                    N'TxnModel.ProductId === 7', 0, N'', @StateId, @stateDate,
+                    @stateMaker);
+            SELECT @dynamicRuleProductEqualPassId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleProductEqualPassId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.ProductId === 7';
+        END;
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Gil => TxnModel.ProductId === 8
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1
+                   FROM dbo.AccEngineDynamicRule
+                   WHERE [Rule] = N'TxnModel.ProductId === 8')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'Gil',
+                    N'TxnModel.ProductId === 8', 0, N'', @StateId, @stateDate,
+                    @stateMaker);
+            SELECT @dynamicRuleProductEqualGilId = Id FROM @tempTable;
+            DELETE FROM @tempTable;
+            SET @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1;
+        END
+    ELSE
+        BEGIN
+            SELECT @dynamicRuleProductEqualGilId = Id
+            FROM dbo.AccEngineDynamicRule
+            WHERE [Rule] = N'TxnModel.ProductId === 8';
+        END;
+    --#endregion
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- HEADER FINISHED ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- CONTENT STARTED (EXCEL'DEN GELEN SCRIPT) -----------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+     
+
+
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = @dynamicRuleUseExternalGLAccountEqualTrueId
+                AND Rule4Id = NULL
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'CounterPartyGLAccount'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/LCY'
+                AND TargetMainGL = N'Null'
+                AND Target = N'Null'
+                AND TargetRuleId = @dynamicRuleExternalGLAccountId
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, @dynamicRuleUseExternalGLAccountEqualTrueId, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'CounterPartyGLAccount', N'TREX/BRWPLC1/LOAN/BRW/LCY', N'Null', N'Null', @dynamicRuleExternalGLAccountId, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = @dynamicRuleUseExternalGLAccountEqualFalseId
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'CounterPartyGLAccount'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/LCY'
+                AND TargetMainGL = N'20200'
+                AND Target = N'202000'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, @dynamicRuleUseExternalGLAccountEqualFalseId, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'CounterPartyGLAccount', N'TREX/BRWPLC1/LOAN/BRW/LCY', N'20200', N'202000', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = @dynamicRuleUseExternalGLAccountEqualFalseId
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'CounterPartyGLAccount'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/LCY'
+                AND TargetMainGL = N'20300'
+                AND Target = N'203003'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, @dynamicRuleUseExternalGLAccountEqualFalseId, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'CounterPartyGLAccount', N'TREX/BRWPLC1/LOAN/BRW/LCY', N'20300', N'203003', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = @dynamicRuleUseExternalGLAccountEqualFalseId
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'CounterPartyGLAccount'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/LCY'
+                AND TargetMainGL = N'20300'
+                AND Target = N'203001'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, @dynamicRuleUseExternalGLAccountEqualFalseId, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'CounterPartyGLAccount', N'TREX/BRWPLC1/LOAN/BRW/LCY', N'20300', N'203001', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/LCY'
+                AND TargetMainGL = N'51101'
+                AND Target = N'511010'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestExpense', N'TREX/BRWPLC1/LOAN/BRW/LCY', N'51101', N'511010', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/LCY'
+                AND TargetMainGL = N'51103'
+                AND Target = N'511030'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestExpense', N'TREX/BRWPLC1/LOAN/BRW/LCY', N'51103', N'511030', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/LCY'
+                AND TargetMainGL = N'51102'
+                AND Target = N'511020'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestExpense', N'TREX/BRWPLC1/LOAN/BRW/LCY', N'51102', N'511020', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestPaid'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/LCY'
+                AND TargetMainGL = N'51101'
+                AND Target = N'511010'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestPaid', N'TREX/BRWPLC1/LOAN/BRW/LCY', N'51101', N'511010', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestPaid'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/LCY'
+                AND TargetMainGL = N'51103'
+                AND Target = N'511030'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestPaid', N'TREX/BRWPLC1/LOAN/BRW/LCY', N'51103', N'511030', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestPaid'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/LCY'
+                AND TargetMainGL = N'51102'
+                AND Target = N'511020'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestPaid', N'TREX/BRWPLC1/LOAN/BRW/LCY', N'51102', N'511020', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'AccruedExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/LCY'
+                AND TargetMainGL = N'20200'
+                AND Target = N'202002'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'AccruedExpense', N'TREX/BRWPLC1/LOAN/BRW/LCY', N'20200', N'202002', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'AccruedExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/LCY'
+                AND TargetMainGL = N'20300'
+                AND Target = N'203007'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'AccruedExpense', N'TREX/BRWPLC1/LOAN/BRW/LCY', N'20300', N'203007', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'AccruedExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/LCY'
+                AND TargetMainGL = N'20300'
+                AND Target = N'203006'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'AccruedExpense', N'TREX/BRWPLC1/LOAN/BRW/LCY', N'20300', N'203006', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'FeeIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/LCY'
+                AND TargetMainGL = NULL
+                AND Target = NULL
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FeeIncome', N'TREX/BRWPLC1/LOAN/BRW/LCY', NULL, NULL, NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'FeeIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/LCY'
+                AND TargetMainGL = NULL
+                AND Target = NULL
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FeeIncome', N'TREX/BRWPLC1/LOAN/BRW/LCY', NULL, NULL, NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'FeeExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/LCY'
+                AND TargetMainGL = NULL
+                AND Target = NULL
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FeeExpense', N'TREX/BRWPLC1/LOAN/BRW/LCY', NULL, NULL, NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'FeeExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/LCY'
+                AND TargetMainGL = NULL
+                AND Target = NULL
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FeeExpense', N'TREX/BRWPLC1/LOAN/BRW/LCY', NULL, NULL, NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = @dynamicRuleUseExternalGLAccountEqualTrueId
+                AND Rule4Id = NULL
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'CounterPartyGLAccount'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/FCY'
+                AND TargetMainGL = N'Null'
+                AND Target = N'Null'
+                AND TargetRuleId = @dynamicRuleExternalGLAccountId
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, @dynamicRuleUseExternalGLAccountEqualTrueId, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'CounterPartyGLAccount', N'TREX/BRWPLC1/LOAN/BRW/FCY', N'Null', N'Null', @dynamicRuleExternalGLAccountId, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = @dynamicRuleUseExternalGLAccountEqualFalseId
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'CounterPartyGLAccount'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/FCY'
+                AND TargetMainGL = N'20200'
+                AND Target = N'202000'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, @dynamicRuleUseExternalGLAccountEqualFalseId, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'CounterPartyGLAccount', N'TREX/BRWPLC1/LOAN/BRW/FCY', N'20200', N'202000', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = @dynamicRuleUseExternalGLAccountEqualFalseId
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'CounterPartyGLAccount'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/FCY'
+                AND TargetMainGL = N'20300'
+                AND Target = N'203003'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, @dynamicRuleUseExternalGLAccountEqualFalseId, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'CounterPartyGLAccount', N'TREX/BRWPLC1/LOAN/BRW/FCY', N'20300', N'203003', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = @dynamicRuleUseExternalGLAccountEqualFalseId
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'CounterPartyGLAccount'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/FCY'
+                AND TargetMainGL = N'20300'
+                AND Target = N'203001'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, @dynamicRuleUseExternalGLAccountEqualFalseId, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'CounterPartyGLAccount', N'TREX/BRWPLC1/LOAN/BRW/FCY', N'20300', N'203001', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/FCY'
+                AND TargetMainGL = N'51101'
+                AND Target = N'511010'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestExpense', N'TREX/BRWPLC1/LOAN/BRW/FCY', N'51101', N'511010', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/FCY'
+                AND TargetMainGL = N'51103'
+                AND Target = N'511030'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestExpense', N'TREX/BRWPLC1/LOAN/BRW/FCY', N'51103', N'511030', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/FCY'
+                AND TargetMainGL = N'51102'
+                AND Target = N'511020'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestExpense', N'TREX/BRWPLC1/LOAN/BRW/FCY', N'51102', N'511020', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestPaid'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/FCY'
+                AND TargetMainGL = N'51101'
+                AND Target = N'511010'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestPaid', N'TREX/BRWPLC1/LOAN/BRW/FCY', N'51101', N'511010', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestPaid'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/FCY'
+                AND TargetMainGL = N'51103'
+                AND Target = N'511030'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestPaid', N'TREX/BRWPLC1/LOAN/BRW/FCY', N'51103', N'511030', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestPaid'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/FCY'
+                AND TargetMainGL = N'51102'
+                AND Target = N'511020'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestPaid', N'TREX/BRWPLC1/LOAN/BRW/FCY', N'51102', N'511020', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'AccruedExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/FCY'
+                AND TargetMainGL = N'20200'
+                AND Target = N'202002'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'AccruedExpense', N'TREX/BRWPLC1/LOAN/BRW/FCY', N'20200', N'202002', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'AccruedExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/FCY'
+                AND TargetMainGL = N'20300'
+                AND Target = N'203007'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'AccruedExpense', N'TREX/BRWPLC1/LOAN/BRW/FCY', N'20300', N'203007', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'AccruedExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/FCY'
+                AND TargetMainGL = N'20300'
+                AND Target = N'203006'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'AccruedExpense', N'TREX/BRWPLC1/LOAN/BRW/FCY', N'20300', N'203006', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'FeeIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/FCY'
+                AND TargetMainGL = NULL
+                AND Target = NULL
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FeeIncome', N'TREX/BRWPLC1/LOAN/BRW/FCY', NULL, NULL, NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'FeeIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/FCY'
+                AND TargetMainGL = NULL
+                AND Target = NULL
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FeeIncome', N'TREX/BRWPLC1/LOAN/BRW/FCY', NULL, NULL, NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'FeeExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/FCY'
+                AND TargetMainGL = NULL
+                AND Target = NULL
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FeeExpense', N'TREX/BRWPLC1/LOAN/BRW/FCY', NULL, NULL, NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'FeeExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/BRW/FCY'
+                AND TargetMainGL = NULL
+                AND Target = NULL
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FeeExpense', N'TREX/BRWPLC1/LOAN/BRW/FCY', NULL, NULL, NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = @dynamicRuleUseExternalGLAccountEqualTrueId
+                AND Rule4Id = NULL
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'CounterPartyGLAccount'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/LCY'
+                AND TargetMainGL = N'Null'
+                AND Target = N'Null'
+                AND TargetRuleId = @dynamicRuleExternalGLAccountId
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, @dynamicRuleUseExternalGLAccountEqualTrueId, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'CounterPartyGLAccount', N'TREX/BRWPLC1/LOAN/PLC/LCY', N'Null', N'Null', @dynamicRuleExternalGLAccountId, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = @dynamicRuleUseExternalGLAccountEqualTrueId
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'CounterPartyGLAccount'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/LCY'
+                AND TargetMainGL = N'10300'
+                AND Target = N'103003'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, @dynamicRuleUseExternalGLAccountEqualTrueId, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'CounterPartyGLAccount', N'TREX/BRWPLC1/LOAN/PLC/LCY', N'10300', N'103003', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = @dynamicRuleUseExternalGLAccountEqualTrueId
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'CounterPartyGLAccount'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/LCY'
+                AND TargetMainGL = N'10401'
+                AND Target = N'104013'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, @dynamicRuleUseExternalGLAccountEqualTrueId, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'CounterPartyGLAccount', N'TREX/BRWPLC1/LOAN/PLC/LCY', N'10401', N'104013', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = @dynamicRuleUseExternalGLAccountEqualTrueId
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'CounterPartyGLAccount'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/LCY'
+                AND TargetMainGL = N'10401'
+                AND Target = N'104011'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, @dynamicRuleUseExternalGLAccountEqualTrueId, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'CounterPartyGLAccount', N'TREX/BRWPLC1/LOAN/PLC/LCY', N'10401', N'104011', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/LCY'
+                AND TargetMainGL = N'40600'
+                AND Target = N'406000'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestIncome', N'TREX/BRWPLC1/LOAN/PLC/LCY', N'40600', N'406000', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/LCY'
+                AND TargetMainGL = N'40603'
+                AND Target = N'406030'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestIncome', N'TREX/BRWPLC1/LOAN/PLC/LCY', N'40603', N'406030', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/LCY'
+                AND TargetMainGL = N'40602'
+                AND Target = N'406020'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestIncome', N'TREX/BRWPLC1/LOAN/PLC/LCY', N'40602', N'406020', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestReceived'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/LCY'
+                AND TargetMainGL = N'40600'
+                AND Target = N'406000'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestReceived', N'TREX/BRWPLC1/LOAN/PLC/LCY', N'40600', N'406000', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestReceived'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/LCY'
+                AND TargetMainGL = N'40603'
+                AND Target = N'406030'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestReceived', N'TREX/BRWPLC1/LOAN/PLC/LCY', N'40603', N'406030', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestReceived'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/LCY'
+                AND TargetMainGL = N'40602'
+                AND Target = N'406020'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestReceived', N'TREX/BRWPLC1/LOAN/PLC/LCY', N'40602', N'406020', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'AccruedIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/LCY'
+                AND TargetMainGL = N'10900'
+                AND Target = N'109000'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'AccruedIncome', N'TREX/BRWPLC1/LOAN/PLC/LCY', N'10900', N'109000', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'AccruedIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/LCY'
+                AND TargetMainGL = N'10900'
+                AND Target = N'109018'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'AccruedIncome', N'TREX/BRWPLC1/LOAN/PLC/LCY', N'10900', N'109018', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'AccruedIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/LCY'
+                AND TargetMainGL = N'10900'
+                AND Target = N'109009'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'AccruedIncome', N'TREX/BRWPLC1/LOAN/PLC/LCY', N'10900', N'109009', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'FeeIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/LCY'
+                AND TargetMainGL = NULL
+                AND Target = NULL
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FeeIncome', N'TREX/BRWPLC1/LOAN/PLC/LCY', NULL, NULL, NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'FeeIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/LCY'
+                AND TargetMainGL = NULL
+                AND Target = NULL
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FeeIncome', N'TREX/BRWPLC1/LOAN/PLC/LCY', NULL, NULL, NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'FeeExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/LCY'
+                AND TargetMainGL = NULL
+                AND Target = NULL
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FeeExpense', N'TREX/BRWPLC1/LOAN/PLC/LCY', NULL, NULL, NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'FeeExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/LCY'
+                AND TargetMainGL = NULL
+                AND Target = NULL
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FeeExpense', N'TREX/BRWPLC1/LOAN/PLC/LCY', NULL, NULL, NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = @dynamicRuleUseExternalGLAccountEqualTrueId
+                AND Rule4Id = NULL
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'CounterPartyGLAccount'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/FCY'
+                AND TargetMainGL = N'Null'
+                AND Target = N'Null'
+                AND TargetRuleId = @dynamicRuleExternalGLAccountId
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, @dynamicRuleUseExternalGLAccountEqualTrueId, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'CounterPartyGLAccount', N'TREX/BRWPLC1/LOAN/PLC/FCY', N'Null', N'Null', @dynamicRuleExternalGLAccountId, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = @dynamicRuleUseExternalGLAccountEqualFalseId
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'CounterPartyGLAccount'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/FCY'
+                AND TargetMainGL = N'10300'
+                AND Target = N'103003'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, @dynamicRuleUseExternalGLAccountEqualFalseId, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'CounterPartyGLAccount', N'TREX/BRWPLC1/LOAN/PLC/FCY', N'10300', N'103003', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = @dynamicRuleUseExternalGLAccountEqualFalseId
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'CounterPartyGLAccount'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/FCY'
+                AND TargetMainGL = N'10401'
+                AND Target = N'104013'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, @dynamicRuleUseExternalGLAccountEqualFalseId, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'CounterPartyGLAccount', N'TREX/BRWPLC1/LOAN/PLC/FCY', N'10401', N'104013', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = @dynamicRuleUseExternalGLAccountEqualFalseId
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'CounterPartyGLAccount'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/FCY'
+                AND TargetMainGL = N'10401'
+                AND Target = N'104011'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, @dynamicRuleUseExternalGLAccountEqualFalseId, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'CounterPartyGLAccount', N'TREX/BRWPLC1/LOAN/PLC/FCY', N'10401', N'104011', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/FCY'
+                AND TargetMainGL = N'40600'
+                AND Target = N'406000'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestIncome', N'TREX/BRWPLC1/LOAN/PLC/FCY', N'40600', N'406000', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/FCY'
+                AND TargetMainGL = N'40603'
+                AND Target = N'406030'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestIncome', N'TREX/BRWPLC1/LOAN/PLC/FCY', N'40603', N'406030', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/FCY'
+                AND TargetMainGL = N'40602'
+                AND Target = N'406020'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestIncome', N'TREX/BRWPLC1/LOAN/PLC/FCY', N'40602', N'406020', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestReceived'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/FCY'
+                AND TargetMainGL = N'40600'
+                AND Target = N'406000'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestReceived', N'TREX/BRWPLC1/LOAN/PLC/FCY', N'40600', N'406000', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestReceived'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/FCY'
+                AND TargetMainGL = N'40603'
+                AND Target = N'406030'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestReceived', N'TREX/BRWPLC1/LOAN/PLC/FCY', N'40603', N'406030', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'InterestReceived'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/FCY'
+                AND TargetMainGL = N'40602'
+                AND Target = N'406020'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'InterestReceived', N'TREX/BRWPLC1/LOAN/PLC/FCY', N'40602', N'406020', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'AccruedIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/FCY'
+                AND TargetMainGL = N'10900'
+                AND Target = N'109000'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'AccruedIncome', N'TREX/BRWPLC1/LOAN/PLC/FCY', N'10900', N'109000', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'AccruedIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/FCY'
+                AND TargetMainGL = N'10900'
+                AND Target = N'109018'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'AccruedIncome', N'TREX/BRWPLC1/LOAN/PLC/FCY', N'10900', N'109018', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'AccruedIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/FCY'
+                AND TargetMainGL = N'10900'
+                AND Target = N'109009'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'AccruedIncome', N'TREX/BRWPLC1/LOAN/PLC/FCY', N'10900', N'109009', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'FeeIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/FCY'
+                AND TargetMainGL = N'44343'
+                AND Target = N'44343110'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FeeIncome', N'TREX/BRWPLC1/LOAN/PLC/FCY', N'44343', N'44343110', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'FeeIncome'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/FCY'
+                AND TargetMainGL = N'44343'
+                AND Target = N'44343110'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FeeIncome', N'TREX/BRWPLC1/LOAN/PLC/FCY', N'44343', N'44343110', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualWakalaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'FeeExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/FCY'
+                AND TargetMainGL = N'51919'
+                AND Target = N'51919110'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualWakalaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FeeExpense', N'TREX/BRWPLC1/LOAN/PLC/FCY', N'51919', N'51919110', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = @dynamicRuleProductEqualMurabahaId
+                AND Rule2Id = @dynamicRuleIsAccountNeededEqualTrueId
+                AND Rule3Id = NULL
+                AND Rule4Id = @dynamicRuleMarketCodeEqualOTCId
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'FeeExpense'
+                AND Path = N'TREX/BRWPLC1/LOAN/PLC/FCY'
+                AND TargetMainGL = N'51919'
+                AND Target = N'51919110'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = @dynamicRuleExternalCustomerNoId
+                AND CustomerAccountCodeSourceRuleId = @dynamicRuleExternalAccountNoId)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, @dynamicRuleProductEqualMurabahaId, @dynamicRuleIsAccountNeededEqualTrueId, NULL, @dynamicRuleMarketCodeEqualOTCId, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FeeExpense', N'TREX/BRWPLC1/LOAN/PLC/FCY', N'51919', N'51919110', NULL, 1,
+                10, N'', @dynamicRuleExternalCustomerNoId, @dynamicRuleExternalAccountNoId, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = NULL
+                AND Rule3Id = NULL
+                AND Rule4Id = NULL
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'IncomingPaymentLCY'
+                AND Path = N'TREX/BRWPLC1'
+                AND TargetMainGL = N'10800'
+                AND Target = N'108000'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = NULL
+                AND CustomerAccountCodeSourceRuleId = NULL)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'IncomingPaymentLCY', N'TREX/BRWPLC1', N'10800', N'108000', NULL, 1,
+                1, N'', NULL, NULL, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = NULL
+                AND Rule3Id = NULL
+                AND Rule4Id = NULL
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'IncomingPaymentFCY'
+                AND Path = N'TREX/BRWPLC1'
+                AND TargetMainGL = N'10800'
+                AND Target = N'108000'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = NULL
+                AND CustomerAccountCodeSourceRuleId = NULL)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'IncomingPaymentFCY', N'TREX/BRWPLC1', N'10800', N'108000', NULL, 1,
+                1, N'', NULL, NULL, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = NULL
+                AND Rule3Id = NULL
+                AND Rule4Id = NULL
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'OutgoingPaymentLCY'
+                AND Path = N'TREX/BRWPLC1'
+                AND TargetMainGL = N'10800'
+                AND Target = N'108000'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = NULL
+                AND CustomerAccountCodeSourceRuleId = NULL)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'OutgoingPaymentLCY', N'TREX/BRWPLC1', N'10800', N'108000', NULL, 1,
+                1, N'', NULL, NULL, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = NULL
+                AND Rule3Id = NULL
+                AND Rule4Id = NULL
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'OutgoingPaymentFCY'
+                AND Path = N'TREX/BRWPLC1'
+                AND TargetMainGL = N'10800'
+                AND Target = N'108000'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = NULL
+                AND CustomerAccountCodeSourceRuleId = NULL)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'OutgoingPaymentFCY', N'TREX/BRWPLC1', N'10800', N'108000', NULL, 1,
+                1, N'', NULL, NULL, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = NULL
+                AND Rule3Id = NULL
+                AND Rule4Id = NULL
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy IS NULL
+                AND Source = N'FxPosition'
+                AND Path = N'TREX/BRWPLC1'
+                AND TargetMainGL = N'11803'
+                AND Target = N'118033'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = NULL
+                AND CustomerAccountCodeSourceRuleId = NULL)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FxPosition', N'TREX/BRWPLC1', N'11803', N'118033', NULL, 1,
+                10, N'', NULL, NULL, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = NULL
+                AND Rule3Id = NULL
+                AND Rule4Id = NULL
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy = N'USD'
+                AND Source = N'FxPositionLCY'
+                AND Path = N'TREX/BRWPLC1'
+                AND TargetMainGL = N'11803'
+                AND Target = N'118030'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = NULL
+                AND CustomerAccountCodeSourceRuleId = NULL)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, N'USD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FxPositionLCY', N'TREX/BRWPLC1', N'11803', N'118030', NULL, 1,
+                10, N'', NULL, NULL, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = NULL
+                AND Rule3Id = NULL
+                AND Rule4Id = NULL
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy = N'EUR'
+                AND Source = N'FxPositionLCY'
+                AND Path = N'TREX/BRWPLC1'
+                AND TargetMainGL = N'11803'
+                AND Target = N'118031'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = NULL
+                AND CustomerAccountCodeSourceRuleId = NULL)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, N'EUR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FxPositionLCY', N'TREX/BRWPLC1', N'11803', N'118031', NULL, 1,
+                10, N'', NULL, NULL, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+       IF NOT EXISTS(SELECT 1
+              FROM dbo.AccAccountMap
+              WHERE RuleId = NULL
+                AND Rule2Id = NULL
+                AND Rule3Id = NULL
+                AND Rule4Id = NULL
+                AND Rule5Id = NULL
+                AND Rule6Id = NULL
+                AND Rule7Id = NULL
+                AND Rule8Id = NULL
+                AND Rule9Id = NULL
+                AND Rule10Id = NULL
+                AND Ccy = N'GBP'
+                AND Source = N'FxPositionLCY'
+                AND Path = N'TREX/BRWPLC1'
+                AND TargetMainGL = N'11803'
+                AND Target = N'118032'
+                AND TargetRuleId = NULL
+                AND CustomerCodeSourceRuleId = NULL
+                AND CustomerAccountCodeSourceRuleId = NULL)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId, Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id,
+                                       Rule7Id, Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description, CustomerCodeSourceRuleId,
+                                       CustomerAccountCodeSourceRuleId, StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, N'GBP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'FxPositionLCY', N'TREX/BRWPLC1', N'11803', N'118032', NULL, 1,
+                10, N'', NULL, NULL, @stateId, @stateMaker,
+                @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1
+    END;
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- CONTENT FINISHED (EXCEL'DEN GELEN SCRIPT) ----------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- FOOTER STARTED  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Definition Number Generation Update
+    ------------------------------------------------------------------------------------------------------------------------
+    --#region DefNumberGen
+    update dbo.defNumberGen
+    SET LastNumber     = @lastAccEngineDynamicRuleId,
+        LastUpdateDate = @stateDate
+    WHERE EntityColumnType = @accEngineDynamicRuleColumnTypeId
+    update dbo.defNumberGen
+    SET LastNumber     = @lastAccAccountMapId,
+        LastUpdateDate = @stateDate
+    WHERE EntityColumnType = @accAccountMapColumnTypeId
+    --#endregion
+
+    COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+    IF @@TRANCOUNT > 0
+        ROLLBACK TRANSACTION;
+
+    DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+    DECLARE @ErrorSeverity INT = ERROR_SEVERITY();
+    DECLARE @ErrorState INT = ERROR_STATE();
+    DECLARE @ErrorLine INT = ERROR_LINE();
+
+    RAISERROR ('Error on line %d: %s', @ErrorSeverity, @ErrorState, @ErrorLine, @ErrorMessage);
+END CATCH
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- FOOTER FINISHED  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

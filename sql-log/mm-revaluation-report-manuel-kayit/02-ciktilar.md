@@ -1,0 +1,241 @@
+# SQL Çıktı Kaydı — mm-revaluation-report-manuel-kayit
+
+## #1
+```
+Id|int|identity=1 · CalculationDate date · GenerationDate datetime · State int · TxnMmId bigint · PeriodId int · AccrualDay int
+AccrualAmount decimal(36,18) NOT NULL · AccrualAmountSL/IRR decimal(36,18) NULL · AccrualAmountLCY decimal(38,10) NULL
+AccEntryMainId int NOT NULL · Ccy nvarchar NOT NULL · FXRate decimal(38,10) NULL · BaseAmount decimal(38,10) NOT NULL
+```
+## #2
+```
+FK: (satır yok)   Trigger: (satır yok)   Index: PK_TxnMmDailyCalculation (unique, PK) — başka index yok
+```
+## #3
+```
+Id|CalculationDate|GenerationDate|State|TxnMmId|PeriodId|AccrualDay|AccrualAmount|AccrualAmountSL|AccrualAmountIRR|AccrualAmountLCY|AccEntryMainId|Ccy|FXRate|BaseAmount
+2976|2026-10-21|2026-10-04 21:41:45.413|18|553400|1|97|231.88|232.88|231.88|NULL|556151|TRY|NULL|50000
+2975|2026-10-21|2026-10-04 21:41:15.497|18|553397|1|294|7405.21|7671.23|7405.21|NULL|556150|TRY|NULL|1000000
+2974|2026-10-21|2026-10-04 21:40:46.123|18|553336|1|93|444.36|445.21|444.36|NULL|556149|TRY|NULL|50000
+2973|2026-10-03|2026-10-04 21:40:41.727|18|553400|1|97|108.99|109.59|108.99|NULL|556148|TRY|NULL|50000
+2972|2026-10-03|2026-10-04 21:40:20.577|18|553397|1|294|2638.45|2739.73|2638.45|NULL|556147|TRY|NULL|1000000
+2971|2026-10-03|2026-10-04 21:40:02.597|18|553336|1|93|320.91|321.92|320.91|NULL|556145|TRY|NULL|50000
+2970|2026-10-01|2026-10-02 12:12:24.180|18|553400|1|97|95.35|95.89|95.35|NULL|556140|TRY|NULL|50000
+2969|2026-10-01|2026-10-02 12:12:01.917|18|553397|1|294|2110.2|2191.78|2110.2|NULL|556139|TRY|NULL|1000000
+2968|2026-10-01|2026-10-02 12:11:39.540|18|553336|1|93|307.21|308.22|307.21|NULL|556138|TRY|NULL|50000
+2967|2026-09-30|2026-09-30 16:50:59.367|18|553400|1|97|88.53|89.04|88.53|NULL|556128|TRY|NULL|50000
+(decimal sondaki sıfırlar kırpıldı)
+Ccy|Adet|FxNull|AccMain0
+TRY|1105|1105|0
+USD|63|0|0
+```
+## #4
+```
+Id|CalculationDate|TxnMmId|PeriodId|AccrualDay|AccrualAmount|AccrualAmountSL|AccrualAmountIRR|AccrualAmountLCY|AccEntryMainId|Ccy|FXRate|BaseAmount
+2964|2026-09-30|553306|1|164|50446.52|69000|50446.52|2471945.06|556125|USD|49.0013|100000
+2963|2026-09-30|553283|1|164|67361.57|87000|67361.57|3300804.5|556123|USD|49.0013|100000
+2931|2026-09-08|553283|1|164|46926.16|65000|46926.16|2274032.33|556024|USD|48.4598|100000
+2930|2026-09-08|553306|1|164|32076.49|47000|32076.49|1554420.29|556023|USD|48.4598|100000
+2928|2026-09-10|553283|1|164|48675.92|67000|48675.92|2360494.93|556020|USD|48.4941|100000
+(decimal sondaki sıfırlar kırpıldı)
+```
+
+## #5
+Ön sorgu (referans bulmak için): `SELECT TOP (1) LogicalReference FROM dbo.TxnMM WHERE Id = 553400` → `TMMBRW2609280003`.
+İlk deneme `-i <dosya>` ile: `Sqlcmd: Error: Error occurred while opening or operating on file C: (Reason: Access is denied).` (dosya yolu sorunu, sorgu çalışmadı) → aynı içerik `-Q` ile koşuldu.
+```
+[1] kolonlar #1 ile aynı · FK/TRIGGER yok · INDEX PK_TxnMmDailyCalculation
+[2] 553400|TMMBRW2609280003|TRY|50000|50664.38|365|2026-09-18|2026-12-24|TCMB|1|MoneyMarket|Money Market|2
+[3] 14725|553400|1|2026-09-18|2026-12-24|5|664.38|0|1
+    14724|553400|1|2026-09-18|2026-12-24|0|50000|1|0
+[4] 2973|2026-10-03|...|18|553400|1|97|108.99|109.59|108.99|NULL|556148|TRY|NULL|50000
+    2970|2026-10-01|...|18|553400|1|97|95.35|95.89|95.35|NULL|556140|TRY|NULL|50000
+    2967|2026-09-30|...|18|553400|1|97|88.53|89.04|88.53|NULL|556128|TRY|NULL|50000
+[5] RowsOnCalcDate 3 | MinId 2968 | MaxId 2970 | LastGeneration 2026-10-02 12:12:24.180
+[6] 556148|553400|2026-10-03|2|0|0|MM
+    556144|553400|2026-10-03|2|1|556140|MM
+    556140|553400|2026-10-01|2|0|556144|MM
+    556133|553400|2026-10-01|2|1|556128|MM
+    556128|553400|2026-09-30|2|0|556133|MM
+    556122|553400|2026-09-30|2|1|556120|MM
+(GenerationDate/BusinessKey/decimal sıfırları kırpıldı)
+```
+
+## #6
+```
+PassedDay|AccrualDay|SL|IRR|Method
+---------|----------|--|---|------
+14|97|95.890000000000000000|95.350000000000000000|2
+```
+
+## #7
+```
+PassedDay|AccrualDay|SL|IRR
+---------|----------|--|---
+27|104|27554794.520000000000000000|26534305.370000000000000000
+```
+
+## #8
+```
+IRR
+---
+95.350000
+IRR
+---
+26534306.890000
+```
+
+## #9
+```
+DbName|ServerName|ServerNow|TxnId
+NetTrexMM|srv-mssql|2026-10-09 17:00:17.870|553400
+column_id|name|type|max_length|precision|scale|is_nullable|is_identity|default_value
+1|Id|int|4|10|0|0|1|NULL
+2|CalculationDate|date|3|10|0|0|0|NULL
+3|GenerationDate|datetime|8|23|3|0|0|NULL
+4|State|int|4|10|0|0|0|NULL
+5|TxnMmId|bigint|8|19|0|0|0|NULL
+6|PeriodId|int|4|10|0|0|0|NULL
+7|AccrualDay|int|4|10|0|0|0|NULL
+8|AccrualAmount|decimal|17|36|18|0|0|NULL
+9|AccrualAmountSL|decimal|17|36|18|1|0|NULL
+10|AccrualAmountIRR|decimal|17|36|18|1|0|NULL
+11|AccrualAmountLCY|decimal|17|38|10|1|0|NULL
+12|AccEntryMainId|int|4|10|0|0|0|NULL
+13|Ccy|nvarchar|6|0|0|0|0|NULL
+14|FXRate|decimal|17|38|10|1|0|NULL
+15|BaseAmount|decimal|17|38|10|0|0|NULL
+Kind|name|col|ref_table|is_disabled
+INDEX|PK_TxnMmDailyCalculation|NULL|NULL|0
+Id|LogicalReference|StateId|Ccy|DealAmount|MaturityAmount|DaysInYear|BasisCode|ValueDate|MaturityDate|MarketCode|CustomerId|TxnMmProductTypeId|TxnTypeCode|BusinessKey
+553400|TMMBRW2609280003|18|TRY|50000.0000000000|50664.3800000000|365|1|2026-09-18|2026-12-24|TCMB|2107|1|BRW|716077564089131009
+Id|ProductId|ProductCode|ProductName|AccountingCalculationMethodTypeId|TxnTypeCode|DirectionName|CustomerId|CustomerName|ExternalCustomerId
+553400|1|MoneyMarket|Money Market|2|BRW|Borrowing|2107|Is Bankasi|27253
+Id|TxnId|PeriodId|PeriodStartDate|PeriodEndDate|InterestRate|Amount|IsPrincipalAmount|ActiveOnCalcDate
+14725|553400|1|2026-09-18|2026-12-24|5.0000000000|664.380000000000000000|0|1
+14724|553400|1|2026-09-18|2026-12-24|.0000000000|50000.000000000000000000|1|0
+Id|CalculationDate|GenerationDate|State|TxnMmId|PeriodId|AccrualDay|AccrualAmount|AccrualAmountSL|AccrualAmountIRR|AccrualAmountLCY|AccEntryMainId|Ccy|FXRate|BaseAmount
+2973|2026-10-03|2026-10-04 21:40:41.727|18|553400|1|97|108.990000000000000000|109.590000000000000000|108.990000000000000000|NULL|556148|TRY|NULL|50000.0000000000
+2970|2026-10-01|2026-10-02 12:12:24.180|18|553400|1|97|95.350000000000000000|95.890000000000000000|95.350000000000000000|NULL|556140|TRY|NULL|50000.0000000000
+2967|2026-09-30|2026-09-30 16:50:59.367|18|553400|1|97|88.530000000000000000|89.040000000000000000|88.530000000000000000|NULL|556128|TRY|NULL|50000.0000000000
+CalculationDate|Ccy|Adet|FxRateNull|LcyNull|MinState|MaxState
+2026-09-28|TRY|1|1|1|18|18
+2026-09-30|TRY|3|3|3|18|18
+2026-09-30|USD|2|0|0|18|18
+2026-10-01|TRY|3|3|3|18|18
+2026-10-03|TRY|3|3|3|18|18
+RowsOnCalcDate|LastGenerationOnCalcDate|MaxId|IdentCurrent|RowsWithAccEntryMain0
+3|2026-10-02 12:12:24.180|2976|2976|0
+Id|TxnId|ValueDate|Type|IsReverse|ReverseId|ProductCode|ExternalState|BusinessKey
+556148|553400|2026-10-03|2|0|0|MM|NULL|716077564089131009
+556144|553400|2026-10-03|2|1|556140|MM|NULL|716077564089131009
+556140|553400|2026-10-01|2|0|556144|MM|NULL|716077564089131009
+556133|553400|2026-10-01|2|1|556128|MM|NULL|716077564089131009
+556128|553400|2026-09-30|2|0|556133|MM|NULL|716077564089131009
+556122|553400|2026-09-30|2|1|556120|MM|NULL|716077564089131009
+```
+
+## #10
+```
+Id|LogicalReference|StateId|InputDate|ValueDate|MaturityDate|Reason
+553410|TMRBRW2609300010|18|2026-09-30 17:37:24.037|2026-09-30|2026-11-28|NoRevaluationOnDate
+553405|TMRBRW2609300005|18|2026-09-30 17:31:45.850|2026-09-30|2026-11-28|NoRevaluationOnDate
+553404|TMRBRW2609300004|18|2026-09-30 17:09:07.450|2026-09-30|2026-11-28|NoRevaluationOnDate
+553401|TMRBRW2609300001|18|2026-09-30 17:04:50.617|2026-09-30|2026-11-28|NoRevaluationOnDate
+TxnId|LogicalReference|TxnStateId|MaturityDate|AccEntryMainId|ValueDate|EntryStateId|MessageKey|ExternalState
+```
+
+## #11
+```
+Id|ExecDate|LogDate|Message
+45267|2026-10-21|2026-10-04 21:40:42.487|Revaluation started for 10 transactions.
+45259|2026-10-21|2026-10-04 21:40:38.640|Revaluation Reverse started for 1 transactions.
+45239|2026-10-03|2026-10-04 21:39:33.860|Revaluation started for 10 transactions.
+45229|2026-10-03|2026-10-04 21:39:25.720|Revaluation Reverse started for 3 transactions.
+45179|2026-10-01|2026-10-02 12:10:48.453|Revaluation started for 9 transactions.
+45175|2026-10-01|2026-10-02 12:10:46.120|There is no record for Revaluation Reverse
+45128|2026-10-01|2026-10-02 12:01:18.017|Revaluation started for 9 transactions.
+45124|2026-10-01|2026-10-02 12:01:15.983|There is no record for Revaluation Reverse
+45088|2026-10-01|2026-10-02 11:55:37.103|Revaluation started for 9 transactions.
+45076|2026-10-01|2026-10-02 11:55:30.067|Revaluation Reverse started for 4 transactions.
+45058|2026-10-02|2026-10-02 11:55:12.427|There is no record for Revaluation Reverse
+45012|2026-09-30|2026-09-30 16:48:27.903|Revaluation started for 5 transactions.
+45000|2026-09-30|2026-09-30 16:48:23.880|There is no record for Revaluation Reverse
+44996|2026-09-30|2026-09-30 16:48:22.533|Revaluation Reverse started for 2 transactions.
+44897|2026-09-22|2026-09-22 10:58:17.967|Revaluation started for 3 transactions.
+44891|2026-09-22|2026-09-22 10:58:14.437|Revaluation Reverse started for 1 transactions.
+44858|2026-09-22|2026-09-22 10:51:55.360|Revaluation started for 5 transactions.
+44852|2026-09-22|2026-09-22 10:51:44.857|Revaluation Reverse started for 1 transactions.
+44783|2026-09-03|2026-09-15 15:18:39.990|Revaluation started for 5 transactions.
+44779|2026-09-03|2026-09-15 15:18:38.197|There is no record for Revaluation Reverse
+44733|2026-09-15|2026-09-15 14:24:03.673|Revaluation started for 8 transactions.
+44723|2026-09-15|2026-09-15 14:23:58.220|Revaluation Reverse started for 3 transactions.
+44684|2026-09-11|2026-09-12 19:13:13.880|Revaluation started for 6 transactions.
+44680|2026-09-11|2026-09-12 19:13:11.983|There is no record for Revaluation Reverse
+44607|2026-08-31|2026-08-31 09:55:07.407|Revaluation started for 7 transactions.
+44588|2026-08-31|2026-08-31 09:54:51.050|Revaluation Reverse started for 4 transactions.
+44587|2026-08-31|2026-08-31 09:54:51.050|There is no record for Revaluation Reverse
+44564|2026-08-31|2026-08-31 09:24:50.567|There is no record for Revaluation Reverse
+44563|2026-08-31|2026-08-31 09:24:50.543|Revaluation Reverse started for 4 transactions.
+44515|2026-08-28|2026-08-28 20:13:16.307|Revaluation started for 7 transactions.
+name|type
+ValueDate|date
+ValueDate|Fis|Islem
+2026-09-28|3|1
+2026-09-23|2|1
+2026-09-22|4|1
+2026-09-21|4|2
+2026-09-20|5|2
+2026-09-19|2|1
+2026-09-18|2|1
+2026-09-16|3|1
+2026-09-15|9|4
+2026-09-14|3|2
+2026-08-31|14|5
+2026-08-28|8|4
+2026-08-26|2|1
+2026-08-23|4|2
+2026-08-21|33|10
+2026-08-18|5|2
+2026-07-17|4|2
+2026-07-10|7|6
+2026-07-08|14|7
+2026-07-03|11|5
+```
+
+## #12
+```
+Id|LogDate|Status|Message
+45140|2026-10-02 12:01:35.240|2|Revaluation ended for TMMPLC2609240001
+45139|2026-10-02 12:01:34.790|2|Name or service not known (nettrexaccountingwebapi:80)
+45138|2026-10-02 12:01:31.610|2|Revaluation started for TMMPLC2609240001
+45137|2026-10-02 12:01:31.153|2|Revaluation ended for TMMBRW2608170002
+45136|2026-10-02 12:01:30.703|2|Name or service not known (nettrexaccountingwebapi:80)
+45135|2026-10-02 12:01:27.483|2|Revaluation started for TMMBRW2608170002
+45134|2026-10-02 12:01:27.020|2|Revaluation ended for TMMBRW2607240005
+45133|2026-10-02 12:01:26.557|2|Name or service not known (nettrexaccountingwebapi:80)
+45132|2026-10-02 12:01:23.350|2|Revaluation started for TMMBRW2607240005
+45131|2026-10-02 12:01:22.890|2|Revaluation ended for TMMBRW2607060003
+45130|2026-10-02 12:01:22.433|2|Name or service not known (nettrexaccountingwebapi:80)
+45129|2026-10-02 12:01:18.473|2|Revaluation started for TMMBRW2607060003
+45128|2026-10-02 12:01:18.017|2|Revaluation started for 9 transactions.
+45127|2026-10-02 12:01:17.383|2|Revaluation Transactions Running
+45126|2026-10-02 12:01:16.897|1|Revaluation Transactions Started
+45125|2026-10-02 12:01:16.440|4|ReverseBatchItem Success
+45124|2026-10-02 12:01:15.983|2|There is no record for Revaluation Reverse
+Id|TxnId|ValueDate|IsReverse|ReverseId|StateId|MessageKey|ExternalState|BK
+556140|553400|2026-10-01|0|556144|18|717470747917287424|NULL|716077564089131009
+556139|553397|2026-10-01|0|556143|18|717470662403817472|NULL|714598707796434945
+556138|553336|2026-10-01|0|556142|18|717470564865277952|NULL|700974373709479937
+556137|553306|2026-10-01|1|556125|18|0|NULL|692083404957220865
+556136|553283|2026-10-01|1|556123|18|0|NULL|685601326715142145
+556135|553397|2026-10-01|1|556127|18|0|NULL|714598707796434945
+556134|553336|2026-10-01|1|556126|18|0|NULL|700974373709479937
+556133|553400|2026-10-01|1|556128|18|0|NULL|716077564089131009
+556128|553400|2026-09-30|0|556133|18|0|NULL|716077564089131009
+556127|553397|2026-09-30|0|556135|18|0|NULL|714598707796434945
+556126|553336|2026-09-30|0|556134|18|0|NULL|700974373709479937
+556125|553306|2026-09-30|0|556137|18|0|NULL|692083404957220865
+556123|553283|2026-09-30|0|556136|18|0|NULL|685601326715142145
+556122|553400|2026-09-30|1|556120|18|0|NULL|716077564089131009
+556121|553336|2026-09-30|1|556033|18|0|NULL|700974373709479937
+```

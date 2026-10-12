@@ -1,0 +1,1259 @@
+module	key	en	current_tr	action	tr_yatirim	tr_katilim	scheme	suspicion
+pages/treasury/money-market/money-market	dgMMTransactions-pageTitle	Borrowing and Placement	Borrowing and Placement	REPLACE_UNTRANSLATED	Borç Alma ve Borç Verme	Borç Alma ve Borç Verme		
+pages/treasury/money-market/money-market	dgMMTransactions-popupTitle	Borrowing and Placement	Borrowing and Placement	REPLACE_UNTRANSLATED	Borç Alma ve Borç Verme	Borç Alma ve Borç Verme		
+pages/treasury/money-market/money-market	dgMMTransactions-Id	Id	Id	REPLACE_UNTRANSLATED	Kimlik	Kimlik		SHORT_EN
+pages/treasury/money-market/money-market	dgMMTransactions-PortfolioName	Portfolio	Portfolio	REPLACE_UNTRANSLATED	Portföy	Portföy		
+pages/treasury/money-market/money-market	dgMMTransactions-DirectionName	Direction	Direction	REPLACE_UNTRANSLATED	Yön	Yön		
+pages/treasury/money-market/money-market	dgMMTransactions-ProductName	Product Type	Product Type	REPLACE_UNTRANSLATED	Ürün Türü	Ürün Türü		
+pages/treasury/money-market/money-market	dgMMTransactions-LogicalReference	Logical Reference	Logical Reference	REPLACE_UNTRANSLATED	Mantıksal Referans	Mantıksal Referans		
+pages/treasury/money-market/money-market	dgMMTransactions-BusinessKey	Business Key	Business Key	REPLACE_UNTRANSLATED	İş Anahtarı	İş Anahtarı		
+pages/treasury/money-market/money-market	dgMMTransactions-CustomerName	Counterparty	Counterparty	REPLACE_UNTRANSLATED	Karşı Kurum	Karşı Kurum		KEY_EN_MISMATCH
+pages/treasury/money-market/money-market	dgMMTransactions-CcyCode	CCY	CCY	REPLACE_UNTRANSLATED	Para Birimi	Para Birimi		SHORT_EN
+pages/treasury/money-market/money-market	dgMMTransactions-MarketName	Market	Market	REPLACE_UNTRANSLATED	Piyasa	Piyasa		
+pages/treasury/money-market/money-market	dgMMTransactions-InterestRate	Rate	Rate	REPLACE_UNTRANSLATED	Kur	Kur		GENERIC_EN
+pages/treasury/money-market/money-market	dgMMTransactions-AnnualCompoundRate	Annual Compound Rate	Yıllık Bileşik	NO_GLOSSARY				
+pages/treasury/money-market/money-market	dgMMTransactions-CompoundSimpleRate	Compound-Simple Rate	Bileşik-Basit	NO_GLOSSARY				
+pages/treasury/money-market/money-market	dgMMTransactions-DealAmount	Deal Amount	Deal Amount	REPLACE_UNTRANSLATED	İşlem Tutarı	İşlem Tutarı		
+pages/treasury/money-market/money-market	dgMMTransactions-MaturityAmount	Maturity Amount	Maturity Amount	REPLACE_UNTRANSLATED	Vade Tutarı	Vade Tutarı		
+pages/treasury/money-market/money-market	dgMMTransactions-InterestAmount	Accrued amount	Accrued amount	REPLACE_UNTRANSLATED	Tahakkuk Tutarı	Tahakkuk Tutarı		
+pages/treasury/money-market/money-market	dgMMTransactions-InputDate	Input Date	Input Date	REPLACE_UNTRANSLATED	Giriş Tarihi	Giriş Tarihi		
+pages/treasury/money-market/money-market	dgMMTransactions-TradeDate	Trade Date	Trade Date	REPLACE_UNTRANSLATED	İşlem Tarihi	İşlem Tarihi		
+pages/treasury/money-market/money-market	dgMMTransactions-ValueDate	Value Date	Value Date	REPLACE_UNTRANSLATED	Valör Tarihi	Valör Tarihi		
+pages/treasury/money-market/money-market	dgMMTransactions-MaturityDate	Maturity Date	Maturity Date	REPLACE_UNTRANSLATED	Vade Tarihi	Vade Tarihi		
+pages/treasury/money-market/money-market	dgMMTransactions-BasisName	Basis Name	Basis Name	REPLACE_UNTRANSLATED	Baz Adı	Baz Adı		
+pages/treasury/money-market/money-market	dgMMTransactions-DaysInYear	Days In Year	Days In Year	REPLACE_UNTRANSLATED	Yıldaki Gün Sayısı	Yıldaki Gün Sayısı		
+pages/treasury/money-market/money-market	dgMMTransactions-RolloverParentTransactionId	Parent Transaction Id	Parent Transaction Id	REPLACE_UNTRANSLATED	Üst İşlem Kimliği	Üst İşlem Kimliği		
+pages/treasury/money-market/money-market	dgMMTransactions-RolloverParentLogicalReference	Parent Logical Reference	Parent Logical Reference	REPLACE_UNTRANSLATED	Üst Mantıksal Referans	Üst Mantıksal Referans		
+pages/treasury/money-market/money-market	dgMMTransactions-TransactionItemType	Transaction Type	Transaction Type	REPLACE_UNTRANSLATED	İşlem Türü	İşlem Türü		
+pages/treasury/money-market/money-market	dgMMTransactions-Instructions	Instructions	Instructions	REPLACE_UNTRANSLATED	Talimatlar	Talimatlar		
+pages/treasury/money-market/money-market	dgMMTransactions-ExternalCustomerId	External Customer ID	External Customer ID	REPLACE_UNTRANSLATED	Harici Müşteri Kimliği	Harici Müşteri Kimliği		
+pages/treasury/money-market/money-market	dgMMTransactions-AccountNumber	Account Number	Account Number	REPLACE_UNTRANSLATED	Hesap Numarası	Hesap Numarası		
+pages/treasury/money-market/money-market	dgMMTransactions-Ccy	Ccy	Ccy	REPLACE_UNTRANSLATED	Para Birimi	Para Birimi		SHORT_EN
+pages/treasury/money-market/money-market	dgMMTransactions-MarketCode	Market Code	Market Code	REPLACE_UNTRANSLATED	Piyasa Kodu	Piyasa Kodu		
+pages/treasury/money-market/money-market	dgMMTransactions-WeReceiveName	We Receive	We Receive	REPLACE_UNTRANSLATED	Alınacak	Alınacak		
+pages/treasury/money-market/money-market	dgMMTransactions-WeSendName	We Send	We Send	REPLACE_UNTRANSLATED	Gönderilecek	Gönderilecek		
+pages/treasury/money-market/money-market	dgMMTransactions-TheyReceiveName	They Receive	They Receive	REPLACE_UNTRANSLATED	Karşı Tarafın Alacağı	Karşı Tarafın Alacağı		
+pages/treasury/money-market/money-market	dgMMTransactions-TheySendName	They Send	They Send	REPLACE_UNTRANSLATED	Karşı Tarafın Göndereceği	Karşı Tarafın Göndereceği		
+pages/treasury/money-market/money-market	dgMMTransactions-CustomerType	Customer Type	Customer Type	REPLACE_UNTRANSLATED	Müşteri Türü	Müşteri Türü		
+pages/treasury/money-market/money-market	frmMMTransaction-PortfolioId	Portfolio	Portfolio	REPLACE_UNTRANSLATED	Portföy	Portföy		
+pages/treasury/money-market/money-market	frmMMTransaction-ProductId	Product Type	Product Type	REPLACE_UNTRANSLATED	Ürün Türü	Ürün Türü		
+pages/treasury/money-market/money-market	frmMMTransaction-DirectionCode	Direction	Direction	REPLACE_UNTRANSLATED	Yön	Yön		
+pages/treasury/money-market/money-market	frmMMTransaction-FundSourceId	Fund Source	Fund Source	REPLACE_UNTRANSLATED	Fon Kaynağı	Fon Kaynağı		
+pages/treasury/money-market/money-market	frmMMTransaction-SubFundSourceCode	Sub Fund Source	Sub Fund Source	REPLACE_UNTRANSLATED	Alt Fon Kaynağı	Alt Fon Kaynağı		
+pages/treasury/money-market/money-market	frmMMTransaction-MarketCode	Market	Market	REPLACE_UNTRANSLATED	Piyasa	Piyasa		
+pages/treasury/money-market/money-market	frmMMTransaction-CurrencyCode	Currency	Currency	REPLACE_UNTRANSLATED	Para Birimi	Para Birimi		
+pages/treasury/money-market/money-market	frmMMTransaction-CustomerId	Counterparty	Counterparty	REPLACE_UNTRANSLATED	Karşı Kurum	Karşı Kurum		KEY_EN_MISMATCH
+pages/treasury/money-market/money-market	frmMMTransaction-BasisCode	Date Basis	Date Basis	REPLACE_UNTRANSLATED	Tarih Esası	Tarih Esası		
+pages/treasury/money-market/money-market	frmMMTransaction-DaysInYear	Days in Year	Days in Year	REPLACE_UNTRANSLATED	Yıldaki Gün Sayısı	Yıldaki Gün Sayısı		
+pages/treasury/money-market/money-market	frmMMTransaction-WeSend	We Send	We Send	REPLACE_UNTRANSLATED	Gönderilecek	Gönderilecek		
+pages/treasury/money-market/money-market	frmMMTransaction-WeReceive	We Receive	We Receive	REPLACE_UNTRANSLATED	Alınacak	Alınacak		
+pages/treasury/money-market/money-market	frmMMTransaction-Instructions	Instructions	Instructions	REPLACE_UNTRANSLATED	Talimatlar	Talimatlar		
+pages/treasury/money-market/money-market	frmMMTransaction-Trader	Trader	Trader	REPLACE_UNTRANSLATED	İşlemci	İşlemci		
+pages/treasury/money-market/money-market	frmMMTransaction-InputDate	Input Date	Input Date	REPLACE_UNTRANSLATED	Giriş Tarihi	Giriş Tarihi		
+pages/treasury/money-market/money-market	frmMMTransaction-TradeDate	Trade Date	Trade Date	REPLACE_UNTRANSLATED	İşlem Tarihi	İşlem Tarihi		
+pages/treasury/money-market/money-market	frmMMTransaction-ValueDate	Value Date	Value Date	REPLACE_UNTRANSLATED	Valör Tarihi	Valör Tarihi		
+pages/treasury/money-market/money-market	frmMMTransaction-MaturityDate	Maturity Date	Maturity Date	REPLACE_UNTRANSLATED	Vade Tarihi	Vade Tarihi		
+pages/treasury/money-market/money-market	frmMMTransaction-DayCount	Day Count	Day Count	REPLACE_UNTRANSLATED	Gün Sayısı	Gün Sayısı		
+pages/treasury/money-market/money-market	frmMMTransaction-PaymentType	Payment Type	Payment Type	REPLACE_UNTRANSLATED	Ödeme Türü	Ödeme Türü		
+pages/treasury/money-market/money-market	frmMMTransaction-DealAmount	Amount	Amount	REPLACE_UNTRANSLATED	Tutar	Tutar		GENERIC_EN
+pages/treasury/money-market/money-market	frmMMTransaction-InterestRate	Rate	Rate	REPLACE_UNTRANSLATED	Kur	Kur		GENERIC_EN
+pages/treasury/money-market/money-market	frmMMTransaction-ProfitAmount	Interest Amount	Interest Amount	REPLACE_UNTRANSLATED	Faiz Tutarı	Getiri Tutarı	YES	
+pages/treasury/money-market/money-market	frmMMTransaction-MaturityAmountInput	Maturity Amount	Maturity Amount	REPLACE_UNTRANSLATED	Vade Tutarı	Vade Tutarı		
+pages/treasury/money-market/money-market	frmMMTransaction-TheirSend	They Send	They Send	REPLACE_UNTRANSLATED	Karşı Tarafın Göndereceği	Karşı Tarafın Göndereceği		
+pages/treasury/money-market/money-market	frmMMTransaction-TheirReceive	They Receive	They Receive	REPLACE_UNTRANSLATED	Karşı Tarafın Alacağı	Karşı Tarafın Alacağı		
+pages/treasury/money-market/money-market	frmMMTransaction-CollateralType	Collateral Type	Collateral Type	REPLACE_UNTRANSLATED	Teminat Türü	Teminat Türü		
+pages/treasury/money-market/money-market	frmMMTransaction-Generate	Generate	Generate	REPLACE_UNTRANSLATED	Oluştur	Oluştur		
+pages/treasury/money-market/money-market	frmMMTransaction-PaymentSchedule	Payment Schedule	Payment Schedule	REPLACE_UNTRANSLATED	Ödeme Planı	Ödeme Planı		
+pages/treasury/money-market/money-market	frmMMTransaction-SendConfirmation	Send Confirmation	Send Confirmation	REPLACE_UNTRANSLATED	Teyit Gönder	Teyit Gönder		
+pages/treasury/money-market/money-market	frmMMTransaction-SendPayment	Send Payment	Send Payment	REPLACE_UNTRANSLATED	Ödeme Gönder	Ödeme Gönder		
+pages/treasury/money-market/money-market	frmMMTransaction-SendNoticeToReceive	Send Notice To Receive	Send Notice To Receive	REPLACE_UNTRANSLATED	Alıcıya Bildirim Gönder	Alıcıya Bildirim Gönder		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-PortfolioId	Portfolio	Portfolio	REPLACE_UNTRANSLATED	Portföy	Portföy		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-ProductId	Product Type	Product Type	REPLACE_UNTRANSLATED	Ürün Türü	Ürün Türü		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-DirectionCode	Direction	Direction	REPLACE_UNTRANSLATED	Yön	Yön		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-FundSourceId	Fund Source	Fund Source	REPLACE_UNTRANSLATED	Fon Kaynağı	Fon Kaynağı		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-SubFundSourceCode	Sub Fund Source	Sub Fund Source	REPLACE_UNTRANSLATED	Alt Fon Kaynağı	Alt Fon Kaynağı		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-MarketCode	Market	Market	REPLACE_UNTRANSLATED	Piyasa	Piyasa		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-CurrencyCode	Currency	Currency	REPLACE_UNTRANSLATED	Para Birimi	Para Birimi		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-CustomerId	Counterparty	Counterparty	REPLACE_UNTRANSLATED	Karşı Kurum	Karşı Kurum		KEY_EN_MISMATCH
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-BasisCode	Date Basis	Date Basis	REPLACE_UNTRANSLATED	Tarih Esası	Tarih Esası		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-DaysInYear	Days in Year	Days in Year	REPLACE_UNTRANSLATED	Yıldaki Gün Sayısı	Yıldaki Gün Sayısı		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-WeSend	We Send	We Send	REPLACE_UNTRANSLATED	Gönderilecek	Gönderilecek		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-WeReceive	We Receive	We Receive	REPLACE_UNTRANSLATED	Alınacak	Alınacak		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-Instructions	Instructions	Instructions	REPLACE_UNTRANSLATED	Talimatlar	Talimatlar		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-Trader	Trader	Trader	REPLACE_UNTRANSLATED	İşlemci	İşlemci		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-InputDate	Input Date	Input Date	REPLACE_UNTRANSLATED	Giriş Tarihi	Giriş Tarihi		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-TradeDate	Trade Date	Trade Date	REPLACE_UNTRANSLATED	İşlem Tarihi	İşlem Tarihi		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-ValueDate	Value Date	Value Date	REPLACE_UNTRANSLATED	Valör Tarihi	Valör Tarihi		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-MaturityDate	Maturity Date	Maturity Date	REPLACE_UNTRANSLATED	Vade Tarihi	Vade Tarihi		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-DayCount	Day Count	Day Count	REPLACE_UNTRANSLATED	Gün Sayısı	Gün Sayısı		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-PaymentType	Payment Type	Payment Type	REPLACE_UNTRANSLATED	Ödeme Türü	Ödeme Türü		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-DealAmount	Start Amount	Start Amount	REPLACE_UNTRANSLATED	Başlangıç Tutarı	Başlangıç Tutarı		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-InterestRate	Rate	Rate	REPLACE_UNTRANSLATED	Kur	Kur		GENERIC_EN
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-TheirSend	They Send	They Send	REPLACE_UNTRANSLATED	Karşı Tarafın Göndereceği	Karşı Tarafın Göndereceği		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-TheirReceive	They Receive	They Receive	REPLACE_UNTRANSLATED	Karşı Tarafın Alacağı	Karşı Tarafın Alacağı		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-CollateralType	Collateral Type	Collateral Type	REPLACE_UNTRANSLATED	Teminat Türü	Teminat Türü		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-Generate	Generate	Generate	REPLACE_UNTRANSLATED	Oluştur	Oluştur		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-PaymentSchedule	Payment Schedule	Payment Schedule	REPLACE_UNTRANSLATED	Ödeme Planı	Ödeme Planı		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-SendConfirmation	Send Confirmation	Send Confirmation	REPLACE_UNTRANSLATED	Teyit Gönder	Teyit Gönder		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-SendPayment	Send Payment	Send Payment	REPLACE_UNTRANSLATED	Ödeme Gönder	Ödeme Gönder		
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-SendNoticeToReceive	Send Notice To Receive	Send Notice To Receive	REPLACE_UNTRANSLATED	Alıcıya Bildirim Gönder	Alıcıya Bildirim Gönder		
+pages/treasury/money-market/money-market	dgPaymentSchedule-Id	Id	Id	REPLACE_UNTRANSLATED	Kimlik	Kimlik		SHORT_EN
+pages/treasury/money-market/money-market	dgPaymentSchedule-PeriodId	Period	Period	REPLACE_UNTRANSLATED	Dönem	Dönem		
+pages/treasury/money-market/money-market	dgPaymentSchedule-PeriodStartDate	Start Date	Start Date	REPLACE_UNTRANSLATED	Başlangıç Tarihi	Başlangıç Tarihi		
+pages/treasury/money-market/money-market	dgPaymentSchedule-PeriodEndDate	End Date	End Date	REPLACE_UNTRANSLATED	Bitiş Tarihi	Bitiş Tarihi		
+pages/treasury/money-market/money-market	dgPaymentSchedule-DayCount	Day Count	Day Count	REPLACE_UNTRANSLATED	Gün Sayısı	Gün Sayısı		
+pages/treasury/money-market/money-market	dgPaymentSchedule-InterestRate	Rate	Rate	REPLACE_UNTRANSLATED	Kur	Kur		GENERIC_EN
+pages/treasury/money-market/money-market	dgPaymentSchedule-Amount	Amount	Amount	REPLACE_UNTRANSLATED	Tutar	Tutar		GENERIC_EN
+pages/treasury/money-market/money-market	dgPaymentSchedule-FlowType	Flow Type	Flow Type	REPLACE_UNTRANSLATED	Akış Türü	Akış Türü		
+pages/treasury/money-market/money-market	dgPaymentSchedule-Actions	Actions	Actions	REPLACE_UNTRANSLATED	İşlemler	İşlemler		
+pages/treasury/money-market/money-market	dgPaymentSchedule-GenerateSchedule	Generate Schedule	Generate Schedule	REPLACE_UNTRANSLATED	Plan Oluştur	Plan Oluştur		
+pages/treasury/money-market/money-market	frmMMPreview-PortfolioName	Portfolio	Portfolio	REPLACE_UNTRANSLATED	Portföy	Portföy		
+pages/treasury/money-market/money-market	frmMMPreview-LogicalReference	Logical Reference	Logical Reference	REPLACE_UNTRANSLATED	Mantıksal Referans	Mantıksal Referans		
+pages/treasury/money-market/money-market	frmMMPreview-ProductType	Product Type	Product Type	REPLACE_UNTRANSLATED	Ürün Türü	Ürün Türü		
+pages/treasury/money-market/money-market	frmMMPreview-Direction	Direction	Direction	REPLACE_UNTRANSLATED	Yön	Yön		
+pages/treasury/money-market/money-market	frmMMPreview-FundSource	Fund Source	Fund Source	REPLACE_UNTRANSLATED	Fon Kaynağı	Fon Kaynağı		
+pages/treasury/money-market/money-market	frmMMPreview-SubFundSource	Sub Fund Source	Sub Fund Source	REPLACE_UNTRANSLATED	Alt Fon Kaynağı	Alt Fon Kaynağı		
+pages/treasury/money-market/money-market	frmMMPreview-Market	Market	Market	REPLACE_UNTRANSLATED	Piyasa	Piyasa		
+pages/treasury/money-market/money-market	frmMMPreview-Currency	Currency	Currency	REPLACE_UNTRANSLATED	Para Birimi	Para Birimi		
+pages/treasury/money-market/money-market	frmMMPreview-Counterparty	Counterparty	Counterparty	REPLACE_UNTRANSLATED	Karşı Kurum	Karşı Kurum		
+pages/treasury/money-market/money-market	frmMMPreview-DateBasis	Date Basis	Date Basis	REPLACE_UNTRANSLATED	Tarih Esası	Tarih Esası		
+pages/treasury/money-market/money-market	frmMMPreview-DaysInYear	Days in Year	Days in Year	REPLACE_UNTRANSLATED	Yıldaki Gün Sayısı	Yıldaki Gün Sayısı		
+pages/treasury/money-market/money-market	frmMMPreview-WeSend	We Send	We Send	REPLACE_UNTRANSLATED	Gönderilecek	Gönderilecek		
+pages/treasury/money-market/money-market	frmMMPreview-WeReceive	We Receive	We Receive	REPLACE_UNTRANSLATED	Alınacak	Alınacak		
+pages/treasury/money-market/money-market	frmMMPreview-Instructions	Instructions	Instructions	REPLACE_UNTRANSLATED	Talimatlar	Talimatlar		
+pages/treasury/money-market/money-market	frmMMPreview-Trader	Trader	Trader	REPLACE_UNTRANSLATED	İşlemci	İşlemci		
+pages/treasury/money-market/money-market	frmMMPreview-InputDate	Input Date	Input Date	REPLACE_UNTRANSLATED	Giriş Tarihi	Giriş Tarihi		
+pages/treasury/money-market/money-market	frmMMPreview-TradeDate	Trade Date	Trade Date	REPLACE_UNTRANSLATED	İşlem Tarihi	İşlem Tarihi		
+pages/treasury/money-market/money-market	frmMMPreview-ValueDate	Value Date	Value Date	REPLACE_UNTRANSLATED	Valör Tarihi	Valör Tarihi		
+pages/treasury/money-market/money-market	frmMMPreview-MaturityDate	Maturity Date	Maturity Date	REPLACE_UNTRANSLATED	Vade Tarihi	Vade Tarihi		
+pages/treasury/money-market/money-market	frmMMPreview-DayCount	Day Count	Day Count	REPLACE_UNTRANSLATED	Gün Sayısı	Gün Sayısı		
+pages/treasury/money-market/money-market	frmMMPreview-PaymentType	Payment Type	Payment Type	REPLACE_UNTRANSLATED	Ödeme Türü	Ödeme Türü		
+pages/treasury/money-market/money-market	frmMMPreview-StartAmount	Start Amount	Start Amount	REPLACE_UNTRANSLATED	Başlangıç Tutarı	Başlangıç Tutarı		
+pages/treasury/money-market/money-market	frmMMPreview-InterestRate	Rate	Rate	REPLACE_UNTRANSLATED	Kur	Kur		GENERIC_EN
+pages/treasury/money-market/money-market	frmMMPreview-ProfitAmount	Interest Amount	Interest Amount	REPLACE_UNTRANSLATED	Faiz Tutarı	Getiri Tutarı	YES	
+pages/treasury/money-market/money-market	frmMMPreview-MaturityAmount	Maturity Amount	Maturity Amount	REPLACE_UNTRANSLATED	Vade Tutarı	Vade Tutarı		
+pages/treasury/money-market/money-market	frmMMPreview-TheirSend	They Send	They Send	REPLACE_UNTRANSLATED	Karşı Tarafın Göndereceği	Karşı Tarafın Göndereceği		
+pages/treasury/money-market/money-market	frmMMPreview-TheirReceive	They Receive	They Receive	REPLACE_UNTRANSLATED	Karşı Tarafın Alacağı	Karşı Tarafın Alacağı		
+pages/treasury/money-market/money-market	frmMMPreview-AccountNumber	Account Number	Account Number	REPLACE_UNTRANSLATED	Hesap Numarası	Hesap Numarası		
+pages/treasury/money-market/money-market	frmMMPreview-CollateralType	Collateral Type	Collateral Type	REPLACE_UNTRANSLATED	Teminat Türü	Teminat Türü		
+pages/treasury/money-market/money-market	frmMMPreview-SendConfirmation	Send Confirmation	Send Confirmation	REPLACE_UNTRANSLATED	Teyit Gönder	Teyit Gönder		
+pages/treasury/money-market/money-market	frmMMPreview-SendPayment	Send Payment	Send Payment	REPLACE_UNTRANSLATED	Ödeme Gönder	Ödeme Gönder		
+pages/treasury/money-market/money-market	frmMMPreview-SendNoticeToReceive	Send Notice To Receive	Send Notice To Receive	REPLACE_UNTRANSLATED	Alıcıya Bildirim Gönder	Alıcıya Bildirim Gönder		
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-StartDate	Start Date	Start Date	REPLACE_UNTRANSLATED	Başlangıç Tarihi	Başlangıç Tarihi		
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-EndDate	End Date	End Date	REPLACE_UNTRANSLATED	Bitiş Tarihi	Bitiş Tarihi		
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-TotalDay	Total Day	Total Day	REPLACE_UNTRANSLATED	Toplam Gün	Toplam Gün		
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-StartAmount	Start Amount	Start Amount	REPLACE_UNTRANSLATED	Başlangıç Tutarı	Başlangıç Tutarı		
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-MaturityAmount	Maturity Amount	Maturity Amount	REPLACE_UNTRANSLATED	Vade Tutarı	Vade Tutarı		
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-ScheduleOption	Schedule Option	Schedule Option	REPLACE_UNTRANSLATED	Plan Seçeneği	Plan Seçeneği		
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-TimeBased	Time Based	Time Based	REPLACE_UNTRANSLATED	Zaman Bazlı	Zaman Bazlı		
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-PeriodCount	Period Count	Period Count	REPLACE_UNTRANSLATED	Dönem Sayısı	Dönem Sayısı		
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-NumberOfPayment	Number Of Payment	Number Of Payment	REPLACE_UNTRANSLATED	Ödeme Numarası	Ödeme Numarası		
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-RateOption	Rate Option	Rate Option	REPLACE_UNTRANSLATED	Kur Seçeneği	Kur Seçeneği		
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-RateBased	Rate Based	Rate Based	REPLACE_UNTRANSLATED	Kur Bazlı	Kur Bazlı		
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-Rate	Rate	Rate	REPLACE_UNTRANSLATED	Kur	Kur		GENERIC_EN
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-AmountBased	Amount Based	Amount Based	REPLACE_UNTRANSLATED	Tutar Bazlı	Tutar Bazlı		
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-Amount	Amount	Amount	REPLACE_UNTRANSLATED	Tutar	Tutar		GENERIC_EN
+pages/treasury/money-market/money-market	MMTemplatedgCustomers-Id	Id	Id	REPLACE_UNTRANSLATED	Kimlik	Kimlik		SHORT_EN
+pages/treasury/money-market/money-market	MMTemplatedgCustomers-Code	Code	Code	REPLACE_UNTRANSLATED	Kod	Kod		GENERIC_EN
+pages/treasury/money-market/money-market	MMTemplatedgCustomers-Name	Name	Name	REPLACE_UNTRANSLATED	Ad	Ad		GENERIC_EN
+pages/treasury/money-market/money-market	MMTemplatedgCustomers-CcyCode	CCY	CCY	REPLACE_UNTRANSLATED	Para Birimi	Para Birimi		SHORT_EN
+pages/treasury/money-market/money-market	MMTemplatedgCustomers-CountryCode	Country	Country	REPLACE_UNTRANSLATED	Ülke	Ülke		
+pages/treasury/money-market/money-market	MMTemplatedgCustomers-CounterpartyId	Counterparty Id	Counterparty Id	REPLACE_UNTRANSLATED	Karşı Kurum Kimliği	Karşı Kurum Kimliği		
+pages/treasury/money-market/money-market	MMTemplatedgWeSend-AccNo	Acc No	Acc No	REPLACE_UNTRANSLATED	Hesap Numarası	Hesap Numarası		
+pages/treasury/money-market/money-market	MMTemplatedgWeSend-Name	Name	Name	REPLACE_UNTRANSLATED	Ad	Ad		GENERIC_EN
+pages/treasury/money-market/money-market	MMTemplatedgWeSend-CustomerId	Customer Id	Customer Id	REPLACE_UNTRANSLATED	Müşteri Kimliği	Müşteri Kimliği		
+pages/treasury/money-market/money-market	MMTemplatedgWeReceive-AccNo	Acc No	Acc No	REPLACE_UNTRANSLATED	Hesap Numarası	Hesap Numarası		
+pages/treasury/money-market/money-market	MMTemplatedgWeReceive-Name	Name	Name	REPLACE_UNTRANSLATED	Ad	Ad		GENERIC_EN
+pages/treasury/money-market/money-market	MMTemplatedgWeReceive-CustomerId	Customer Id	Customer Id	REPLACE_UNTRANSLATED	Müşteri Kimliği	Müşteri Kimliği		
+pages/treasury/money-market/money-market	MMTemplatedgTheirSend-SwiftCode	Swift Code	Swift Code	REPLACE_UNTRANSLATED	Swift Kodu	Swift Kodu		
+pages/treasury/money-market/money-market	MMTemplatedgTheirSend-Name	Name	Name	REPLACE_UNTRANSLATED	Ad	Ad		GENERIC_EN
+pages/treasury/money-market/money-market	MMTemplatedgTheirSend-AccNo	Acc No	Acc No	REPLACE_UNTRANSLATED	Hesap Numarası	Hesap Numarası		
+pages/treasury/money-market/money-market	MMTemplatedgTheirReceive-SwiftCode	Swift Code	Swift Code	REPLACE_UNTRANSLATED	Swift Kodu	Swift Kodu		
+pages/treasury/money-market/money-market	MMTemplatedgTheirReceive-Name	Name	Name	REPLACE_UNTRANSLATED	Ad	Ad		GENERIC_EN
+pages/treasury/money-market/money-market	MMTemplatedgTheirReceive-AccNo	Acc No	Acc No	REPLACE_UNTRANSLATED	Hesap Numarası	Hesap Numarası		
+pages/treasury/money-market/money-market	gridFileImportMM-MusteriTipi	Musteri Tipi	Musteri Tipi	REPLACE_UNTRANSLATED	Müşteri Türü	Müşteri Türü		
+pages/treasury/money-market/money-market	gridFileImportMM-IYE_YF_YO	IYE_YF_YO	IYE_YF_YO	OK	IYE_YF_YO	IYE_YF_YO		
+pages/treasury/money-market/money-market	gridFileImportMM-IslemNo	Islem No	Islem No	REPLACE_UNTRANSLATED	İşlem Numarası	İşlem Numarası		
+pages/treasury/money-market/money-market	gridFileImportMM-Valor	Valor	Valor	REPLACE_UNTRANSLATED	Valör	Valör		
+pages/treasury/money-market/money-market	gridFileImportMM-Vade	Vade	Vade	OK	Vade	Vade		
+pages/treasury/money-market/money-market	gridFileImportMM-IslemTipi	Islem Tipi	Islem Tipi	REPLACE_UNTRANSLATED	İşlem Türü	İşlem Türü		
+pages/treasury/money-market/money-market	gridFileImportMM-EmirNo	Emir No	Emir No	REPLACE_UNTRANSLATED	Emir Numarası	Emir Numarası		
+pages/treasury/money-market/money-market	gridFileImportMM-Sure	Sure	Sure	REPLACE_UNTRANSLATED	Elbette	Elbette		
+pages/treasury/money-market/money-market	gridFileImportMM-FaizOrani	Faiz Orani	Faiz Orani	REPLACE_UNTRANSLATED	Faiz Oranı	Getiri Oranı	YES	
+pages/treasury/money-market/money-market	gridFileImportMM-Tutar	Tutar	Tutar	OK	Tutar	Tutar		
+pages/treasury/money-market/money-market	gridFileImportMM-Faiz	Faiz	Faiz	OK	Faiz	Getiri	YES	
+pages/treasury/money-market/money-market	gridFileImportMM-BSMV	BSMV	BSMV	OK	BSMV	BSMV		
+pages/treasury/money-market/money-market	gridFileImportMM-Stopaj	Stopaj	Stopaj	REPLACE_UNTRANSLATED	Vergi Kesintisi	Vergi Kesintisi		
+pages/treasury/money-market/money-market	gridFileImportMM-Toplam	Toplam	Toplam	OK	Toplam	Toplam		
+pages/treasury/money-market/money-market	gridFileImportMM-TemsilciAdSoyad	Temsilci Ad Soyad	Temsilci Ad Soyad	OK	Temsilci Ad Soyad	Temsilci Ad Soyad		
+pages/treasury/money-market/money-market	gridFileImportMM-IslemZamani	Islem Zamani	Islem Zamani	REPLACE_UNTRANSLATED	İşlem Zamanı	İşlem Zamanı		
+pages/treasury/money-market/money-market	gridFileImportMM-StateName	Durum	Durum	OK	Durum	Durum		
+pages/treasury/money-market/money-market	gridFileImportMM-FileImport	File Import	File Import	REPLACE_UNTRANSLATED	Dosya İçe Aktar	Dosya İçe Aktar		
+pages/treasury/money-market/money-market	dgMMTransactionsRollover-PopupTitle	Rollover	Rollover	REPLACE_UNTRANSLATED	Vade Yenileme	Vade Yenileme		
+pages/treasury/money-market/money-market	gridFileImportMM-ImportFrom	Import From	Import From	REPLACE_UNTRANSLATED	Şuradan İçe Aktar	Şuradan İçe Aktar		
+pages/treasury/money-market/money-market	gridFileImportMM-Import	Import	Import	REPLACE_UNTRANSLATED	İçe Aktar	İçe Aktar		
+pages/treasury/money-market/money-market	gridFileImportMM-responseSuccess	*The auto-verify parameter is True. After importing, the status must be input verified.	*The auto-verify parameter is True. After importing, the status must be input verified.	REPLACE_UNTRANSLATED	*Otomatik onay parametresi “Evet” olarak ayarlanmıştır. İçe aktarma sonrasında kayıt durumu “Giriş Onaylandı” olmalıdır.	*Otomatik onay parametresi “Evet” olarak ayarlanmıştır. İçe aktarma sonrasında kayıt durumu “Giriş Onaylandı” olmalıdır.		KEY_EN_MISMATCH
+pages/treasury/money-market/money-market	gridFileImportMM-responseError	*The auto-verify parameter is False. After importing, the status must be input.	*The auto-verify parameter is False. After importing, the status must be input.	REPLACE_UNTRANSLATED	*Otomatik onay parametresi “Hayır” olarak ayarlanmıştır. İçe aktarma sonrasında kayıt durumu “Giriş” olmalıdır.	*Otomatik onay parametresi “Hayır” olarak ayarlanmıştır. İçe aktarma sonrasında kayıt durumu “Giriş” olmalıdır.		KEY_EN_MISMATCH
+pages/treasury/money-market/money-market	confirm-rollbackRollover	Are you sure you want to rollback this rollover transaction?	Rollover işlemini geri almak istediğinize emin misiniz?	REWORD	Bu vade yenileme işlemini geri almak istediğinizden emin misiniz?	Bu vade yenileme işlemini geri almak istediğinizden emin misiniz?		
+pages/treasury/money-market/money-market	error-rollbackRollover	An error occurred while rolling back the rollover.	Rollover geri alma işleminde bir hata oluştu.	REWORD	Vade yenileme işlemi geri alınırken bir hata oluştu.	Vade yenileme işlemi geri alınırken bir hata oluştu.		
+pages/treasury/money-market/money-market	dgCurrentAccount-ProductName	Product Name	Product Name	REPLACE_UNTRANSLATED	Ürün Adı	Ürün Adı		
+pages/treasury/money-market/money-market	dgCurrentAccount-AccountNumber	Account Number	Hesap Numarası	OK	Hesap Numarası	Hesap Numarası		
+pages/treasury/money-market/money-market	dgCurrentAccount-GLCode	GL Code	GL Kodu	REWORD	Muhasebe Kodu	Muhasebe Kodu		KEY_EN_MISMATCH
+pages/treasury/money-market/money-market	dgCurrentAccount-Balance	Balance	Bakiye	OK	Bakiye	Bakiye		
+pages/treasury/money-market/money-market	dgCurrentAccount-CurrencyCode	Currency Code	Para Birimi	REWORD	Para Birimi Kodu	Para Birimi Kodu		
+pages/treasury/money-market/money-market	dgCurrentAccount-IsInvestmentAccount	Investment Account	Yatırım Hesabı	OK	Yatırım Hesabı	Yatırım Hesabı		
+pages/treasury/money-market/money-market	dgCurrentAccount-DisplayExpr	Display Expression	Görünen İfade	REWORD	Görüntüleme İfadesi	Görüntüleme İfadesi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-pageTitle	REPO Transaction	REPO İşlemi	REWORD	Geri Alım Vaadiyle Satım İşlemi	Geri Alım Vaadiyle Satım İşlemi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-EarlyClose	Early Close	Erken Kapama	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	DGFIREPOTRANSACTION-EARLYCLOSE	Early Close	Erken Kapama	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-Liquidation	Liquidation	Liquidation	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-InstructionDate	Instruction Date	Talimat Tarihi	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-CustomerInstruction	Customer Instruction	Müşteri Talimatı	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-CalculationResults	Calculation Results	Hesaplama Sonuçları	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-ElapsedDays	Days	Gün	REWORD	Günler	Günler		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-AccruedInterest	Accrued Interest	İşlemiş Faiz	REWORD	Tahakkuk Etmiş Faiz	Tahakkuk Eden Getiri	YES	
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-GrossSettlementAmount	Gross Settlement Amount	Brüt Kapama Tutarı	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-TaxAmount	Withholding Tax	Stopaj	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-NetSettlementAmount	Net Settlement Amount	Net Kapama Tutarı	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	EarlyCloseType-PrincipalAndInterest	Principal + Interest	Anapara + Faiz	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	EarlyCloseType-PrincipalOnly	Principal Only	Yalnızca Anapara	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	InstructionFileUploaded	Instruction file uploaded	Talimat dosyası yüklendi	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	InstructionFileRequired	Approval cannot proceed without uploading the instruction.	Talimat yüklenmeden onaya geçilemez.	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	EarlyCloseOnlyForREP	Early close is only available for repo (REP) transactions.	Erken kapama yalnızca repo (REP) işlemleri için yapılabilir.	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	EarlyCloseOnlyForOTC	Early close is only available for OTC transactions.	Erken kapama yalnızca tezgah üstü (OTC) işlemler için yapılabilir.	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	EarlyCloseNotOnValueDate	On the opening day use the cancel flow; early close is not allowed.	Açılış gününde iptal işlemini kullanın, erken kapama yapılamaz.	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	EarlyCloseNotAfterMaturity	Maturity date has passed; early close is not allowed.	Vade geçmiş, erken kapama yapılamaz.	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	EarlyCloseSuccessful	Early close request accepted.	Erken kapama talebi alındı.	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	EarlyCloseFailed	Early close failed.	Erken kapama işlemi başarısız.	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	EarlyCloseVerifyMaturityDateTitle	Maturity Date Close	Vade Günü Kapanışı	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	EarlyCloseVerifyMaturityDateWarning	The selected instruction date matches the maturity date. Confirming will trigger closing accounting. Do you want to proceed?	Seçilen talimat tarihi vade tarihine denk gelmektedir. Onay verildiğinde kapanış muhasebesi oluşturulacaktır. Devam etmek istiyor musunuz?	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-popupTitle	REPO Transaction	REPO İşlemi	REWORD	Geri Alım Vaadiyle Satım İşlemi	Geri Alım Vaadiyle Satım İşlemi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-repo-popupTitle	Repo	Repo	REPLACE_UNTRANSLATED	Geri Alım Vaadiyle Satım İşlemi	Geri Alım Vaadiyle Satım İşlemi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-reverseRepo-popupTitle	Reverse Repo	Ters Repo	REWORD	Geri Satım Vaadiyle Alım İşlemi	Geri Satım Vaadiyle Alım İşlemi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-LogicalReference	Reference No	Referans No	REWORD	Referans Numarası	Referans Numarası		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-BusinessKeyStr	Business Key	İş Anahtarı	OK	İş Anahtarı	İş Anahtarı		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-BusinessKey	Business Key	İş Anahtarı	OK	İş Anahtarı	İş Anahtarı		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-Nominal	Nominal	Nominal	REPLACE_UNTRANSLATED	Nominal Değer	Nominal Değer		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-DealAmount	Deal Amount	İşlem Tutarı	OK	İşlem Tutarı	İşlem Tutarı		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-Ccy	CCY	Döviz Cinsi	REWORD	Para Birimi	Para Birimi		SHORT_EN
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-CustomerId	Counterparty Id	Karşı Taraf Id	REWORD	Karşı Kurum Kimliği	Karşı Kurum Kimliği		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-CustomerName	Counterparty	Karşı Taraf	REWORD	Karşı Kurum	Karşı Kurum		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-TxnCategory	Txn Category	İşlem Kategorisi	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-TxnTypeCode	Txn Type	İşlem Tipi	REWORD	İşlem Türü	İşlem Türü		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-IsAutoRepo	Is Auto Repo	Oto Repo mu?	REWORD	Otomatik Repo mu?	Otomatik Repo mu?		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-SecurityId	Security Id	Menkul Kıymet Id	REWORD	Menkul Kıymet Kimliği	Menkul Kıymet Kimliği		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-SecurityCode	Security Code	Menkul Kıymet Kodu	OK	Menkul Kıymet Kodu	Menkul Kıymet Kodu		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-Trader	Trader	Trader	REPLACE_UNTRANSLATED	İşlemci	İşlemci		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-TradeDate	Trade Date	İşlem Tarihi	OK	İşlem Tarihi	İşlem Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-ValueDate	Value Date	Valör Tarihi	OK	Valör Tarihi	Valör Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-MaturityDate	Maturity Date	Vade Tarihi	OK	Vade Tarihi	Vade Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-Id	Id	Id	REPLACE_UNTRANSLATED	Kimlik	Kimlik		SHORT_EN
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-MaturityAmount	Maturity Amount	Vade Tutarı	OK	Vade Tutarı	Vade Tutarı		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-NetMaturityAmount	Net Maturity Amount	Net Vade Tutarı	OK	Net Vade Tutarı	Net Vade Tutarı		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-TotalWht	Total WHT	Toplam Stopaj	REWORD	Toplam Stopaj Tutarı	Toplam Stopaj Tutarı		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-OriginalTotalWht	Original Total WHT	Orijinal Toplam Stopaj	OK	Orijinal Toplam Stopaj	Orijinal Toplam Stopaj		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-MarketCode	Market Code	Piyasa Kodu	OK	Piyasa Kodu	Piyasa Kodu		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-DealRateGross	Interest Rate	Faiz Oranı	OK	Faiz Oranı	Getiri Oranı	YES	
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-InstrumentId	Instrument Id	Enstrüman Id	REWORD	Enstrüman Kimliği	Enstrüman Kimliği		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-ProductInstrumentCode	Instrument	Enstrüman	OK	Enstrüman	Enstrüman		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-ValueDateFrom	Value Date From	Valör Tarihi Başlangıç	REWORD	Valör Başlangıç Tarihi	Valör Başlangıç Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-ValueDateTo	Value Date To	Valör Tarihi Bitiş	REWORD	Valör Bitiş Tarihi	Valör Bitiş Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-TradeDateFrom	Trade Date From	İşlem Tarihi Başlangıç	REWORD	İşlem Tarihinden İtibaren	İşlem Tarihinden İtibaren		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-TradeDateTo	Trade Date To	İşlem Tarihi Bitiş	REWORD	İşlem Tarihi (Bitiş)	İşlem Tarihi (Bitiş)		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-Flags	Flags	Bayraklar	REWORD	Göstergeler	Göstergeler		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-Repo	Repo	Repo	REPLACE_UNTRANSLATED	Geri Alım Vaadiyle Satım İşlemi	Geri Alım Vaadiyle Satım İşlemi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-Inventory	Inventory	Envanter	OK	Envanter	Envanter		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-ToCounterparty	To Counterparty	Karşı Tarafa	REWORD	Hedef Karşı Taraf	Hedef Karşı Taraf		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-ToCustomer	To Customer	Müşteriye	REWORD	Hedef Müşteri	Hedef Müşteri		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-CpAfkTypeId	AFK Type	AFK Tipi	REWORD	AFK Türü	AFK Türü		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-CpAfkFundCode	AFK Fund Code	AFK Fon Kodu	OK	AFK Fon Kodu	AFK Fon Kodu		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-InputDate	Input Date	Giriş Tarihi	OK	Giriş Tarihi	Giriş Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-TradeDate	Trade Date	İşlem Tarihi	OK	İşlem Tarihi	İşlem Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-ValueDate	Value Date	Valör Tarihi	OK	Valör Tarihi	Valör Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-MaturityDate	Maturity Date	Vade Tarihi	OK	Vade Tarihi	Vade Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-MarketCode	Market	Piyasa	OK	Piyasa	Piyasa		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-Ccy	CCY	Para Birimi	OK	Para Birimi	Para Birimi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-NumberOfDays	Number Of Days	Gün Sayısı	OK	Gün Sayısı	Gün Sayısı		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-DealRateGross	Interest Rate	Faiz Oranı	OK	Faiz Oranı	Getiri Oranı	YES	
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-DaysInYear	Days In Year	Yılın Günleri	REWORD	Yıldaki Gün Sayısı	Yıldaki Gün Sayısı		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-DealAmount	Deal Amount	İşlem Tutarı	OK	İşlem Tutarı	İşlem Tutarı		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-MaturityAmount	Maturity Amount	Vade Tutarı	OK	Vade Tutarı	Vade Tutarı		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-AllocationType	Allocation Type	Tahsis Türü	OK	Tahsis Türü	Tahsis Türü		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-CustomAllocation	Custom Allocation	Özel Tahsis	OK	Özel Tahsis	Özel Tahsis		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-PoolAllocation	Pool Allocation	Havuz Tahsisi	OK	Havuz Tahsisi	Havuz Tahsisi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-PortfolioId	Portfolio	Portföy	OK	Portföy	Portföy		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-SecurityId	Security	Menkul Kıymet	OK	Menkul Kıymet	Menkul Kıymet		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-CurrentAccount	Current Account	Cari Hesap	OK	Cari Hesap	Cari Hesap		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-WHTAccount	WHT Account	Stopaj Hesabı	OK	Stopaj Hesabı	Stopaj Hesabı		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-AvailableNominal	Available Nominal	Mevcut Nominal	REWORD	Kullanılabilir Nominal	Kullanılabilir Nominal		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-Nominal	Nominal	Nominal	REPLACE_UNTRANSLATED	Nominal Değer	Nominal Değer		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-UnitDirtyPrice	Unit Dirty Price	Birim Kirli Fiyat	OK	Birim Kirli Fiyat	Birim Kirli Fiyat		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-Amount	Amount	Tutar	OK	Tutar	Tutar		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-IncomingCorrespondentId	We Receive	Alacağımız	REWORD	Alınacak	Alınacak		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-TheirSenderCorrespondentAccountNumber	Their Send	Onların Göndereceği	REWORD	Karşı Tarafın Göndereceği	Karşı Tarafın Göndereceği		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-OutgoingCorrespondentAccountNumber	We Send	Göndereceğimiz	REWORD	Gönderilecek	Gönderilecek		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-TheirBeneficiaryCorrespondentAccountNumber	Their Receive	Onların Alacağı	REWORD	Karşı Tarafın Alacağı	Karşı Tarafın Alacağı		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-Instructions	Instructions	Talimatlar	OK	Talimatlar	Talimatlar		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-FromCounterparty	From Counterparty	Karşı Taraftan	REWORD	Kaynak Karşı Taraf	Kaynak Karşı Taraf		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-FromCustomer	From Customer	Müşteriden	REWORD	Kaynak Müşteri	Kaynak Müşteri		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-InputDate	Input Date	Giriş Tarihi	OK	Giriş Tarihi	Giriş Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-TradeDate	Trade Date	İşlem Tarihi	OK	İşlem Tarihi	İşlem Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-ValueDate	Value Date	Valör Tarihi	OK	Valör Tarihi	Valör Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-MaturityDate	Maturity Date	Vade Tarihi	OK	Vade Tarihi	Vade Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-MarketCode	Market	Piyasa	OK	Piyasa	Piyasa		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-Ccy	CCY	Para Birimi	OK	Para Birimi	Para Birimi		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-NumberOfDays	Number Of Days	Gün Sayısı	OK	Gün Sayısı	Gün Sayısı		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-DealRateGross	Interest Rate	Faiz Oranı	OK	Faiz Oranı	Getiri Oranı	YES	
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-DealAmount	Deal Amount	İşlem Tutarı	OK	İşlem Tutarı	İşlem Tutarı		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-MaturityAmount	Maturity Amount	Vade Tutarı	OK	Vade Tutarı	Vade Tutarı		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-PortfolioId	Portfolio	Portföy	OK	Portföy	Portföy		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-SecurityId	Security	Menkul Kıymet	OK	Menkul Kıymet	Menkul Kıymet		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-Nominal	Nominal	Nominal	REPLACE_UNTRANSLATED	Nominal Değer	Nominal Değer		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-UnitDirtyPrice	Unit Dirty Price	Birim Kirli Fiyat	OK	Birim Kirli Fiyat	Birim Kirli Fiyat		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-Amount	Amount	Tutar	OK	Tutar	Tutar		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-IncomingCorrespondentId	We Receive	Alacağımız	REWORD	Alınacak	Alınacak		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-TheirSenderCorrespondentAccountNumber	Their Send	Onların Göndereceği	REWORD	Karşı Tarafın Göndereceği	Karşı Tarafın Göndereceği		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-OutgoingCorrespondentAccountNumber	We Send	Göndereceğimiz	REWORD	Gönderilecek	Gönderilecek		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-TheirBeneficiaryCorrespondentAccountNumber	Their Receive	Onların Alacağı	REWORD	Karşı Tarafın Alacağı	Karşı Tarafın Alacağı		
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-Instructions	Instructions	Talimatlar	OK	Talimatlar	Talimatlar		
+pages/treasury/money-market/repo-transactions	dgFiRepoInventory-TxnId	Txn Id	İşlem Id	REWORD	İşlem Kimliği	İşlem Kimliği		
+pages/treasury/money-market/repo-transactions	dgFiRepoInventory-BondId	Bond Id	Tahvil Id	REWORD	Menkul Kıymet Kimliği	Menkul Kıymet Kimliği		
+pages/treasury/money-market/repo-transactions	dgFiRepoInventory-PerUnit	Per Unit	Birim Başına	OK	Birim Başına	Birim Başına		
+pages/treasury/money-market/repo-transactions	dgFiRepoInventory-UnitPeriodPrice	Unit Period Price	Birim Dönem Fiyatı	OK	Birim Dönem Fiyatı	Birim Dönem Fiyatı		
+pages/treasury/money-market/repo-transactions	dgFiRepoInventory-ISIN	ISIN	ISIN	REPLACE_UNTRANSLATED	ISIN Kodu	ISIN Kodu		
+pages/treasury/money-market/repo-transactions	dgFiRepoInventory-BondCode	Stock Code	Hisse Senedi Kodu	REWORD	Kıymet Stok Kodu	Kıymet Stok Kodu		
+pages/treasury/money-market/repo-transactions	dgFiRepoInventory-DirtyBookValue	Dirty Book Value	Kirli Defter Değeri	OK	Kirli Defter Değeri	Kirli Defter Değeri		
+pages/treasury/money-market/repo-transactions	dgFiRepoInventory-CleanBookValue	Clean Book Value	Temiz Defter Değeri	OK	Temiz Defter Değeri	Temiz Defter Değeri		
+pages/treasury/money-market/repo-transactions	dgFiRepoInventory-RemainingNominal	Remaining Nominal	Kalan Nominal	OK	Kalan Nominal	Kalan Nominal		
+pages/treasury/money-market/repo-transactions	dgFiRepoInventory-UnitDirtyPrice	Unit Dirty Price	Birim Kirli Fiyat	OK	Birim Kirli Fiyat	Birim Kirli Fiyat		
+pages/treasury/money-market/repo-transactions	dgFiRepoInventory-UnitCleanPrice	Unit Clean Price	Birim Temiz Fiyat	OK	Birim Temiz Fiyat	Birim Temiz Fiyat		
+pages/treasury/money-market/repo-transactions	dgFiRepoInventory-DealAmount	Deal Amount	İşlem Tutarı	OK	İşlem Tutarı	İşlem Tutarı		
+pages/treasury/money-market/repo-transactions	dgFiRepoInventory-InputNominal	Input Nominal	Giriş Nominal	OK	Giriş Nominal	Giriş Nominal		
+pages/treasury/money-market/repo-transactions	dgFiRepoSecurityTemp-Code	Code	Kod	OK	Kod	Kod		
+pages/treasury/money-market/repo-transactions	dgFiRepoSecurityTemp-ISIN	ISIN	ISIN	REPLACE_UNTRANSLATED	ISIN Kodu	ISIN Kodu		
+pages/treasury/money-market/repo-transactions	dgFiRepoSecurityTemp-Name	Name	Ad	OK	Ad	Ad		
+pages/treasury/money-market/repo-transactions	dgFiRepoSecurityTemp-FaceCcy	CCY	Para Birimi	OK	Para Birimi	Para Birimi		
+pages/treasury/money-market/repo-transactions	dgFiRepoSecurityTemp-MaturityDate	Maturity Date	Vade Tarihi	OK	Vade Tarihi	Vade Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRepoCustomerTemp-Code	Code	Kod	OK	Kod	Kod		
+pages/treasury/money-market/repo-transactions	dgFiRepoCustomerTemp-Name	Name	Ad	OK	Ad	Ad		
+pages/treasury/money-market/repo-transactions	dgFiRepoCustomerTemp-Ccy	Ccy	Para Birimi	OK	Para Birimi	Para Birimi		
+pages/treasury/money-market/repo-transactions	dgFiRepoCustomerTemp-CountryCode	Country	Ülke	OK	Ülke	Ülke		
+pages/treasury/money-market/repo-transactions	dgFiRepoCustomerTemp-InvestorTypeName	Investor Type	Yatırımcı Tipi	REWORD	Yatırımcı Türü	Yatırımcı Türü		
+pages/treasury/money-market/repo-transactions	dgFiRepoCustomerTemp-ExternalCustomerId	Customer	Müşteri	OK	Müşteri	Müşteri		
+pages/treasury/money-market/repo-transactions	dgFiRepoCorrespondentBankBuyTemp-CorrespondentAccountNumber	Number	Numara	OK	Numara	Numara		
+pages/treasury/money-market/repo-transactions	dgFiRepoCorrespondentBankBuyTemp-CorrespondentAccountCustomerName	Name	Ad	OK	Ad	Ad		
+pages/treasury/money-market/repo-transactions	dgFiRepoCorrespondentBankBuyTemp-CorrespondentAccountCustomerId	CustomerId	Müşteri Id	REWORD	Müşteri Kimliği	Müşteri Kimliği		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFiRepoCorrespondentBankSellTemp-CorrespondentAccountNumber	Number	Numara	OK	Numara	Numara		
+pages/treasury/money-market/repo-transactions	dgFiRepoCorrespondentBankSellTemp-CorrespondentAccountCustomerName	Name	Ad	OK	Ad	Ad		
+pages/treasury/money-market/repo-transactions	dgFiRepoCorrespondentBankSellTemp-CorrespondentAccountCustomerId	CustomerId	Müşteri Id	REWORD	Müşteri Kimliği	Müşteri Kimliği		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFiRepoTheirSendTemp-SwiftCode	Swif Code	Swift Kodu	OK	Swift Kodu	Swift Kodu		
+pages/treasury/money-market/repo-transactions	dgFiRepoTheirSendTemp-Name	Name	Ad	OK	Ad	Ad		
+pages/treasury/money-market/repo-transactions	dgFiRepoTheirSendTemp-CounterPartyAccountNumber	no	No	REWORD	Hayır	Hayır		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFiRepoTheirReceiveTemp-SwiftCode	Swif Code	Swift Kodu	OK	Swift Kodu	Swift Kodu		
+pages/treasury/money-market/repo-transactions	dgFiRepoTheirReceiveTemp-Name	Name	Ad	OK	Ad	Ad		
+pages/treasury/money-market/repo-transactions	dgFiRepoTheirReceiveTemp-CounterPartyAccountNumber	no	No	REWORD	Hayır	Hayır		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFiRepocurrentAccountTemp-AccountNumber	Account Number	Hesap Numarası	OK	Hesap Numarası	Hesap Numarası		
+pages/treasury/money-market/repo-transactions	dgFiRepocurrentAccountTemp-Balance	Balance	Bakiye	OK	Bakiye	Bakiye		
+pages/treasury/money-market/repo-transactions	dgFiRepocurrentAccountTemp-CurrencyCode	Currency Code	Para Birimi Kodu	OK	Para Birimi Kodu	Para Birimi Kodu		
+pages/treasury/money-market/repo-transactions	dgFiRepocurrentAccountTemp-IsInvestmentAccount	Is Investment	Yatırım Hesabı mı	OK	Yatırım Hesabı mı	Yatırım Hesabı mı		
+pages/treasury/money-market/repo-transactions	dgFiRepocurrentAccountTemp-DisplayExpr	Display Expr	Görüntüleme İfadesi	OK	Görüntüleme İfadesi	Görüntüleme İfadesi		
+pages/treasury/money-market/repo-transactions	dgFiRepowhtAccountTemp-AccountNumber	Account Number	Hesap Numarası	OK	Hesap Numarası	Hesap Numarası		
+pages/treasury/money-market/repo-transactions	dgFiRepowhtAccountTemp-Balance	Balance	Bakiye	OK	Bakiye	Bakiye		
+pages/treasury/money-market/repo-transactions	dgFiRepowhtAccountTemp-CurrencyCode	Currency Code	Para Birimi Kodu	OK	Para Birimi Kodu	Para Birimi Kodu		
+pages/treasury/money-market/repo-transactions	dgFiRepowhtAccountTemp-IsInvestmentAccount	Is Investment	Yatırım Hesabı mı	OK	Yatırım Hesabı mı	Yatırım Hesabı mı		
+pages/treasury/money-market/repo-transactions	dgFiReposecDepoGridTemp-Code	Code	Kod	OK	Kod	Kod		
+pages/treasury/money-market/repo-transactions	dgFiReposecDepoGridTemp-Definition	Definition	Tanım	OK	Tanım	Tanım		
+pages/treasury/money-market/repo-transactions	dgFiReposecDepoGridTemp-CustodianName	Custodian Name	Saklayıcı Adı	REWORD	Saklamacı Kuruluş Adı	Saklamacı Kuruluş Adı		
+pages/treasury/money-market/repo-transactions	dgFiReposecDepoGridTemp-ActualDepoCode	Actual Depo Code	Gerçek Depo Kodu	OK	Gerçek Depo Kodu	Gerçek Depo Kodu		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-TransactionDetail	Transaction Detail	İşlem Detayı	OK	İşlem Detayı	İşlem Detayı		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-TaxDetail	Tax Detail	Vergi Detayı	OK	Vergi Detayı	Vergi Detayı		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-StockActions	Stock Actions	Hisse Senedi İşlemleri	REWORD	Kıymet Stok İşlemleri	Kıymet Stok İşlemleri		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-TransactionFiLogicalReference	Reference No	Referans No	REWORD	Referans Numarası	Referans Numarası		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-SecurityISIN	ISIN	ISIN	REPLACE_UNTRANSLATED	ISIN Kodu	ISIN Kodu		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-TransactionFiCustomerName	Counterparty	Karşı Taraf	REWORD	Karşı Kurum	Karşı Kurum		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-TxnCategory	Txn Category	İşlem Kategorisi	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-TxnTypeCode	Txn. Type	İşlem Tipi	REWORD	İşlem Türü	İşlem Türü		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-TransactionFiProductInstrumentCode	Security Template	Menkul Kıymet Şablonu	OK	Menkul Kıymet Şablonu	Menkul Kıymet Şablonu		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-TransactionFiPortfolioName	Portfolio	Portföy	OK	Portföy	Portföy		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-BondCode	Stock Code	Hisse Senedi Kodu	REWORD	Kıymet Stok Kodu	Kıymet Stok Kodu		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-ToDepoCode	To Depo	Hedef Depo	OK	Hedef Depo	Hedef Depo		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-ToDepoCustodianName	To Custodian	Hedef Saklayıcı	REWORD	Hedef Saklamacı Kuruluş	Hedef Saklamacı Kuruluş		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-TransactionFiMarketCode	Market	Piyasa	OK	Piyasa	Piyasa		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-ExternalReferanceSource	External Reference Source	Harici Referans Kaynağı	OK	Harici Referans Kaynağı	Harici Referans Kaynağı		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-ExternalReferance	External Reference	Harici Referans	OK	Harici Referans	Harici Referans		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-TransactionFiTradeDate	Trade Date	İşlem Tarihi	OK	İşlem Tarihi	İşlem Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-NominalRrpNominal	RRP Nominal	RRP Nominal	REPLACE_UNTRANSLATED	Geri Satım Vaadiyle Alım İşlemi Nominal	Geri Satım Vaadiyle Alım İşlemi Nominal		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-TransactionFiDealRateGrossRrpRate	RRP Rate	RRP Oranı	REWORD	Geri Satım Vaadiyle Alım İşlemi Oranı	Geri Satım Vaadiyle Alım İşlemi Oranı		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-TransactionFiValueDate	Value Date	Valör Tarihi	OK	Valör Tarihi	Valör Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-DealAmountRrpAmount	RRP Amount	RRP Tutarı	REWORD	Geri Satım Vaadiyle Alım İşlem Tutarı	Geri Satım Vaadiyle Alım İşlem Tutarı		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-AccrualRrpAcrual	RRP Acrual	RRP Tahakkuku	REWORD	Geri Satım Vaadiyle Alım İşlemi Tahakkuku	Geri Satım Vaadiyle Alım İşlemi Tahakkuku		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-TransactionFiMaturityDate	Maturity Date	Vade Tarihi	OK	Vade Tarihi	Vade Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-UnitDirtyPrice	Dirty Price	Kirli Fiyat	OK	Kirli Fiyat	Kirli Fiyat		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-Days	Days	Günler	OK	Günler	Günler		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-UnitCleanPrice	Clean Price	Temiz Fiyat	OK	Temiz Fiyat	Temiz Fiyat		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-TransactionFiTrader	Trader	Trader	REPLACE_UNTRANSLATED	İşlemci	İşlemci		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-TransactionFiStateIdName	State	Durum	OK	Durum	Durum		
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-TransactionFiStateDate	State Date	Durum Tarihi	OK	Durum Tarihi	Durum Tarihi		
+pages/treasury/money-market/repo-transactions	dgTaxDetailRRP-TransactionFiLogicalReference	Logical Reference	Mantıksal Referans	OK	Mantıksal Referans	Mantıksal Referans		
+pages/treasury/money-market/repo-transactions	dgTaxDetailRRP-SecurityBondBondCode	Stock Code	Hisse Senedi Kodu	REWORD	Kıymet Stok Kodu	Kıymet Stok Kodu		
+pages/treasury/money-market/repo-transactions	dgTaxDetailRRP-TaxId	Tax Id	Vergi Id	REWORD	Vergi Kimliği	Vergi Kimliği		
+pages/treasury/money-market/repo-transactions	dgTaxDetailRRP-TaxCode	Tax Code	Vergi Kodu	OK	Vergi Kodu	Vergi Kodu		
+pages/treasury/money-market/repo-transactions	dgTaxDetailRRP-TaxName	Tax Name	Vergi Adı	OK	Vergi Adı	Vergi Adı		
+pages/treasury/money-market/repo-transactions	dgTaxDetailRRP-TaxRate	Tax Rate	Vergi Oranı	OK	Vergi Oranı	Vergi Oranı		
+pages/treasury/money-market/repo-transactions	dgTaxDetailRRP-Amount	Tax Amount	Vergi Tutarı	OK	Vergi Tutarı	Vergi Tutarı		
+pages/treasury/money-market/repo-transactions	dgStockActionsRRP-BondCode	Stock Code	Hisse Senedi Kodu	REWORD	Kıymet Stok Kodu	Kıymet Stok Kodu		
+pages/treasury/money-market/repo-transactions	dgStockActionsRRP-SecurityId	Security Id	Menkul Kıymet Id	REWORD	Menkul Kıymet Kimliği	Menkul Kıymet Kimliği		
+pages/treasury/money-market/repo-transactions	dgStockActionsRRP-TxnTypeCode	Txn. Type	İşlem Tipi	REWORD	İşlem Türü	İşlem Türü		
+pages/treasury/money-market/repo-transactions	dgStockActionsRRP-TransactionFiTradeDate	Trade Date	İşlem Tarihi	OK	İşlem Tarihi	İşlem Tarihi		
+pages/treasury/money-market/repo-transactions	dgStockActionsRRP-TransactionFiValueDate	Value Date	Valör Tarihi	OK	Valör Tarihi	Valör Tarihi		
+pages/treasury/money-market/repo-transactions	dgStockActionsRRP-Nominal	Nominal	Nominal	REPLACE_UNTRANSLATED	Nominal Değer	Nominal Değer		
+pages/treasury/money-market/repo-transactions	dgStockActionsRRP-DealAmount	Deal Amount	İşlem Tutarı	OK	İşlem Tutarı	İşlem Tutarı		
+pages/treasury/money-market/repo-transactions	dgStockActionsRRP-MaturityAmount	Maturity Amount	Vade Tutarı	OK	Vade Tutarı	Vade Tutarı		
+pages/treasury/money-market/repo-transactions	dgStockActionsRRP-UnitDirtyPrice	Unit Dirty Price	Birim Kirli Fiyat	OK	Birim Kirli Fiyat	Birim Kirli Fiyat		
+pages/treasury/money-market/repo-transactions	dgStockActionsRRP-UnitCleanPrice	Unit Clean Price	Birim Temiz Fiyat	OK	Birim Temiz Fiyat	Birim Temiz Fiyat		
+pages/treasury/money-market/repo-transactions	dgStockActionsRRP-YieldCurve	Yield	Getiri	OK	Getiri	Getiri		
+pages/treasury/money-market/repo-transactions	dgStockActionsRRP-FromDepoCode	From Depo	Kaynak Depo	OK	Kaynak Depo	Kaynak Depo		
+pages/treasury/money-market/repo-transactions	dgStockActionsRRP-FromDepoCustodianName	From Depo Custodian Name	Kaynak Depo Saklayıcı Adı	REWORD	Kaynak Deponun Saklamacı Kuruluş Adı	Kaynak Deponun Saklamacı Kuruluş Adı		
+pages/treasury/money-market/repo-transactions	dgStockActionsRRP-ToDepoCode	To Depo	Hedef Depo	OK	Hedef Depo	Hedef Depo		
+pages/treasury/money-market/repo-transactions	dgStockActionsRRP-ToDepoCustodianName	To Depo Custodian Name	Hedef Depo Saklayıcı Adı	REWORD	Hedef Deponun Saklamacı Kuruluş Adı	Hedef Deponun Saklamacı Kuruluş Adı		
+pages/treasury/money-market/repo-transactions	dgStockActionsRRP-UnitPeriodPrice	Unit Period Price	Birim Dönem Fiyatı	OK	Birim Dönem Fiyatı	Birim Dönem Fiyatı		
+pages/treasury/money-market/repo-transactions	dgStockActionsRRP-TransactionFiMaturityDate	Maturity Date	Vade Tarihi	OK	Vade Tarihi	Vade Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-TransactionDetail	Transaction Detail	İşlem Detayı	OK	İşlem Detayı	İşlem Detayı		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-SecurityDetail	Security Detail	Menkul Kıymet Detayı	OK	Menkul Kıymet Detayı	Menkul Kıymet Detayı		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-TaxDetail	Tax Detail	Vergi Detayı	OK	Vergi Detayı	Vergi Detayı		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-StockActions	Stock Actions	Hisse Senedi İşlemleri	REWORD	Kıymet Stok İşlemleri	Kıymet Stok İşlemleri		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-TransactionFiLogicalReference	Reference No	Referans No	REWORD	Referans Numarası	Referans Numarası		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-SecurityISIN	ISIN	ISIN	REPLACE_UNTRANSLATED	ISIN Kodu	ISIN Kodu		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-TransactionFiCustomerName	Counterparty	Karşı Taraf	REWORD	Karşı Kurum	Karşı Kurum		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-TxnCategory	Txn Category	İşlem Kategorisi	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-TxnTypeCode	Txn. Type	İşlem Tipi	REWORD	İşlem Türü	İşlem Türü		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-TransactionFiProductInstrumentCode	Security Template	Menkul Kıymet Şablonu	OK	Menkul Kıymet Şablonu	Menkul Kıymet Şablonu		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-TransactionFiPortfolioName	Portfolio	Portföy	OK	Portföy	Portföy		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-FromDepoCode	From Depo	Kaynak Depo	OK	Kaynak Depo	Kaynak Depo		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-FromDepoCustodianName	From Custodian	Kaynak Saklayıcı	REWORD	Kaynak Saklamacı Kuruluş	Kaynak Saklamacı Kuruluş		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-TransactionFiMarketCode	Market	Piyasa	OK	Piyasa	Piyasa		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-ExternalReferanceSource	External Reference Source	Harici Referans Kaynağı	OK	Harici Referans Kaynağı	Harici Referans Kaynağı		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-ExternalReferance	External Reference	Harici Referans	OK	Harici Referans	Harici Referans		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-CpAfkFundCode	AFK Fund Code	AFK Fon Tipi	REWORD	AFK Fon Kodu	AFK Fon Kodu		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-TransactionFiTradeDate	Trade Date	İşlem Tarihi	OK	İşlem Tarihi	İşlem Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-NominalRepoedNominal	Repoed Nominal	Repo Edilen Nominal	REWORD	Geri Alım Vaadiyle Satım İşlemi Nominal	Geri Alım Vaadiyle Satım İşlemi Nominal		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-TransactionFiDealRateGrossRepoedRate	Repoed Rate	Repo Edilen Oran	REWORD	Geri Alım Vaadiyle Satım İşlemi Oranı	Geri Alım Vaadiyle Satım İşlemi Oranı		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-TransactionFiValueDate	Value Date	Valör Tarihi	OK	Valör Tarihi	Valör Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-DealAmountRepoedAmount	Repoed Amount	Repo Edilen Tutar	REWORD	Geri Alım Vaadiyle Satım İşlem Tutarı	Geri Alım Vaadiyle Satım İşlem Tutarı		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-AccrualRepoedAcrual	Repoed Acrual	Repo Edilen Tahakkuk	REWORD	Geri Alım Vaadiyle Satım İşlemi Tahakkuk Tutarı	Geri Alım Vaadiyle Satım İşlemi Tahakkuk Tutarı		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-TransactionFiMaturityDate	Maturity Date	Vade Tarihi	OK	Vade Tarihi	Vade Tarihi		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-UnitDirtyPrice	Dirty Price	Kirli Fiyat	OK	Kirli Fiyat	Kirli Fiyat		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-Days	Days	Günler	OK	Günler	Günler		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-UnitCleanPrice	Clean Price	Temiz Fiyat	OK	Temiz Fiyat	Temiz Fiyat		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-MaturityAmount	Maturity Amount	Vade Tutarı	OK	Vade Tutarı	Vade Tutarı		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-NetMaturityAmount	Net Maturity Amount	Net Vade Tutarı	OK	Net Vade Tutarı	Net Vade Tutarı		
+pages/treasury/money-market/repo-transactions	dgFiRrpDisplay-MaturityAmount	RRP Maturity Amount	RRP Vade Tutarı	REWORD	Geri Satım Vaadiyle Alım İşlemi Vade Tutarı	Geri Satım Vaadiyle Alım İşlemi Vade Tutarı		
+pages/treasury/money-market/repo-transactions	dgFiRrpDisplay-NetMaturityAmount	RRP Net Maturity Amount	RRP Net Vade Tutarı	REWORD	Geri Satım Vaadiyle Alım İşlemi Net Vade Tutarı	Geri Satım Vaadiyle Alım İşlemi Net Vade Tutarı		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-TransactionFiTrader	Trader	Trader	REPLACE_UNTRANSLATED	İşlemci	İşlemci		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-TransactionFiStateIdName	State	Durum	OK	Durum	Durum		
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-TransactionFiStateDate	State Date	Durum Tarihi	OK	Durum Tarihi	Durum Tarihi		
+pages/treasury/money-market/repo-transactions	dgTaxDetailRepo-TransactionFiLogicalReference	Logical Reference	Mantıksal Referans	OK	Mantıksal Referans	Mantıksal Referans		
+pages/treasury/money-market/repo-transactions	dgTaxDetailRepo-SecurityBondBondCode	Stock Code	Hisse Senedi Kodu	REWORD	Kıymet Stok Kodu	Kıymet Stok Kodu		
+pages/treasury/money-market/repo-transactions	dgTaxDetailRepo-TaxId	Tax Id	Vergi Id	REWORD	Vergi Kimliği	Vergi Kimliği		
+pages/treasury/money-market/repo-transactions	dgTaxDetailRepo-TaxCode	Tax Code	Vergi Kodu	OK	Vergi Kodu	Vergi Kodu		
+pages/treasury/money-market/repo-transactions	dgTaxDetailRepo-TaxName	Tax Name	Vergi Adı	OK	Vergi Adı	Vergi Adı		
+pages/treasury/money-market/repo-transactions	dgTaxDetailRepo-TaxRate	Tax Rate	Vergi Oranı	OK	Vergi Oranı	Vergi Oranı		
+pages/treasury/money-market/repo-transactions	dgTaxDetailRepo-Amount	Tax Amount	Vergi Tutarı	OK	Vergi Tutarı	Vergi Tutarı		
+pages/treasury/money-market/repo-transactions	dgBondDetailRepo-BondCode	Stock Code	Hisse Senedi Kodu	REWORD	Kıymet Stok Kodu	Kıymet Stok Kodu		
+pages/treasury/money-market/repo-transactions	dgBondDetailRepo-SecurityId	Security Id	Menkul Kıymet Id	REWORD	Menkul Kıymet Kimliği	Menkul Kıymet Kimliği		
+pages/treasury/money-market/repo-transactions	dgBondDetailRepo-SecurityCode	Security	Menkul Kıymet	OK	Menkul Kıymet	Menkul Kıymet		
+pages/treasury/money-market/repo-transactions	dgBondDetailRepo-Nominal	Nominal	Nominal	REPLACE_UNTRANSLATED	Nominal Değer	Nominal Değer		
+pages/treasury/money-market/repo-transactions	dgBondDetailRepo-DealAmount	Deal Amount	İşlem Tutarı	OK	İşlem Tutarı	İşlem Tutarı		
+pages/treasury/money-market/repo-transactions	dgBondDetailRepo-MaturityAmount	Maturity Amount	Vade Tutarı	OK	Vade Tutarı	Vade Tutarı		
+pages/treasury/money-market/repo-transactions	dgBondDetailRepo-UnitDirtyPrice	Unit Dirty Price	Birim Kirli Fiyat	OK	Birim Kirli Fiyat	Birim Kirli Fiyat		
+pages/treasury/money-market/repo-transactions	dgBondDetailRepo-UnitCleanPrice	Unit Clean Price	Birim Temiz Fiyat	OK	Birim Temiz Fiyat	Birim Temiz Fiyat		
+pages/treasury/money-market/repo-transactions	dgBondDetailRepo-YieldCurve	Yield	Getiri	OK	Getiri	Getiri		
+pages/treasury/money-market/repo-transactions	dgBondDetailRepo-FromDepoCode	From Depo	Kaynak Depo	OK	Kaynak Depo	Kaynak Depo		
+pages/treasury/money-market/repo-transactions	dgBondDetailRepo-FromDepoCustodianName	From Depo Custodian Name	Kaynak Depo Saklayıcı Adı	REWORD	Kaynak Deponun Saklamacı Kuruluş Adı	Kaynak Deponun Saklamacı Kuruluş Adı		
+pages/treasury/money-market/repo-transactions	dgBondDetailRepo-ToDepoCode	To Depo	Hedef Depo	OK	Hedef Depo	Hedef Depo		
+pages/treasury/money-market/repo-transactions	dgBondDetailRepo-ToDepoCustodianName	To Depo Custodian Name	Hedef Depo Saklayıcı Adı	REWORD	Hedef Deponun Saklamacı Kuruluş Adı	Hedef Deponun Saklamacı Kuruluş Adı		
+pages/treasury/money-market/repo-transactions	dgBondDetailRepo-UnitPeriodPrice	Unit Period Price	Birim Dönem Fiyatı	OK	Birim Dönem Fiyatı	Birim Dönem Fiyatı		
+pages/treasury/money-market/repo-transactions	dgStockActionsRepo-BondCode	Stock Code	Hisse Senedi Kodu	REWORD	Kıymet Stok Kodu	Kıymet Stok Kodu		
+pages/treasury/money-market/repo-transactions	dgStockActionsRepo-SecurityId	Security Id	Menkul Kıymet Id	REWORD	Menkul Kıymet Kimliği	Menkul Kıymet Kimliği		
+pages/treasury/money-market/repo-transactions	dgStockActionsRepo-TxnTypeCode	Txn. Type	İşlem Tipi	REWORD	İşlem Türü	İşlem Türü		
+pages/treasury/money-market/repo-transactions	dgStockActionsRepo-TransactionFiTradeDate	Trade Date	İşlem Tarihi	OK	İşlem Tarihi	İşlem Tarihi		
+pages/treasury/money-market/repo-transactions	dgStockActionsRepo-TransactionFiValueDate	Value Date	Valör Tarihi	OK	Valör Tarihi	Valör Tarihi		
+pages/treasury/money-market/repo-transactions	dgStockActionsRepo-Nominal	Nominal	Nominal	REPLACE_UNTRANSLATED	Nominal Değer	Nominal Değer		
+pages/treasury/money-market/repo-transactions	dgStockActionsRepo-DealAmount	Deal Amount	İşlem Tutarı	OK	İşlem Tutarı	İşlem Tutarı		
+pages/treasury/money-market/repo-transactions	dgStockActionsRepo-MaturityAmount	Maturity Amount	Vade Tutarı	OK	Vade Tutarı	Vade Tutarı		
+pages/treasury/money-market/repo-transactions	dgStockActionsRepo-UnitDirtyPrice	Unit Dirty Price	Birim Kirli Fiyat	OK	Birim Kirli Fiyat	Birim Kirli Fiyat		
+pages/treasury/money-market/repo-transactions	dgStockActionsRepo-UnitCleanPrice	Unit Clean Price	Birim Temiz Fiyat	OK	Birim Temiz Fiyat	Birim Temiz Fiyat		
+pages/treasury/money-market/repo-transactions	dgStockActionsRepo-YieldCurve	Yield	Getiri	OK	Getiri	Getiri		
+pages/treasury/money-market/repo-transactions	dgStockActionsRepo-FromDepoCode	From Depo	Kaynak Depo	OK	Kaynak Depo	Kaynak Depo		
+pages/treasury/money-market/repo-transactions	dgStockActionsRepo-FromDepoCustodianName	From Depo Custodian Name	Kaynak Depo Saklayıcı Adı	REWORD	Kaynak Deponun Saklamacı Kuruluş Adı	Kaynak Deponun Saklamacı Kuruluş Adı		
+pages/treasury/money-market/repo-transactions	dgStockActionsRepo-ToDepoCode	To Depo	Hedef Depo	OK	Hedef Depo	Hedef Depo		
+pages/treasury/money-market/repo-transactions	dgStockActionsRepo-ToDepoCustodianName	To Depo Custodian Name	Hedef Depo Saklayıcı Adı	REWORD	Hedef Deponun Saklamacı Kuruluş Adı	Hedef Deponun Saklamacı Kuruluş Adı		
+pages/treasury/money-market/repo-transactions	dgStockActionsRepo-UnitPeriodPrice	Unit Period Price	Birim Dönem Fiyatı	OK	Birim Dönem Fiyatı	Birim Dönem Fiyatı		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-IsFon	Is Fon	Is Fon	REPLACE_UNTRANSLATED	Fon mu	Fon mu		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-Id	Id	Id	REPLACE_UNTRANSLATED	Kimlik	Kimlik		SHORT_EN
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-TradeDate	TradeDate	İşlem Tarihi	OK	İşlem Tarihi	İşlem Tarihi		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-TradeTime	TradeTime	İşlem Saati	OK	İşlem Saati	İşlem Saati		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-MemberCode	MemberCode	Üye Kodu	OK	Üye Kodu	Üye Kodu		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-InstrumentCode	InstrumentCode	Enstrüman Kodu	OK	Enstrüman Kodu	Enstrüman Kodu		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-MarketCode	MarketCode	Piyasa Kodu	OK	Piyasa Kodu	Piyasa Kodu		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-MarketName	MarketName	Piyasa Adı	OK	Piyasa Adı	Piyasa Adı		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-TradeNumber	TradeNumber	İşlem Numarası	OK	İşlem Numarası	İşlem Numarası		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-MemberTradeNumber	MemberTradeNumber	Üye İşlem Numarası	OK	Üye İşlem Numarası	Üye İşlem Numarası		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-AccountType	AccountType	Hesap Türü	OK	Hesap Türü	Hesap Türü		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-AccountAfk	AccountAfk	Hesap Afk	OK	Hesap Afk	Hesap Afk		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-AccountNumber	AccountNumber	Hesap Numarası	OK	Hesap Numarası	Hesap Numarası		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-CounterpartyAccount	CounterpartyAccount	Karşı Taraf Hesabı	REWORD	Karşı Kurum Hesabı	Karşı Kurum Hesabı		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-CounterpartyAccountAfk	CounterpartyAccountAfk		ADD	Karşı Kurum Hesab Afk	Karşı Kurum Hesab Afk		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-CounterpartyAccountType	CounterpartyAccountType	Karşı Taraf Hesab Tipi	REWORD	Karşı Kurum Hesab Türü	Karşı Kurum Hesab Türü		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-ReferenceNumber	ReferenceNumber	Referans Numarası	OK	Referans Numarası	Referans Numarası		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-BuySell	BuySell	Alış/Satış	OK	Alış/Satış	Alış/Satış		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-CounterpartyMember	CounterpartyMember	Karşı Taraf Üyesi	REWORD	Karşı Kurum Üyesi	Karşı Kurum Üyesi		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-ValueDate	ValueDate	Valör Tarihi	OK	Valör Tarihi	Valör Tarihi		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-MaturityDate	MaturityDate	Vade Tarihi	OK	Vade Tarihi	Vade Tarihi		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-InstrumentId	InstrumentId	Enstrüman Kimliği	OK	Enstrüman Kimliği	Enstrüman Kimliği		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-DtmRepoTime	DtmRepoTime	Repo Süresi	OK	Repo Süresi	Repo Süresi		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-DaysToCoupon	DaysToCoupon	Kupon Gününe Kalan Gün	REWORD	Kupon Ödemesine Kalan Gün Sayısı	Kupon Ödemesine Kalan Gün Sayısı		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-PriceRateSwapPoint	PriceRateSwapPoint	Fiyat/Oran Swap Puanı	REWORD	Fiyat / Oran / Takas İşlemi Kur Puanı	Fiyat / Oran / Takas İşlemi Kur Puanı		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-Return	Return	Getiri	REWORD	Geri dönmek	Geri dönmek		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-SecondaryPrice	SecondaryPrice	İkincil Fiyat	OK	İkincil Fiyat	İkincil Fiyat		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-Quantity	Quantity	Miktar	OK	Miktar	Miktar		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-Amount	Amount	Tutar	OK	Tutar	Tutar		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-AccruedInterestAccr	AccruedInterestAccr	Tahakkuk Eden Faiz	REWORD	Faiz Tahakkuku Reeskontu	Getiri Tahakkuku Reeskontu	YES	KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-AccruedInterestAccruedLease	AccruedInterestAccruedLease	 Tahakkuk Eden Faiz / Tahakkuk Eden Kira	REWORD	Tahakkuk Eden Faiz / Kira Getirisi	Tahakkuk Eden Getiri / Kira Getirisi	YES	KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-AccruedInterestAmountAccruedLeaseAmount	AccruedInterestAmountAccruedLeaseAmount	Tahakkuk Eden Faiz Tutarı / Tahakkuk Eden Kira Tutarı	REWORD	Tahakkuk Eden Faiz / Kira Getirisi Tutarı	Tahakkuk Eden Getiri / Kira Getirisi Tutarı	YES	KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-PrincipalInterestWitholdingTax	PrincipalInterestWitholdingTax	Ana Para Faizi Stopajı	REWORD	Anapara, Faiz ve Stopaj	Anapara, Getiri ve Stopaj	YES	KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-TradeTypeForOtcTrades	TradeTypeForOtcTrades	Tezgah Üstü İşlemler için İşlem Türü	REWORD	Tezgâh Üstü İşlem Türü	Tezgâh Üstü İşlem Türü		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-OrginalClearingTradeId	OrginalClearingTradeId	Orijinal Takas İşlem Kimliği	OK	Orijinal Takas İşlem Kimliği	Orijinal Takas İşlem Kimliği		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-RepoCollateralNominal	RepoCollateralNominal	Repo Teminatı Nominal Değeri	REWORD	Geri Alım Vaadiyle Satım İşlemi Teminatı Nominal Değeri	Geri Alım Vaadiyle Satım İşlemi Teminatı Nominal Değeri		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-CleanPrice	CleanPrice	Temiz Fiyat	OK	Temiz Fiyat	Temiz Fiyat		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-AccruedInterestAmou	AccruedInterestAmou	Birikmiş Faiz Tutarı	REWORD	Tahakkuk Eden Faiz Tutarı	Tahakkuk Eden Getiri Tutarı	YES	KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-PrincipalAmount	PrincipalAmount	Anapara Tutarı	OK	Anapara Tutarı	Anapara Tutarı		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-InflationIndex	InflationIndex	Enflasyon Endeksi	OK	Enflasyon Endeksi	Enflasyon Endeksi		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-DirtyPrice	DirtyPrice	Kirli Fiyat	OK	Kirli Fiyat	Kirli Fiyat		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-SettlementPrice	SettlementPrice	Uzlaşma Fiyatı	REWORD	Takas Fiyatı	Takas Fiyatı		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-MaturityDatePrice	MaturityDatePrice	Vade Tarihi Fiyatı	OK	Vade Tarihi Fiyatı	Vade Tarihi Fiyatı		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-Currency	Currency	Para Birimi	OK	Para Birimi	Para Birimi		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-ClearingHouse	ClearingHouse	Takas Merkezi	OK	Takas Merkezi	Takas Merkezi		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-PrincipalInterestWi	PrincipalInterestWi	Anapara Faiz Wi	OK	Anapara Faiz Wi	Anapara Getiri Wi	YES	
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-RepoInterestAmount	RepoInterestAmount	Repo Faiz Tutarı	REWORD	Geri Alım Vaadiyle Satım İşlemi Faiz Tutarı	Geri Alım Vaadiyle Satım İşlemi Getiri Tutarı	YES	KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-WitholdingTaxAmount	WitholdingTaxAmount	Stopaj Tutarı	OK	Stopaj Tutarı	Stopaj Tutarı		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-OrderNo	OrderNo	Emir Numarası	OK	Emir Numarası	Emir Numarası		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-Representative	Representative	Temsilci	OK	Temsilci	Temsilci		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-Session	Session	Seans	REWORD	Oturum	Oturum		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-FundTrade	FundTrade	Fon İşlemi	OK	Fon İşlemi	Fon İşlemi		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-TradeType	TradeType	İşlem Türü	OK	İşlem Türü	İşlem Türü		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-TradeTypeForOtcTrad	TradeTypeForOtcTrad	Tezgahüstü İşlem Türü	REWORD	Tezgâh Üstü İşlem Türü	Tezgâh Üstü İşlem Türü		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-ClearingDealId	ClearingDealId	Takas Anlaşma Kimliği	OK	Takas Anlaşma Kimliği	Takas Anlaşma Kimliği		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-ClearingTradeId	ClearingTradeId	Takas İşlem Kimliği	OK	Takas İşlem Kimliği	Takas İşlem Kimliği		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-OrginalClearingTrad	OrginalClearingTrad	Orijinal Takas İşlemi	OK	Orijinal Takas İşlemi	Orijinal Takas İşlemi		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-RepoCollateralCode	RepoCollateralCode	Repo Teminat Kodu	REWORD	Geri Alım Vaadiyle Satım İşlemi Teminat Kodu	Geri Alım Vaadiyle Satım İşlemi Teminat Kodu		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-RepoCollateralNomin	RepoCollateralNomin	Repo Teminat Nominal	REWORD	Geri Alım Vaadiyle Satım İşlemi Teminat Nominal	Geri Alım Vaadiyle Satım İşlemi Teminat Nominal		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-TradeReport	TradeReport	İşlem Raporu	OK	İşlem Raporu	İşlem Raporu		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-title-bistImportRepo	Repo Import	Repo Dosya Yükleme	REWORD	Geri Alım Vaadiyle Satım İşlemi Dosya Yükleme	Geri Alım Vaadiyle Satım İşlemi Dosya Yükleme		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-title-bistImportRRP	Reverse Repo Import	Ters Repo Dosya Yükleme	REWORD	Geri Satım Vaadiyle Alım İşlemi Dosya Yükleme	Geri Satım Vaadiyle Alım İşlemi Dosya Yükleme		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-SelectAll	IsFon Select All	IsFon Select All	REPLACE_UNTRANSLATED	Tüm Yatırım Fonu Seçilsin mi	Tüm Yatırım Fonu Seçilsin mi		
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-title-customerImportRepo	Customer Repo Import	Customer Repo Yükleme	REWORD	Müşteri Repo Yükleme	Müşteri Repo Yükleme		
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-Id	Id	Id	REPLACE_UNTRANSLATED	Kimlik	Kimlik		SHORT_EN
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-CustomerId	Customer Id	Müşteri Id	REWORD	Müşteri Kimliği	Müşteri Kimliği		
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-CustomerName	Customer Name	Müşteri Adı	OK	Müşteri Adı	Müşteri Adı		
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-CustomerIdentity	Customer Identity	Müşteri Vkn	REWORD	Müşteri Kimliği	Müşteri Kimliği		
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-ValueDate	ValueDate	Valör Tarihi	OK	Valör Tarihi	Valör Tarihi		
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-MaturityDate	MaturityDate	Vade Tarihi	OK	Vade Tarihi	Vade Tarihi		
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-Ccy	Ccy	Para Birimi	OK	Para Birimi	Para Birimi		
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-DealAmount	DealAmount	İşlem Tutarı	OK	İşlem Tutarı	İşlem Tutarı		
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-CurrentAccount	Current Account	Cari Hesap	OK	Cari Hesap	Cari Hesap		
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-WhtAccount	Wht Account	Stopaj Hesabı	OK	Stopaj Hesabı	Stopaj Hesabı		
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-InvestmentAccount	InvestmentAccount	Yatırım Hesabı	OK	Yatırım Hesabı	Yatırım Hesabı		
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-IsParticipantCustomer	IsParticipantCustomer	IsParticipantCustomer	REPLACE_UNTRANSLATED	Katılımcı Müşteri mi	Katılımcı Müşteri mi		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-UseBlockage	UseBlockage	UseBlockage	REPLACE_UNTRANSLATED	Blokaj Kullan	Blokaj Kullan		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-UsePoolAllocation	UsePoolAllocation	UsePoolAllocation	REPLACE_UNTRANSLATED	Havuz Tahsisi Kullan	Havuz Tahsisi Kullan		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-IsCustomer	IsCustomer	IsCustomer	REPLACE_UNTRANSLATED	Müşteri mi	Müşteri mi		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	EarlyClosePreviewError	Could not retrieve early close preview calculation.	Erken kapama hesaplama önizlemesi alınamadı.	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-multipleRepo-popupTitle	Multiple Repo (Experimental)	Multiple Repo (Experimental)	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	DGFIREPOTRANSACTION-MULTIPLEREPO	Multiple Repo (Experimental)	Multiple Repo (Experimental)	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgFiRepoCollateral-title	Collaterals	Teminatlar	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgFiRepoCollateral-ISIN	Security	Kıymet	REWORD	Menkul Kıymet	Menkul Kıymet		KEY_EN_MISMATCH
+pages/treasury/money-market/repo-transactions	dgFiRepoCollateral-FromDepo	From Depo	Kaynak Depo	OK	Kaynak Depo	Kaynak Depo		
+pages/treasury/money-market/repo-transactions	dgFiRepoCollateral-Portfolio	Portfolio	Portföy	OK	Portföy	Portföy		
+pages/treasury/money-market/repo-transactions	dgFiRepoCollateral-AvailableNominal	Available Nominal	Kullanılabilir Nominal	OK	Kullanılabilir Nominal	Kullanılabilir Nominal		
+pages/treasury/money-market/repo-transactions	dgFiRepoCollateral-Nominal	Nominal	Nominal	REPLACE_UNTRANSLATED	Nominal Değer	Nominal Değer		
+pages/treasury/money-market/repo-transactions	dgFiRepoCollateral-UnitDirtyPrice	Unit Dirty Price	Kirli Fiyat	REWORD	Birim Kirli Fiyat	Birim Kirli Fiyat		
+pages/treasury/money-market/repo-transactions	dgFiRepoCollateral-Haircut	Haircut (%)	Haircut (%)	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgFiRepoCollateral-DealAmount	Deal Amount	İşlem Tutarı	OK	İşlem Tutarı	İşlem Tutarı		
+pages/treasury/money-market/repo-transactions	dgFiRepoCollateral-haircutRange	Haircut must be between 0 and 100	Haircut 0 ile 100 arasında olmalıdır	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgFiRepoCollateral-emptyError	At least one collateral line is required	En az bir teminat satırı girilmelidir	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgFiRepoCollateral-totalMismatch	Collateral deal amount total must equal transaction deal amount	Teminat tutarları toplamı işlem tutarına eşit olmalıdır	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgMultipleRepoCollateralDisplay-LineNo	#	#	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgMultipleRepoCollateralDisplay-SecurityId	Security	Kıymet	REWORD	Menkul Kıymet	Menkul Kıymet		
+pages/treasury/money-market/repo-transactions	dgMultipleRepoCollateralDisplay-FromDepoId	From Depo	Kaynak Depo	OK	Kaynak Depo	Kaynak Depo		
+pages/treasury/money-market/repo-transactions	dgMultipleRepoCollateralDisplay-PortfolioId	Portfolio	Portföy	OK	Portföy	Portföy		
+pages/treasury/money-market/repo-transactions	dgMultipleRepoCollateralDisplay-Nominal	Nominal	Nominal	REPLACE_UNTRANSLATED	Nominal Değer	Nominal Değer		
+pages/treasury/money-market/repo-transactions	dgMultipleRepoCollateralDisplay-UnitDirtyPrice	Unit Dirty Price	Kirli Fiyat	REWORD	Birim Kirli Fiyat	Birim Kirli Fiyat		
+pages/treasury/money-market/repo-transactions	dgMultipleRepoCollateralDisplay-HaircutRate	Haircut (%)	Haircut (%)	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgMultipleRepoCollateralDisplay-GrossMarketValue	Gross Market Value	Brüt Piyasa Değeri	NO_GLOSSARY				
+pages/treasury/money-market/repo-transactions	dgMultipleRepoCollateralDisplay-DealAmount	Deal Amount	İşlem Tutarı	OK	İşlem Tutarı	İşlem Tutarı		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-pageTitle	Interbank Loan	Interbank Loan	REPLACE_UNTRANSLATED	Bankalararası Kredi	Bankalararası Kredi		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-popupTitle	Interbank Loan	Interbank Loan	REPLACE_UNTRANSLATED	Bankalararası Kredi	Bankalararası Kredi		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-Id	Id	Id	REPLACE_UNTRANSLATED	Kimlik	Kimlik		SHORT_EN
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-LogicalReference	Logical Reference	Logical Reference	REPLACE_UNTRANSLATED	Mantıksal Referans	Mantıksal Referans		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-Trader	Trader	Trader	REPLACE_UNTRANSLATED	İşlemci	İşlemci		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-MarketName	Market	Market	REPLACE_UNTRANSLATED	Piyasa	Piyasa		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-ProductName	Product	Product	REPLACE_UNTRANSLATED	Ürün	Ürün		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-CustomerName	Counterparty	Counterparty	REPLACE_UNTRANSLATED	Karşı Kurum	Karşı Kurum		KEY_EN_MISMATCH
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PortfolioName	Portfolio	Portfolio	REPLACE_UNTRANSLATED	Portföy	Portföy		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-DirectionName	Direction	Direction	REPLACE_UNTRANSLATED	Yön	Yön		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-TxnTypeName	Txn Type	Txn Type	REPLACE_UNTRANSLATED	İşlem Türü	İşlem Türü		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-InputDateTime	Input Date	Input Date	REPLACE_UNTRANSLATED	Giriş Tarihi	Giriş Tarihi		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-TradeDate	Trade Date	Trade Date	REPLACE_UNTRANSLATED	İşlem Tarihi	İşlem Tarihi		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-ValueDate	Value Date	Value Date	REPLACE_UNTRANSLATED	Valör Tarihi	Valör Tarihi		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-MaturityDate	Maturity Date	Maturity Date	REPLACE_UNTRANSLATED	Vade Tarihi	Vade Tarihi		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PaymentDate	Payment Date	Payment Date	REPLACE_UNTRANSLATED	Ödeme Tarihi	Ödeme Tarihi		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-RateTypeName	Rate Type	Rate Type	REPLACE_UNTRANSLATED	Kur Türü	Kur Türü		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-FloatingRateTypeName	Floating Rate Type	Floating Rate Type	REPLACE_UNTRANSLATED	Değişken Faiz Oranı Türü	Değişken Getiri Oranı Türü	YES	
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PaymentFrequencyName	Payment Frequency	Payment Frequency	REPLACE_UNTRANSLATED	Ödeme Sıklığı	Ödeme Sıklığı		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-InterestMethodName	Interest Method	Interest Method	REPLACE_UNTRANSLATED	Faiz Yöntemi	Getiri Yöntemi	YES	
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-InterestMethodFrequencyName	Int. Met. Frequency	Int. Met. Frequency	REPLACE_UNTRANSLATED	Faiz Hesaplama Sıklığı	Getiri Hesaplama Sıklığı	YES	
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-Amount	Amount	Amount	REPLACE_UNTRANSLATED	Tutar	Tutar		GENERIC_EN
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-DateBasisName	Date Basis	Date Basis	REPLACE_UNTRANSLATED	Tarih Esası	Tarih Esası		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PrincipalAmount	Principal Amount	Principal Amount	REPLACE_UNTRANSLATED	Anapara Tutarı	Anapara Tutarı		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-CurrencyCode	Currency	Currency	REPLACE_UNTRANSLATED	Para Birimi	Para Birimi		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-RateTypeId	Rate Type	Rate Type	REPLACE_UNTRANSLATED	Kur Türü	Kur Türü		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-Rate	Rate	Rate	REPLACE_UNTRANSLATED	Kur	Kur		GENERIC_EN
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-FloatingRateTypeId	Floating Rate Type	Floating Rate Type	REPLACE_UNTRANSLATED	Değişken Faiz Oranı Türü	Değişken Getiri Oranı Türü	YES	
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-Spread	Spread	Spread	REPLACE_UNTRANSLATED	Marj	Marj		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PaymentFrequencyId	Payment Frequency	Payment Frequency	REPLACE_UNTRANSLATED	Ödeme Sıklığı	Ödeme Sıklığı		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-InterestMethodId	Interest Method	Interest Method	REPLACE_UNTRANSLATED	Faiz Yöntemi	Getiri Yöntemi	YES	
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-InterestMethodFrequencyId	Int. Met. Frequency	Int. Met. Frequency	REPLACE_UNTRANSLATED	Faiz Hesaplama Sıklığı	Getiri Hesaplama Sıklığı	YES	
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-DateBasisCode	Date Basis	Date Basis	REPLACE_UNTRANSLATED	Tarih Esası	Tarih Esası		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-DaysInYear	Days in Year	Days in Year	REPLACE_UNTRANSLATED	Yıldaki Gün Sayısı	Yıldaki Gün Sayısı		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PaymentLagDays	Payment Lag Days	Payment Lag Days	REPLACE_UNTRANSLATED	Ödeme Gecikme Günleri	Ödeme Gecikme Günleri		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-FixingLagDays	Fixing Lag Days	Fixing Lag Days	REPLACE_UNTRANSLATED	Sabitleme Gecikme Günleri	Sabitleme Gecikme Günleri		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-IndexChartName	Index Chart	Index Chart	REPLACE_UNTRANSLATED	Endeks Grafiği	Endeks Grafiği		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-SettlementTypeId	Settlement Type	Settlement Type	REPLACE_UNTRANSLATED	Takas Türü	Takas Türü		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PaymentInstructionTypeId	Payment Instruction Type	Payment Instruction Type	REPLACE_UNTRANSLATED	Ödeme Talimatı Türü	Ödeme Talimatı Türü		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-Instructions	Instructions	Instructions	REPLACE_UNTRANSLATED	Talimatlar	Talimatlar		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-BusinessKey	Business Key	Business Key	REPLACE_UNTRANSLATED	İş Anahtarı	İş Anahtarı		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-LogicalReference	Logical Reference	Logical Reference	REPLACE_UNTRANSLATED	Mantıksal Referans	Mantıksal Referans		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Transaction	Transaction	Transaction	REPLACE_UNTRANSLATED	İşlem	İşlem		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-CashFlow	Cash Flow	Cash Flow	REPLACE_UNTRANSLATED	Nakit Akışı	Nakit Akışı		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PrincipalAndDates	Principal & Dates	Principal & Dates	REPLACE_UNTRANSLATED	Anapara ve Tarihler	Anapara ve Tarihler		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-RateSection	Rate & Interest	Rate & Interest	REPLACE_UNTRANSLATED	Kur ve Faiz	Kur ve Getiri	YES	
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Portfolio	Portfolio	Portfolio	REPLACE_UNTRANSLATED	Portföy	Portföy		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Product	Product	Product	REPLACE_UNTRANSLATED	Ürün	Ürün		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-FundSourceId	Fund Source	Fund Source	REPLACE_UNTRANSLATED	Fon Kaynağı	Fon Kaynağı		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-SubFundSourceCode	Sub Fund Source	Sub Fund Source	REPLACE_UNTRANSLATED	Alt Fon Kaynağı	Alt Fon Kaynağı		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Direction	Direction	Direction	REPLACE_UNTRANSLATED	Yön	Yön		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Market	Market	Market	REPLACE_UNTRANSLATED	Piyasa	Piyasa		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Currency	Currency	Currency	REPLACE_UNTRANSLATED	Para Birimi	Para Birimi		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Customer	Counterparty	Counterparty	REPLACE_UNTRANSLATED	Karşı Kurum	Karşı Kurum		KEY_EN_MISMATCH
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Basis	Date Basis	Date Basis	REPLACE_UNTRANSLATED	Tarih Esası	Tarih Esası		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-DaysInYear	Days in Year	Days in Year	REPLACE_UNTRANSLATED	Yıldaki Gün Sayısı	Yıldaki Gün Sayısı		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Trader	Trader	Trader	REPLACE_UNTRANSLATED	İşlemci	İşlemci		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-InputDate	Input Date	Input Date	REPLACE_UNTRANSLATED	Giriş Tarihi	Giriş Tarihi		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TradeDate	Trade Date	Trade Date	REPLACE_UNTRANSLATED	İşlem Tarihi	İşlem Tarihi		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-ValueDate	Value Date	Value Date	REPLACE_UNTRANSLATED	Valör Tarihi	Valör Tarihi		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-MaturityDate	Maturity Date	Maturity Date	REPLACE_UNTRANSLATED	Vade Tarihi	Vade Tarihi		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PaymentDate	Payment Date	Payment Date	REPLACE_UNTRANSLATED	Ödeme Tarihi	Ödeme Tarihi		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Amount	Principal Amount	Principal Amount	REPLACE_UNTRANSLATED	Anapara Tutarı	Anapara Tutarı		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-RateType	Rate Type	Rate Type	REPLACE_UNTRANSLATED	Kur Türü	Kur Türü		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-RateTypeName	Rate Type	Rate Type	REPLACE_UNTRANSLATED	Kur Türü	Kur Türü		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Rate	Rate	Rate	REPLACE_UNTRANSLATED	Kur	Kur		GENERIC_EN
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-FloatingRateType	Floating Rate Type	Floating Rate Type	REPLACE_UNTRANSLATED	Değişken Faiz Oranı Türü	Değişken Getiri Oranı Türü	YES	
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-FixingLagDays	Fixing Lag Days	Fixing Lag Days	REPLACE_UNTRANSLATED	Sabitleme Gecikme Günleri	Sabitleme Gecikme Günleri		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Spread	Spread	Spread	REPLACE_UNTRANSLATED	Marj	Marj		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PaymentFrequency	Payment Frequency	Payment Frequency	REPLACE_UNTRANSLATED	Ödeme Sıklığı	Ödeme Sıklığı		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-InterestMethod	Interest Method	Interest Method	REPLACE_UNTRANSLATED	Faiz Yöntemi	Getiri Yöntemi	YES	
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-InterestMethodFrequency	Int. Met. Frequency	Int. Met. Frequency	REPLACE_UNTRANSLATED	Faiz Hesaplama Sıklığı	Getiri Hesaplama Sıklığı	YES	
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PaymentLagDays	Payment Lag Days	Payment Lag Days	REPLACE_UNTRANSLATED	Ödeme Gecikme Günleri	Ödeme Gecikme Günleri		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-IndexChart	Index Chart	Index Chart	REPLACE_UNTRANSLATED	Endeks Grafiği	Endeks Grafiği		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Instructions	Instructions	Instructions	REPLACE_UNTRANSLATED	Talimatlar	Talimatlar		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-SendConfirmation	Send Confirmation	Send Confirmation	REPLACE_UNTRANSLATED	Teyit Gönder	Teyit Gönder		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-SendPayment	Send Payment	Send Payment	REPLACE_UNTRANSLATED	Ödeme Gönder	Ödeme Gönder		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-SendNoticeToReceive	Send Notice To Receive	Send Notice To Receive	REPLACE_UNTRANSLATED	Alıcıya Bildirim Gönder	Alıcıya Bildirim Gönder		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-SettlementType	Settlement Type	Settlement Type	REPLACE_UNTRANSLATED	Takas Türü	Takas Türü		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PaymentInstructionType	Payment Instruction Type	Payment Instruction Type	REPLACE_UNTRANSLATED	Ödeme Talimatı Türü	Ödeme Talimatı Türü		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-CustomerId	Counterparty	Counterparty	REPLACE_UNTRANSLATED	Karşı Kurum	Karşı Kurum		KEY_EN_MISMATCH
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PortfolioId	Portfolio	Portfolio	REPLACE_UNTRANSLATED	Portföy	Portföy		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-DirectionCode	Direction	Direction	REPLACE_UNTRANSLATED	Yön	Yön		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-CurrencyCode	Currency	Currency	REPLACE_UNTRANSLATED	Para Birimi	Para Birimi		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-DealAmount	Principal Amount	Principal Amount	REPLACE_UNTRANSLATED	Anapara Tutarı	Anapara Tutarı		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-BasisCode	Date Basis	Date Basis	REPLACE_UNTRANSLATED	Tarih Esası	Tarih Esası		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-FixedRate	Fixed Rate	Fixed Rate	REPLACE_UNTRANSLATED	Sabit Oran	Sabit Oran		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PayFreq	Payment Frequency	Payment Frequency	REPLACE_UNTRANSLATED	Ödeme Sıklığı	Ödeme Sıklığı		KEY_EN_MISMATCH
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-InterestMethodFreq	Interest Method Frequency	Interest Method Frequency	REPLACE_UNTRANSLATED	Faiz Yöntemi Sıklığı	Getiri Yöntemi Sıklığı	YES	
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-ValidationError	Please fill in all required fields.	Please fill in all required fields.	REPLACE_UNTRANSLATED	Lütfen tüm gerekli alanları doldurun.	Lütfen tüm gerekli alanları doldurun.		KEY_EN_MISMATCH
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-SaveSuccess	Transaction successful!	Transaction successful!	REPLACE_UNTRANSLATED	İşlem başarıyla tamamlandı!	İşlem başarıyla tamamlandı!		KEY_EN_MISMATCH
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-OutgoingCorrespondent	Outgoing Correspondent	Outgoing Correspondent	REPLACE_UNTRANSLATED	Giden Muhabir	Giden Muhabir		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-OutgoingAccountNumber	Outgoing Account Number	Outgoing Account Number	REPLACE_UNTRANSLATED	Giden Hesap Numarası	Giden Hesap Numarası		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-OutgoingAccountGLCode	Outgoing Account GL Code	Outgoing Account GL Code	REPLACE_UNTRANSLATED	Giden Hesap GL Kodu	Giden Hesap GL Kodu		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-IncomingCorrespondent	Incoming Correspondent	Incoming Correspondent	REPLACE_UNTRANSLATED	Gelen Muhabir	Gelen Muhabir		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-IncomingAccountNumber	Incoming Account Number	Incoming Account Number	REPLACE_UNTRANSLATED	Gelen Hesap Numarası	Gelen Hesap Numarası		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-IncomingAccountGLCode	Incoming Account GL Code	Incoming Account GL Code	REPLACE_UNTRANSLATED	Gelen Hesap Muhaseb Kodu	Gelen Hesap Muhaseb Kodu		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TheirSender	Their Sender	Their Sender	REPLACE_UNTRANSLATED	Karşı Tarafın Göndericisi	Karşı Tarafın Göndericisi		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TheirSenderSwift	Their Sender Swift Code	Their Sender Swift Code	REPLACE_UNTRANSLATED	Karşı Tarafın Gönderici Swift Kodu	Karşı Tarafın Gönderici Swift Kodu		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TheirSenderAccount	Their Sender Account Number	Their Sender Account Number	REPLACE_UNTRANSLATED	Karşı Tarafın Gönderici Hesap Numarası	Karşı Tarafın Gönderici Hesap Numarası		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TheirBeneficiary	Their Beneficiary	Their Beneficiary	REPLACE_UNTRANSLATED	Karşı Tarafın Lehtarı	Karşı Tarafın Lehtarı		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TheirBeneficiarySwift	Their Beneficiary Swift Code	Their Beneficiary Swift Code	REPLACE_UNTRANSLATED	Karşı Tarafın Lehtar Swift Kodu	Karşı Tarafın Lehtar Swift Kodu		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TheirBeneficiaryAccount	Their Beneficiary Account Number	Their Beneficiary Account Number	REPLACE_UNTRANSLATED	Karşı Tarafın Lehtar Hesap Numarası	Karşı Tarafın Lehtar Hesap Numarası		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Portfolio	Portfolio	Portfolio	REPLACE_UNTRANSLATED	Portföy	Portföy		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-LogicalReference	Logical Reference	Logical Reference	REPLACE_UNTRANSLATED	Mantıksal Referans	Mantıksal Referans		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Product	Product	Product	REPLACE_UNTRANSLATED	Ürün	Ürün		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Direction	Direction	Direction	REPLACE_UNTRANSLATED	Yön	Yön		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Market	Market	Market	REPLACE_UNTRANSLATED	Piyasa	Piyasa		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Currency	Currency	Currency	REPLACE_UNTRANSLATED	Para Birimi	Para Birimi		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Customer	Counterparty	Counterparty	REPLACE_UNTRANSLATED	Karşı Kurum	Karşı Kurum		KEY_EN_MISMATCH
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Basis	Date Basis	Date Basis	REPLACE_UNTRANSLATED	Tarih Esası	Tarih Esası		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-DaysInYear	Days in Year	Days in Year	REPLACE_UNTRANSLATED	Yıldaki Gün Sayısı	Yıldaki Gün Sayısı		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Trader	Trader	Trader	REPLACE_UNTRANSLATED	İşlemci	İşlemci		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-InputDate	Input Date	Input Date	REPLACE_UNTRANSLATED	Giriş Tarihi	Giriş Tarihi		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-TradeDate	Trade Date	Trade Date	REPLACE_UNTRANSLATED	İşlem Tarihi	İşlem Tarihi		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-ValueDate	Value Date	Value Date	REPLACE_UNTRANSLATED	Valör Tarihi	Valör Tarihi		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-MaturityDate	Maturity Date	Maturity Date	REPLACE_UNTRANSLATED	Vade Tarihi	Vade Tarihi		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-PaymentDate	Payment Date	Payment Date	REPLACE_UNTRANSLATED	Ödeme Tarihi	Ödeme Tarihi		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Amount	Principal Amount	Principal Amount	REPLACE_UNTRANSLATED	Anapara Tutarı	Anapara Tutarı		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-RateType	Rate Type	Rate Type	REPLACE_UNTRANSLATED	Kur Türü	Kur Türü		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Rate	Rate	Rate	REPLACE_UNTRANSLATED	Kur	Kur		GENERIC_EN
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-FloatingRateType	Floating Rate Type	Floating Rate Type	REPLACE_UNTRANSLATED	Değişken Faiz Oranı Türü	Değişken Getiri Oranı Türü	YES	
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-FixingLagDays	Fixing Lag Days	Fixing Lag Days	REPLACE_UNTRANSLATED	Sabitleme Gecikme Günleri	Sabitleme Gecikme Günleri		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Spread	Spread	Spread	REPLACE_UNTRANSLATED	Marj	Marj		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-PaymentFrequency	Payment Frequency	Payment Frequency	REPLACE_UNTRANSLATED	Ödeme Sıklığı	Ödeme Sıklığı		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-InterestMethod	Interest Method	Interest Method	REPLACE_UNTRANSLATED	Faiz Yöntemi	Getiri Yöntemi	YES	
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-InterestMethodFrequency	Int. Met. Frequency	Int. Met. Frequency	REPLACE_UNTRANSLATED	Faiz Hesaplama Sıklığı	Getiri Hesaplama Sıklığı	YES	
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-PaymentLagDays	Payment Lag Days	Payment Lag Days	REPLACE_UNTRANSLATED	Ödeme Gecikme Günleri	Ödeme Gecikme Günleri		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-IndexChart	Index Chart	Index Chart	REPLACE_UNTRANSLATED	Endeks Grafiği	Endeks Grafiği		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Instructions	Instructions	Instructions	REPLACE_UNTRANSLATED	Talimatlar	Talimatlar		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-SendConfirmation	Send Confirmation	Send Confirmation	REPLACE_UNTRANSLATED	Teyit Gönder	Teyit Gönder		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-SendPayment	Send Payment	Send Payment	REPLACE_UNTRANSLATED	Ödeme Gönder	Ödeme Gönder		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-SendNoticeToReceive	Send Notice To Receive	Send Notice To Receive	REPLACE_UNTRANSLATED	Alıcıya Bildirim Gönder	Alıcıya Bildirim Gönder		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-SettlementType	Settlement Type	Settlement Type	REPLACE_UNTRANSLATED	Takas Türü	Takas Türü		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-PaymentInstructionType	Payment Instruction Type	Payment Instruction Type	REPLACE_UNTRANSLATED	Ödeme Talimatı Türü	Ödeme Talimatı Türü		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-CashFlowValidationError	The cash flow list contains invalid values. Please check and correct them.	Cash flow listesinde geçersiz değerler bulunmaktadır. Lütfen kontrol ediniz.	REWORD	Nakit akışı listesi geçersiz değerler içeriyor. Lütfen kontrol edip düzeltin.	Nakit akışı listesi geçersiz değerler içeriyor. Lütfen kontrol edip düzeltin.		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-MsgSaveNotCreatedCashFlow	You’ve made changes to the form, but the cash flow hasn’t been updated.<br> Do you want to generate it now?	You’ve made changes to the form, but the cash flow hasn’t been updated.<br> Do you want to generate it now?	REPLACE_UNTRANSLATED	Formda değişiklik yaptınız ancak nakit akışı güncellenmedi. Nakit akışını şimdi yeniden oluşturmak ister misiniz?	Formda değişiklik yaptınız ancak nakit akışı güncellenmedi. Nakit akışını şimdi yeniden oluşturmak ister misiniz?		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-MaturityDateIsHoliday	Maturity date is a holiday.	Vade tarihi tatil gününe denk gelmektedir.	OK	Vade tarihi tatil gününe denk gelmektedir.	Vade tarihi tatil gününe denk gelmektedir.		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PaymentDateIsHoliday	Payment date is a holiday.	Ödeme tarihi tatil gününe denk gelmektedir.	OK	Ödeme tarihi tatil gününe denk gelmektedir.	Ödeme tarihi tatil gününe denk gelmektedir.		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-ValueDateIsHoliday	Value date is a holiday.	Valör tarihi tatil gününe denk gelmektedir.	REWORD	Valör tarihi tatil günüdür.	Valör tarihi tatil günüdür.		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TransactionValidation	Please check transaction form data!	Lütfen işlem formu verilerini kontrol ediniz!	REWORD	Lütfen işlem formu verilerini kontrol edin!	Lütfen işlem formu verilerini kontrol edin!		
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PaymentValidation	Please check PaymentValidation data!	Please check PaymentValidation data!	REPLACE_UNTRANSLATED	Lütfen Ödeme Doğrulama verilerini kontrol edin!	Lütfen Ödeme Doğrulama verilerini kontrol edin!		KEY_EN_MISMATCH
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-FixedRateError	For Fixed Rate Type, Interest Rate must be greater than 0.	Sabit Faiz Tipi için Faiz oranı 0'dan büyük olmalıdır.	REWORD	Sabit Faiz Türü için Faiz oranı 0'dan büyük olmalıdır	Sabit getiri türünde getiri oranı sıfırdan büyük olmalıdır.	YES	
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-FloatingRateTypeError	For Floating Rate Type, Floating Rate Type must be selected.	Değişken Faiz Tipi için Faiz Oranı Tipi seçilmelidir.	REWORD	Değişken Faiz Türü için Faiz Oranı Türü seçilmelidir.	Değişken getiri türünde getiri oranı türü seçilmelidir.	YES	
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-Id	Id	Id	REPLACE_UNTRANSLATED	Kimlik	Kimlik		SHORT_EN
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-CalculationDate	Calculation Date	Değerleme Tarihi	REWORD	Hesaplama Tarihi	Hesaplama Tarihi		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-LogicalReference	Reference	Referans	OK	Referans	Referans		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PrincipalAmount	Principal Amount	Anapara Tutarı	OK	Anapara Tutarı	Anapara Tutarı		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-CurrencyCode	Currency	Para Birimi	OK	Para Birimi	Para Birimi		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodNumber	Period Number	Dönem No	REWORD	Dönem Numarası	Dönem Numarası		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodStartDate	Period Start Date	Dönem Başlangıç	REWORD	Dönem Başlangıç Tarihi	Dönem Başlangıç Tarihi		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodEndDate	Period End Date	Dönem Bitiş	REWORD	Dönem Bitiş Tarihi	Dönem Bitiş Tarihi		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodPaymentDate	Payment Date	Ödeme Tarihi	OK	Ödeme Tarihi	Ödeme Tarihi		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodRate	Period Rate	Dönem Faizi	REWORD	Dönem Oranı	Dönem Oranı		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodAmount	Period Amount	Dönem Tutarı	OK	Dönem Tutarı	Dönem Tutarı		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodCCY	Period CCY	Dönem PB	REWORD	Dönem Para Birimi	Dönem Para Birimi		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodAmountLCY	Period Amount (LCY)	Dönem Tutarı (YP)	REWORD	Dönem Tutarı LPB	Dönem Tutarı LPB		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodLCY	LCY	YP Birimi	REWORD	Lokal Para Birimi	Lokal Para Birimi		SHORT_EN
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodAccrualRate	Accrual Rate	Reeskont Faizi	OK	Reeskont Faizi	Reeskont Getiri Oranı	YES	
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodAccrualAmountIRR	Accrual Amount (IRR)	Reeskont Tutarı (IRR)	REWORD	Reeskont Tutarı (İGO)	Reeskont Tutarı (İGO)		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodAccrualAmountSL	Accrual Amount (SL)	Reeskont Tutarı (SL)	REWORD	Reeskont Tutarı (BL)	Reeskont Tutarı (BL)		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodAccrualAmountCCY	Accrual CCY	Reeskont PB	REWORD	Reeskont Para Birimi	Reeskont Para Birimi		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodAccrualAmountIRRLCY	Accrual Amount (LCY-IRR)	Reeskont Tutarı (YP-IRR)	REWORD	Reeskont Tutarı (LPB-İGO)	Reeskont Tutarı (LPB-İGO)		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodAccrualAmountSLLCY	Accrual Amount (LCY-SL)	Reeskont Tutarı (YP-SL)	REWORD	Reeskont Tutarı (LPB-BL)	Reeskont Tutarı (LPB-BL)		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodAccrualAmountLCY	Accrual (LCY)	Reeskont (YP)	REWORD	Reeskont (LPB)	Reeskont (LPB)		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PrincipalAmountNPV	Principal NPV	Anapara NPV	REWORD	Anapara NBD	Anapara NBD		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PrincipalAmountNPVCCY	Principal NPV CCY	Anapara NPV PB	REWORD	Anapara NBD YPB	Anapara NBD YPB		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PrincipalAmountNPVLCY	Principal NPV (LCY)	Anapara NPV (YP)	REWORD	Anapara NBD LPB	Anapara NBD LPB		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PrincipalAmountNPVLCYCode	Principal NPV LCY Code	Anapara NPV YP Kod	REWORD	Anapara NBD LPB Kodu	Anapara NBD LPB Kodu		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-TotalAmountNPV	Total NPV	Toplam NPV	REWORD	Toplam NBD	Toplam NBD		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-TotalAmountNPVCCY	Total NPV CCY	Toplam NPV PB	REWORD	Toplam NBD YPB	Toplam NBD YPB		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-TotalAmountNPVLCY	Total NPV (LCY)	Toplam NPV (YP)	REWORD	Toplam NBD (LPB)	Toplam NBD (LPB)		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-TotalAmountNPVLCYCode	Total NPV LCY Code	Toplam NPV YP Kod	REWORD	Toplam NBD LPB Kodu	Toplam NBD LPB Kodu		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-AccrualSpotRate	Spot Rate	Spot Kur	REWORD	Peşin Kur	Peşin Kur		
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-AccrualSpotRateABM	Spot Rate (ABM)	Spot Kur (ABM)	REWORD	Peşin Kur (ABM)	Peşin Kur (ABM)		
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-MusteriTipi	Customer Type	Müşteri Tipi	REWORD	Müşteri Türü	Müşteri Türü		KEY_EN_MISMATCH
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-IYE_YF_YO	IYE/YF/YO	IYE/YF/YO	OK	IYE/YF/YO	IYE/YF/YO		
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-IslemNo	Transaction No	İşlem No	REWORD	İşlem Numarası	İşlem Numarası		
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-Valor	Value Date	Valör	REWORD	Valör Tarihi	Valör Tarihi		KEY_EN_MISMATCH
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-Vade	Maturity Date	Vade	REWORD	Vade Tarihi	Vade Tarihi		KEY_EN_MISMATCH
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-IslemTipi	Transaction Type	İşlem Tipi	REWORD	İşlem Türü	İşlem Türü		KEY_EN_MISMATCH
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-EmirNo	Order No	Emir No	REWORD	Emir Numarası	Emir Numarası		
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-Sure	Duration	Süre	REWORD	Durasyon	Durasyon		KEY_EN_MISMATCH
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-FaizOrani	Interest Rate	Faiz Oranı	OK	Faiz Oranı	Getiri Oranı	YES	
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-Tutar	Amount	Tutar	OK	Tutar	Tutar		
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-Faiz	Interest	Faiz	OK	Faiz	Getiri	YES	
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-BSMV	BSMV	BSMV	OK	BSMV	BSMV		
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-Stopaj	WHT	Stopaj	OK	Stopaj	Stopaj		
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-Toplam	Total	Toplam	OK	Toplam	Toplam		
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-TemsilciAdSoyad	Representative Name	Temsilci Ad Soyad	REWORD	Temsilci Adı	Temsilci Adı		KEY_EN_MISMATCH
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-IslemZamani	Transaction Time	İşlem Zamanı	REWORD	İşlem Saati	İşlem Saati		KEY_EN_MISMATCH
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-StateName	Status	Durum	OK	Durum	Durum		
+pages/treasury/interbank-loan/interbank-loan	interbankLoan-AmortizationValidation	Please select the amortization amount or percentage!	Please select the amortization amount or percentage!	REPLACE_UNTRANSLATED	Lütfen amortisman tutarını veya yüzdesini seçin!	Lütfen amortisman tutarını veya yüzdesini seçin!		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-pageTitle	Issue Bond	Tahvil İhracı	REWORD	Menkul Kıymet İhracı	Menkul Kıymet İhracı		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-popupTitle	Issue Bond	Tahvil İhracı	REWORD	Menkul Kıymet İhracı	Menkul Kıymet İhracı		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-Id	Id	Kimlik	OK	Kimlik	Kimlik		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-DirectionName	Direction	Yön	OK	Yön	Yön		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-ProductName	Product Type	Ürün Tipi	REWORD	Ürün Türü	Ürün Türü		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-LogicalReference	Logical Reference	Mantıksal Referans	OK	Mantıksal Referans	Mantıksal Referans		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-BusinessKey	Business Key	İş Anahtarı	OK	İş Anahtarı	İş Anahtarı		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-CustomerName	Issuer	İhraç Eden	REWORD	İhraççı	İhraççı		KEY_EN_MISMATCH
+pages/treasury/issue-bond/issue-bond	dgBondIssue-CcyCode	CCY	Para Birimi	OK	Para Birimi	Para Birimi		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-MarketName	Market	Piyasa	OK	Piyasa	Piyasa		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-InterestRate	Rate	Oran	REWORD	Kur	Kur		GENERIC_EN
+pages/treasury/issue-bond/issue-bond	dgBondIssue-ISIN	ISIN	ISIN	REPLACE_UNTRANSLATED	ISIN Kodu	ISIN Kodu		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-CoreCustomerId	Core Customer Id	Ana Müşteri Kimliği	OK	Ana Müşteri Kimliği	Ana Müşteri Kimliği		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-DealAmount	Issue Amount	İhraç Tutarı	OK	İhraç Tutarı	İhraç Tutarı		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-SecurityName	Security Name	Menkul Kıymet Adı	OK	Menkul Kıymet Adı	Menkul Kıymet Adı		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-SecurityTypeName	Security Type Name	Menkul Kıymet Tipi Adı	REWORD	Menkul Kıymet Türü Adı	Menkul Kıymet Türü Adı		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-MaturityAmount	Maturity Amount	Vade Tutarı	OK	Vade Tutarı	Vade Tutarı		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-InputDate	Input Date	Giriş Tarihi	OK	Giriş Tarihi	Giriş Tarihi		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-TradeDate	Trade Date	İşlem Tarihi	OK	İşlem Tarihi	İşlem Tarihi		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-ValueDate	Value Date	Valör Tarihi	OK	Valör Tarihi	Valör Tarihi		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-MaturityDate	Maturity Date	Vade Tarihi	OK	Vade Tarihi	Vade Tarihi		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-BasisName	Basis Name	Baz Adı	OK	Baz Adı	Baz Adı		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-DaysInYear	Days In Year	Yıldaki Gün Sayısı	OK	Yıldaki Gün Sayısı	Yıldaki Gün Sayısı		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-Instructions	Instructions	Talimatlar	OK	Talimatlar	Talimatlar		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-ExternalCustomerId	External Customer ID	Harici Müşteri Kimliği	OK	Harici Müşteri Kimliği	Harici Müşteri Kimliği		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-AccountNumber	Account Number	Hesap Numarası	OK	Hesap Numarası	Hesap Numarası		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-Ccy	Ccy	Para Birimi	OK	Para Birimi	Para Birimi		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-MarketCode	Market Code	Piyasa Kodu	OK	Piyasa Kodu	Piyasa Kodu		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-IssueDetail	Issue Detail	İhraç Detayı	OK	İhraç Detayı	İhraç Detayı		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-BalanceDetail	Balance Detail	Bakiye Detayı	OK	Bakiye Detayı	Bakiye Detayı		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-ProductId	Product Type	Ürün Tipi	REWORD	Ürün Türü	Ürün Türü		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-IssuedNominal	Issued Nominal	İhraç Edilen Nominal	OK	İhraç Edilen Nominal	İhraç Edilen Nominal		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-CustomerNominal	Customer Nominal	Müşteri Nominal	OK	Müşteri Nominal	Müşteri Nominal		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-PortfolioNominal	Portfolio Nominal	Portföy Nominal	OK	Portföy Nominal	Portföy Nominal		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-OtherInstitutionsNominal	Other Institutions Nominal	Diğer Kurumlar Nominal	OK	Diğer Kurumlar Nominal	Diğer Kurumlar Nominal		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-Isın	ISIN	ISIN	REPLACE_UNTRANSLATED	ISIN Kodu	ISIN Kodu		KEY_EN_MISMATCH
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-DirectionCode	Direction	Yön	OK	Yön	Yön		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-CustomerName	Issuer	İhraç Eden	REWORD	İhraççı	İhraççı		KEY_EN_MISMATCH
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-FundSourceId	Fund Source	Fon Kaynağı	OK	Fon Kaynağı	Fon Kaynağı		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-SecurityTypeName	Security Type Name	Menkul Kıymet Tipi Adı	REWORD	Menkul Kıymet Türü Adı	Menkul Kıymet Türü Adı		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-SubFundSourceCode	Sub Fund Source	Alt Fon Kaynağı	OK	Alt Fon Kaynağı	Alt Fon Kaynağı		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-MaturityAmount	Maturity Amount	Vade Tutarı	OK	Vade Tutarı	Vade Tutarı		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-MarketCode	Market	Piyasa	OK	Piyasa	Piyasa		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-CurrencyCode	Currency	Para Birimi	OK	Para Birimi	Para Birimi		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-CustomerId	Counterparty	Karşı Taraf	REWORD	Karşı Kurum	Karşı Kurum		KEY_EN_MISMATCH
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-Issuer	Issuer	İhraç Eden	REWORD	İhraççı	İhraççı		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-SecurityName	Security Name	Menkul Kıymet Adı	OK	Menkul Kıymet Adı	Menkul Kıymet Adı		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-BasisCode	Date Basis	Tarih Bazı	REWORD	Tarih Esası	Tarih Esası		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-IssueGroupCode	Issue Group Code	İhraç Grup Kodu	OK	İhraç Grup Kodu	İhraç Grup Kodu		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-IssuePrice	Issue Price	İhraç Fiyatı	OK	İhraç Fiyatı	İhraç Fiyatı		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-DaysInYear	Days in Year	Yıldaki Gün Sayısı	OK	Yıldaki Gün Sayısı	Yıldaki Gün Sayısı		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-WeSend	We Send	Bizim Gönderdiğimiz	REWORD	Gönderilecek	Gönderilecek		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-WeReceive	We Receive	Bizim Aldığımız	REWORD	Alınacak	Alınacak		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-Instructions	Instructions	Talimatlar	OK	Talimatlar	Talimatlar		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-InputDate	Input Date	Giriş Tarihi	OK	Giriş Tarihi	Giriş Tarihi		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-TradeDate	Trade Date	İşlem Tarihi	OK	İşlem Tarihi	İşlem Tarihi		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-ValueDate	Value Date	Valör Tarihi	OK	Valör Tarihi	Valör Tarihi		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-MaturityDate	Maturity Date	Vade Tarihi	OK	Vade Tarihi	Vade Tarihi		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-DayCount	Day Count	Gün Sayısı	OK	Gün Sayısı	Gün Sayısı		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-PaymentType	Payment Type	Ödeme Tipi	REWORD	Ödeme Türü	Ödeme Türü		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-DealAmount	Issue Amount	İhraç Tutarı	OK	İhraç Tutarı	İhraç Tutarı		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-InterestRate	Rate	Oran	REWORD	Kur	Kur		GENERIC_EN
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-TheirSend	Their Send	Onların Gönderdiği	REWORD	Karşı Tarafın Göndereceği	Karşı Tarafın Göndereceği		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-TheirReceive	Their Receive	Onların Aldığı	REWORD	Karşı Tarafın Alacağı	Karşı Tarafın Alacağı		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-CollateralType	Collateral Type	Teminat Tipi	REWORD	Teminat Türü	Teminat Türü		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-Generate	Generate	Oluştur	OK	Oluştur	Oluştur		
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-PaymentSchedule	Payment Schedule	Ödeme Planı	OK	Ödeme Planı	Ödeme Planı		
+pages/treasury/issue-bond/issue-bond	dgPaymentSchedule-Id	Id	Kimlik	OK	Kimlik	Kimlik		
+pages/treasury/issue-bond/issue-bond	dgPaymentSchedule-PeriodId	Period	Dönem	OK	Dönem	Dönem		
+pages/treasury/issue-bond/issue-bond	dgPaymentSchedule-PeriodStartDate	Start Date	Başlangıç Tarihi	OK	Başlangıç Tarihi	Başlangıç Tarihi		
+pages/treasury/issue-bond/issue-bond	dgPaymentSchedule-PeriodEndDate	End Date	Bitiş Tarihi	OK	Bitiş Tarihi	Bitiş Tarihi		
+pages/treasury/issue-bond/issue-bond	dgPaymentSchedule-DayCount	Day Count	Gün Sayısı	OK	Gün Sayısı	Gün Sayısı		
+pages/treasury/issue-bond/issue-bond	dgPaymentSchedule-InterestRate	Rate	Oran	REWORD	Kur	Kur		GENERIC_EN
+pages/treasury/issue-bond/issue-bond	dgPaymentSchedule-Amount	Amount	Tutar	OK	Tutar	Tutar		
+pages/treasury/issue-bond/issue-bond	dgPaymentSchedule-IsPrincipalAmount	Principal	Anapara	OK	Anapara	Anapara		
+pages/treasury/issue-bond/issue-bond	dgPaymentSchedule-Actions	Actions	İşlemler	OK	İşlemler	İşlemler		
+pages/treasury/issue-bond/issue-bond	dgPaymentSchedule-GenerateSchedule	Generate Schedule	Plan Oluştur	OK	Plan Oluştur	Plan Oluştur		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-ProductType	Product Type	Ürün Tipi	REWORD	Ürün Türü	Ürün Türü		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-Direction	Direction	Yön	OK	Yön	Yön		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-FundSource	Fund Source	Fon Kaynağı	OK	Fon Kaynağı	Fon Kaynağı		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-SubFundSource	Sub Fund Source	Alt Fon Kaynağı	OK	Alt Fon Kaynağı	Alt Fon Kaynağı		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-Market	Market	Piyasa	OK	Piyasa	Piyasa		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-Currency	Currency	Para Birimi	OK	Para Birimi	Para Birimi		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-Counterparty	Counterparty	Karşı Taraf	REWORD	Karşı Kurum	Karşı Kurum		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-DateBasis	Date Basis	Tarih Bazı	REWORD	Tarih Esası	Tarih Esası		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-DaysInYear	Days in Year	Yıldaki Gün Sayısı	OK	Yıldaki Gün Sayısı	Yıldaki Gün Sayısı		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-WeSend	We Send	Bizim Gönderdiğimiz	REWORD	Gönderilecek	Gönderilecek		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-WeReceive	We Receive	Bizim Aldığımız	REWORD	Alınacak	Alınacak		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-Instructions	Instructions	Talimatlar	OK	Talimatlar	Talimatlar		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-InputDate	Input Date	Giriş Tarihi	OK	Giriş Tarihi	Giriş Tarihi		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-TradeDate	Trade Date	İşlem Tarihi	OK	İşlem Tarihi	İşlem Tarihi		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-ValueDate	Value Date	Valör Tarihi	OK	Valör Tarihi	Valör Tarihi		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-MaturityDate	Maturity Date	Vade Tarihi	OK	Vade Tarihi	Vade Tarihi		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-DayCount	Day Count	Gün Sayısı	OK	Gün Sayısı	Gün Sayısı		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-PaymentType	Payment Type	Ödeme Tipi	REWORD	Ödeme Türü	Ödeme Türü		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-StartAmount	Start Amount	Başlangıç Tutarı	OK	Başlangıç Tutarı	Başlangıç Tutarı		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-InterestRate	Rate	Oran	REWORD	Kur	Kur		GENERIC_EN
+pages/treasury/issue-bond/issue-bond	frmMMPreview-TheirSend	Their Send	Onların Gönderdiği	REWORD	Karşı Tarafın Göndereceği	Karşı Tarafın Göndereceği		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-TheirReceive	Their Receive	Onların Aldığı	REWORD	Karşı Tarafın Alacağı	Karşı Tarafın Alacağı		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-AccountNumber	Account Number	Hesap Numarası	OK	Hesap Numarası	Hesap Numarası		
+pages/treasury/issue-bond/issue-bond	frmMMPreview-CollateralType	Collateral Type	Teminat Tipi	REWORD	Teminat Türü	Teminat Türü		
+pages/treasury/issue-bond/issue-bond	frmMultiplePaymentSchedule-StartDate	Start Date	Başlangıç Tarihi	OK	Başlangıç Tarihi	Başlangıç Tarihi		
+pages/treasury/issue-bond/issue-bond	frmMultiplePaymentSchedule-EndDate	End Date	Bitiş Tarihi	OK	Bitiş Tarihi	Bitiş Tarihi		
+pages/treasury/issue-bond/issue-bond	frmMultiplePaymentSchedule-TotalDay	Total Day	Toplam Gün	OK	Toplam Gün	Toplam Gün		
+pages/treasury/issue-bond/issue-bond	frmMultiplePaymentSchedule-StartAmount	Start Amount	Başlangıç Tutarı	OK	Başlangıç Tutarı	Başlangıç Tutarı		
+pages/treasury/issue-bond/issue-bond	frmMultiplePaymentSchedule-MaturityAmount	Maturity Amount	Vade Tutarı	OK	Vade Tutarı	Vade Tutarı		
+pages/treasury/issue-bond/issue-bond	frmMultiplePaymentSchedule-ScheduleOption	Schedule Option	Plan Seçeneği	OK	Plan Seçeneği	Plan Seçeneği		
+pages/treasury/issue-bond/issue-bond	frmMultiplePaymentSchedule-TimeBased	Time Based	Zaman Bazlı	OK	Zaman Bazlı	Zaman Bazlı		
+pages/treasury/issue-bond/issue-bond	frmMultiplePaymentSchedule-PeriodCount	Period Count	Dönem Sayısı	OK	Dönem Sayısı	Dönem Sayısı		
+pages/treasury/issue-bond/issue-bond	frmMultiplePaymentSchedule-NumberOfPayment	Number Of Payment	Ödeme Sayısı	REWORD	Ödeme Numarası	Ödeme Numarası		
+pages/treasury/issue-bond/issue-bond	frmMultiplePaymentSchedule-RateOption	Rate Option	Oran Seçeneği	REWORD	Kur Seçeneği	Kur Seçeneği		
+pages/treasury/issue-bond/issue-bond	frmMultiplePaymentSchedule-RateBased	Rate Based	Oran Bazlı	REWORD	Kur Bazlı	Kur Bazlı		
+pages/treasury/issue-bond/issue-bond	frmMultiplePaymentSchedule-Rate	Rate	Oran	REWORD	Kur	Kur		GENERIC_EN
+pages/treasury/issue-bond/issue-bond	frmMultiplePaymentSchedule-AmountBased	Amount Based	Tutar Bazlı	OK	Tutar Bazlı	Tutar Bazlı		
+pages/treasury/issue-bond/issue-bond	frmMultiplePaymentSchedule-Amount	Amount	Tutar	OK	Tutar	Tutar		
+pages/treasury/issue-bond/issue-bond	MMTemplatedgCustomers-Id	Id	Kimlik	OK	Kimlik	Kimlik		
+pages/treasury/issue-bond/issue-bond	MMTemplatedgCustomers-Code	Code	Kod	OK	Kod	Kod		
+pages/treasury/issue-bond/issue-bond	MMTemplatedgCustomers-Name	Name	İsim	REWORD	Ad	Ad		GENERIC_EN
+pages/treasury/issue-bond/issue-bond	MMTemplatedgCustomers-CcyCode	CCY	Para Birimi	OK	Para Birimi	Para Birimi		
+pages/treasury/issue-bond/issue-bond	MMTemplatedgCustomers-CountryCode	Country	Ülke	OK	Ülke	Ülke		
+pages/treasury/issue-bond/issue-bond	MMTemplatedgWeSend-AccNo	Acc No	Hesap No	REWORD	Hesap Numarası	Hesap Numarası		
+pages/treasury/issue-bond/issue-bond	MMTemplatedgWeSend-Name	Name	İsim	REWORD	Ad	Ad		GENERIC_EN
+pages/treasury/issue-bond/issue-bond	MMTemplatedgWeSend-CustomerId	Customer Id	Müşteri Kimliği	OK	Müşteri Kimliği	Müşteri Kimliği		
+pages/treasury/issue-bond/issue-bond	MMTemplatedgWeReceive-AccNo	Acc No	Hesap No	REWORD	Hesap Numarası	Hesap Numarası		
+pages/treasury/issue-bond/issue-bond	MMTemplatedgWeReceive-Name	Name	İsim	REWORD	Ad	Ad		GENERIC_EN
+pages/treasury/issue-bond/issue-bond	MMTemplatedgWeReceive-CustomerId	Customer Id	Müşteri Kimliği	OK	Müşteri Kimliği	Müşteri Kimliği		
+pages/treasury/issue-bond/issue-bond	MMTemplatedgTheirSend-SwiftCode	Swift Code	Swift Kodu	OK	Swift Kodu	Swift Kodu		
+pages/treasury/issue-bond/issue-bond	MMTemplatedgTheirSend-Name	Name	İsim	REWORD	Ad	Ad		GENERIC_EN
+pages/treasury/issue-bond/issue-bond	MMTemplatedgTheirSend-AccNo	Acc No	Hesap No	REWORD	Hesap Numarası	Hesap Numarası		
+pages/treasury/issue-bond/issue-bond	MMTemplatedgTheirReceive-SwiftCode	Swift Code	Swift Kodu	OK	Swift Kodu	Swift Kodu		
+pages/treasury/issue-bond/issue-bond	MMTemplatedgTheirReceive-Name	Name	İsim	REWORD	Ad	Ad		GENERIC_EN
+pages/treasury/issue-bond/issue-bond	MMTemplatedgTheirReceive-AccNo	Acc No	Hesap No	REWORD	Hesap Numarası	Hesap Numarası		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-TxnTypeName	Txn Type Name	Txn Tip Adı	REWORD	İşlem Türü Adı	İşlem Türü Adı		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-TxnTypeCode	Txn Type Code	Txn Tip Kodu	REWORD	İşlem Türü Kodu	İşlem Türü Kodu		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-CustomerId	Customer Id	Müşteri Id	REWORD	Müşteri Kimliği	Müşteri Kimliği		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-BasisCode	Basis Code	Esas Kod	REWORD	Baz Kodu	Baz Kodu		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-TxnMmProductTypeId	Txn MM Product Type Id	Txn MM Ürün Tipi Id	REWORD	Para Piyasası İşlemi Ürün Türü Kimliği	Para Piyasası İşlemi Ürün Türü Kimliği		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-OutgoingCorrespondentAccountName	Outgoing Correspondent Account Name	Giden Muhabir Hesap Adı	OK	Giden Muhabir Hesap Adı	Giden Muhabir Hesap Adı		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-TheirBeneficiaryCorrespondentName	Their Beneficiary Correspondent Name	Kullanılan Muhabir Adı	REWORD	Karşı Tarafın Lehtar Muhabir Banka Adı	Karşı Tarafın Lehtar Muhabir Banka Adı		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-TheirSenderCorrespondentName	Their Sender Correspondent Name	Gönderen Muhabir Adı	REWORD	Karşı Tarafın Gönderici Muhabir Banka Adı	Karşı Tarafın Gönderici Muhabir Banka Adı		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-FundSource	Fund Source	Fon Kaynağı	OK	Fon Kaynağı	Fon Kaynağı		
+pages/treasury/issue-bond/issue-bond	dgBondIssue-CollateralType	Collateral Type	Teminat Türü	OK	Teminat Türü	Teminat Türü		
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-pageTitle	Issue Bond Revaluation	Issue Bond Revaluation	REPLACE_UNTRANSLATED	Menkul Kıymet İhracı Yeniden Değerlemesi	Menkul Kıymet İhracı Yeniden Değerlemesi		
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-popupTitle	Issue Bond Revaluation	Issue Bond Revaluation	REPLACE_UNTRANSLATED	Menkul Kıymet İhracı Yeniden Değerlemesi	Menkul Kıymet İhracı Yeniden Değerlemesi		
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-Id	Id	Id	REPLACE_UNTRANSLATED	Kimlik	Kimlik		SHORT_EN
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-ISIN	ISIN	ISIN	REPLACE_UNTRANSLATED	ISIN Kodu	ISIN Kodu		
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-ValueDate	Issue Date	Issue Date	REPLACE_UNTRANSLATED	İhraç Tarihi	İhraç Tarihi		
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-MaturityDate	Maturity Date	Maturity Date	REPLACE_UNTRANSLATED	Vade Tarihi	Vade Tarihi		
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-BaseAmount	Base Amount	Base Amount	REPLACE_UNTRANSLATED	Baz Tutar	Baz Tutar		
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-AccrualAmount	Accrual Amount	Accrual Amount	REPLACE_UNTRANSLATED	Reeskont Tutarı	Reeskont Tutarı		
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-AccEntryMainId	Account No	Account No	REPLACE_UNTRANSLATED	Hesap Numarası	Hesap Numarası		KEY_EN_MISMATCH
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-AccrualDay	Accrual Day	Accrual Day	REPLACE_UNTRANSLATED	Reeskont Günü	Reeskont Günü		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-pageTitle	Tawarruq	Tawarruq	REPLACE_UNTRANSLATED	Teverruk	Teverruk		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-popupTitle	Tawarruq	Tawarruq	REPLACE_UNTRANSLATED	Teverruk	Teverruk		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-LogicalReference	Logical Reference	Logical Reference	REPLACE_UNTRANSLATED	Mantıksal Referans	Mantıksal Referans		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-MMLogicalReference	MM Logical Reference	MM Logical Reference	REPLACE_UNTRANSLATED	MM Mantıksal Referans	MM Mantıksal Referans		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-PortfolioName	Portfolio	Portfolio	REPLACE_UNTRANSLATED	Portföy	Portföy		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-CounterpartyContractDate	Counterparty Contract Date	Counterparty Contract Date	REPLACE_UNTRANSLATED	Karşı Kurum Sözleşme Tarihi	Karşı Kurum Sözleşme Tarihi		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-MMAmount	Amount	Amount	REPLACE_UNTRANSLATED	Tutar	Tutar		KEY_EN_MISMATCH
+pages/treasury/tawarruq/tawarruq	dgTawarruq-TransactionDirectCode	Transaction Direct Code	Transaction Direct Code	REPLACE_UNTRANSLATED	Doğrudan İşlem Kodu	Doğrudan İşlem Kodu		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-CustomerName	Counterparty	Counterparty	REPLACE_UNTRANSLATED	Karşı Kurum	Karşı Kurum		KEY_EN_MISMATCH
+pages/treasury/tawarruq/tawarruq	dgTawarruq-TawarruqDate	Tawarruq Date	Tawarruq Date	REPLACE_UNTRANSLATED	Teverruk Tarihi	Teverruk Tarihi		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-MMCurrency	Currency	Currency	REPLACE_UNTRANSLATED	Para Birimi	Para Birimi		KEY_EN_MISMATCH
+pages/treasury/tawarruq/tawarruq	dgTawarruq-Trader	Trader	Trader	REPLACE_UNTRANSLATED	İşlemci	İşlemci		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-PMCurrency	PM Currency	PM Currency	REPLACE_UNTRANSLATED	KM Para Birimi	KM Para Birimi		KEY_EN_MISMATCH
+pages/treasury/tawarruq/tawarruq	dgTawarruq-BrokerTicketNo	Broker Ticket No	Broker Ticket No	REPLACE_UNTRANSLATED	Aracı Kurum Fiş Numarası	Aracı Kurum Fiş Numarası		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-Location	Location	Location	REPLACE_UNTRANSLATED	Konum	Konum		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-OunceDealRate	Ounce Deal Rate	Ounce Deal Rate	REPLACE_UNTRANSLATED	Ons İşlem Oranı	Ons İşlem Oranı		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-OunceAmount	Ounce Amount	Ounce Amount	REPLACE_UNTRANSLATED	Ons Tutarı	Ons Tutarı		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-GramAmount	Gram Amount	Gram Amount	REPLACE_UNTRANSLATED	Gram Tutarı	Gram Tutarı		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-InputDate	Input Date	Input Date	REPLACE_UNTRANSLATED	Giriş Tarihi	Giriş Tarihi		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-BusinessKey	Business Key	Business Key	REPLACE_UNTRANSLATED	İş Anahtarı	İş Anahtarı		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-ValueDate	Tawarruq Date	Tawarruq Date	REPLACE_UNTRANSLATED	Teverruk Tarihi	Teverruk Tarihi		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-ExternalTxnCurrency	Currency	Currency	REPLACE_UNTRANSLATED	Para Birimi	Para Birimi		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-PMCCy	PM Currency	PM Currency	REPLACE_UNTRANSLATED	KM Para Birimi	KM Para Birimi		KEY_EN_MISMATCH
+pages/treasury/tawarruq/tawarruq	dgTawarruq-ExcludeProxy	Exclude Proxy	Exclude Proxy	REPLACE_UNTRANSLATED	Proxy Hariç Tut	Proxy Hariç Tut		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-LogicalReference	Logical Reference	Logical Reference	REPLACE_UNTRANSLATED	Mantıksal Referans	Mantıksal Referans		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-MMLogicalReference	MM Logical Reference	MM Logical Reference	REPLACE_UNTRANSLATED	MM Mantıksal Referans	MM Mantıksal Referans		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Portfolio	Portfolio	Portfolio	REPLACE_UNTRANSLATED	Portföy	Portföy		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-ContractDate	Contract Date	Contract Date	REPLACE_UNTRANSLATED	Sözleşme Tarihi	Sözleşme Tarihi		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-CounterpartyContractDate	Counterparty Contract Date	Counterparty Contract Date	REPLACE_UNTRANSLATED	Karşı Kurum Sözleşme Tarihi	Karşı Kurum Sözleşme Tarihi		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-StartAmount	Start Amount	Start Amount	REPLACE_UNTRANSLATED	Başlangıç Tutarı	Başlangıç Tutarı		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-MMAmount	Amount	Amount	REPLACE_UNTRANSLATED	Tutar	Tutar		KEY_EN_MISMATCH
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Direction	Direction	Direction	REPLACE_UNTRANSLATED	Yön	Yön		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TransactionDirectCode	Transaction Direct Code	Transaction Direct Code	REPLACE_UNTRANSLATED	Doğrudan İşlem Kodu	Doğrudan İşlem Kodu		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Counterparty	Counterparty	Counterparty	REPLACE_UNTRANSLATED	Karşı Kurum	Karşı Kurum		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TawarruqDate	Tawarruq Date	Tawarruq Date	REPLACE_UNTRANSLATED	Teverruk Tarihi	Teverruk Tarihi		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Currency	Currency	Currency	REPLACE_UNTRANSLATED	Para Birimi	Para Birimi		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-MMCurrency	Currency	Currency	REPLACE_UNTRANSLATED	Para Birimi	Para Birimi		KEY_EN_MISMATCH
+pages/treasury/tawarruq/tawarruq	frmTawarruq-PMCurrency	PM Currency	PM Currency	REPLACE_UNTRANSLATED	KM Para Birimi	KM Para Birimi		KEY_EN_MISMATCH
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Trader	Trader	Trader	REPLACE_UNTRANSLATED	İşlemci	İşlemci		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-InputDate	Input Date	Input Date	REPLACE_UNTRANSLATED	Giriş Tarihi	Giriş Tarihi		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-BrokerTicketNo	Broker Ticket No	Broker Ticket No	REPLACE_UNTRANSLATED	Aracı Kurum Fiş Numarası	Aracı Kurum Fiş Numarası		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Location	Location	Location	REPLACE_UNTRANSLATED	Konum	Konum		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OunceDealRate	Ounce Deal Rate	Ounce Deal Rate	REPLACE_UNTRANSLATED	Ons İşlem Oranı	Ons İşlem Oranı		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OunceAmount	Ounce Amount	Ounce Amount	REPLACE_UNTRANSLATED	Ons Tutarı	Ons Tutarı		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-GramAmount	Gram Amount	Gram Amount	REPLACE_UNTRANSLATED	Gram Tutarı	Gram Tutarı		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-ExcludeProxy	Exclude Proxy	Exclude Proxy	REPLACE_UNTRANSLATED	Proxy Hariç Tut	Proxy Hariç Tut		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Instructions	Instructions	Instructions	REPLACE_UNTRANSLATED	Talimatlar	Talimatlar		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OurAgent	Our Agent	Our Agent	REPLACE_UNTRANSLATED	Temsilcimiz	Temsilcimiz		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Role	Role	Role	REPLACE_UNTRANSLATED	Rol	Rol		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-BrokerName	Broker Name	Broker Name	REPLACE_UNTRANSLATED	Aracı Kurum Adı	Aracı Kurum Adı		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-CurrentAccount	Current Account	Current Account	REPLACE_UNTRANSLATED	Cari Hesap	Cari Hesap		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-AccountNumber	Account Number	Account Number	REPLACE_UNTRANSLATED	Hesap Numarası	Hesap Numarası		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-GLCode	GL Code	GL Code	REPLACE_UNTRANSLATED	Muhasebe Kodu	Muhasebe Kodu		KEY_EN_MISMATCH
+pages/treasury/tawarruq/tawarruq	frmTawarruq-CurrencyCode	Currency Code	Currency Code	REPLACE_UNTRANSLATED	Para Birimi Kodu	Para Birimi Kodu		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TheirAgent	Their Agent	Their Agent	REPLACE_UNTRANSLATED	Karşı Tarafın Temsilcisi	Karşı Tarafın Temsilcisi		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-ExternalTransaction	External Transaction	External Transaction	REPLACE_UNTRANSLATED	Harici İşlem	Harici İşlem		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-SalesOffer	Sales Offer	Sales Offer	REPLACE_UNTRANSLATED	Satış Teklifi	Satış Teklifi		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-MMLogicalReference-Required	MM Logical Reference is required	MM Logical Reference is required	REPLACE_UNTRANSLATED	MM Mantıksal Referans gereklidir	MM Mantıksal Referans gereklidir		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Portfolio-Required	Portfolio is required	Portfolio is required	REPLACE_UNTRANSLATED	Portfolyo gereklidir.	Portfolyo gereklidir.		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Counterparty-Required	Counterparty is required	Counterparty is required	REPLACE_UNTRANSLATED	Karşı Kurum gerekli	Karşı Kurum gerekli		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-MMAmount-Required	MM Amount is required	MM Amount is required	REPLACE_UNTRANSLATED	MM Tutarı gereklidir	MM Tutarı gereklidir		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-MMCurrency-Required	MM Currency is required	MM Currency is required	REPLACE_UNTRANSLATED	MM Para Birimi gereklidir	MM Para Birimi gereklidir		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TawarruqDate-Required	Tawarruq Date is required	Tawarruq Date is required	REPLACE_UNTRANSLATED	Teverruk Tarihi gereklidir	Teverruk Tarihi gereklidir		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-BrokerTicketNo-Required	Broker Ticket No is required	Broker Ticket No is required	REPLACE_UNTRANSLATED	Aracı Kurum Fiş Numarası zorunludur	Aracı Kurum Fiş Numarası zorunludur		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Location-Required	Location is required	Location is required	REPLACE_UNTRANSLATED	Konum gereklidir	Konum gereklidir		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-PMCurrency-Required	PM Currency is required	PM Currency is required	REPLACE_UNTRANSLATED	KM para birimi gereklidir.	KM para birimi gereklidir.		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OunceDealRate-Required	Ounce Deal Rate is required	Ounce Deal Rate is required	REPLACE_UNTRANSLATED	Ons İşlem Oranı gereklidir	Ons İşlem Oranı gereklidir		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OunceAmount-Required	Ounce Amount is required	Ounce Amount is required	REPLACE_UNTRANSLATED	Ons Tutarı gereklidir	Ons Tutarı gereklidir		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OurAgentRole-Required	Our Agent Role is required	Our Agent Role is required	REPLACE_UNTRANSLATED	Temsilcimizin Rolü gereklidir	Temsilcimizin Rolü gereklidir		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OurAgentBroker-Required	Our Agent Broker is required	Our Agent Broker is required	REPLACE_UNTRANSLATED	Temsilcimizin Aracı Kurumu gereklidir	Temsilcimizin Aracı Kurumu gereklidir		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OurAgentCurrentAccount-Required	Our Agent Current Account is required	Our Agent Current Account is required	REPLACE_UNTRANSLATED	Temsilcimizin cari hesabı zorunludur.	Temsilcimizin cari hesabı zorunludur.		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TheirAgentRole-Required	Their Agent Role is required	Their Agent Role is required	REPLACE_UNTRANSLATED	Karşı tarafın temsilci rolü zorunludur.	Karşı tarafın temsilci rolü zorunludur.		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TheirAgentBroker-Required	Their Agent Broker is required	Their Agent Broker is required	REPLACE_UNTRANSLATED	Karşı tarafın temsilci aracı kurumu zorunludur.	Karşı tarafın temsilci aracı kurumu zorunludur.		
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TheirAgentCurrentAccount-Required	Their Agent Current Account is required	Their Agent Current Account is required	REPLACE_UNTRANSLATED	Karşı tarafın temsilcisine ait cari hesap zorunludur.	Karşı tarafın temsilcisine ait cari hesap zorunludur.		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-BORROWING	Borrowing	Borrowing	REPLACE_UNTRANSLATED	Borç Alma	Borç Alma		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Portfolio	Portfolio	Portfolio	REPLACE_UNTRANSLATED	Portföy	Portföy		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Trader	Trader	Trader	REPLACE_UNTRANSLATED	İşlemci	İşlemci		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-ExternalTransaction	External Transaction	External Transaction	REPLACE_UNTRANSLATED	Harici İşlem	Harici İşlem		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-ExternalTxnLogicalReference	Ext. Logical Reference	Ext. Logical Reference	REPLACE_UNTRANSLATED	Har. Mantıksal Referans	Har. Mantıksal Referans		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-LogicalReference	Twr. Logical Reference	Twr. Logical Reference	REPLACE_UNTRANSLATED	Teverruk İşlem Numarası	Teverruk İşlem Numarası		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-MMLogicalReference	MM Logical Reference	MM Logical Reference	REPLACE_UNTRANSLATED	MM Mantıksal Referans	MM Mantıksal Referans		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Counterparty	Counterparty	Counterparty	REPLACE_UNTRANSLATED	Karşı Kurum	Karşı Kurum		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-ContractDate	Contract Date	Contract Date	REPLACE_UNTRANSLATED	Sözleşme Tarihi	Sözleşme Tarihi		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-CounterpartyContractDate	Counterparty Contract Date	Counterparty Contract Date	REPLACE_UNTRANSLATED	Karşı Kurum Sözleşme Tarihi	Karşı Kurum Sözleşme Tarihi		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-TawarruqDate	Tawarruq Date	Tawarruq Date	REPLACE_UNTRANSLATED	Teverruk Tarihi	Teverruk Tarihi		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-StartAmount	Start Amount	Start Amount	REPLACE_UNTRANSLATED	Başlangıç Tutarı	Başlangıç Tutarı		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-MMAmount	Amount	Amount	REPLACE_UNTRANSLATED	Tutar	Tutar		KEY_EN_MISMATCH
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Currency	Currency	Currency	REPLACE_UNTRANSLATED	Para Birimi	Para Birimi		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-MMCurrency	Currency	Currency	REPLACE_UNTRANSLATED	Para Birimi	Para Birimi		KEY_EN_MISMATCH
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Direction	Direction	Direction	REPLACE_UNTRANSLATED	Yön	Yön		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-TransactionDirectCode	Transaction Direct Code	Transaction Direct Code	REPLACE_UNTRANSLATED	Doğrudan İşlem Kodu	Doğrudan İşlem Kodu		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-PMCurrency	PM Currency	PM Currency	REPLACE_UNTRANSLATED	KM Para Birimi	KM Para Birimi		KEY_EN_MISMATCH
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-InputDate	Input Date	Input Date	REPLACE_UNTRANSLATED	Giriş Tarihi	Giriş Tarihi		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-BrokerTicketNo	Broker Ticket No	Broker Ticket No	REPLACE_UNTRANSLATED	Aracı Kurum Fiş Numarası	Aracı Kurum Fiş Numarası		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Location	Location	Location	REPLACE_UNTRANSLATED	Konum	Konum		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-OunceDealRate	Ounce Deal Rate	Ounce Deal Rate	REPLACE_UNTRANSLATED	Ons İşlem Oranı	Ons İşlem Oranı		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-OunceAmount	Ounce Amount	Ounce Amount	REPLACE_UNTRANSLATED	Ons Tutarı	Ons Tutarı		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-GramAmount	Gram Amount	Gram Amount	REPLACE_UNTRANSLATED	Gram Tutarı	Gram Tutarı		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-ExcludeProxy	Exclude Proxy	Exclude Proxy	REPLACE_UNTRANSLATED	Proxy Hariç Tut	Proxy Hariç Tut		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Instructions	Instructions	Instructions	REPLACE_UNTRANSLATED	Talimatlar	Talimatlar		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-SalesOffer	Sales Offer	Sales Offer	REPLACE_UNTRANSLATED	Satış Teklifi	Satış Teklifi		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-AgentInstructions	Agent Instructions	Agent Instructions	REPLACE_UNTRANSLATED	Temsilci Talimatları	Temsilci Talimatları		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Role	Role	Role	REPLACE_UNTRANSLATED	Rol	Rol		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-BrokerName	Broker Name	Broker Name	REPLACE_UNTRANSLATED	Aracı Kurum Adı	Aracı Kurum Adı		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-CurrentAccount	Current Account	Current Account	REPLACE_UNTRANSLATED	Cari Hesap	Cari Hesap		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-OurAgent	Our Agent	Our Agent	REPLACE_UNTRANSLATED	Temsilcimiz	Temsilcimiz		
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-TheirAgent	Their Agent	Their Agent	REPLACE_UNTRANSLATED	Karşı Tarafın Temsilcisi	Karşı Tarafın Temsilcisi		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-Instructions	Instructions	Instructions	REPLACE_UNTRANSLATED	Talimatlar	Talimatlar		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-ExternalTxnLogicalReference	Ext. Logical Reference	Ext. Logical Reference	REPLACE_UNTRANSLATED	Har. Mantıksal Referans	Har. Mantıksal Referans		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-TawarruqContractDate	Counterparty Contract Date	Counterparty Contract Date	REPLACE_UNTRANSLATED	Karşı Kurum Sözleşme Tarihi	Karşı Kurum Sözleşme Tarihi		
+pages/treasury/tawarruq/tawarruq	dgTawarruq-ExternalTxnAmount	Amount	Amount	REPLACE_UNTRANSLATED	Tutar	Tutar		GENERIC_EN
+pages/treasury/tawarruq/tawarruq	dgTawarruq-ExternalTxnDirectionCode	Transaction Direct Code	Transaction Direct Code	REPLACE_UNTRANSLATED	Doğrudan İşlem Kodu	Doğrudan İşlem Kodu		
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-LogicalReference	Logical Reference	Logical Reference	REPLACE_UNTRANSLATED	Mantıksal Referans	Mantıksal Referans		
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-ExternalTxnLogicalReference	Ext. Logical Reference	Ext. Logical Reference	REPLACE_UNTRANSLATED	Har. Mantıksal Referans	Har. Mantıksal Referans		
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-PortfolioName	Portfolio	Portfolio	REPLACE_UNTRANSLATED	Portföy	Portföy		
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-CustomerName	Counterparty	Counterparty	REPLACE_UNTRANSLATED	Karşı Kurum	Karşı Kurum		KEY_EN_MISMATCH
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-InputDate	Input Date	Input Date	REPLACE_UNTRANSLATED	Giriş Tarihi	Giriş Tarihi		
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-TawarruqContractDate	Counterparty Contract Date	Counterparty Contract Date	REPLACE_UNTRANSLATED	Karşı Kurum Sözleşme Tarihi	Karşı Kurum Sözleşme Tarihi		
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-ValueDate	Tawarruq Date	Tawarruq Date	REPLACE_UNTRANSLATED	Teverruk Tarihi	Teverruk Tarihi		
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-ExternalTxnAmount	Amount	Amount	REPLACE_UNTRANSLATED	Tutar	Tutar		GENERIC_EN
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-PMCCy	PM Currency	PM Currency	REPLACE_UNTRANSLATED	KM Para Birimi	KM Para Birimi		KEY_EN_MISMATCH
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-OunceDealRate	Ounce Deal Rate	Ounce Deal Rate	REPLACE_UNTRANSLATED	Ons İşlem Oranı	Ons İşlem Oranı		
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-OunceAmount	Ounce Amount	Ounce Amount	REPLACE_UNTRANSLATED	Ons Tutarı	Ons Tutarı		
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-GramAmount	Gram Amount	Gram Amount	REPLACE_UNTRANSLATED	Gram Tutarı	Gram Tutarı		
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-ExternalTxnDirectionCode	Transaction Direct Code	Transaction Direct Code	REPLACE_UNTRANSLATED	Doğrudan İşlem Kodu	Doğrudan İşlem Kodu		
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-Trader	Trader	Trader	REPLACE_UNTRANSLATED	İşlemci	İşlemci		
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-Instructions	Instructions	Instructions	REPLACE_UNTRANSLATED	Talimatlar	Talimatlar		
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-BusinessKey	Business Key	Business Key	REPLACE_UNTRANSLATED	İş Anahtarı	İş Anahtarı		
+pages/definitions/product-types/mm-product	dgProductDefinitions-pageTitle	Product Definition	Product Definition	REPLACE_UNTRANSLATED	Ürün Tanımı	Ürün Tanımı		
+pages/definitions/product-types/mm-product	dgProductDefinitions-popupTitle	Product Definition	Product Definition	REPLACE_UNTRANSLATED	Ürün Tanımı	Ürün Tanımı		
+pages/definitions/product-types/mm-product	dgProductDefinitions-Id	Id	Id	REPLACE_UNTRANSLATED	Kimlik	Kimlik		SHORT_EN
+pages/definitions/product-types/mm-product	dgProductDefinitions-ProductDefinitionId	Product Definition Id	Product Definition Id	REPLACE_UNTRANSLATED	Ürün Tanımı Kimliği	Ürün Tanımı Kimliği		
+pages/definitions/product-types/mm-product	dgProductDefinitions-Code	Code	Code	REPLACE_UNTRANSLATED	Kod	Kod		GENERIC_EN
+pages/definitions/product-types/mm-product	dgProductDefinitions-Name	Name	Name	REPLACE_UNTRANSLATED	Ad	Ad		GENERIC_EN
+pages/definitions/product-types/mm-product	dgProductDefinitions-AccountingMapCode	Accounting Code	Accounting Code	REPLACE_UNTRANSLATED	Muhasebe Kodu	Muhasebe Kodu		
+pages/definitions/product-types/mm-product	dgProductDefinitions-LogicalReferenceTypeCode	Logical Reference Code	Logical Reference Code	REPLACE_UNTRANSLATED	Mantıksal Referans Kodu	Mantıksal Referans Kodu		
+pages/definitions/product-types/mm-product	dgProductDefinitions-MainProductCode	Main Product Code	Main Product Code	REPLACE_UNTRANSLATED	Ana Ürün Kodu	Ana Ürün Kodu		
+pages/definitions/product-types/mm-product	dgProductDefinitions-ExternalMainProductCode	External Main Product Code	External Main Product Code	REPLACE_UNTRANSLATED	Harici Ana Ürün Kodu	Harici Ana Ürün Kodu		
+pages/definitions/product-types/mm-product	dgProductDefinitions-ExternalSubProductCode	External Sub Product Code	External Sub Product Code	REPLACE_UNTRANSLATED	Harici Alt Ürün Kodu	Harici Alt Ürün Kodu		
+pages/definitions/product-types/mm-product	dgProductDefinitions-UseFundSource	Use Fund Source	Use Fund Source	REPLACE_UNTRANSLATED	Fon Kaynağını Kullan	Fon Kaynağını Kullan		
+pages/definitions/product-types/mm-product	dgProductDefinitions-UseSubFundSource	Use Sub Fund Source	Use Sub Fund Source	REPLACE_UNTRANSLATED	Alt Fon Kaynağını Kullan	Alt Fon Kaynağını Kullan		
+pages/definitions/product-types/mm-product	dgProductDefinitions-UseOnUnitValue	Use On Unit Value	Use On Unit Value	REPLACE_UNTRANSLATED	Birim Değeri Kullan	Birim Değeri Kullan		
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsBorrowing	Is Borrowing	Is Borrowing	REPLACE_UNTRANSLATED	Borçlanma mı	Borçlanma mı		
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsPlacement	Is Placement	Is Placement	REPLACE_UNTRANSLATED	Plasman mı	Plasman mı		
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsAccountNeeded	Is AccountNeeded	Is AccountNeeded	REPLACE_UNTRANSLATED	Hesap Gerekli mi	Hesap Gerekli mi		
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsAllowRollover	Is Allow Rollover	Is Allow Rollover	REPLACE_UNTRANSLATED	Vade Yenilemeye İzin Veriliyor mu?	Vade Yenilemeye İzin Veriliyor mu?		
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsMarketCommissionApplicable	Is Is Market Commission Applicable	Is Is Market Commission Applicable	REPLACE_UNTRANSLATED	Piyasa Komisyonu Uygulanabilir mi	Piyasa Komisyonu Uygulanabilir mi		
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsAllowBrokerage	Is Allow Brokerage	Is Allow Brokerage	REPLACE_UNTRANSLATED	Aracılığa İzin Veriliyor mu	Aracılığa İzin Veriliyor mu		
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsAllowTawarruq	Is Allow Tawarruq	Is Allow Tawarruq	REPLACE_UNTRANSLATED	Teverruk'a İzin Veriliyor mu	Teverruk'a İzin Veriliyor mu		
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsMultiplePayment	Is Multiple Payment	Is Multiple Payment	REPLACE_UNTRANSLATED	Çoklu Ödeme mi	Çoklu Ödeme mi		
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsTaxApplicable	Is Tax Applicable	Is Tax Applicable	REPLACE_UNTRANSLATED	Vergi Uygulanabilir mi	Vergi Uygulanabilir mi		
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsUseTxnGLCode	Is Use Txn GL Code	Is Use Txn GL Code	REPLACE_UNTRANSLATED	İşlem Muhasebe Kodu Kullanılsın mı?	İşlem Muhasebe Kodu Kullanılsın mı?		
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsCollateralized	Is Collateralized	Is Collateralized	REPLACE_UNTRANSLATED	Teminatlı mı	Teminatlı mı		
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsIntraBank	Is Intra Bank	Is Intra Bank	REPLACE_UNTRANSLATED	Banka İçi mi	Banka İçi mi		
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsSameDay	Is Same Day	Is Same Day	REPLACE_UNTRANSLATED	Aynı Gün mü	Aynı Gün mü		
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsZeroRate	Is Zero Rate	Is Zero Rate	REPLACE_UNTRANSLATED	Sıfır Oran mı	Sıfır Oran mı		
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsGenerateFWDAccounting	Generate FWD Accounting	Generate FWD Accounting	REPLACE_UNTRANSLATED	İleriye Yönelik Muhasebe Oluşturma	İleriye Yönelik Muhasebe Oluşturma		
+pages/definitions/product-types/mm-product	dgProductDefinitions-AccountingCalculationMethodTypeName	Calculation Method	Calculation Method	REPLACE_UNTRANSLATED	Hesaplama Yöntemi	Hesaplama Yöntemi		
+pages/definitions/product-types/mm-product	dgProductDefinitions-AccountSelectionTypeName	Account Selection Type	Account Selection Type	REPLACE_UNTRANSLATED	Hesap Seçim Türü	Hesap Seçim Türü		
+pages/definitions/product-types/mm-product	dgProductDefinitions-Order	Order	Order	REPLACE_UNTRANSLATED	Emir	Emir		
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsEnabled	Is Enabled	Is Enabled	REPLACE_UNTRANSLATED	Etkin mi	Etkin mi		
+pages/definitions/product-types/mm-product	frmProductDefinition-Tab1Title	General	General	REPLACE_UNTRANSLATED	Genel	Genel		KEY_EN_MISMATCH
+pages/definitions/product-types/mm-product	frmProductDefinition-Tab2Title	Markets	Markets	REPLACE_UNTRANSLATED	Piyasalar	Piyasalar		KEY_EN_MISMATCH
+pages/definitions/product-types/mm-product	frmProductDefinition-Code	Code	Code	REPLACE_UNTRANSLATED	Kod	Kod		GENERIC_EN
+pages/definitions/product-types/mm-product	frmProductDefinition-Name	Name	Name	REPLACE_UNTRANSLATED	Ad	Ad		GENERIC_EN
+pages/definitions/product-types/mm-product	frmProductDefinition-AccountingMapCode	Accounting Code	Accounting Code	REPLACE_UNTRANSLATED	Muhasebe Kodu	Muhasebe Kodu		
+pages/definitions/product-types/mm-product	frmProductDefinition-LogicalReferenceTypeId	LogicalReferenceTypeId	LogicalReferenceTypeId	REPLACE_UNTRANSLATED	Mantıksal Referans Türü Kimliği	Mantıksal Referans Türü Kimliği		KEY_EN_MISMATCH
+pages/definitions/product-types/mm-product	frmProductDefinition-MainProductCode	Main Product Code	Main Product Code	REPLACE_UNTRANSLATED	Ana Ürün Kodu	Ana Ürün Kodu		
+pages/definitions/product-types/mm-product	frmProductDefinition-ExternalMainProductCode	External Main Product Code	External Main Product Code	REPLACE_UNTRANSLATED	Harici Ana Ürün Kodu	Harici Ana Ürün Kodu		
+pages/definitions/product-types/mm-product	frmProductDefinition-ExternalSubProductCode	External Sub Product Code	External Sub Product Code	REPLACE_UNTRANSLATED	Harici Alt Ürün Kodu	Harici Alt Ürün Kodu		
+pages/definitions/product-types/mm-product	frmProductDefinition-UseFundSource	Use Fund Source	Use Fund Source	REPLACE_UNTRANSLATED	Fon Kaynağını Kullan	Fon Kaynağını Kullan		
+pages/definitions/product-types/mm-product	frmProductDefinition-UseSubFundSource	Use Sub Fund Source	Use Sub Fund Source	REPLACE_UNTRANSLATED	Alt Fon Kaynağını Kullan	Alt Fon Kaynağını Kullan		
+pages/definitions/product-types/mm-product	frmProductDefinition-UseOnUnitValue	Use On Unit Value	Use On Unit Value	REPLACE_UNTRANSLATED	Birim Değeri Kullan	Birim Değeri Kullan		
+pages/definitions/product-types/mm-product	frmProductDefinition-IsBorrowing	Is Borrowing	Is Borrowing	REPLACE_UNTRANSLATED	Borçlanma mı	Borçlanma mı		
+pages/definitions/product-types/mm-product	frmProductDefinition-IsPlacement	Is Placement	Is Placement	REPLACE_UNTRANSLATED	Plasman mı	Plasman mı		
+pages/definitions/product-types/mm-product	frmProductDefinition-IsAccountNeeded	Is Account Needed	Is Account Needed	REPLACE_UNTRANSLATED	Hesap Gerekli mi	Hesap Gerekli mi		
+pages/definitions/product-types/mm-product	frmProductDefinition-IsAllowRollover	Is Allow Rollover	Is Allow Rollover	REPLACE_UNTRANSLATED	Vade Yenilemeye İzin Veriliyor mu?	Vade Yenilemeye İzin Veriliyor mu?		
+pages/definitions/product-types/mm-product	frmProductDefinition-IsMarketCommissionApplicable	Is Market Commission Applicable	Is Market Commission Applicable	REPLACE_UNTRANSLATED	Piyasa Komisyonu Uygulanıyor mu?	Piyasa Komisyonu Uygulanıyor mu?		
+pages/definitions/product-types/mm-product	frmProductDefinition-IsAllowBrokerage	Is Allow Brokerage	Is Allow Brokerage	REPLACE_UNTRANSLATED	Aracılığa İzin Veriliyor mu	Aracılığa İzin Veriliyor mu		
+pages/definitions/product-types/mm-product	frmProductDefinition-IsAllowTawarruq	Is Allow Tawarruq	Is Allow Tawarruq	REPLACE_UNTRANSLATED	Teverruk'a İzin Veriliyor mu	Teverruk'a İzin Veriliyor mu		
+pages/definitions/product-types/mm-product	frmProductDefinition-IsMultiplePayment	Is Multiple Payment	Is Multiple Payment	REPLACE_UNTRANSLATED	Çoklu Ödeme mi	Çoklu Ödeme mi		
+pages/definitions/product-types/mm-product	frmProductDefinition-IsTaxApplicable	Is Tax Applicable	Is Tax Applicable	REPLACE_UNTRANSLATED	Vergi Uygulanabilir mi	Vergi Uygulanabilir mi		
+pages/definitions/product-types/mm-product	frmProductDefinition-IsUseTxnGLCode	Is Use Txn GL Code	Is Use Txn GL Code	REPLACE_UNTRANSLATED	İşlem Muhasebe Kodu Kullanılsın mı?	İşlem Muhasebe Kodu Kullanılsın mı?		
+pages/definitions/product-types/mm-product	frmProductDefinition-IsCollateralized	Is Collateralized	Is Collateralized	REPLACE_UNTRANSLATED	Teminatlı mı	Teminatlı mı		
+pages/definitions/product-types/mm-product	frmProductDefinition-IsIntraBank	Is Intra Bank	Is Intra Bank	REPLACE_UNTRANSLATED	Banka İçi mi	Banka İçi mi		
+pages/definitions/product-types/mm-product	frmProductDefinition-IsSameDay	Is Same Day	Is Same Day	REPLACE_UNTRANSLATED	Aynı Gün mü	Aynı Gün mü		
+pages/definitions/product-types/mm-product	frmProductDefinition-IsZeroRate	Is Zero Rate	Is Zero Rate	REPLACE_UNTRANSLATED	Sıfır Oran mı	Sıfır Oran mı		
+pages/definitions/product-types/mm-product	frmProductDefinition-IsGenerateFWDAccounting	Generate FWD Accounting	Generate FWD Accounting	REPLACE_UNTRANSLATED	İleriye Yönelik Muhasebe Oluşturma	İleriye Yönelik Muhasebe Oluşturma		
+pages/definitions/product-types/mm-product	frmProductDefinition-AccountingCalculationMethodTypeId	Calculation Method	Calculation Method	REPLACE_UNTRANSLATED	Hesaplama Yöntemi	Hesaplama Yöntemi		
+pages/definitions/product-types/mm-product	frmProductDefinition-AccountSelectionTypeId	Account Selection	Account Selection	REPLACE_UNTRANSLATED	Hesap Seçimi	Hesap Seçimi		
+pages/definitions/product-types/mm-product	frmProductDefinition-Order	Order	Order	REPLACE_UNTRANSLATED	Emir	Emir		
+pages/definitions/product-types/mm-product	frmProductDefinition-IsEnabled	Is Enabled	Is Enabled	REPLACE_UNTRANSLATED	Etkin mi	Etkin mi		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-Tab1Title	General	General	REPLACE_UNTRANSLATED	Genel	Genel		KEY_EN_MISMATCH
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-Tab2Title	Markets	Markets	REPLACE_UNTRANSLATED	Piyasalar	Piyasalar		KEY_EN_MISMATCH
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-Code	Code	Code	REPLACE_UNTRANSLATED	Kod	Kod		GENERIC_EN
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-Name	Name	Name	REPLACE_UNTRANSLATED	Ad	Ad		GENERIC_EN
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-AccountingMapCode	Accounting Code	Accounting Code	REPLACE_UNTRANSLATED	Muhasebe Kodu	Muhasebe Kodu		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-MainProductCode	Main Product Code	Main Product Code	REPLACE_UNTRANSLATED	Ana Ürün Kodu	Ana Ürün Kodu		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-ExternalMainProductCode	External Main Product Code	External Main Product Code	REPLACE_UNTRANSLATED	Harici Ana Ürün Kodu	Harici Ana Ürün Kodu		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-ExternalSubProductCode	External Sub Product Code	External Sub Product Code	REPLACE_UNTRANSLATED	Harici Alt Ürün Kodu	Harici Alt Ürün Kodu		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-UseFundSource	Use Fund Source	Use Fund Source	REPLACE_UNTRANSLATED	Fon Kaynağını Kullan	Fon Kaynağını Kullan		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-UseSubFundSource	Use Sub Fund Source	Use Sub Fund Source	REPLACE_UNTRANSLATED	Alt Fon Kaynağını Kullan	Alt Fon Kaynağını Kullan		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-UseOnUnitValue	Use On Unit Value	Use On Unit Value	REPLACE_UNTRANSLATED	Birim Değeri Kullan	Birim Değeri Kullan		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsBorrowing	Is Borrowing	Is Borrowing	REPLACE_UNTRANSLATED	Borçlanma mı	Borçlanma mı		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsPlacement	Is Placement	Is Placement	REPLACE_UNTRANSLATED	Plasman mı	Plasman mı		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsAccountNeeded	Is AccountNeeded	Is AccountNeeded	REPLACE_UNTRANSLATED	Hesap Gerekli mi	Hesap Gerekli mi		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsAllowRollover	Is Allow Rollover	Is Allow Rollover	REPLACE_UNTRANSLATED	Vade Yenilemeye İzin Veriliyor mu?	Vade Yenilemeye İzin Veriliyor mu?		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsMarketCommissionApplicable	Is Market Commission Applicable	Is Market Commission Applicable	REPLACE_UNTRANSLATED	Piyasa Komisyonu Uygulanıyor mu?	Piyasa Komisyonu Uygulanıyor mu?		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsAllowBrokerage	Is Allow Brokerage	Is Allow Brokerage	REPLACE_UNTRANSLATED	Aracılığa İzin Veriliyor mu	Aracılığa İzin Veriliyor mu		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsAllowTawarruq	Is Allow Tawarruq	Is Allow Tawarruq	REPLACE_UNTRANSLATED	Teverruk'a İzin Veriliyor mu	Teverruk'a İzin Veriliyor mu		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsMultiplePayment	Is Multiple Payment	Is Multiple Payment	REPLACE_UNTRANSLATED	Çoklu Ödeme mi	Çoklu Ödeme mi		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsTaxApplicable	Is Tax Applicable	Is Tax Applicable	REPLACE_UNTRANSLATED	Vergi Uygulanabilir mi	Vergi Uygulanabilir mi		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsUseTxnGLCode	Is Use Txn GL Code	Is Use Txn GL Code	REPLACE_UNTRANSLATED	İşlem Muhasebe Kodu Kullanılsın mı?	İşlem Muhasebe Kodu Kullanılsın mı?		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsCollateralized	Is Collateralized	Is Collateralized	REPLACE_UNTRANSLATED	Teminatlı mı	Teminatlı mı		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsIntraBank	Is Intra Bank	Is Intra Bank	REPLACE_UNTRANSLATED	Banka İçi mi	Banka İçi mi		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsSameDay	Is Same Day	Is Same Day	REPLACE_UNTRANSLATED	Aynı Gün mü	Aynı Gün mü		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsZeroRate	Is Zero Rate	Is Zero Rate	REPLACE_UNTRANSLATED	Sıfır Oran mı	Sıfır Oran mı		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsGenerateFWDAccounting	Generate FWD Accounting	Generate FWD Accounting	REPLACE_UNTRANSLATED	İleriye Yönelik Muhasebe Oluşturma	İleriye Yönelik Muhasebe Oluşturma		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-AccountingCalculationMethodTypeName	Calculation Method	Calculation Method	REPLACE_UNTRANSLATED	Hesaplama Yöntemi	Hesaplama Yöntemi		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-AccountSelectionTypeName	Account Selection	Account Selection	REPLACE_UNTRANSLATED	Hesap Seçimi	Hesap Seçimi		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-Order	Order	Order	REPLACE_UNTRANSLATED	Emir	Emir		
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsEnabled	Is Enabled	Is Enabled	REPLACE_UNTRANSLATED	Etkin mi	Etkin mi		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-pageTitle	Money Market Revaluation	Money Market Revaluation	NO_GLOSSARY				
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-CalculationDate	Report Date	Report Date	REPLACE_UNTRANSLATED	Rapor Tarihi	Rapor Tarihi		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-LogicalReference	Logical Reference	Logical Reference	REPLACE_UNTRANSLATED	Mantıksal Referans	Mantıksal Referans		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-DirectionName	Direction Name	Direction Name	REPLACE_UNTRANSLATED	Yön Adı	Yön Adı		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-ProductName	Product Name	Product Name	REPLACE_UNTRANSLATED	Ürün Adı	Ürün Adı		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-CustomerName	Customer Name	Customer Name	REPLACE_UNTRANSLATED	Müşteri Adı	Müşteri Adı		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-MarketCode	Market	Market	REPLACE_UNTRANSLATED	Piyasa	Piyasa		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-Ccy	CCY	CCY	REPLACE_UNTRANSLATED	Para Birimi	Para Birimi		SHORT_EN
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-InputDate	Input Date	Input Date	REPLACE_UNTRANSLATED	Giriş Tarihi	Giriş Tarihi		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-TradeDate	Trade Date	Trade Date	REPLACE_UNTRANSLATED	İşlem Tarihi	İşlem Tarihi		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-ValueDate	Value Date	Value Date	REPLACE_UNTRANSLATED	Valör Tarihi	Valör Tarihi		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-MaturityDate	Maturity Date	Maturity Date	REPLACE_UNTRANSLATED	Vade Tarihi	Vade Tarihi		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-DealAmount	Deal Amount	Deal Amount	REPLACE_UNTRANSLATED	İşlem Tutarı	İşlem Tutarı		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-MaturityAmount	Maturity Amount	Maturity Amount	REPLACE_UNTRANSLATED	Vade Tutarı	Vade Tutarı		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-InterestRate	Rate	Rate	REPLACE_UNTRANSLATED	Kur	Kur		GENERIC_EN
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-FXRate	FX Rate	FX Rate	REPLACE_UNTRANSLATED	Döviz Kuru	Döviz Kuru		KEY_EN_MISMATCH
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-AccrualAmount	Accrual Amount	Accrual Amount	REPLACE_UNTRANSLATED	Reeskont Tutarı	Reeskont Tutarı		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-AccrualAmountLCY	Accrual Amount LCY	Accrual Amount LCY	REPLACE_UNTRANSLATED	Reeskont Tutarı (LPB)	Reeskont Tutarı (LPB)		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-AccrualAmountSL	Accrual Amount SL	Accrual Amount SL	REPLACE_UNTRANSLATED	Reeskont Tutarı (BL)	Reeskont Tutarı (BL)		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-AccrualAmountIRRCL	Accrual Amount IRR (CL)	Accrual Amount IRR (CL)	REPLACE_UNTRANSLATED	Reeskont Tutarı İGO (DB)	Reeskont Tutarı İGO (DB)		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-PeriodStartDate	Period Start Date	Period Start Date	REPLACE_UNTRANSLATED	Dönem Başlangıç Tarihi	Dönem Başlangıç Tarihi		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-PeriodEndDate	Period End Date	Period End Date	REPLACE_UNTRANSLATED	Dönem Bitiş Tarihi	Dönem Bitiş Tarihi		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-PeriodAmount	Period Amount	Period Amount	REPLACE_UNTRANSLATED	Dönem Tutarı	Dönem Tutarı		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-AccrualDay	Accrual Day	Accrual Day	REPLACE_UNTRANSLATED	Reeskont Günü	Reeskont Günü		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-DaysToMaturation	Days To Maturation	Days To Maturation	REPLACE_UNTRANSLATED	Vadeye Kalan Gün Sayısı	Vadeye Kalan Gün Sayısı		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-DaysToPeriodEndDate	Days To Period End Date	Days To Period End Date	REPLACE_UNTRANSLATED	Dönem Bitiş Tarihine Kalan Gün Sayısı	Dönem Bitiş Tarihine Kalan Gün Sayısı		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-ExternalCustomerId	External Customer Id	External Customer Id	REPLACE_UNTRANSLATED	Harici Müşteri Kimliği	Harici Müşteri Kimliği		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-AccountNumber	Account Number	Account Number	REPLACE_UNTRANSLATED	Hesap Numarası	Hesap Numarası		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-CorporateTypeName	Corporate Type	Corporate Type	REPLACE_UNTRANSLATED	Kurumsal Türü	Kurumsal Türü		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-CorporateDetailTypeName	Corporate Detail Type	Corporate Detail Type	REPLACE_UNTRANSLATED	Kurumsal Detay Türü	Kurumsal Detay Türü		
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-Id	Id	Id	REPLACE_UNTRANSLATED	Kimlik	Kimlik		SHORT_EN
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-ReportDate	Report Date	Report Date	REPLACE_UNTRANSLATED	Rapor Tarihi	Rapor Tarihi		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-pageTitle	Interbank Loan Revaluation Report	Interbank Loan Revaluation Report	REPLACE_UNTRANSLATED	Bankalararası Kredi Yeniden Değerleme Raporu	Bankalararası Kredi Yeniden Değerleme Raporu		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-ReportDate	Report Date	Report Date	REPLACE_UNTRANSLATED	Rapor Tarihi	Rapor Tarihi		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-StartDate	Start Date	Start Date	REPLACE_UNTRANSLATED	Başlangıç Tarihi	Başlangıç Tarihi		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-EndDate	End Date	End Date	REPLACE_UNTRANSLATED	Bitiş Tarihi	Bitiş Tarihi		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-MarketCode	Market	Market	REPLACE_UNTRANSLATED	Piyasa	Piyasa		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-TxnTypeCode	Direction	Direction	REPLACE_UNTRANSLATED	Yön	Yön		KEY_EN_MISMATCH
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-Id	Id	Id	REPLACE_UNTRANSLATED	Kimlik	Kimlik		SHORT_EN
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-CalculationDate	Report Date	Report Date	REPLACE_UNTRANSLATED	Rapor Tarihi	Rapor Tarihi		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-LogicalReference	Logical Reference	Logical Reference	REPLACE_UNTRANSLATED	Mantıksal Referans	Mantıksal Referans		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PrincipalAmount	Principal Amount	Principal Amount	REPLACE_UNTRANSLATED	Anapara Tutarı	Anapara Tutarı		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-Direction	Direction	Direction	REPLACE_UNTRANSLATED	Yön	Yön		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-ProductDefinitionName	Product	Product	REPLACE_UNTRANSLATED	Ürün	Ürün		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-CustomerName	Customer	Customer	REPLACE_UNTRANSLATED	Müşteri	Müşteri		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodNumber	Period No	Period No	REPLACE_UNTRANSLATED	Dönem Numarası	Dönem Numarası		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-CurrencyCode	CCY	CCY	REPLACE_UNTRANSLATED	Para Birimi	Para Birimi		KEY_EN_MISMATCH
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-InputDateTime	Input Date Time	Input Date Time	REPLACE_UNTRANSLATED	Giriş Tarihi ve Saati	Giriş Tarihi ve Saati		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodStartDate	Period Start Date	Period Start Date	REPLACE_UNTRANSLATED	Dönem Başlangıç Tarihi	Dönem Başlangıç Tarihi		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodEndDate	Period End Date	Period End Date	REPLACE_UNTRANSLATED	Dönem Bitiş Tarihi	Dönem Bitiş Tarihi		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodPaymentDate	Period Payment Date	Period Payment Date	REPLACE_UNTRANSLATED	Dönem Ödeme Tarihi	Dönem Ödeme Tarihi		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodRate	Period Rate	Period Rate	REPLACE_UNTRANSLATED	Dönem Oranı	Dönem Oranı		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAmount	Period Amount	Period Amount	REPLACE_UNTRANSLATED	Dönem Tutarı	Dönem Tutarı		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodCCY	Period CCY	Period CCY	REPLACE_UNTRANSLATED	Dönem Para Birimi	Dönem Para Birimi		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAmountLCY	Period Amount LCY	Period Amount LCY	REPLACE_UNTRANSLATED	Dönem Tutarı LPB	Dönem Tutarı LPB		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodLCY	Period LCY	Period LCY	REPLACE_UNTRANSLATED	Dönem LPB	Dönem LPB		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualRate	Period Accrual Rate	Period Accrual Rate	REPLACE_UNTRANSLATED	Dönem Reeskont Oranı	Dönem Reeskont Oranı		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualAmountIRR	Period Accrual Amount IRR	Period Accrual Amount IRR	REPLACE_UNTRANSLATED	Dönem Reeskont Tutarı İGO	Dönem Reeskont Tutarı İGO		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualAmountSL	Period Accrual Amount SL	Period Accrual Amount SL	REPLACE_UNTRANSLATED	Dönem Reeskont Tutarı BL	Dönem Reeskont Tutarı BL		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualAmountCCY	Period Accrual Amount CCY	Period Accrual Amount CCY	REPLACE_UNTRANSLATED	Dönem Reeskont Tutarı Yabancı Para Birimi	Dönem Reeskont Tutarı Yabancı Para Birimi		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualAmountIRRLCY	Period Accrual Amount IRR LCY	Period Accrual Amount IRR LCY	REPLACE_UNTRANSLATED	Dönem Reeskont Tutarı İGO LPB	Dönem Reeskont Tutarı İGO LPB		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualAmountSLLCY	Period Accrual Amount SL LCY	Period Accrual Amount SL LCY	REPLACE_UNTRANSLATED	Dönem Reeskont Tutarı BL LPB	Dönem Reeskont Tutarı BL LPB		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualAmountLCY	Period Accrual Amount LCY	Period Accrual Amount LCY	REPLACE_UNTRANSLATED	Dönem Reeskont Tutarı LPB	Dönem Reeskont Tutarı LPB		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PrincipalAmountNPV	Principal Amount NPV	Principal Amount NPV	REPLACE_UNTRANSLATED	Anapara Tutarı NBD	Anapara Tutarı NBD		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PrincipalAmountNPVCCY	Principal Amount NPV CCY	Principal Amount NPV CCY	REPLACE_UNTRANSLATED	Anapara Tutarı NBD YPB	Anapara Tutarı NBD YPB		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PrincipalAmountNPVLCY	Principal Amount NPV LCY	Principal Amount NPV LCY	REPLACE_UNTRANSLATED	Anapara Tutarı NBD LPB	Anapara Tutarı NBD LPB		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PrincipalAmountNPVLCYCode	Principal Amount NPV LCY Code	Principal Amount NPV LCY Code	REPLACE_UNTRANSLATED	Anapara Tutarı NBD LPB Kodu	Anapara Tutarı NBD LPB Kodu		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-TotalAmountNPV	Total Amount NPV	Total Amount NPV	REPLACE_UNTRANSLATED	Toplam Tutar NBD	Toplam Tutar NBD		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-TotalAmountNPVCCY	Total Amount NPV CCY	Total Amount NPV CCY	REPLACE_UNTRANSLATED	Toplam Tutar NBD YPB	Toplam Tutar NBD YPB		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-TotalAmountNPVLCY	Total Amount NPV LCY	Total Amount NPV LCY	REPLACE_UNTRANSLATED	Toplam Tutar NBD LPB	Toplam Tutar NBD LPB		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-TotalAmountNPVLCYCode	Total Amount NPV LCY Code	Total Amount NPV LCY Code	REPLACE_UNTRANSLATED	Toplam Tutar NBD LPB Kodu	Toplam Tutar NBD LPB Kodu		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-AccrualSpotRate	Accrual Spot Rate	Accrual Spot Rate	REPLACE_UNTRANSLATED	Reeskont Spot Kuru	Reeskont Spot Kuru		
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-AccrualSpotRateABM	Accrual Spot Rate ABM	Accrual Spot Rate ABM	REPLACE_UNTRANSLATED	Reeskont Spot Kuru ABM	Reeskont Spot Kuru ABM		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-pageTitle	External MM Blotter	External MM Blotter	REPLACE_UNTRANSLATED	Harici MM İşlem Listesi	Harici MM İşlem Listesi		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-popupTitle	External MM Blotter	External MM Blotter	REPLACE_UNTRANSLATED	Harici MM İşlem Listesi	Harici MM İşlem Listesi		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-Id	Id	Id	REPLACE_UNTRANSLATED	Kimlik	Kimlik		SHORT_EN
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-Message	Message	Message	REPLACE_UNTRANSLATED	Mesaj	Mesaj		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-ParsedMessage	Parsed Message	Parsed Message	REPLACE_UNTRANSLATED	Ayrıştırılmış Mesaj	Ayrıştırılmış Mesaj		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-Reference	External Reference	External Reference	REPLACE_UNTRANSLATED	Harici Referans	Harici Referans		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-ExternalReferenceSourceName	External Source	External Source	REPLACE_UNTRANSLATED	Harici Kaynak	Harici Kaynak		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-ExternalReferenceSourceId	ExternalReferenceSourceId	ExternalReferenceSourceId	REPLACE_UNTRANSLATED	Harici Referans Kaynağı Kimliği	Harici Referans Kaynağı Kimliği		KEY_EN_MISMATCH
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-TxnStateId	TxnStateId	TxnStateId	REPLACE_UNTRANSLATED	İşlem Durumu Kimliği	İşlem Durumu Kimliği		KEY_EN_MISMATCH
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-Status	Sync	Sync	REPLACE_UNTRANSLATED	Senkronize Et	Senkronize Et		KEY_EN_MISMATCH
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-StateIdTxnName	Transaction State	Transaction State	REPLACE_UNTRANSLATED	İşlem Durumu	İşlem Durumu		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-CreatedTime	Capture Time	Capture Time	REPLACE_UNTRANSLATED	Yakalama Zamanı	Yakalama Zamanı		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-ResendTime	Resend Time	Resend Time	REPLACE_UNTRANSLATED	Yeniden Gönderme Zamanı	Yeniden Gönderme Zamanı		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-SyncStatus	Sync Status	Sync Status	REPLACE_UNTRANSLATED	Senkronizasyon Durumu	Senkronizasyon Durumu		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-SyncMessage	Sync Message	Sync Message	REPLACE_UNTRANSLATED	Senkronizasyon Mesajı	Senkronizasyon Mesajı		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-TransactionReference	Transaction Reference	Transaction Reference	REPLACE_UNTRANSLATED	İşlem Referansı	İşlem Referansı		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-TransactionStateDate	Transaction State Date	Transaction State Date	REPLACE_UNTRANSLATED	İşlem Durumu Tarihi	İşlem Durumu Tarihi		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dxMMFrmFilterStp-DataSource	External Source	External Source	REPLACE_UNTRANSLATED	Harici Kaynak	Harici Kaynak		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dxMMFrmFilterStp-StartDate	Start Date	Start Date	REPLACE_UNTRANSLATED	Başlangıç Tarihi	Başlangıç Tarihi		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dxMMFrmFilterStp-EndDate	End Date	End Date	REPLACE_UNTRANSLATED	Bitiş Tarihi	Bitiş Tarihi		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dxMMFrmFilterStp-Apply	Search	Search	REPLACE_UNTRANSLATED	Ara	Ara		KEY_EN_MISMATCH
+pages/reconciliation/platform-reconciliation/external-mm-stp	dxMMFrmFilterStp-SyncStatus	Sync Status	Sync Status	REPLACE_UNTRANSLATED	Senkronizasyon Durumu	Senkronizasyon Durumu		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-ExternalTransactionType	External Transaction Type	External Transaction Type	REPLACE_UNTRANSLATED	Harici İşlem Türü	Harici İşlem Türü		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-CoveredExecId	Covered Exec Id	Covered Exec Id	REPLACE_UNTRANSLATED	Karşılanan İşlem Numarası	Karşılanan İşlem Numarası		
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-Product	Product	Product	REPLACE_UNTRANSLATED	Ürün	Ürün		

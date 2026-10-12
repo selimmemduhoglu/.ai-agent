@@ -1,0 +1,66 @@
+Baslangic
+
+Follow
+0
+
+Edit
+
+
+Ege Bezirci
+14 Eyl
+NetTrex.Core
+NetTrex.Core, hazine modüllerinin paylaştığı altyapıyı NuGet paketleri olarak dağıtan bir depodur. Her paket kendi başına sürümlenir ve şirket içi Nexus feed'inden yayınlanır.
+
+Wiki paket başına bir bölüm taşır. Her bölümün giriş sayfasında kurulum, DI kaydı, konfigürasyon ve çalışan bir örnek bulunur; alt sayfalar kavram ve davranış anlatır.
+
+Paketler
+Paket	Sürüm	Ne verir
+NetTrex.Core.Data	10.0.9	Modüllerin paylaştığı tanım ve piyasa verisi tabloları, EF yapılandırmaları, Kafka senkron akışı.
+NetTrex.Core.Caching	10.0.7	İki katmanlı (L1 + Redis L2) önbellek store altyapısı, backplane, önbellek sağlığı.
+NetTrex.Core.Parameter	10.0.4	Framework parametreleri ve mantıksal tarih.
+NetTrex.Core.Batch	10.0.0	Batch iş altyapısı.
+NetTrex.Core.Common	10.0.0	Modüller arası ortak tipler.
+NetTrex.Core.Accounting.Engine	10.0.1	İşlem modelinden muhasebe fiş satırı üreten kural motoru.
+NetTrex.Core.CoreBanking	10.0.0	Çekirdek bankacılık entegrasyonu.
+NetTrex.Core.DocumentManagement	10.0.0	Doküman yönetimi.
+NetTrex.Core.Data ve NetTrex.Core.Accounting.Engine bölümleri yazılmış durumda. Diğer paketlerin tek dokümantasyonu IDE'de görünen XML dokümantasyonudur.
+
+Kurulum
+Bütün paketler şirket içi Nexus feed'inden gelir.
+
+dotnet add package NetTrex.Core.Data
+NuGet.config dosyasında NetTrexNuget feed tanımı yoksa restore paketi bulamaz:
+
+<add key="NetTrexNuget"
+     value="http://192.168.10.241:8081/repository/NetTrexNuget/index.json"
+     protocolVersion="3" allowInsecureConnections="true" />
+Sürümleme
+Paketler SemVer 2.0.0  izler ve birbirinden bağımsız sürümlenir. Sürüm numarası .csproj içindeki <Version> alanından gelir.
+
+MAJOR numarası hedef .NET sürümüyle hizalıdır: 10.x.y paketleri net10.0 hedefler.
+
+Her paketin sürüm notları kendi bölümünde tutulur ve Keep a Changelog  formatını izler. Kaynak kırılması yaratan değişiklikler o sayfanın Kaldırılanlar ve Değiştirilenler başlıkları altında, gerekçesi ve geçiş adımıyla birlikte durur.
+
+Bölüm yazma kuralları
+Yeni bir paket bölümü şu düzende açılır:
+
+Kök dizinde <Paket>.md — paketin giriş sayfası. Ne verdiği, kurulumu, DI kaydı, konfigürasyon tablosu ve baştan sona çalışan bir örnek burada durur.
+Aynı adlı bir klasör alt sayfaları taşır. TFS wiki klasörü giriş sayfasının çocukları olarak gösterir.
+Klasörün içindeki .order dosyası sıralamayı verir. Sıralama alfabetik değil, okuma sırasıdır.
+Her bölümde bir Surum-Notlari.md ve bir Sorun-Giderme.md bulunur.
+Paket, yukarıdaki tabloya bir satır olarak eklenir.
+Alt sayfa başına bir konu düşer: bir DI giriş noktası, bir servis arayüzü ya da bir kavram.
+
+Neyin yazıldığı, neyin yazılmadığı
+Wiki sayfası imza kopyalamaz. Metot imzası, parametre listesi ve tip alanları IDE'de XML dokümantasyonundan okunur; wiki'ye kopyalandıklarında ilk refactoring'de sessizce yanlış hâle gelirler ve kimse farketmez.
+
+İçerik	Yeri
+İmza, parametre anlamı, dönüş tipi, exception listesi	Kaynaktaki /// XML dokümantasyonu
+Kurulum, DI kaydı, konfigürasyon şablonu	Wiki giriş sayfası
+Bileşenlerin nasıl bağlandığı, akış sırası, yaşam döngüsü	Wiki alt sayfası
+Tasarım gerekçesi, bilinen sınırlama	Wiki alt sayfası
+İstisna → neden → çözüm	Sorun-Giderme.md
+Sürümler arası değişiklik ve geçiş adımı	Surum-Notlari.md
+Wiki'nin işi davranışı anlatmaktır: imzadan okunamayan yan etki, sıralama garantisi, önbellek ömrü, sezgiye aykırı dönüş. Bir metodun sezgiye aykırı davranışı kalın yazılır.
+
+Sayfa başına en fazla üç callout kullanılır ve başlık derinliği H3'ü aşmaz; fazlası okuyucunun gerçek uyarıyı atlamasına yol açar.

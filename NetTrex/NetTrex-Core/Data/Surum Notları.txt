@@ -1,0 +1,160 @@
+Surum Notlari
+
+Follow
+0
+
+Edit
+
+
+Ege Bezirci
+Yesterday
+Değişiklik Günlüğü
+Bu dosya Keep a Changelog  formatını, sürüm numaraları SemVer 2.0.0  kurallarını izler.
+
+Yayınlanmamış
+Eklenenler
+Yeni dilimler: CoreDataSlice.Market (1 << 19), TxnType (1 << 20), MarketCustomerMap (1 << 21); entity'leri MarketEntity, TxnTypeEntity, MarketCustomerMapEntity.
+Consumer topic'leri ve handler'ları: calendar-insert, calendar-delete, holiday-insert, holiday-delete, halfworkingday-insert, chart-insert, datebasis-insert, point-insert, customer-insert, corporate-type-insert, portfolio-insert, country-insert, market-insert, txn-insert, marketcustomermap-insert. Topic'ler CoreDataTopics.For çıktısına ilgili dilim seçildiğinde girer.
+Bu dilimler için data manager'lar (IHolidayDataManager, IHalfWorkingDayDataManager, ICountryDataManager, ICustomerDataManager, IPortfolioDataManager, IMarketDataManager, ITxnTypeDataManager, IMarketCustomerMapDataManager, ICorporateTypeDataManager, ICorporateDetailTypeDataManager, Chart, DateBasis ve Point manager'ları).
+CustomerEntity.TawarruqContractDate (date, boş geçilebilir). Bu dilimi kullanan modülde migration bu kolonu ekler.
+IMarketDataCacheInvalidator.InvalidateCalendar(string currencyCode). Takvim handler'ları commit sonrasında çağırır. Kırıcı değişiklik: üyenin varsayılan gövdesi yoktur; arayüzü implemente eden ve bu üyeyi uygulamayan sınıf derlenmez. Önceden arayüz iki üyeden (InvalidateInterestRateCurves, InvalidateVolatility) oluşuyordu. Geçiş: OptionsFX ve FX'teki MarketDataCacheInvalidator kopyaları kaldırılır; implementasyon Treasy.QuGet tarafından sağlanır.
+country-insert: İstekte Enabled boşsa ülke etkin (true) yazılır; bu, güncelleme için de geçerlidir.
+IDataManager<T> yüzeyine InsertRangeAsync(IReadOnlyCollection<T>, CancellationToken) ve IQueryable<T> Queryable() eklendi. Queryable() change tracker açık çalışır; filtre, sıralama ve state koşulu uygulamaz.
+Değiştirilenler
+Kırıcı değişiklik: IDataManager<T> yeni iki üye taşır (InsertRangeAsync, Queryable). IDataManager<T>'yi implemente eden sınıflar (örn. test sahteleri) iki üyeyi de uygular; uygulamayan sınıf derlenmez. ICalendarDataManager, IHolidayDataManager ve ICorporateDetailTypeDataManager kendi InsertRangeAsync'ini artık bildirmez; toplu ekleme taban arayüzden çağrılır.
+Tüm data manager kayıtları (22 arayüz) AddCoreData(IServiceCollection, IConfiguration) içinde TryAddScoped ile yapılır ve dilimden bağımsızdır. AddCoreDataConsumer(services, slices) yalnızca handler'ları (dilime göre) ve Mapster kayıtlarını yapar. Önceden AddCoreData yalnızca 7 manager kaydediyor, diğerleri AddCoreDataConsumer içinde dilime göre kaydediliyordu. Sonuç: AddCoreDataConsumer'a verilmeyen dilimlerin manager'ları da çözümlenir. AddCoreData çağrılmadan AddCoreDataConsumer çağıran modülde handler çözümlemesi hata verir; repository'ler için de durum aynıdır. AddCurrencyPairCache ICurrencyPairDataManager'ı hâlâ TryAdd eder; çift kayıt zararsızdır.
+AddCoreDataConsumer, TypeAdapterConfig.GlobalSettings'i (Singleton) ve IMapper → ServiceMapper eşlemesini (Scoped) TryAdd ile kaydeder.
+MarketCustomerMap.ModuleFlags EF yapılandırmasından HasDefaultValue(1) kaldırıldı; entity ve istekteki CLR varsayılanı = 1 kalır. HasDefaultValue(1) varken EF açıkça verilen 0'ı 'atanmamış' sayıp 1 yazıyordu. Modülün ürettiği migration kolondaki veritabanı varsayılan kısıtını düşürür.
+CurrencyPairDeleteRequest.IsCalculatedPair bool → bool? oldu (insert isteğiyle aynı). Kırıcı değişiklik: alanı bool olarak okuyan kod derlenmez; .Value ya da ?? false kullanılır.
+AddCoreDataConsumer açılışta IMarketDataCacheInvalidator kaydını denetlemez. Önceden InterestRate ya da Volatility dilimi seçildiğinde kaydın bu çağrıdan önce yapılmış olması aranıyor, yoksa InvalidOperationException fırlatılıyordu. Artık kayıt sırası fark etmez; kayıt yoksa faiz, volatilite ve takvim handler'ları ilk mesajda çözümlenemez.
+Kolon tanımları OptionsFX DDL'ine hizalandı. Bu dilimleri kullanan modülde migration farkı çıkar:
+SettlementType.Name ve PaymentInstructionType.Name uzunluğu 50 → 100; ExternalCode iki tabloda da boş geçilebilir (Kırıcı değişiklik: ExternalCode string → string?; alanı null olmayan sayan kod nullable uyarısı verir, null denetimi eklenir).
+Point.PointCode uzunluğu 20 → 10.
+InterestRateDetail.PointDate zorunlu (DateTime), LastUpdate varsayılanı getdate(). Kırıcı değişiklik: InterestRateDetailEntity.PointDate DateTime? → DateTime; .Value/.HasValue kullanan kod derlenmez, düz okumaya çevrilir.
+CurrencyPair.IsPM kolonu NOT NULL; CurrencyPairEntity.IsPM tipi bool? → bool. Alanı ?? ya da .Value ile okuyan kod derlenmez, düz okumaya çevrilir. CurrencyPairInsertRequest.IsPM bool? kalır; mesajda değer yoksa kolona NULL yerine false yazılır.
+StateMaker kolonu Chart, Currency, CurrencyPair, Point, InterestRate, Customer ve Portfolio tablolarında boş geçilebilir. StateId ve StateDate zorunlu kalır: IMakerCheckerEntity bu alanları non-nullable tanımlar.
+Kırıcı değişiklik: DDL'de boş geçilebilen kolonları taşıyan istek alanları nullable yapıldı; alanları non-nullable okuyan kod derlenmez, .Value ya da ?? eklenir; mesajda değer yoksa kolona 0/false yerine NULL yazılır: VolatilityRateDetailInsertRequest (DTM, AskRate, BidRate, HighRate, LowRate, OpenRate, CloseRate, AverageRate, RateSourceId), VolatilityRateInsertRequest.Description, CurrencyPairInsertRequest.IsCalculatedPair.
+Kaldırılanlar
+Kırıcı değişiklik: CoreDataSlice.VolatilityDefinitions dilimi ve bu dilimin dört entity'si (VolatilityTypeEntity, DeltaTypeEntity, VolatilityAssetTypeEntity, DataMarketEntity) ile EF yapılandırmaları kaldırıldı. 1 << 13 bit değeri yeniden kullanılmadı.
+Düzeltilenler
+InterestRateDetailInsertRequest.SymbolName istekte yoktu; Kafka'dan yazılan satırlarda kolon her zaman boş kalıyordu. Alan istek tipine eklendi.
+10.0.13 - 2026-09-21
+Değiştirilenler
+AddCurrencyPairCache çağrısı ICurrencyPairService kaydını Singleton olarak yapar; önceki sürümlerde kayıt Scoped'dı. ICurrencyPairStore (Singleton) ve ICurrencyPairDataManager (Scoped) kayıtları değişmedi.
+
+Gerekçe: CurrencyPairService durum taşımaz, okumayı ICurrencyPairStore'a delege eder ve store ilk sürümünden beri Singleton'dır. Scoped/Singleton sınırı bilinçli olarak store katmanında çizilidir — store, Scoped veri erişimine kendi içinde IServiceScopeFactory ile açtığı ayrı bir scope üzerinden iner. Servis kaydının da Scoped olması aynı sınırı ikinci kez, yanlış katmanda çiziyordu.
+
+Etkilenen ekipler: ICurrencyPairService artık Singleton bir sınıfa doğrudan enjekte edilebilir. Servisi kullanan fiyatlama motorları captive dependency uyarısından kaçınmak için Scoped'a çevrilmişti; bu kısıt kalktı. Mevcut Scoped tüketiciler için davranış değişikliği yoktur. Ayrıntı: ICurrencyPairService.
+
+10.0.12 - 2026-09-21
+Eklenenler
+NetTrex.Core.Data.Enums.PMUnitType — kıymetli maden tutarının troy ons (Ounce = 1) ya da gram (Gram = 2) cinsinden verildiğini taşıyan enum.
+
+Gerekçe: aynı enum NetTrex.OptionsFX.Data.Core ve Treasy.QuGet tarafında ayrı ayrı tanımlıydı. İkisini birden gören tüketici projelerde global using üzerinden CS0104 belirsizlik hatası çıkıyordu. Ortak tanım Treasy.QuGet'in de referans verdiği tek pakete, Core.Data'ya alındı.
+
+Etkilenen ekipler: kıymetli maden işlemi taşıyan modüller. Sayısal değerler OptionsFX tarafında veritabanı kolonuna yazıldığı için birebir korundu. Tip JsonStringEnumConverter taşımaz; mevcut API sözleşmeleri sayı serileştirmesini sürdürür. Ayrıntı: PMUnitType.
+
+10.0.11 - 2026-09-21
+Değiştirilenler
+Piyasa verisi okuyan manager metotları yalnızca onaylanmış ve silinmemiş kayıtları döner: ICurrencyPairDataManager.GetAll, IFxRateDataManager.GetRateAsync/GetCurveAsync (yalnızca Source = Database dalı), IInterestRateDataManager.GetRateAsync/GetCurve, IVolatilityRateDataManager.GetRateAsync/GetCurve. Filtre StateId üzerindeki Verified bayrağını arar, Deleted bayrağını dışlar.
+
+Gerekçe: maker-checker akışına giren 13 tablonun tamamı onay bekleyen ve silinmiş satırları aynı tabloda tutar. Filtre yokken bir kullanıcının kaydettiği, henüz kontrol edilmemiş kur fiyatlamaya giriyordu.
+
+Etkilenen ekipler: Treasy.QuGet üzerinden değerleme yapan modüller. Onay akışı işletilmeyen ortamlarda daha önce dönen satırlar artık dönmez. Filtreden geçen iki StateId değeri vardır: 18 (Input | Verified) ve 26 (Edited | Verified).
+
+FlowState enum üyeleri dokümante edildi.
+
+IsExistsAsync metotları filtre dışında bırakıldı. Kafka handler'ları upsert kararını bu metotla verir; filtrelenmiş bir kontrol silinmiş ya da onay bekleyen satırın üzerine ikinci bir kayıt açardı.
+
+Düzeltilenler
+IVolatilityRateDataManager.GetYieldDateAsync durum filtresi uygulamıyor. Metot yalnızca üst kaydın kimliğiyle sorgulanır.
+
+Silinmiş ya da onay bekleyen bir başlık kaydı için metot null dönüyordu; detay handler'ları null gelen tarihte önbellek düşürmeyi atladığı için eğri Duration dolana kadar (volatilite store'unda 2 saat) bayat kalıyordu. Aynı metodun faiz karşılığında filtre zaten yoktu.
+
+İkinci etki: kaldırılan filtre long sabitlerle yazılmıştı ve üretilen sorguya CAST([StateId] AS bigint) koyuyordu.
+
+10.0.10 - 2026-09-15
+Eklenenler
+IInterestRateDataManager.GetYieldDateAsync(int id, ct) ve IVolatilityRateDataManager.GetYieldDateAsync(long id, ct). Üst kaydın kimliğinden getiri tarihini çözer, kayıt yoksa null döner. Detay mesajları getiri tarihini taşımadığı için önbellek düşürme bu çözümlemeye dayanır.
+Düzeltilenler
+Faiz ve volatilite detay handler'ları (interestrate-detail-insert/-delete, volatilityratedetail-insert, volatilityrate-detail-delete) commit sonrası fiyatlama önbelleğini geçersiz kılıyor. Önceden yalnızca başlık handler'ları düşürüyordu.
+
+Gerekçe: başlık ve detaylar ayrı mesajlarla geliyor. Başlık mesajı detaylardan önce işlendiğinde başlık handler'ının geçersiz kılması detaylar yazılmadan gerçekleştiği için arada yapılan bir okuma önbelleği eksik eğriyle dolduruyor ve eksik eğri Duration dolana kadar (faiz ve volatilite store'larında 2 saat) servis ediliyordu.
+
+Etkilenen ekipler: Treasy.QuGet üzerinden değerleme yapan modüller. Güncelleme penceresinde ek yeniden hesaplama maliyeti oluşur — 12 pod ve 100 detaylı bir eğri ölçümünde, eğri kurulumu 100 ms sürdüğünde p99 gecikme 4,4 saniyeye çıkıyor.
+
+10.0.9 - 2026-09-09
+Eklenenler
+Kafka consumer katmanı. AddCoreDataConsumer(slices) seçili dilimlerin MediatR handler'larını ve Mapster eşlemelerini kaydeder; CoreDataTopics.For(slices) abone olunacak topic → mesaj tipi eşlemesini verir. Kapsanan topic'ler: currency-insert, currency-pair-insert/-delete, fxrate-insert, fxratedetail-insert/-delete, interestrate-insert, interestrate-detail-insert/-delete, volatilityRate-insert, volatilityratedetail-insert, volatilityrate-detail-delete.
+
+Bu handler'lar modüllerde elle yazılmış senkron kodunun karşılığıdır. Modül kendi handler'larını silip bu çağrıya geçebilir; topic adları birebir aynıdır.
+
+IMarketDataCacheInvalidator. Piyasa verisi yazıldıktan sonra tüketicinin fiyatlama önbelleğini düşürmesi için seam. InterestRate veya Volatility dilimi seçildiğinde bir implementasyonun AddCoreDataConsumer'dan önce kaydedilmesi zorunludur; kayıt yoksa çağrı açılışta InvalidOperationException fırlatır.
+
+Hiçbir şey yapmayan bir varsayılan sunulmadı: eksik kayıt, veri veritabanına yazılırken fiyatlamanın eski oranla yürümesi demektir ve bu hatanın açılışta değil değerleme yolunda ortaya çıkması kabul edilemez.
+
+ICurrencyPairService ve parite önbelleği. AddCurrencyPairCache(configuration) FusionCache tabanlı store'u ve servisi kaydeder. IsPairDefined, GetDefinition, GetHardCurrency, GetSwapPointFactor, IsPreciousMetal, InvalidateAll.
+
+AddCoreData'dan ayrı tutuldu: store Redis bağlantısını ve backplane zorunluluğunu bilmek ister, bunlar uygulamanın kendi yapılandırmasından gelir.
+
+IFXRateService. GetRateAsync tek pariteyi kaynaktan çeker, GetCachedRateAsync o (kaynak, chart, tarih) eğrisinin tamamını tek sorguda scope belleğine alır.
+
+CurrencyPairNotFoundException. ICurrencyPairService'in IsPairDefined dışındaki bütün üyeleri tanımsız paritede bunu fırlatır.
+
+Country, Customer, Portfolio, SettlementType, PaymentInstructionType dilimleri. Tablolar: Country, cusCustomer, defCorporateType, defCorporateDetailType, PrfPortfolio, SettlementType, PaymentInstructionType.
+
+Bütün public tipler için XML dokümanı.
+
+Değiştirilenler
+CurrencyPairRow alanları normalize edildi ve readonly record struct'a çevrildi: FromCurrency, ToCurrency, IsHardCurrency, SpotDays, IsPM, SwapPointFactor.
+Parite arama indeksi her satırı iki anahtarla tutuyor — (From, To) ve (To, From). Çağıranın yön mantığı kurmasına gerek kalmadı. Kodlar ToUpperInvariant ile normalize ediliyor; veritabanı collation'ı büyük/küçük harf duyarsız (CI_AS) olduğu halde bellekteki sözlük duyarlıydı.
+Kaldırılanlar
+MarketDataRequestBase. Tüketici mesaj sözleşmelerinin ortak taban tipiydi. Her mesaj artık taşıdığı alanları kendi üzerinde tanımlıyor.
+
+Gerekçe: taban tip bütün mesajlara aynı alan kümesini dayatıyordu, oysa fxrate-insert ile fxratedetail-delete farklı alanlar taşıyor. Bu sözleşmeleri elle kuran kod alan adlarını aynen kullanmaya devam eder; değişen tek şey miras zinciridir.
+
+10.0.8 - 2026-09-07
+Değiştirilenler
+AddCoreData artık dilim parametresi almıyor. İmza AddCoreData(IServiceCollection, IConfiguration, CoreDataSlice) → AddCoreData(IServiceCollection, IConfiguration).
+
+Kayıtlar dilimden bağımsız hâle geldi: bütün tabloların IRepository<T> kaydı yapılıyor. Sebebi, tüketici uygulamaların zaten açık jenerik IRepository<> kaydı yapması — dilime bağlı koşullu kayıt hiçbir koruma sağlamıyordu. Hangi tablonun modele ve veritabanına girdiğini yalnızca ApplyCoreDataModel belirliyor.
+
+Bu bir kaynak kırılmasıdır. Üçüncü argümanı kaldırmak yeterlidir; aynı dilim değeri ApplyCoreDataModel'de kalır.
+
+CoreDataSliceMap dilim seçimini doğruluyor. Eksik bağımlılık artık hangi dilimin gerektiğini söyleyen bir mesajla fırlatıyor: Incomplete core data slice selection: Currency requires DateBasis. Eksik dilim otomatik eklenmez — replika veritabanında her tablo bir DDL demektir.
+
+Kaldırılanlar
+CoreDataSlice.FxRateDetail ve CoreDataSlice.InterestRateDetail. Başlık ve detay tabloları tek dilimde birleşti: FxRate artık FXRate + FXRateDetail, InterestRate artık InterestRate + InterestRateDetail demek.
+
+Gerekçe: detay tablosu başlık tablosuna navigation ile bağlı olduğu için ikisi zaten birlikte seçilmek zorundaydı; ayrı dilim olmaları yalnızca yanlış seçim yapma imkânı veriyordu.
+
+CoreDataSlice.FxRate | CoreDataSlice.FxRateDetail yazan kod CoreDataSlice.FxRate yazar. Kaldırılan üyelerin bit değerleri (1 << 9, 1 << 11) yeniden kullanılmadı.
+
+10.0.7 - 2026-09-06
+Eklenenler
+Dilimleme altyapısı: CoreDataSlice, CoreDataSliceMap, CoreDataDbRole ve ApplyCoreDataModel(role, slices). Tüketici artık ihtiyaç duyduğu tabloları seçiyor, paket tamamını modele dayatmıyor.
+CoreDataDbRole. SourceOfTruth Id'yi identity olarak üretir, KafkaReplica kaynak sistemden gelen Id'yi aynen yazar.
+Volatilite alanı: VolatilityRateEntity, VolatilityRateDetailEntity, VolatilityTypeEntity, DeltaTypeEntity, VolatilityAssetTypeEntity, DataMarketEntity ve IVolatilityRateDataManager / IVolatilityRateDetailDataManager.
+ITransactionEntity ve ConfigureTransactionEntity(). İşlem tablolarının ortak alanları (TransactionOriginType, LinkedTransactionId, LinkedTransactionReference, LinkedTransactionTrader, LinkedTransactionReasonType) tek yerden yapılandırılıyor.
+Chart, Currency, CurrencyPair, DateBasis, Holiday, HalfWorkingDay entity'leri ve yapılandırmaları.
+Önbellek sağlık takibi ve devre kesici (circuit breaker) dayanıklılığı.
+Değiştirilenler
+Volatilite eğrisi sorguları başlık ve detay okumasını ayırdı; GetVolatilityCurveContext, GetVolatilityCurveResult, GetVolatilityCurveRow eklendi.
+10.0.6 - 2026-09-03
+Değiştirilenler
+ICalendarDataManager.GetWorkingDays(currencyCode) iş günlerini bütün yıllar için sorguluyor. Önceki uygulama yıl bazlı çalışıyordu ve yıl sınırını aşan bir vade sessizce eksik takvim döndürüyordu.
+10.0.5 - 2026-09-01
+Değiştirilenler
+Common API istemcisi opsiyonel hâle geldi. CommonApi yapılandırma anahtarı verilmezse istemci hiç kaydedilmez ve kur okuma veritabanı üzerinden çalışmaya devam eder. FxRateSource.Common kullanan bir çağrı bu durumda ne yapması gerektiğini söyleyen bir hata fırlatır.
+Repository kayıtları otomatik yapılıyor, tüketicinin tablo tablo kaydetmesine gerek kalmadı.
+10.0.1 - 2026-08-28
+Eklenenler
+Önbellek katmanı. NetTrex.Core.Caching üzerine kurulu iki katmanlı (L1 + Redis L2) store altyapısı ve L1 boyut sınırları.
+10.0.0 - 2026-08-26
+Eklenenler
+IDataManager<T> ortak sözleşmesi ve DataManagerBase<T>. Bütün data manager'lar aynı CRUD ve sorgu yüzeyini sunuyor; okuma metotları AsNoTracking ile çalışıyor.
+Değiştirilenler
+DbContext kaydı paketten ayrıldı. Tüketici kendi DbContext'ini kaydeder, paket yalnızca modeli ve servisleri verir.
+10.0.0-dev01 - 2026-08-22
+Eklenenler
+Paketin ilk sürümü. FXRate, FXRateDetail, InterestRate, InterestRateDetail, Point, Calendar tabloları ve karşılık gelen data manager'lar.

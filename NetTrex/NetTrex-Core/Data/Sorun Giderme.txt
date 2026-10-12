@@ -1,0 +1,78 @@
+Sorun Giderme
+
+Follow
+1
+
+Edit
+
+
+Ege Bezirci
+Yesterday
+Sorun Giderme
+Açılışta ve çalışma anında düşen hatalar, sebepleri ve çözümleri. Her satır paketin gerçekten ürettiği bir exception'a karşılık gelir; mesaj metinleri kaynaktakiyle aynıdır.
+
+Ayrıntılı davranış anlatımı ilgili sayfalardadır — bu sayfa hata metninden o sayfaya ulaşmak içindir.
+
+Açılış: dilim seçimi
+Exception	Mesaj	Çözüm
+ArgumentException (selected)	At least one core data slice must be selected	ApplyCoreDataModel'e CoreDataSlice.None verilmiş. Modülün okuduğu tabloların dilimleri seçilir.
+ArgumentException (selected)	Incomplete core data slice selection: X requires Y	Bağımlı olunan dilim seçilmemiş. Bağımlılık geçişli çözülmediği için zincirin her halkası ayrı eklenir.
+InvalidOperationException	Core.Data model is incomplete: unconfigured entities entered the model through navigations	Navigation üzerinden modele giren bir tablonun dilimi seçilmemiş. Mesajdaki X needs slice Y satırlarının dilimleri eklenir.
+İlk iki hatayı CoreDataSliceMap.Validate, üçüncüsünü ApplyCoreDataModel içindeki ValidateConfiguredEntities üretir. Bkz. Dilimler.
+
+Kafka Consumer
+Exception	Sebep	Çözüm
+İlk faiz, volatilite ya da takvim mesajında InvalidOperationException: Unable to resolve service for type 'NetTrex.Core.Data.Consumer.Abstractions.IMarketDataCacheInvalidator'	IMarketDataCacheInvalidator kaydı yok	Önbelleği sağlayan paketin kaydı (Treasy.QuGet AddQuant) uygulamaya eklenir.
+Açılışta yinelenen topic anahtarı hatası (OptionsFX KafkaConsumerTopicFactory)	Modül, CoreDataTopics.For ile de gelen bir topic adını kendi konfigürasyonunda ayrıca kaydetmiş	Modüldeki yinelenen topic kaydı kaldırılır.
+Bkz. Kafka Consumer.
+
+Açılış: parite önbelleği
+AddCurrencyPairCache Redis yapılandırmasını açılışta doğrular; tutarsız yapılandırmada uygulama açılmaz.
+
+Mesaj	Sebep	Çözüm
+'FeatureFlags:Redis:Enabled' is not a recognised key — NetTrex.Core.Data reads 'FeatureFlags:Redis:Enable'.	Legacy anahtar yazılmış	Anahtar Enable olarak düzeltilir. Olduğu gibi bırakılırsa ayar sessizce yok sayılır ve önbellek L1-only kalır.
+'FeatureFlags:Redis:Enable' must be 'true' or 'false', got '...'.	Değer bool'a ayrıştırılamıyor	Değer true ya da false yazılır.
+'FeatureFlags:Redis:ConnectionUrl' is required when 'FeatureFlags:Redis:Enable' is true.	Redis açık, adres boş	ConnectionUrl tanımlanır.
+Redis is disabled in environment 'Production', so the currency pair cache would run L1-only...	Ortam Development değil ve Redis kapalı	ConnectionUrl eklenir. Enable açıkça false yazılmışsa yalnızca adres yetmez; Enable da true olur ya da anahtar tümden kaldırılır.
+Bkz. ICurrencyPairService.
+
+Çalışma anı: parite
+Exception	Sebep	Çözüm
+CurrencyPairNotFoundException — Currency pair not found: EUR/TRY — neither orientation is defined in the CurrencyPair table.	Parite iki yönden de tanımlı değil	Kullanıcı girdisiyle çalışan kod önce IsPairDefined ile bakar; fırlatmayan tek sorgu odur. Exception Currency1 ve Currency2 property'lerinde sorgulanan kodları taşır.
+ArgumentException	Para birimi kodu boş ya da yalnızca boşluk	Çağıran taraf kodu doğrular.
+Yeni eklenen parite tanımsız, silinen parite tanımlı görünüyor	Önbellek düşürülmemiş	InvalidateAll çağrılır. Süreye güvenilirse L1 ömrü 12 saattir.
+Yeni girilen parite hiç tanımlı görünmüyor, önbellek düşürmek de işe yaramıyor	Kayıt maker-checker akışında onay bekliyor ya da silinmiş; GetAll yalnızca aktif kayıtları okur	Kaydın kontrol eden kullanıcı tarafından onaylanması beklenir. StateId değeri 18 ya da 26 olduğunda satır okunur.
+Bir pod'da silinen parite diğerinde tanımlı kalıyor	Redis kapalı, her pod ayrı L1 tutuyor ve backplane yok	Redis açılır. Bu durumda hiçbir hata düşmez.
+Çalışma anı: kur okuma
+Exception	Sebep	Çözüm
+FxRateNotFoundException — FX rate not found: EUR/TRY M (source=..., chart=..., date=...)	Parite bulunamadı, ya da parite var ama istenen kotasyon tarafı boş	Sorgu parametreleri exception üzerinde typed property olarak durur; mesaj ayrıştırmaya gerek yoktur.
+FxRateCurveNotFoundException — FX rate curve is empty: no rates published (...)	O (kaynak, chart, tarih) için hiç kotasyon yayınlanmamış. Yalnızca GetCachedRateAsync atar	O gün o chart'a fiyat girilip girilmediği kontrol edilir.
+InvalidOperationException — FxRateSource.Common requires the 'CommonApi' configuration key.	FxRateSource.Common seçilmiş ama CommonApi anahtarı boş, istemci hiç kaydedilmemiş	CommonApi tanımlanır. Common API'nin kendi process'i FxRateSource.Database kullanır — aynı tabloyu okur.
+Kur tabloda görünüyor ama FxRateNotFoundException düşüyor	Satır onaylanmamış ya da silinmiş. Veritabanı dalındaki okuma aktif kayıt filtresi uygular	Kaydın durumu kontrol edilir; onay akışı tamamlanana kadar satır fiyatlamaya girmez. Filtrenin hangi metotlarda çalıştığı Data Manager'lar sayfasındadır.
+Tarih tutuyor ama kur gelmiyor	executionDate tam eşleşme aranır, en yakın tarihe düşülmez; saat kısmı yok sayılır	Sorgulanan gün için veri girilip girilmediği kontrol edilir.
+Bkz. IFXRateService.
+
+Çalışma anı: faiz ve volatilite
+Belirti	Sebep	Çözüm
+InvalidOperationException — GetCurve eksik veride fırlatıyor	GetCurve eksik oranı, boş gün sayısını ve tekrar eden PointCode'u tolere etmez; GetRateAsync aynı satırı sessizce atlar	Eksik satır kaynakta düzeltilir. İki metodun eksik veriye tepkisi bilinçli olarak farklıdır.
+Volatilite sonucunda beklenmedik 0	GetRateAsync eksik oranı ve boş Point.Days değerini 0'a çeker; sıfır ile eksik veri ayırt edilemez	Ayrımın gerektiği yerde GetCurve kullanılır; o aynı durumda fırlatır.
+Eğri tabloda dolu ama GetRateAsync boş koleksiyon, GetCurve InvalidOperationException veriyor	Başlık kaydı onaylanmamış ya da silinmiş; aktif kayıt filtresi satırı eler	Başlık kaydının durumu kontrol edilir. Detay tablolarında StateId yoktur, filtre yalnızca başlığa uygulanır.
+Sayfalama tekrar eden veya atlanan satır veriyor	ListAsync sıralama uygulamaz, skip/take sıralanmamış sorgunun üzerine biner	IRepository<T>.Queryable() üzerinde açık bir OrderBy verilir.
+Bkz. Data Manager'lar.
+
+Sessiz hatalar
+Aşağıdakiler exception üretmez; yanlış sonuç verirler.
+
+Belirti	Sebep
+Kaynak sistemdeki Id kayboluyor, FXRateDetail.FXRateId hiçbir satıra denk gelmiyor	ApplyCoreDataModel'e KafkaReplica yerine SourceOfTruth verilmiş; veritabanı kendi Id'sini üretiyor.
+GetDefinition("TRY", "EUR") çağrısında FromCurrency "EUR" geliyor	Dönen satır sorgu yönüne göre çevrilmez. Hangi tarafın hard currency olduğu GetHardCurrency ile okunur; IsHardCurrency alanından yön çıkarmak yanlış tarafı verir.
+Kafka'dan gelen mesaj modelde olmayan bir tabloya yazmaya çalışıyor	ApplyCoreDataModel ile AddCoreDataConsumer'a farklı dilim seçimleri verilmiş. Seçim tek bir sabitte tutulur.
+IRepository<T> ile okunan Core.Data tablosu, data manager'dan farklı satır sayısı veriyor	Queryable() ham erişimdir, aktif kayıt filtresi uygulamaz. Data manager'lar onay bekleyen ve silinmiş satırları eler.
+Takvim hesabı tatilleri saymıyor	GetWorkingDays yalnızca Calendar tablosunu okur; Holiday ve HalfWorkingDay tablolarına bakmaz. Tatil mantığı Treasy.QuGet'in işidir.
+Bilinen sınırlamalar
+Parite önbelleğinde kısmi invalidation yoktur. Tablo tek kayıt olarak tutulur; InvalidateAll tek seçenektir.
+IFXRateService'in GetCachedRateAsync önbelleği scope ömürlüdür ve elle boşaltılamaz.
+Data manager'ların hiçbiri sonucu sıralamaz; sıra veritabanının döndürdüğü sıradır.
+Faiz ve volatilite sorgularında interpolasyon yoktur; dönen noktalar ham vertex'lerdir.
+Aktif kayıt filtresi yalnızca veritabanı dalında çalışır. FxRateSource.Common seçildiğinde kur Common servisinden gelir; Common tarafının onaylanmamış kayıt dönüp dönmediği teyit edilmedi.
+IUnitOfWork.Rollback veritabanı rollback'i değil, change tracker üzerinde Reload çağrısıdır. Explicit transaction desteklenmez.

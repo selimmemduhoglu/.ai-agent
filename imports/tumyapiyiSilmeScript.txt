@@ -1,0 +1,80 @@
+-- Tüm yapıyı silmek için - Tüm tablolarda ki yapıları siler.
+
+--Tam temizlik scripti şunları siler:
+
+--AccEngineAccountRule
+--AccAccountMap
+--AccEngineComponent
+--AccEngineGroup
+--AccEngineEvent
+--AccEngineItem (silinir)
+--AccEngineItemCode (silinir)
+
+-- Tam temizlik → Script 1 ve Script 2'yi baştan çalıştırmak istiyorsan. Her şey sıfırlanır.
+
+
+USE [NetTrexAcc_134_Test_Selim];
+GO
+
+BEGIN TRANSACTION;
+BEGIN TRY
+
+    PRINT 'BRWPLC1 tam temizlik başlıyor...';
+
+    -- 1. AccEngineAccountRule (en alt seviye)
+    DELETE ar 
+    FROM dbo.AccEngineAccountRule ar
+    INNER JOIN dbo.AccEngineComponent comp ON ar.ComponentId = comp.Id
+    INNER JOIN dbo.AccEngineGroup grp ON comp.GroupId = grp.Id
+    INNER JOIN dbo.AccEngineEvent evt ON grp.EventId = evt.Id
+    INNER JOIN dbo.AccEngineItem itm ON evt.ItemId = itm.Id
+    WHERE itm.Path LIKE 'TREX/BRWPLC1%';
+    PRINT '1. AccEngineAccountRule silindi: ' + CAST(@@ROWCOUNT AS VARCHAR) + ' kayıt';
+
+    -- 2. AccAccountMap
+    DELETE FROM dbo.AccAccountMap 
+    WHERE Path LIKE 'TREX/BRWPLC1%';
+    PRINT '2. AccAccountMap silindi: ' + CAST(@@ROWCOUNT AS VARCHAR) + ' kayıt';
+
+    -- 3. AccEngineComponent
+    DELETE comp 
+    FROM dbo.AccEngineComponent comp
+    INNER JOIN dbo.AccEngineGroup grp ON comp.GroupId = grp.Id
+    INNER JOIN dbo.AccEngineEvent evt ON grp.EventId = evt.Id
+    INNER JOIN dbo.AccEngineItem itm ON evt.ItemId = itm.Id
+    WHERE itm.Path LIKE 'TREX/BRWPLC1%';
+    PRINT '3. AccEngineComponent silindi: ' + CAST(@@ROWCOUNT AS VARCHAR) + ' kayıt';
+
+    -- 4. AccEngineGroup
+    DELETE grp 
+    FROM dbo.AccEngineGroup grp
+    INNER JOIN dbo.AccEngineEvent evt ON grp.EventId = evt.Id
+    INNER JOIN dbo.AccEngineItem itm ON evt.ItemId = itm.Id
+    WHERE itm.Path LIKE 'TREX/BRWPLC1%';
+    PRINT '4. AccEngineGroup silindi: ' + CAST(@@ROWCOUNT AS VARCHAR) + ' kayıt';
+
+    -- 5. AccEngineEvent
+    DELETE evt 
+    FROM dbo.AccEngineEvent evt
+    INNER JOIN dbo.AccEngineItem itm ON evt.ItemId = itm.Id
+    WHERE itm.Path LIKE 'TREX/BRWPLC1%';
+    PRINT '5. AccEngineEvent silindi: ' + CAST(@@ROWCOUNT AS VARCHAR) + ' kayıt';
+
+    -- 6. AccEngineItem (path hiyerarşisi - yaprak'tan köke doğru)
+    DELETE FROM dbo.AccEngineItem WHERE Path LIKE 'TREX/BRWPLC1/%';  -- alt node'lar önce
+    DELETE FROM dbo.AccEngineItem WHERE Path = 'TREX/BRWPLC1/';      -- kök node
+    PRINT '6. AccEngineItem silindi';
+
+    -- 7. AccEngineItemCode
+    DELETE FROM dbo.AccEngineItemCode WHERE Code = N'BRWPLC1';
+    PRINT '7. AccEngineItemCode silindi: ' + CAST(@@ROWCOUNT AS VARCHAR) + ' kayıt';
+
+    COMMIT TRANSACTION;
+    PRINT '✅ BRWPLC1 tam temizlik tamamlandı. Script tekrar çalıştırılabilir.';
+
+END TRY
+BEGIN CATCH
+    IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION;
+    PRINT '❌ Hata oluştu: ' + ERROR_MESSAGE();
+    PRINT 'Satır: ' + CAST(ERROR_LINE() AS VARCHAR);
+END CATCH

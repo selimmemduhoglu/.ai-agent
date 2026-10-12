@@ -1,0 +1,115 @@
+Entityler
+
+Follow
+1
+
+Edit
+
+
+Ege Bezirci
+Yesterday
+Entity'ler
+Paket 24 entity taşır. Hepsi public sealed class, hiçbiri ortak bir taban sınıftan türemez. Hangilerinin modele gireceğini CoreDataSlice belirler — bkz. Dilimler.
+
+Namespace'ler NetTrex.Core.Data.Domain.Common.Definitions. öneki altındadır.
+
+Entity	Namespace eki	Tablo	Dilim
+DateBasisEntity	Currency	DateBasis	DateBasis
+CurrencyEntity	Currency	Currency	Currency
+CurrencyPairEntity	Currency	CurrencyPair	CurrencyPair
+ChartEntity	Rates.Chart	Chart	Chart
+PointEntity	Rates.Point	Point	Point
+CalendarEntity	Calendar	Calendar	Calendar
+HolidayEntity	Calendar	Holiday	Holiday
+HalfWorkingDayEntity	Calendar	HalfWorkingDay	HalfWorkingDay
+FXRateEntity	Rates.FXRate	FXRate	FxRate
+FXRateDetailEntity	Rates.FXRate	FXRateDetail	FxRate
+InterestRateEntity	Rates.InterestRate	InterestRate	InterestRate
+InterestRateDetailEntity	Rates.InterestRate	InterestRateDetail	InterestRate
+VolatilityRateEntity	MarketData	VolatilityRate	Volatility
+VolatilityRateDetailEntity	MarketData	VolatilityRateDetail	Volatility
+CountryEntity	Country	Country	Country
+CustomerEntity	Customer	cusCustomer	Customer
+CorporateTypeEntity	Customer	defCorporateType	Customer
+CorporateDetailTypeEntity	Customer	defCorporateDetailType	Customer
+PortfolioEntity	Portfolio	PrfPortfolio	Portfolio
+SettlementTypeEntity	SettlementType	SettlementType	SettlementType
+PaymentInstructionTypeEntity	PaymentInstructionType	PaymentInstructionType	PaymentInstructionType
+MarketEntity	Market	Market	Market
+TxnTypeEntity	TxnType	defTxnType	TxnType
+MarketCustomerMapEntity	MarketCustomerMap	MarketCustomerMap	MarketCustomerMap
+Tablo adları kaynak sistemin şemasından gelir; cusCustomer, defCorporateType ve PrfPortfolio gibi önekler NetTrexCommon'daki adlandırmanın aynısıdır, Core.Data bunları normalize etmez.
+
+Ortak alanlar
+Entity'lerin ortak bir taban sınıfı yoktur. 24 entity'den 16'sı IMakerCheckerEntity arayüzünü (Netix.Core.Flow.StateEngine) implement eder ve üç maker-checker alanını taşır:
+
+Alan	Tip	Kolon
+StateId	int	required
+StateMaker	string	nvarchar(80)
+StateDate	DateTime	datetime
+Kalan 8 entity — takvim ve detay tabloları, SettlementType, PaymentInstructionType, CorporateDetailType — hiçbir arayüz implement etmez.
+
+CreatedDate, CreatedBy, ModifiedDate gibi audit alanları bu 24 entity'nin hiçbirinde yoktur. Zaman ve kullanıcı izi yalnızca StateMaker / StateDate ile sınırlıdır, o da yalnızca maker-checker akışına giren tablolarda.
+
+StateId bir bayrak alanıdır; NetTrex.Core.Data.Enums.FlowState bayrakları çözümler. Onaylanmış ve silinmemiş kaydın karşılığı Verified bayrağının açık, Deleted bayrağının kapalı olmasıdır. Okuma metotlarının hangisinin bu filtreyi uyguladığı Data-Managerlar sayfasındadır.
+
+StateMaker, VolatilityRate ve CorporateType tablolarında zorunludur (IsRequired()); diğer maker-checker tablolarında boş geçilebilir (IsRequired(false)). CLR tarafı her yerde string'dir (nullable değil), yani boş geçilebilen tablolarda okurken veritabanından NULL gelebilir.
+
+Bir entity'nin anatomisi
+CurrencyEntity tipik örnektir: birincil anahtarı int Id değil, string Code.
+
+Property	Tip	Kolon
+Code	string	PK, nvarchar(3)
+Name	string	nvarchar(50), required
+IsHard, IsSynthetic, CanUseOnTxn, ForeignCcy, Disabled	bool?	optional
+Pip	decimal	decimal(38,10), required
+BasisCode	string	nvarchar(4), required, FK
+Decimals	short?	optional
+IsoCode	string?	nvarchar(3), optional
+DateBasis	DateBasisEntity	navigation
+EF yapılandırmaları internal sealed'dir ve ApplyCoreDataModel tarafından uygulanır. Tüketici bunları doğrudan çağırmaz, kendi ApplyConfigurationsFromAssembly taramasına da girmezler.
+
+Navigation'lar
+Modelde 16 yapılandırılmış navigation vardır:
+
+Entity	Navigation	Hedef
+CurrencyEntity	DateBasis	DateBasisEntity
+CurrencyPairEntity	FromCurrencyEntity, ToCurrencyEntity	CurrencyEntity
+HolidayEntity	Currency	CurrencyEntity
+FXRateDetailEntity	FXRate	FXRateEntity
+InterestRateDetailEntity	InterestRate, Point	InterestRateEntity, PointEntity
+VolatilityRateDetailEntity	VolatilityRate, Point	VolatilityRateEntity, PointEntity
+CustomerEntity	Country, CorporateType, CorporateDetailType	ilgili tanım tabloları
+CorporateDetailTypeEntity	CorporateType	CorporateTypeEntity
+PortfolioEntity	Country, Parent	CountryEntity, PortfolioEntity (kendine)
+MarketCustomerMapEntity	Customer	CustomerEntity
+Bir dilimin başka bir dilimi gerektirmesinin sebebi bu listedir — bkz. Dilimler.
+
+Geri kalan ilişkiler çıplak kolon olarak durur. FXRate.ChartId bir int'tir, ChartEntity navigation'ı yoktur. FXRateDetail.FromCurrency bir string'dir, Currency tablosuna FK yoktur. VolatilityRateDetail tip bilgisini VolatilityTypeId olarak taşır.
+
+[!NOTE] Bu kolonların karşılığını okumak için ayrı bir sorgu gerekir. EF join'i kurmaz, Include da yazılamaz.
+
+Market, TxnType, MarketCustomerMap
+Üçü de IMakerCheckerEntity implement eder; StateId, StateMaker, StateDate alanlarını taşırlar. Aşağıdaki tablolar yalnızca bu üç alanın dışındakileri listeler.
+
+Entity (tablo)	Anahtar	Belirgin kolonlar	FK
+MarketEntity (Market)	Code (string, en fazla 6)	Name required (80), CustomerRoleFlags int?	yok
+TxnTypeEntity (defTxnType)	TxnTypeCode (string, varchar(4))	Name string? (varchar(80))	yok
+MarketCustomerMapEntity (MarketCustomerMap)	Id (int)	MarketCode required (10), Ccy string? (10), CustomerId, ModuleFlags (CLR varsayılanı 1, veritabanı varsayılanı yok), IsEnabled	CustomerId → cusCustomer (Customer navigation'ı)
+MarketCustomerMap.MarketCode çıplak bir string kolonudur; Market tablosuna FK ve navigation yoktur. Kolon uzunluğu da farklıdır (Market.Code 6, MarketCode 10).
+
+CustomerEntity.TawarruqContractDate
+CustomerEntity üzerine DateTime? TawarruqContractDate eklendi; kolon date, optional. Replika veritabanındaki cusCustomer tablosunda bu kolon yoksa, entity üzerinden yapılan sorgular geçersiz kolon hatası verir.
+
+ITransactionEntity
+Bu paketteki hiçbir entity ITransactionEntity'yi implement etmez; yukarıdaki 24 tablonun hiçbiri işlem tablosu değildir. Arayüz, modüllerin kendi işlem tablolarına ortak bir alan kümesi vermek için sunulur.
+
+public interface ITransactionEntity
+{
+    TransactionOriginType TransactionOriginType { get; set; }
+    long? LinkedTransactionId { get; set; }
+    string? LinkedTransactionReference { get; set; }
+    string? LinkedTransactionTrader { get; set; }
+    LinkedTransactionReasonType? LinkedTransactionReasonType { get; set; }
+}
+Alanların anlamı ve kuralları ITransactionEntity, ConfigureTransactionEntity() çağrısı, Oracle kolon adları ve dolu tablolar için geçiş script'i LinkedTransaction Alanları sayfasındadır.

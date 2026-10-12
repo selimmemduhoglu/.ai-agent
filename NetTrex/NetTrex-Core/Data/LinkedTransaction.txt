@@ -1,0 +1,135 @@
+LinkedTransaction
+
+Follow
+1
+
+Edit
+
+
+Ege Bezirci
+Yesterday
+LinkedTransaction Alanları
+Bir işlem başka bir işlemden türediğinde (exercise, rollover, unwind gibi) iki işlem arasındaki bağ tüm modüllerde aynı beş alanla tutulur. Bu sayfa alanların anlamını, iş kurallarını ve bir modüle eklenirken değişen yerleri anlatır. Akışın modüle nasıl yerleşeceğine modül ekibi karar verir.
+
+Paket
+Arayüz, iki enum ve EF yapılandırma metodu NetTrex.Core.Data paketindedir. Alanlar 10.0.7 sürümünde eklendi, sonraki sürümlerde değişmedi. Modüller 10.0.13 sürümünü referans alır.
+
+<PackageReference Include="NetTrex.Core.Data" Version="10.0.13" />
+Tip	Namespace
+ITransactionEntity, TransactionOriginType, LinkedTransactionReasonType	NetTrex.Core.Data.Domain.Common.Transactions
+ConfigureTransactionEntity()	NetTrex.Core.Data.Repository.Extensions
+Alanlar
+Alan	Tip	Zorunlu	Anlamı
+TransactionOriginType	TransactionOriginType	Evet	İşlemin nereden geldiği
+LinkedTransactionId	long?	Hayır	Kaynak işlemin Id'si
+LinkedTransactionReference	string? (50)	Hayır	Kaynak işlemin referans numarası
+LinkedTransactionTrader	string? (80)	Hayır	Kaynak işlemin trader'ı
+LinkedTransactionReasonType	LinkedTransactionReasonType?	Hayır	Bağın sebebi
+TransactionOriginType değerleri: None (0), Manual (1), Generated (2), Imported (3).
+
+None (0) bir kayıt değeri değildir, veritabanına yazılmaz. Neden tanımlı olduğu aşağıdaki "Kaynak tipinin atanması" bölümündedir.
+
+LinkedTransactionReasonType değerleri: Rollover (1), Unwind (2), Exercise (3), Assignment (4), Liquidation (5), Termination (6).
+
+Enum'lar veritabanında int olarak tutulur. Değerler tüm modüllerde aynı anlama gelir.
+
+İş kuralları
+Ekrandan girilen işlem Manual, dış kaynaktan (STP, Bloomberg) alınan işlem Imported olur. Bu işlemlerde dört LinkedTransaction* alanı boştur.
+Başka bir işlemden türeyen işlem Generated olur. Dört bağ alanı kaynak işlemin bilgilerini taşır.
+Türetilmiş işlem kendi modülünün ekranından silinemez, reddedilemez, güncellenemez. Bu aksiyonların tek yolu kaynak işlemin modülüdür.
+Kaynak işlemdeki aksiyon geri alındığında kaynak modül türetilmiş işlemi de geri alır.
+Örnek: vadesi gelen bir işlem rollover edildiğinde yeni bir işlem oluşur. Yeni işlem Generated olarak kaydedilir; LinkedTransactionId, LinkedTransactionReference ve LinkedTransactionTrader eski işlemin değerlerini, LinkedTransactionReasonType Rollover değerini taşır.
+
+Modüle eklenmesi
+Aşağıdaki örneklerde modülün işlem entity'si DealEntity, istek/yanıt modeli DealItem olarak geçer.
+
+Entity
+Entity ITransactionEntity arayüzünü uygular ve beş alanın Oracle kolon adını kendisi verir.
+
+using Netix.Core.Repository.SchemaMapping;
+using NetTrex.Core.Data.Domain.Common.Transactions;
+
+public class DealEntity : ..., ITransactionEntity
+{
+    ...
+    [OracleMapping("TRANSACTION_ORIGIN_TYPE")]
+    public TransactionOriginType TransactionOriginType { get; set; }
+
+    [OracleMapping("LINKED_TRANSACTION_ID")]
+    public long? LinkedTransactionId { get; set; }
+
+    [OracleMapping("LINKED_TRANSACTION_REFERENCE")]
+    public string? LinkedTransactionReference { get; set; }
+
+    [OracleMapping("LINKED_TRANSACTION_TRADER")]
+    public string? LinkedTransactionTrader { get; set; }
+
+    [OracleMapping("LINKED_TRANSACTION_REASON_TYPE")]
+    public LinkedTransactionReasonType? LinkedTransactionReasonType { get; set; }
+}
+[!IMPORTANT] Netix Oracle kolon adlarını arayüzden okumaz, yalnızca entity'deki attribute'lardan okur. Attribute eksik kaldığında MSSQL'de sorun görünmez, Oracle'da sorgu ORA-00904 (geçersiz kolon adı) ile düşer.
+
+Model
+İstek ve yanıtta taşınan item sınıfı da beş alanı içerir. Alan item'da olmadığında AutoMapper değeri taşıyacak yer bulamaz: bağ alanları sessizce null yazılır, türetilmiş işlem de Generated yerine Manual olarak kaydedilir. History item'ları ve türetilmiş işlem alacak her item tipi aynı alanları taşır.
+
+EF yapılandırması
+Her işlem tablosunun IEntityTypeConfiguration sınıfı, history tabloları dahil, ConfigureTransactionEntity() çağırır. Metot enum'ları int'e çevirir, TransactionOriginType'ı zorunlu yapar ve 50/80 karakter sınırlarını koyar. Oracle kolon adlarını bu çağrı vermez; adlar entity'deki attribute'lardan okunur.
+
+using NetTrex.Core.Data.Repository.Extensions;
+
+public void Configure(EntityTypeBuilder<DealEntity> builder)
+{
+    builder.ToTable("txnDeal");
+    ...
+    builder.ConfigureTransactionEntity();
+}
+Veritabanı script'i
+Script'leri modül ekibi hazırlar. Aynı script history tablolarına da uygulanır.
+
+MSSQL kolonu	MSSQL tipi	Oracle kolonu
+TransactionOriginType	int NOT NULL	TRANSACTION_ORIGIN_TYPE
+LinkedTransactionId	bigint NULL	LINKED_TRANSACTION_ID
+LinkedTransactionReference	nvarchar(50) NULL	LINKED_TRANSACTION_REFERENCE
+LinkedTransactionTrader	nvarchar(80) NULL	LINKED_TRANSACTION_TRADER
+LinkedTransactionReasonType	int NULL	LINKED_TRANSACTION_REASON_TYPE
+Oracle tiplerini modül ekibi mevcut şema standardına göre seçer. Uzunluklar ve zorunluluk MSSQL ile aynıdır.
+
+[!IMPORTANT] Dolu bir tabloya TransactionOriginType tek seferde NOT NULL olarak eklenemez; MSSQL de Oracle da hata verir. Kolona kalıcı DEFAULT da tanımlanmaz: tanımlandığında kolonu atlayan bir insert hata vermeden geçer ve kaynak tipini atamayan akış fark edilmez. Geçiş üç adımdan oluşur, Oracle script'i de aynı sırayı izler.
+
+-- 1. kolonlar eklenir, TransactionOriginType geçici olarak NULL
+ALTER TABLE dbo.txnDeal ADD
+    TransactionOriginType         int           NULL,
+    LinkedTransactionId           bigint        NULL,
+    LinkedTransactionReference    nvarchar(50)  NULL,
+    LinkedTransactionTrader       nvarchar(80)  NULL,
+    LinkedTransactionReasonType   int           NULL;
+GO
+
+-- 2. eski kayıtlar: dış referansı olan Imported (3), kalanı Manual (1)
+UPDATE dbo.txnDeal
+   SET TransactionOriginType = CASE WHEN ExternalReferenceSourceId IS NOT NULL THEN 3 ELSE 1 END
+ WHERE TransactionOriginType IS NULL;
+GO
+
+-- 3. kolon zorunlu yapılır
+ALTER TABLE dbo.txnDeal ALTER COLUMN TransactionOriginType int NOT NULL;
+GO
+Örneklerdeki ExternalReferenceSourceId, işlemin dış sistemden geldiğini gösteren kolonun NetTrex.FX'teki adıdır. Her modül bu koşulu kendi dış referans kolonuyla yazar.
+
+Kaynak tipinin atanması
+TransactionOriginType nullable değildir. C#, yeni oluşturulan her DealEntity ve DealItem nesnesinde bu alana 0 verir; enum'da 0 değerinin None adını taşıması bu yüzdendir. None, kaynak tipinin henüz atanmadığını gösterir.
+
+Veritabanına 0 yazılmaz. Modülün kaydetme akışı insert'ten hemen önce değere bakar: None ise dış referansı olan işleme Imported, olmayana Manual atar. Türetilmiş işlemde değer zaten Generated geldiği için kontrol ona dokunmaz.
+
+if (deal.TransactionOriginType == TransactionOriginType.None)
+    deal.TransactionOriginType = deal.ExternalReferenceSourceId is not null
+        ? TransactionOriginType.Imported
+        : TransactionOriginType.Manual;
+
+dealRepository.Insert(deal);
+Kontrol tek noktada, insert'ten hemen önce durduğunda ekran, STP ve türetilmiş işlem gibi insert yapan akışların hepsi ondan geçer. Kolonun NOT NULL olması 0 değerini engellemez; kontrolü atlayan bir akış veritabanına 0 yazar.
+
+Türetilmiş işlemi üreten akış, kaydı insert'e vermeden önce TransactionOriginType alanına Generated yazar ve dört bağ alanını kaynak işlemin değerleriyle doldurur.
+
+Örnek uygulama
+Alanları uygulamış ilk modül NetTrex.FX'tir. Bu sayfadaki adımların çalışan hâli orada görülebilir.

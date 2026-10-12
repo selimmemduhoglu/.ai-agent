@@ -1,0 +1,95 @@
+english	tr_yatirim	tr_katilim
+ANAPARA+FAIZ-STOPAJ	Anapara + Faiz − Stopaj	Anapara + Getiri − Stopaj
+Accrual Rate	Reeskont Faizi	Reeskont Getiri Oranı
+Accrued Interest	Tahakkuk Etmiş Faiz	Tahakkuk Eden Getiri
+Accrued Interest / Lease	Tahakkuk Etmiş Faiz / Kira Getirisi	Tahakkuk Eden Getiri / Kira Getirisi
+AccruedInterestAccr	Faiz Tahakkuku Reeskontu	Getiri Tahakkuku Reeskontu
+AccruedInterestAccruedLease	Tahakkuk Eden Faiz / Kira Getirisi	Tahakkuk Eden Getiri / Kira Getirisi
+AccruedInterestAmou	Tahakkuk Eden Faiz Tutarı	Tahakkuk Eden Getiri Tutarı
+AccruedInterestAmountAccruedLeaseAmount	Tahakkuk Eden Faiz / Kira Getirisi Tutarı	Tahakkuk Eden Getiri / Kira Getirisi Tutarı
+Deposit Rates	Mevduat Faiz Oranları	Mevduat Getiri Oranları
+Deposit Rates Spreads	Mevduat Faiz Marjları	Mevduat Getiri Marjları
+Deposit Rates Spreads Definitions	Mevduat Faiz Marjları Tanımlamaları	Mevduat Getiri Marjları Tanımlamaları
+FAİZ YAPISI	Faiz Yapısı	Getiri Yapısı
+FRN Rate	DFT Faiz Oranı	DGT Getiri Oranı
+FRN Rate Details	DFT Faiz Oranı Detayları	DGT Getiri Oranı Detayları
+FRN Rates	DFT Faiz Oranları	DGT Getiri Oranları
+FRN fields cannot be empty	Değişken faizli tahvil alanları boş bırakılamaz.	Değişken Getirili tahvil alanları boş bırakılamaz.
+Faiz	Faiz	Getiri
+Faiz Orani	Faiz Oranı	Getiri Oranı
+Floating Rate	Değişken Faiz Oranı	Değişken Getiri Oranı
+Floating Rate Type	Değişken Faiz Oranı Türü	Değişken Getiri Oranı Türü
+Floating Rate Type *	Değişken Faiz Oranı Türü*	Değişken Getiri Oranı Türü*
+Floating Rate Type is required	Değişken Oran Türü gerekli	Değişken getiri oranı türü zorunludur.
+For Fixed Rate Type, Interest Rate must be greater than 0.	Sabit Faiz Türü için Faiz oranı 0'dan büyük olmalıdır	Sabit getiri türünde getiri oranı sıfırdan büyük olmalıdır.
+For Floating Rate Type, Floating Rate Type must be selected.	Değişken Faiz Türü için Faiz Oranı Türü seçilmelidir.	Değişken getiri türünde getiri oranı türü seçilmelidir.
+Gross Interest Amount	Brüt Faiz Tutarı	Brüt Getiri Tutarı
+In cases of FRN Index Type, coupon rate is required	DFT endeks türü için kupon faiz oranı zorunludur.	DGT endeks türünde dönemsel getiri oranı zorunludur.
+Int. Met. Frequency	Faiz Hesaplama Sıklığı	Getiri Hesaplama Sıklığı
+Interest	Faiz	Getiri
+Interest Accrued	Tahakkuk Eden Faiz	Tahakkuk Eden Getiri
+Interest Amount	Faiz Tutarı	Getiri Tutarı
+Interest Method	Faiz Yöntemi	Getiri Yöntemi
+Interest Method Frequency	Faiz Yöntemi Sıklığı	Getiri Yöntemi Sıklığı
+Interest Rate	Faiz Oranı	Getiri Oranı
+Interest Rate 1 ABM	Faiz Oranı 1 ABM	Getiri Oranı 1 ABM
+Interest Rate 1 Chart	Faiz Oranı 1 Grafiği	Getiri Oranı 1 Grafiği
+Interest Rate 2 ABM	Faiz Oranı 2 ABM	Getiri Oranı 2 ABM
+Interest Rate 2 Chart	Faiz Oranı 2 Grafiği	Getiri Oranı 2 Grafiği
+Is Fixed Rate	Sabit Faizli mi	Sabit Getirili mi
+KUPON FAİZ ORANI	Kupon Faiz Oranı	Kupon Getiri Oranı
+Net Repo Interest Amount	Net Repo Faiz Tutarı	Net Repo Getiri Tutarı
+Pay Floating Rate Type	Ödeme Bacağı Değişken Faiz Oranı Türü	Ödeme Bacağı Değişken Getiri Oranı Türü
+Pay Floating Rate Type Name	Ödeme Bacağı Değişken Faiz Oranı Türü Adı	Ödeme Bacağı Değişken Getiri Oranı Türü Adı
+Pay Interest Method	Ödeme Bacağı Faiz Hesaplama Yöntemi	Ödeme Bacağı Getiri Hesaplama Yöntemi
+Pay Interest Method Frequency	Ödeme Bacağı Faiz Hesaplama Sıklığı	Ödeme Bacağı Getiri Hesaplama Sıklığı
+Pay Interest Methods Frequency Name	Ödeme Bacağı Faiz Hesaplama Sıklığı Adı	Ödeme Bacağı Getiri Hesaplama Sıklığı Adı
+Pay Interest Methods Name	Ödeme Bacağı Faiz Hesaplama Yöntemi Adı	Ödeme Bacağı Getiri Hesaplama Yöntemi Adı
+Pay Period Fixing Date	Ödeme Bacağı Dönemi Faiz Sabitleme Tarihi	Ödeme Bacağı Dönemi Getiri Sabitleme Tarihi
+Pay Period Floating Rate Type Name	Ödeme Bacağı Dönemi Değişken Faiz Oranı Türü Adı	Ödeme Bacağı Dönemi Değişken Getiri Oranı Türü Adı
+Pay Period Rate	Ödeme Bacağı Dönemi Faiz Oranı	Ödeme Bacağı Dönemi Getiri Oranı
+Pay Period Rate Type Name	Ödeme Bacağı Dönemi Faiz Oranı Türü Adı	Ödeme Bacağı Dönemi Getiri Oranı Türü Adı
+Pay Period Spread	Ödeme Bacağı Dönemi Faiz Marjı	Ödeme Bacağı Dönemi Getiri Marjı
+Pay Rate	Ödeme Bacağı Faiz Oranı	Ödeme Bacağı Getiri Oranı
+Pay Rate Type	Ödeme Bacağı Faiz Oranı Türü	Ödeme Bacağı Getiri Oranı Türü
+Pay Rate Type Name	Ödeme Bacağı Faiz Oranı Türü Adı	Ödeme Bacağı Getiri Oranı Türü Adı
+Pay Spread	Ödeme Bacağı Faiz Marjı	Ödeme Bacağı Getiri Marjı
+Please select Yield Date	Lütfen getiri tarihini seçin.	Lütfen Getiri tarihini seçin.
+PrincipalInterestWi	Anapara Faiz Wi	Anapara Getiri Wi
+PrincipalInterestWitholdingTax	Anapara, Faiz ve Stopaj	Anapara, Getiri ve Stopaj
+REESKONT FAİZ ORANI	Reeskont Faiz Oranı	Reeskont Getiri Oranı
+REFERANS FAİZ	Referans Faiz	Referans Getiri
+REPO FAIZ MIKTARI	Geri Alım Vaadiyle Satım İşlemi Faiz Tutarı	Geri Alım Vaadiyle Satım İşlemi Getiri Tutarı
+Rate & Interest	Kur ve Faiz	Kur ve Getiri
+Receive Floating Rate Type	Alacak Bacağı Değişken Faiz Oranı Türü	Alacak Bacağı Değişken Getiri Oranı Türü
+Receive Floating Rate Type Name	Alacak Bacağı Değişken Faiz Oranı Türü Adı	Alacak Bacağı Değişken Getiri Oranı Türü Adı
+Receive Interest Method	Alacak Bacağı Faiz Hesaplama Yöntemi	Alacak Bacağı Getiri Hesaplama Yöntemi
+Receive Interest Method Frequency	Alacak Bacağı Faiz Hesaplama Sıklığı	Alacak Bacağı Getiri Hesaplama Sıklığı
+Receive Interest Methods Frequency Name	Alacak Bacağı Faiz Hesaplama Sıklığı Adı	Alacak Bacağı Getiri Hesaplama Sıklığı Adı
+Receive Interest Methods Name	Alacak Bacağı Faiz Hesaplama Yöntemi Adı	Alacak Bacağı Getiri Hesaplama Yöntemi Adı
+Receive Period Fixing Date	Alacak Bacağı Dönem Faiz Sabitleme Tarihi	Alacak Bacağı Dönem Getiri Sabitleme Tarihi
+Receive Period Floating Rate Type Name	Alacak Bacağı Dönem Değişken Faiz Oranı Türü Adı	Alacak Bacağı Dönem Değişken Getiri Oranı Türü Adı
+Receive Period Rate	Alacak Bacağı Dönem Faiz Oranı	Alacak Bacağı Dönem Getiri Oranı
+Receive Period Rate Type Name	Alacak Bacağı Dönem Faiz Oranı Türü Adı	Alacak Bacağı Dönem Getiri Oranı Türü Adı
+Receive Period Spread	Alacak Bacağı Dönem Faiz Marjı	Alacak Bacağı Dönem Getiri Marjı
+Receive Rate	Alacak Bacağı Faiz Oranı	Alacak Bacağı Getiri Oranı
+Receive Rate Type	Alacak Bacağı Faiz Oranı Türü	Alacak Bacağı Getiri Oranı Türü
+Receive Rate Type Name	Alacak Bacağı Faiz Oranı Türü Adı	Alacak Bacağı Getiri Oranı Türü Adı
+Receive Spread	Alacak Bacağı Faiz Marjı	Alacak Bacağı Getiri Marjı
+Repo Interest Amount	Geri Alım Vaadiyle Satım İşlemi Faiz Tutarı	Geri Alım Vaadiyle Satım İşlemi Getiri Tutarı
+Repo Interest Rate	Geri Alım Vaadiyle Satım İşlemi Faiz Oranı	Geri Alım Vaadiyle Satım İşlemi Getiri Oranı
+RepoInterestAmount	Geri Alım Vaadiyle Satım İşlemi Faiz Tutarı	Geri Alım Vaadiyle Satım İşlemi Getiri Tutarı
+RhoDomestic Rate	Yerel Faiz Oranı Duyarlılığı (Rho)	Yerel Getiri Oranı Duyarlılığı (Rho)
+RhoForeign Rate	Yabancı Para Faiz Oranı Duyarlılığı (Rho)	Yabancı Para Getiri Oranı Duyarlılığı (Rho)
+Selected fixing date is not a work day!	Seçilen faiz belirleme tarihi iş günü değildir!	Seçilen Getiri belirleme tarihi iş günü değildir!
+Symbol Deposit Chart Map	Mevduat Faiz Eğrisi Sembol Eşleştirmesi	Mevduat Getiri Eğrisi Sembol Eşleştirmesi
+Symbol Deposit Chart Map Definitions	Mevduat Faiz Eğrisi Sembol Eşleştirme Tanımları	Mevduat Getiri Eğrisi Sembol Eşleştirme Tanımları
+Valuation Buy Interest Rate	Değerleme Alış Faiz Oranı	Değerleme Alış Getiri Oranı
+Valuation Buy InterestRate	Değerleme Alış Faiz Oranı	Değerleme Alış Getiri Oranı
+Valuation Interest Rate 1	Değerleme Faiz Oranı 1	Değerleme Getiri Oranı 1
+Valuation Interest Rate 2	Değerleme Faiz Oranı 2	Değerleme Getiri Oranı 2
+Valuation Lcy Interest Rate	Değerleme LPB Faiz Oranı	Değerleme LPB Getiri Oranı
+Valuation Sell Interest Rate	Değerleme Satış Faiz Oranı	Değerleme Satış Getiri Oranı
+Valuation Sell InterestRate	Değerleme Satış Faiz Oranı	Değerleme Satış Getiri Oranı
+ValuationLcy InterestRate	Değerleme Faiz Oranı LPB	Değerleme Getiri Oranı LPB
+false	hayır	Hayır

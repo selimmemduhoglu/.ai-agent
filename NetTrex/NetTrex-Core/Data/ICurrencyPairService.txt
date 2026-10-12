@@ -1,0 +1,90 @@
+ICurrencyPairService
+
+Follow
+1
+
+Edit
+
+
+Ege Bezirci
+21 Eyl
+ICurrencyPairService
+Parite tanımlarını okur: hangi taraf hard currency, swap point çarpanı kaç, kıymetli maden mi. Tanım tablosu seyrek değişir, bu yüzden tamamı tek bir önbellek kaydında tutulur.
+
+Önbelleğe yalnızca onaylanmış ve silinmemiş tanımlar girer. Maker-checker akışında bekleyen bir parite bütün okuma metotlarında tanımsız görünür.
+
+Servisi AddCurrencyPairCache kaydeder, AddCoreData değil. Ayrı durmasının sebebi FusionCache store'unun Redis bağlantısını ve backplane zorunluluğunu bilmesi gerekmesidir; bunlar uygulamanın kendi yapılandırmasından gelir.
+
+Kayıt
+builder.Services.AddCurrencyPairCache(builder.Configuration);
+CurrencyPair dilimi seçildiğinde bu çağrı gerekir: dilimin Kafka handler'ları buradan gelen tiplere bağımlıdır.
+
+Çağrının kaydettiği üç tipin ömürleri aynı değildir:
+
+Tip	Ömür
+ICurrencyPairService	Singleton
+ICurrencyPairStore	Singleton
+ICurrencyPairDataManager	Scoped
+Parite kataloğu process ömrü boyunca önbellekte durur, bu yüzden Scoped/Singleton sınırı store katmanında çizilidir: store, Scoped ICurrencyPairDataManager'a kendi içinde IServiceScopeFactory ile açtığı ayrı bir scope üzerinden iner. ICurrencyPairService durum taşımaz ve okumayı store'a delege eder — Singleton bir sınıfa doğrudan enjekte edilebilir, tüketicinin ömrünü Scoped'a çekmez.
+
+Anahtar	Zorunlu	Not
+FeatureFlags:Redis:ConnectionUrl	Development dışında evet	Redis adresi.
+FeatureFlags:Redis:Enable	Hayır	Yazılmazsa, adres doluysa açık sayılır.
+DOTNET_ENVIRONMENT	Hayır	Yazılmazsa Production varsayılır.
+Ayarlar açılışta doğrulanır. Development dışında bir ortamda Redis kapalıysa InvalidOperationException fırlatılır ve uygulama açılmaz.
+
+[!WARNING] Redis olmadan her pod kendi belleğinde ayrı bir önbellek tutar. Bir pod'da silinen parite diğerlerinde tanımlı görünmeye devam eder ve hiçbir hata düşmez.
+
+Okuma
+if (!pairs.IsPairDefined(ccy1, ccy2))
+    return Invalid($"{ccy1}/{ccy2} paritesi tanimli degil.");
+
+var hard   = pairs.GetHardCurrency(ccy1, ccy2);
+var factor = pairs.GetSwapPointFactor(ccy1, ccy2);
+Metot	Döner	Tanımsız paritede
+IsPairDefined	bool	false
+GetDefinition	CurrencyPairRow	fırlatır
+GetHardCurrency	string — hard currency olan tarafın kodu	fırlatır
+GetSwapPointFactor	int	fırlatır
+IsPreciousMetal	bool	fırlatır
+InvalidateAll	void	—
+Fırlatmayan tek sorgu metodu IsPairDefined. Diğerleri tanımsız paritede CurrencyPairNotFoundException atar. Kullanıcı girdisiyle çalışan kod önce IsPairDefined ile bakar. Boş veya yalnızca boşluktan oluşan bir kod ArgumentException üretir.
+
+CurrencyPairRow bir readonly record struct, altı alan taşır:
+
+Alan	Tip	İçerik
+FromCurrency	string	Paritenin sol tarafı.
+ToCurrency	string	Paritenin sağ tarafı.
+IsHardCurrency	bool	Sol taraf hard currency mi.
+SpotDays	int	Spot valör gün sayısı.
+IsPM	bool	Kıymetli maden paritesi mi.
+SwapPointFactor	int	Swap point çarpanı.
+Yön fark etmez
+Parite tablosu her pariteyi tek yönde tutar, sorgu iki yönden de çalışır.
+
+pairs.GetDefinition("EUR", "TRY");   // ayni satir
+pairs.GetDefinition("TRY", "EUR");   // ayni satir
+Önbellek indeksi her satırı iki anahtarla yazar: (From, To) doğrudan atanır, (To, From) TryAdd ile eklenir. Veritabanında gerçekten ters yönde bir satır varsa o satır alias'ı ezmez.
+
+[!IMPORTANT] Dönen satır sorgunun yönüne göre çevrilmez. GetDefinition("TRY", "EUR") çağrısında FromCurrency yine "EUR" gelir. Hangi tarafın hard currency olduğu GetHardCurrency ile okunur; IsHardCurrency alanından yön çıkarmak yanlış tarafı verir.
+
+Para birimi kodları ToUpperInvariant ile normalize edilir, "eur" ile "EUR" aynı satırı verir. Veritabanı collation'ı büyük/küçük harf duyarsız olsa da bellekteki sözlük duyarlıdır.
+
+Tazelik
+Önbellek ömürleri uzundur: L1 12 saat, L2 7 gün. Tazelik süreye değil invalidation'a dayanır.
+
+pairs.InvalidateAll();
+currency-pair-insert veya currency-pair-delete mesajını işleyen handler bunu commit sonrası çağırır ve backplane değişikliği diğer pod'ların L1'ine yayar. Paritede elle değişiklik yapan kod da çağırır.
+
+Çağrılmazsa yeni parite 12 saat boyunca tanımsız, silinen parite 12 saat boyunca tanımlı görünür.
+
+Parite tablosu tek önbellek kaydı olarak tutulur (CacheKey = "all"), bölümlenmez. InvalidateAll bu tek kaydı düşürür; daha dar kapsamlı bir invalidation metodu yoktur.
+
+Hatalar
+Mesaj	Sebep
+Currency pair not found: EUR/TRY — neither orientation is defined in the CurrencyPair table.	Parite iki yönden de tanımlı değil. Currency1 ve Currency2 property'leri sorgulanan kodları taşır.
+'FeatureFlags:Redis:Enabled' is not a recognised key — NetTrex.Core.Data reads 'FeatureFlags:Redis:Enable'.	Legacy anahtar yazılmış. Olduğu gibi bırakılırsa ayar sessizce yok sayılır ve önbellek L1-only kalır.
+'FeatureFlags:Redis:Enable' must be 'true' or 'false', got '...'.	Anahtar bir bool'a ayrıştırılamıyor.
+'FeatureFlags:Redis:ConnectionUrl' is required when 'FeatureFlags:Redis:Enable' is true.	Redis açık, adres boş.
+Redis is disabled in environment 'Production', so the currency pair cache would run L1-only...	Ortam Development değil ve Redis kapalı.
+Son satırdaki hatanın metni ConnectionUrl eklemeyi söyler. Enable açıkça false yazılmışsa yalnızca adres eklemek yetmez; Enable da true olur ya da anahtar tümden kaldırılır.

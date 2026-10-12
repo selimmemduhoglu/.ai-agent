@@ -1,0 +1,173 @@
+USE [NetTrexAcc_134_Test_Selim]
+GO
+
+SET XACT_ABORT ON;
+
+BEGIN TRANSACTION;
+
+BEGIN TRY
+
+    DECLARE
+        @stateId    INT          = 18,
+        @stateDate  DATETIME     = GETDATE(),
+        @stateMaker NVARCHAR(80) = N'SYSTEM';
+
+    DECLARE
+        @lastAccAccountMapId          INT = 0,
+        @accAccountMapColumnTypeId    INT = 11;
+
+    -- DefNumberGen'den son ID'yi al
+    SELECT @lastAccAccountMapId = ISNULL(
+        (SELECT CASE
+            WHEN (SELECT LastNumber + 1 FROM dbo.DefNumberGen
+                  WHERE EntityColumnType = @accAccountMapColumnTypeId
+                    AND Definition = N'AccAccountMap Id') >
+                 (SELECT ISNULL(MAX(Id), 0) + 1 FROM dbo.AccAccountMap)
+            THEN (SELECT LastNumber + 1 FROM dbo.DefNumberGen
+                  WHERE EntityColumnType = @accAccountMapColumnTypeId
+                    AND Definition = N'AccAccountMap Id')
+            ELSE (SELECT ISNULL(MAX(Id), 0) + 1 FROM dbo.AccAccountMap)
+        END), 1);
+
+    IF (@lastAccAccountMapId = 0)
+        THROW 500001, 'AccAccountMap Last Id Not Found', 1;
+
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Insert 1: FxPositionLCY → 12420100
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1
+                   FROM dbo.AccAccountMap
+                   WHERE RuleId IS NULL
+                     AND Rule2Id IS NULL
+                     AND Rule3Id IS NULL
+                     AND Rule4Id IS NULL
+                     AND Rule5Id IS NULL
+                     AND Rule6Id IS NULL
+                     AND Rule7Id IS NULL
+                     AND Rule8Id IS NULL
+                     AND Rule9Id IS NULL
+                     AND Rule10Id IS NULL
+                     AND Source = N'1242010'
+                     AND Path IS NULL
+                     AND TargetMainGL = N'1242010'
+                     AND Target = N'12420100'
+                     AND TargetRuleId IS NULL
+                     AND CustomerCodeSourceRuleId IS NULL
+                     AND CustomerAccountCodeSourceRuleId IS NULL)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId,
+                                       Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id, Rule7Id,
+                                       Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description,
+                                       CustomerCodeSourceRuleId, CustomerAccountCodeSourceRuleId,
+                                       StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL,
+                (SELECT TOP(1) Id FROM dbo.AccEngineDynamicRule WHERE [Rule] = '1 === 2' ORDER BY Id DESC),
+                NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'1242010', NULL, N'1242010', N'12420100',
+                NULL, 1, 0, N'', NULL, NULL,
+                @stateId, @stateMaker, @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1;
+    END;
+
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Insert 2: FxPositionLCY → 12420101
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1
+                   FROM dbo.AccAccountMap
+                   WHERE RuleId IS NULL
+                     AND Rule2Id IS NULL
+                     AND Rule3Id IS NULL
+                     AND Rule4Id IS NULL
+                     AND Rule5Id IS NULL
+                     AND Rule6Id IS NULL
+                     AND Rule7Id IS NULL
+                     AND Rule8Id IS NULL
+                     AND Rule9Id IS NULL
+                     AND Rule10Id IS NULL
+                     AND Source = N'1242010'
+                     AND Path IS NULL
+                     AND TargetMainGL = N'1242010'
+                     AND Target = N'12420101'
+                     AND TargetRuleId IS NULL
+                     AND CustomerCodeSourceRuleId IS NULL
+                     AND CustomerAccountCodeSourceRuleId IS NULL)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId,
+                                       Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id, Rule7Id,
+                                       Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description,
+                                       CustomerCodeSourceRuleId, CustomerAccountCodeSourceRuleId,
+                                       StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL,
+                (SELECT TOP(1) Id FROM dbo.AccEngineDynamicRule WHERE [Rule] = '1 === 2' ORDER BY Id DESC),
+                NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'1242010', NULL, N'1242010', N'12420101',
+                NULL, 1, 0, N'', NULL, NULL,
+                @stateId, @stateMaker, @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1;
+    END;
+
+    ------------------------------------------------------------------------------------------------------------------------
+    -- Insert 3: FxPositionLCY → 12420102
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1
+                   FROM dbo.AccAccountMap
+                   WHERE RuleId IS NULL
+                     AND Rule2Id IS NULL
+                     AND Rule3Id IS NULL
+                     AND Rule4Id IS NULL
+                     AND Rule5Id IS NULL
+                     AND Rule6Id IS NULL
+                     AND Rule7Id IS NULL
+                     AND Rule8Id IS NULL
+                     AND Rule9Id IS NULL
+                     AND Rule10Id IS NULL
+                     AND Source = N'1242010'
+                     AND Path IS NULL
+                     AND TargetMainGL = N'1242010'
+                     AND Target = N'12420102'
+                     AND TargetRuleId IS NULL
+                     AND CustomerCodeSourceRuleId IS NULL
+                     AND CustomerAccountCodeSourceRuleId IS NULL)
+    BEGIN
+        INSERT INTO dbo.AccAccountMap (Id, Ccy, CustomerId, RuleId,
+                                       Rule2Id, Rule3Id, Rule4Id, Rule5Id, Rule6Id, Rule7Id,
+                                       Rule8Id, Rule9Id, Rule10Id, Source, Path, TargetMainGL, Target,
+                                       TargetRuleId, IsEnabled, [Order], Description,
+                                       CustomerCodeSourceRuleId, CustomerAccountCodeSourceRuleId,
+                                       StateId, StateMaker, StateDate)
+        VALUES (@lastAccAccountMapId, NULL, NULL,
+                (SELECT TOP(1) Id FROM dbo.AccEngineDynamicRule WHERE [Rule] = '1 === 2' ORDER BY Id DESC),
+                NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, N'1242010', NULL, N'1242010', N'12420102',
+                NULL, 1, 0, N'', NULL, NULL,
+                @stateId, @stateMaker, @stateDate);
+
+        SELECT @lastAccAccountMapId = @lastAccAccountMapId + 1;
+    END;
+
+    ------------------------------------------------------------------------------------------------------------------------
+    -- DefNumberGen Update
+    ------------------------------------------------------------------------------------------------------------------------
+    UPDATE dbo.DefNumberGen
+    SET LastNumber     = @lastAccAccountMapId - 1,
+        LastUpdateDate = @stateDate
+    WHERE EntityColumnType = @accAccountMapColumnTypeId;
+
+    COMMIT TRANSACTION;
+
+END TRY
+BEGIN CATCH
+    IF @@TRANCOUNT > 0
+        ROLLBACK TRANSACTION;
+
+    DECLARE @ErrorMessage  NVARCHAR(4000) = ERROR_MESSAGE();
+    DECLARE @ErrorSeverity INT            = ERROR_SEVERITY();
+    DECLARE @ErrorState    INT            = ERROR_STATE();
+    DECLARE @ErrorLine     INT            = ERROR_LINE();
+
+    RAISERROR('Error on line %d: %s', @ErrorSeverity, @ErrorState, @ErrorLine, @ErrorMessage);
+END CATCH;

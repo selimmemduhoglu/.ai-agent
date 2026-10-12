@@ -1,0 +1,729 @@
+module	key	en	current_tr	status	fill_source	tr_yatirim	tr_katilim	scheme_split	scope
+pages/definitions/product-types/mm-product	dgProductDefinitions-pageTitle	Product Definition	Product Definition	UNTRANSLATED	GLOSSARY	Ürün Tanımı	Ürün Tanımı		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-popupTitle	Product Definition	Product Definition	UNTRANSLATED	GLOSSARY	Ürün Tanımı	Ürün Tanımı		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-Id	Id	Id	UNTRANSLATED	GLOSSARY	Kimlik	Kimlik		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-ProductDefinitionId	Product Definition Id	Product Definition Id	UNTRANSLATED	GLOSSARY	Ürün Tanımı Kimliği	Ürün Tanımı Kimliği		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-Code	Code	Code	UNTRANSLATED	GLOSSARY	Kod	Kod		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-Name	Name	Name	UNTRANSLATED	GLOSSARY	Ad	Ad		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-AccountingMapCode	Accounting Code	Accounting Code	UNTRANSLATED	GLOSSARY	Muhasebe Kodu	Muhasebe Kodu		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-LogicalReferenceTypeCode	Logical Reference Code	Logical Reference Code	UNTRANSLATED	GLOSSARY	Mantıksal Referans Kodu	Mantıksal Referans Kodu		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-MainProductCode	Main Product Code	Main Product Code	UNTRANSLATED	GLOSSARY	Ana Ürün Kodu	Ana Ürün Kodu		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-ExternalMainProductCode	External Main Product Code	External Main Product Code	UNTRANSLATED	GLOSSARY	Harici Ana Ürün Kodu	Harici Ana Ürün Kodu		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-ExternalSubProductCode	External Sub Product Code	External Sub Product Code	UNTRANSLATED	GLOSSARY	Harici Alt Ürün Kodu	Harici Alt Ürün Kodu		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-UseFundSource	Use Fund Source	Use Fund Source	UNTRANSLATED	GLOSSARY	Fon Kaynağını Kullan	Fon Kaynağını Kullan		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-UseSubFundSource	Use Sub Fund Source	Use Sub Fund Source	UNTRANSLATED	GLOSSARY	Alt Fon Kaynağını Kullan	Alt Fon Kaynağını Kullan		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-UseOnUnitValue	Use On Unit Value	Use On Unit Value	UNTRANSLATED	GLOSSARY	Birim Değeri Kullan	Birim Değeri Kullan		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsBorrowing	Is Borrowing	Is Borrowing	UNTRANSLATED	GLOSSARY	Borçlanma mı	Borçlanma mı		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsPlacement	Is Placement	Is Placement	UNTRANSLATED	GLOSSARY	Plasman mı	Plasman mı		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsAccountNeeded	Is AccountNeeded	Is AccountNeeded	UNTRANSLATED	GLOSSARY	Hesap Gerekli mi	Hesap Gerekli mi		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsAllowRollover	Is Allow Rollover	Is Allow Rollover	UNTRANSLATED	GLOSSARY	Vade Yenilemeye İzin Veriliyor mu?	Vade Yenilemeye İzin Veriliyor mu?		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsMarketCommissionApplicable	Is Is Market Commission Applicable	Is Is Market Commission Applicable	UNTRANSLATED	GLOSSARY	Piyasa Komisyonu Uygulanabilir mi	Piyasa Komisyonu Uygulanabilir mi		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsAllowBrokerage	Is Allow Brokerage	Is Allow Brokerage	UNTRANSLATED	GLOSSARY	Aracılığa İzin Veriliyor mu	Aracılığa İzin Veriliyor mu		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsAllowTawarruq	Is Allow Tawarruq	Is Allow Tawarruq	UNTRANSLATED	GLOSSARY	Teverruk'a İzin Veriliyor mu	Teverruk'a İzin Veriliyor mu		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsMultiplePayment	Is Multiple Payment	Is Multiple Payment	UNTRANSLATED	GLOSSARY	Çoklu Ödeme mi	Çoklu Ödeme mi		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsTaxApplicable	Is Tax Applicable	Is Tax Applicable	UNTRANSLATED	GLOSSARY	Vergi Uygulanabilir mi	Vergi Uygulanabilir mi		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsUseTxnGLCode	Is Use Txn GL Code	Is Use Txn GL Code	UNTRANSLATED	GLOSSARY	İşlem Muhasebe Kodu Kullanılsın mı?	İşlem Muhasebe Kodu Kullanılsın mı?		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsCollateralized	Is Collateralized	Is Collateralized	UNTRANSLATED	GLOSSARY	Teminatlı mı	Teminatlı mı		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsIntraBank	Is Intra Bank	Is Intra Bank	UNTRANSLATED	GLOSSARY	Banka İçi mi	Banka İçi mi		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsSameDay	Is Same Day	Is Same Day	UNTRANSLATED	GLOSSARY	Aynı Gün mü	Aynı Gün mü		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsZeroRate	Is Zero Rate	Is Zero Rate	UNTRANSLATED	GLOSSARY	Sıfır Oran mı	Sıfır Oran mı		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsGenerateFWDAccounting	Generate FWD Accounting	Generate FWD Accounting	UNTRANSLATED	GLOSSARY	İleriye Yönelik Muhasebe Oluşturma	İleriye Yönelik Muhasebe Oluşturma		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-AccountingCalculationMethodTypeName	Calculation Method	Calculation Method	UNTRANSLATED	GLOSSARY	Hesaplama Yöntemi	Hesaplama Yöntemi		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-AccountSelectionTypeName	Account Selection Type	Account Selection Type	UNTRANSLATED	GLOSSARY	Hesap Seçim Türü	Hesap Seçim Türü		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-Order	Order	Order	UNTRANSLATED	GLOSSARY	Emir	Emir		MM
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsEnabled	Is Enabled	Is Enabled	UNTRANSLATED	GLOSSARY	Etkin mi	Etkin mi		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-Tab1Title	General	General	UNTRANSLATED	GLOSSARY	Genel	Genel		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-Tab2Title	Markets	Markets	UNTRANSLATED	GLOSSARY	Piyasalar	Piyasalar		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-Code	Code	Code	UNTRANSLATED	GLOSSARY	Kod	Kod		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-Name	Name	Name	UNTRANSLATED	GLOSSARY	Ad	Ad		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-AccountingMapCode	Accounting Code	Accounting Code	UNTRANSLATED	GLOSSARY	Muhasebe Kodu	Muhasebe Kodu		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-LogicalReferenceTypeId	LogicalReferenceTypeId	LogicalReferenceTypeId	UNTRANSLATED	GLOSSARY	Mantıksal Referans Türü Kimliği	Mantıksal Referans Türü Kimliği		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-MainProductCode	Main Product Code	Main Product Code	UNTRANSLATED	GLOSSARY	Ana Ürün Kodu	Ana Ürün Kodu		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-ExternalMainProductCode	External Main Product Code	External Main Product Code	UNTRANSLATED	GLOSSARY	Harici Ana Ürün Kodu	Harici Ana Ürün Kodu		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-ExternalSubProductCode	External Sub Product Code	External Sub Product Code	UNTRANSLATED	GLOSSARY	Harici Alt Ürün Kodu	Harici Alt Ürün Kodu		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-UseFundSource	Use Fund Source	Use Fund Source	UNTRANSLATED	GLOSSARY	Fon Kaynağını Kullan	Fon Kaynağını Kullan		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-UseSubFundSource	Use Sub Fund Source	Use Sub Fund Source	UNTRANSLATED	GLOSSARY	Alt Fon Kaynağını Kullan	Alt Fon Kaynağını Kullan		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-UseOnUnitValue	Use On Unit Value	Use On Unit Value	UNTRANSLATED	GLOSSARY	Birim Değeri Kullan	Birim Değeri Kullan		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-IsBorrowing	Is Borrowing	Is Borrowing	UNTRANSLATED	GLOSSARY	Borçlanma mı	Borçlanma mı		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-IsPlacement	Is Placement	Is Placement	UNTRANSLATED	GLOSSARY	Plasman mı	Plasman mı		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-IsAccountNeeded	Is Account Needed	Is Account Needed	UNTRANSLATED	GLOSSARY	Hesap Gerekli mi	Hesap Gerekli mi		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-IsAllowRollover	Is Allow Rollover	Is Allow Rollover	UNTRANSLATED	GLOSSARY	Vade Yenilemeye İzin Veriliyor mu?	Vade Yenilemeye İzin Veriliyor mu?		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-IsMarketCommissionApplicable	Is Market Commission Applicable	Is Market Commission Applicable	UNTRANSLATED	GLOSSARY	Piyasa Komisyonu Uygulanıyor mu?	Piyasa Komisyonu Uygulanıyor mu?		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-IsAllowBrokerage	Is Allow Brokerage	Is Allow Brokerage	UNTRANSLATED	GLOSSARY	Aracılığa İzin Veriliyor mu	Aracılığa İzin Veriliyor mu		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-IsAllowTawarruq	Is Allow Tawarruq	Is Allow Tawarruq	UNTRANSLATED	GLOSSARY	Teverruk'a İzin Veriliyor mu	Teverruk'a İzin Veriliyor mu		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-IsMultiplePayment	Is Multiple Payment	Is Multiple Payment	UNTRANSLATED	GLOSSARY	Çoklu Ödeme mi	Çoklu Ödeme mi		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-IsTaxApplicable	Is Tax Applicable	Is Tax Applicable	UNTRANSLATED	GLOSSARY	Vergi Uygulanabilir mi	Vergi Uygulanabilir mi		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-IsUseTxnGLCode	Is Use Txn GL Code	Is Use Txn GL Code	UNTRANSLATED	GLOSSARY	İşlem Muhasebe Kodu Kullanılsın mı?	İşlem Muhasebe Kodu Kullanılsın mı?		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-IsCollateralized	Is Collateralized	Is Collateralized	UNTRANSLATED	GLOSSARY	Teminatlı mı	Teminatlı mı		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-IsIntraBank	Is Intra Bank	Is Intra Bank	UNTRANSLATED	GLOSSARY	Banka İçi mi	Banka İçi mi		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-IsSameDay	Is Same Day	Is Same Day	UNTRANSLATED	GLOSSARY	Aynı Gün mü	Aynı Gün mü		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-IsZeroRate	Is Zero Rate	Is Zero Rate	UNTRANSLATED	GLOSSARY	Sıfır Oran mı	Sıfır Oran mı		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-IsGenerateFWDAccounting	Generate FWD Accounting	Generate FWD Accounting	UNTRANSLATED	GLOSSARY	İleriye Yönelik Muhasebe Oluşturma	İleriye Yönelik Muhasebe Oluşturma		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-AccountingCalculationMethodTypeId	Calculation Method	Calculation Method	UNTRANSLATED	GLOSSARY	Hesaplama Yöntemi	Hesaplama Yöntemi		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-AccountSelectionTypeId	Account Selection	Account Selection	UNTRANSLATED	GLOSSARY	Hesap Seçimi	Hesap Seçimi		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-Order	Order	Order	UNTRANSLATED	GLOSSARY	Emir	Emir		MM
+pages/definitions/product-types/mm-product	frmProductDefinition-IsEnabled	Is Enabled	Is Enabled	UNTRANSLATED	GLOSSARY	Etkin mi	Etkin mi		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-Tab1Title	General	General	UNTRANSLATED	GLOSSARY	Genel	Genel		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-Tab2Title	Markets	Markets	UNTRANSLATED	GLOSSARY	Piyasalar	Piyasalar		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-Code	Code	Code	UNTRANSLATED	GLOSSARY	Kod	Kod		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-Name	Name	Name	UNTRANSLATED	GLOSSARY	Ad	Ad		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-AccountingMapCode	Accounting Code	Accounting Code	UNTRANSLATED	GLOSSARY	Muhasebe Kodu	Muhasebe Kodu		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-MainProductCode	Main Product Code	Main Product Code	UNTRANSLATED	GLOSSARY	Ana Ürün Kodu	Ana Ürün Kodu		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-ExternalMainProductCode	External Main Product Code	External Main Product Code	UNTRANSLATED	GLOSSARY	Harici Ana Ürün Kodu	Harici Ana Ürün Kodu		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-ExternalSubProductCode	External Sub Product Code	External Sub Product Code	UNTRANSLATED	GLOSSARY	Harici Alt Ürün Kodu	Harici Alt Ürün Kodu		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-UseFundSource	Use Fund Source	Use Fund Source	UNTRANSLATED	GLOSSARY	Fon Kaynağını Kullan	Fon Kaynağını Kullan		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-UseSubFundSource	Use Sub Fund Source	Use Sub Fund Source	UNTRANSLATED	GLOSSARY	Alt Fon Kaynağını Kullan	Alt Fon Kaynağını Kullan		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-UseOnUnitValue	Use On Unit Value	Use On Unit Value	UNTRANSLATED	GLOSSARY	Birim Değeri Kullan	Birim Değeri Kullan		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsBorrowing	Is Borrowing	Is Borrowing	UNTRANSLATED	GLOSSARY	Borçlanma mı	Borçlanma mı		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsPlacement	Is Placement	Is Placement	UNTRANSLATED	GLOSSARY	Plasman mı	Plasman mı		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsAccountNeeded	Is AccountNeeded	Is AccountNeeded	UNTRANSLATED	GLOSSARY	Hesap Gerekli mi	Hesap Gerekli mi		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsAllowRollover	Is Allow Rollover	Is Allow Rollover	UNTRANSLATED	GLOSSARY	Vade Yenilemeye İzin Veriliyor mu?	Vade Yenilemeye İzin Veriliyor mu?		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsMarketCommissionApplicable	Is Market Commission Applicable	Is Market Commission Applicable	UNTRANSLATED	GLOSSARY	Piyasa Komisyonu Uygulanıyor mu?	Piyasa Komisyonu Uygulanıyor mu?		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsAllowBrokerage	Is Allow Brokerage	Is Allow Brokerage	UNTRANSLATED	GLOSSARY	Aracılığa İzin Veriliyor mu	Aracılığa İzin Veriliyor mu		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsAllowTawarruq	Is Allow Tawarruq	Is Allow Tawarruq	UNTRANSLATED	GLOSSARY	Teverruk'a İzin Veriliyor mu	Teverruk'a İzin Veriliyor mu		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsMultiplePayment	Is Multiple Payment	Is Multiple Payment	UNTRANSLATED	GLOSSARY	Çoklu Ödeme mi	Çoklu Ödeme mi		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsTaxApplicable	Is Tax Applicable	Is Tax Applicable	UNTRANSLATED	GLOSSARY	Vergi Uygulanabilir mi	Vergi Uygulanabilir mi		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsUseTxnGLCode	Is Use Txn GL Code	Is Use Txn GL Code	UNTRANSLATED	GLOSSARY	İşlem Muhasebe Kodu Kullanılsın mı?	İşlem Muhasebe Kodu Kullanılsın mı?		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsCollateralized	Is Collateralized	Is Collateralized	UNTRANSLATED	GLOSSARY	Teminatlı mı	Teminatlı mı		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsIntraBank	Is Intra Bank	Is Intra Bank	UNTRANSLATED	GLOSSARY	Banka İçi mi	Banka İçi mi		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsSameDay	Is Same Day	Is Same Day	UNTRANSLATED	GLOSSARY	Aynı Gün mü	Aynı Gün mü		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsZeroRate	Is Zero Rate	Is Zero Rate	UNTRANSLATED	GLOSSARY	Sıfır Oran mı	Sıfır Oran mı		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsGenerateFWDAccounting	Generate FWD Accounting	Generate FWD Accounting	UNTRANSLATED	GLOSSARY	İleriye Yönelik Muhasebe Oluşturma	İleriye Yönelik Muhasebe Oluşturma		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-AccountingCalculationMethodTypeName	Calculation Method	Calculation Method	UNTRANSLATED	GLOSSARY	Hesaplama Yöntemi	Hesaplama Yöntemi		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-AccountSelectionTypeName	Account Selection	Account Selection	UNTRANSLATED	GLOSSARY	Hesap Seçimi	Hesap Seçimi		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-Order	Order	Order	UNTRANSLATED	GLOSSARY	Emir	Emir		MM
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsEnabled	Is Enabled	Is Enabled	UNTRANSLATED	GLOSSARY	Etkin mi	Etkin mi		MM
+pages/manuel-reescont/manuel-reescont	dgManuelReescont-pageTitle	Manuel Revaluation	Manuel Revaluation	UNTRANSLATED	GLOSSARY	Manuel Yeniden Değerleme	Manuel Yeniden Değerleme		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-LogicalReference	Logical Reference	Logical Reference	UNTRANSLATED	GLOSSARY	Mantıksal Referans	Mantıksal Referans		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-MessageKey	Message Key	Message Key	UNTRANSLATED	GLOSSARY	Mesaj Anahtarı	Mesaj Anahtarı		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-CustomerName	Customer Name	Customer Name	UNTRANSLATED	GLOSSARY	Müşteri Adı	Müşteri Adı		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-ValuationSpotRate	Valuation Spot Rate	Valuation Spot Rate	UNTRANSLATED	GLOSSARY	Değerleme Spot Kuru	Değerleme Spot Kuru		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-ValuationRate	Valuation Rate	Valuation Rate	UNTRANSLATED	GLOSSARY	Değerleme Oranı	Değerleme Oranı		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-MtmAmount	Mtm Amount	Mtm Amount	UNTRANSLATED	GLOSSARY	PGD Tutarı	PGD Tutarı		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-MtmLcyAmount	Mtm Lcy Amount	Mtm Lcy Amount	UNTRANSLATED	GLOSSARY	PGD LPB Tutarı	PGD LPB Tutarı		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-MtmRate	Mtm Rate	Mtm Rate	UNTRANSLATED	GLOSSARY	PGD Kuru	PGD Kuru		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-ValueDate	Value Date	Value Date	UNTRANSLATED	GLOSSARY	Valör Tarihi	Valör Tarihi		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-Status	Status	Status	UNTRANSLATED	GLOSSARY	Durum	Durum		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-CustomerId	Customer Id	Customer Id	UNTRANSLATED	GLOSSARY	Müşteri Kimliği	Müşteri Kimliği		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-ExternalCustomerId	External Customer Id	External Customer Id	UNTRANSLATED	GLOSSARY	Harici Müşteri Kimliği	Harici Müşteri Kimliği		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-BuyCcy	Buy Ccy	Buy Ccy	UNTRANSLATED	GLOSSARY	Alış Para Birimi	Alış Para Birimi		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-SellCcy	Sell Ccy	Sell Ccy	UNTRANSLATED	GLOSSARY	Satış Para Birimi	Satış Para Birimi		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-BuyAmount	Buy Amount	Buy Amount	UNTRANSLATED	GLOSSARY	Alış Tutarı	Alış Tutarı		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-SellAmount	Sell Amount	Sell Amount	UNTRANSLATED	GLOSSARY	Satış Tutarı	Satış Tutarı		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-TradeDate	Trade Date	Trade Date	UNTRANSLATED	GLOSSARY	İşlem Tarihi	İşlem Tarihi		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-DealRate	Deal Rate	Deal Rate	UNTRANSLATED	GLOSSARY	İşlem Kuru	İşlem Kuru		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-StateDescription	State Description	State Description	UNTRANSLATED	GLOSSARY	Durum Açıklaması	Durum Açıklaması		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-State	State	State	UNTRANSLATED	GLOSSARY	Durum	Durum		MM
+pages/manuel-reescont/manuel-reescont	dxMReescont-ReescontType	Revaluation Type	Revaluation Type	UNTRANSLATED	GLOSSARY	Yeniden Değerleme Türü	Yeniden Değerleme Türü		MM
+pages/manuel-reescont/manuel-reescont	dxMReescont-Product	Product	Product	UNTRANSLATED	GLOSSARY	Ürün	Ürün		MM
+pages/manuel-reescont/manuel-reescont	dxMReescont-DateFilter	Revaluation Date	Revaluation Date	UNTRANSLATED	GLOSSARY	Yeniden Değerleme Tarihi	Yeniden Değerleme Tarihi		MM
+pages/manuel-reescont/manuel-reescont	dxMReescont-ReescontCreate	Revaluation Create	Revaluation Create	UNTRANSLATED	GLOSSARY	Yeniden Değerleme Oluştur	Yeniden Değerleme Oluştur		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-InstrumentName	Instrument Name	Instrument Name	UNTRANSLATED	GLOSSARY	Enstrüman Adı	Enstrüman Adı		MM
+pages/manuel-reescont/manuel-reescont	dgMReescont-RediscountProductType	Rediscount Product Type	Rediscount Product Type	UNTRANSLATED	GLOSSARY	Reeskont Ürün Türü	Reeskont Ürün Türü		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-pageTitle	External MM Blotter	External MM Blotter	UNTRANSLATED	GLOSSARY	Harici MM İşlem Listesi	Harici MM İşlem Listesi		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-popupTitle	External MM Blotter	External MM Blotter	UNTRANSLATED	GLOSSARY	Harici MM İşlem Listesi	Harici MM İşlem Listesi		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-Id	Id	Id	UNTRANSLATED	GLOSSARY	Kimlik	Kimlik		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-Message	Message	Message	UNTRANSLATED	GLOSSARY	Mesaj	Mesaj		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-ParsedMessage	Parsed Message	Parsed Message	UNTRANSLATED	GLOSSARY	Ayrıştırılmış Mesaj	Ayrıştırılmış Mesaj		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-Reference	External Reference	External Reference	UNTRANSLATED	GLOSSARY	Harici Referans	Harici Referans		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-ExternalReferenceSourceName	External Source	External Source	UNTRANSLATED	GLOSSARY	Harici Kaynak	Harici Kaynak		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-ExternalReferenceSourceId	ExternalReferenceSourceId	ExternalReferenceSourceId	UNTRANSLATED	GLOSSARY	Harici Referans Kaynağı Kimliği	Harici Referans Kaynağı Kimliği		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-TxnStateId	TxnStateId	TxnStateId	UNTRANSLATED	GLOSSARY	İşlem Durumu Kimliği	İşlem Durumu Kimliği		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-Status	Sync	Sync	UNTRANSLATED	GLOSSARY	Senkronize Et	Senkronize Et		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-StateIdTxnName	Transaction State	Transaction State	UNTRANSLATED	GLOSSARY	İşlem Durumu	İşlem Durumu		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-CreatedTime	Capture Time	Capture Time	UNTRANSLATED	GLOSSARY	Yakalama Zamanı	Yakalama Zamanı		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-ResendTime	Resend Time	Resend Time	UNTRANSLATED	GLOSSARY	Yeniden Gönderme Zamanı	Yeniden Gönderme Zamanı		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-SyncStatus	Sync Status	Sync Status	UNTRANSLATED	GLOSSARY	Senkronizasyon Durumu	Senkronizasyon Durumu		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-SyncMessage	Sync Message	Sync Message	UNTRANSLATED	GLOSSARY	Senkronizasyon Mesajı	Senkronizasyon Mesajı		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-TransactionReference	Transaction Reference	Transaction Reference	UNTRANSLATED	GLOSSARY	İşlem Referansı	İşlem Referansı		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-TransactionStateDate	Transaction State Date	Transaction State Date	UNTRANSLATED	GLOSSARY	İşlem Durumu Tarihi	İşlem Durumu Tarihi		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dxMMFrmFilterStp-DataSource	External Source	External Source	UNTRANSLATED	GLOSSARY	Harici Kaynak	Harici Kaynak		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dxMMFrmFilterStp-StartDate	Start Date	Start Date	UNTRANSLATED	GLOSSARY	Başlangıç Tarihi	Başlangıç Tarihi		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dxMMFrmFilterStp-EndDate	End Date	End Date	UNTRANSLATED	GLOSSARY	Bitiş Tarihi	Bitiş Tarihi		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dxMMFrmFilterStp-Apply	Search	Search	UNTRANSLATED	GLOSSARY	Ara	Ara		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dxMMFrmFilterStp-SyncStatus	Sync Status	Sync Status	UNTRANSLATED	GLOSSARY	Senkronizasyon Durumu	Senkronizasyon Durumu		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-ExternalTransactionType	External Transaction Type	External Transaction Type	UNTRANSLATED	GLOSSARY	Harici İşlem Türü	Harici İşlem Türü		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-CoveredExecId	Covered Exec Id	Covered Exec Id	UNTRANSLATED	GLOSSARY	Karşılanan İşlem Numarası	Karşılanan İşlem Numarası		MM
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-Product	Product	Product	UNTRANSLATED	GLOSSARY	Ürün	Ürün		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-pageTitle	Interbank Loan Revaluation Report	Interbank Loan Revaluation Report	UNTRANSLATED	GLOSSARY	Bankalararası Kredi Yeniden Değerleme Raporu	Bankalararası Kredi Yeniden Değerleme Raporu		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-ReportDate	Report Date	Report Date	UNTRANSLATED	GLOSSARY	Rapor Tarihi	Rapor Tarihi		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-StartDate	Start Date	Start Date	UNTRANSLATED	GLOSSARY	Başlangıç Tarihi	Başlangıç Tarihi		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-EndDate	End Date	End Date	UNTRANSLATED	GLOSSARY	Bitiş Tarihi	Bitiş Tarihi		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-MarketCode	Market	Market	UNTRANSLATED	GLOSSARY	Piyasa	Piyasa		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-TxnTypeCode	Direction	Direction	UNTRANSLATED	GLOSSARY	Yön	Yön		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-Id	Id	Id	UNTRANSLATED	GLOSSARY	Kimlik	Kimlik		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-CalculationDate	Report Date	Report Date	UNTRANSLATED	GLOSSARY	Rapor Tarihi	Rapor Tarihi		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-LogicalReference	Logical Reference	Logical Reference	UNTRANSLATED	GLOSSARY	Mantıksal Referans	Mantıksal Referans		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PrincipalAmount	Principal Amount	Principal Amount	UNTRANSLATED	GLOSSARY	Anapara Tutarı	Anapara Tutarı		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-Direction	Direction	Direction	UNTRANSLATED	GLOSSARY	Yön	Yön		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-ProductDefinitionName	Product	Product	UNTRANSLATED	GLOSSARY	Ürün	Ürün		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-CustomerName	Customer	Customer	UNTRANSLATED	GLOSSARY	Müşteri	Müşteri		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodNumber	Period No	Period No	UNTRANSLATED	GLOSSARY	Dönem Numarası	Dönem Numarası		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-CurrencyCode	CCY	CCY	UNTRANSLATED	GLOSSARY	Para Birimi	Para Birimi		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-InputDateTime	Input Date Time	Input Date Time	UNTRANSLATED	GLOSSARY	Giriş Tarihi ve Saati	Giriş Tarihi ve Saati		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodStartDate	Period Start Date	Period Start Date	UNTRANSLATED	GLOSSARY	Dönem Başlangıç Tarihi	Dönem Başlangıç Tarihi		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodEndDate	Period End Date	Period End Date	UNTRANSLATED	GLOSSARY	Dönem Bitiş Tarihi	Dönem Bitiş Tarihi		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodPaymentDate	Period Payment Date	Period Payment Date	UNTRANSLATED	GLOSSARY	Dönem Ödeme Tarihi	Dönem Ödeme Tarihi		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodRate	Period Rate	Period Rate	UNTRANSLATED	GLOSSARY	Dönem Oranı	Dönem Oranı		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAmount	Period Amount	Period Amount	UNTRANSLATED	GLOSSARY	Dönem Tutarı	Dönem Tutarı		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodCCY	Period CCY	Period CCY	UNTRANSLATED	GLOSSARY	Dönem Para Birimi	Dönem Para Birimi		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAmountLCY	Period Amount LCY	Period Amount LCY	UNTRANSLATED	GLOSSARY	Dönem Tutarı LPB	Dönem Tutarı LPB		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodLCY	Period LCY	Period LCY	UNTRANSLATED	GLOSSARY	Dönem LPB	Dönem LPB		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualRate	Period Accrual Rate	Period Accrual Rate	UNTRANSLATED	GLOSSARY	Dönem Reeskont Oranı	Dönem Reeskont Oranı		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualAmountIRR	Period Accrual Amount IRR	Period Accrual Amount IRR	UNTRANSLATED	GLOSSARY	Dönem Reeskont Tutarı İGO	Dönem Reeskont Tutarı İGO		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualAmountSL	Period Accrual Amount SL	Period Accrual Amount SL	UNTRANSLATED	GLOSSARY	Dönem Reeskont Tutarı BL	Dönem Reeskont Tutarı BL		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualAmountCCY	Period Accrual Amount CCY	Period Accrual Amount CCY	UNTRANSLATED	GLOSSARY	Dönem Reeskont Tutarı Yabancı Para Birimi	Dönem Reeskont Tutarı Yabancı Para Birimi		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualAmountIRRLCY	Period Accrual Amount IRR LCY	Period Accrual Amount IRR LCY	UNTRANSLATED	GLOSSARY	Dönem Reeskont Tutarı İGO LPB	Dönem Reeskont Tutarı İGO LPB		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualAmountSLLCY	Period Accrual Amount SL LCY	Period Accrual Amount SL LCY	UNTRANSLATED	GLOSSARY	Dönem Reeskont Tutarı BL LPB	Dönem Reeskont Tutarı BL LPB		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualAmountLCY	Period Accrual Amount LCY	Period Accrual Amount LCY	UNTRANSLATED	GLOSSARY	Dönem Reeskont Tutarı LPB	Dönem Reeskont Tutarı LPB		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PrincipalAmountNPV	Principal Amount NPV	Principal Amount NPV	UNTRANSLATED	GLOSSARY	Anapara Tutarı NBD	Anapara Tutarı NBD		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PrincipalAmountNPVCCY	Principal Amount NPV CCY	Principal Amount NPV CCY	UNTRANSLATED	GLOSSARY	Anapara Tutarı NBD YPB	Anapara Tutarı NBD YPB		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PrincipalAmountNPVLCY	Principal Amount NPV LCY	Principal Amount NPV LCY	UNTRANSLATED	GLOSSARY	Anapara Tutarı NBD LPB	Anapara Tutarı NBD LPB		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PrincipalAmountNPVLCYCode	Principal Amount NPV LCY Code	Principal Amount NPV LCY Code	UNTRANSLATED	GLOSSARY	Anapara Tutarı NBD LPB Kodu	Anapara Tutarı NBD LPB Kodu		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-TotalAmountNPV	Total Amount NPV	Total Amount NPV	UNTRANSLATED	GLOSSARY	Toplam Tutar NBD	Toplam Tutar NBD		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-TotalAmountNPVCCY	Total Amount NPV CCY	Total Amount NPV CCY	UNTRANSLATED	GLOSSARY	Toplam Tutar NBD YPB	Toplam Tutar NBD YPB		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-TotalAmountNPVLCY	Total Amount NPV LCY	Total Amount NPV LCY	UNTRANSLATED	GLOSSARY	Toplam Tutar NBD LPB	Toplam Tutar NBD LPB		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-TotalAmountNPVLCYCode	Total Amount NPV LCY Code	Total Amount NPV LCY Code	UNTRANSLATED	GLOSSARY	Toplam Tutar NBD LPB Kodu	Toplam Tutar NBD LPB Kodu		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-AccrualSpotRate	Accrual Spot Rate	Accrual Spot Rate	UNTRANSLATED	GLOSSARY	Reeskont Spot Kuru	Reeskont Spot Kuru		MM
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-AccrualSpotRateABM	Accrual Spot Rate ABM	Accrual Spot Rate ABM	UNTRANSLATED	GLOSSARY	Reeskont Spot Kuru ABM	Reeskont Spot Kuru ABM		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-pageTitle	Money Market Revaluation	Money Market Revaluation	UNTRANSLATED	MISSING				MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-CalculationDate	Report Date	Report Date	UNTRANSLATED	GLOSSARY	Rapor Tarihi	Rapor Tarihi		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-LogicalReference	Logical Reference	Logical Reference	UNTRANSLATED	GLOSSARY	Mantıksal Referans	Mantıksal Referans		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-DirectionName	Direction Name	Direction Name	UNTRANSLATED	GLOSSARY	Yön Adı	Yön Adı		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-ProductName	Product Name	Product Name	UNTRANSLATED	GLOSSARY	Ürün Adı	Ürün Adı		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-CustomerName	Customer Name	Customer Name	UNTRANSLATED	GLOSSARY	Müşteri Adı	Müşteri Adı		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-MarketCode	Market	Market	UNTRANSLATED	GLOSSARY	Piyasa	Piyasa		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-Ccy	CCY	CCY	UNTRANSLATED	GLOSSARY	Para Birimi	Para Birimi		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-InputDate	Input Date	Input Date	UNTRANSLATED	GLOSSARY	Giriş Tarihi	Giriş Tarihi		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-TradeDate	Trade Date	Trade Date	UNTRANSLATED	GLOSSARY	İşlem Tarihi	İşlem Tarihi		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-ValueDate	Value Date	Value Date	UNTRANSLATED	GLOSSARY	Valör Tarihi	Valör Tarihi		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-MaturityDate	Maturity Date	Maturity Date	UNTRANSLATED	GLOSSARY	Vade Tarihi	Vade Tarihi		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-DealAmount	Deal Amount	Deal Amount	UNTRANSLATED	GLOSSARY	İşlem Tutarı	İşlem Tutarı		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-MaturityAmount	Maturity Amount	Maturity Amount	UNTRANSLATED	GLOSSARY	Vade Tutarı	Vade Tutarı		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-InterestRate	Rate	Rate	UNTRANSLATED	GLOSSARY	Kur	Kur		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-FXRate	FX Rate	FX Rate	UNTRANSLATED	GLOSSARY	Döviz Kuru	Döviz Kuru		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-AccrualAmount	Accrual Amount	Accrual Amount	UNTRANSLATED	GLOSSARY	Reeskont Tutarı	Reeskont Tutarı		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-AccrualAmountLCY	Accrual Amount LCY	Accrual Amount LCY	UNTRANSLATED	GLOSSARY	Reeskont Tutarı (LPB)	Reeskont Tutarı (LPB)		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-AccrualAmountSL	Accrual Amount SL	Accrual Amount SL	UNTRANSLATED	GLOSSARY	Reeskont Tutarı (BL)	Reeskont Tutarı (BL)		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-AccrualAmountIRRCL	Accrual Amount IRR (CL)	Accrual Amount IRR (CL)	UNTRANSLATED	GLOSSARY	Reeskont Tutarı İGO (DB)	Reeskont Tutarı İGO (DB)		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-PeriodStartDate	Period Start Date	Period Start Date	UNTRANSLATED	GLOSSARY	Dönem Başlangıç Tarihi	Dönem Başlangıç Tarihi		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-PeriodEndDate	Period End Date	Period End Date	UNTRANSLATED	GLOSSARY	Dönem Bitiş Tarihi	Dönem Bitiş Tarihi		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-PeriodAmount	Period Amount	Period Amount	UNTRANSLATED	GLOSSARY	Dönem Tutarı	Dönem Tutarı		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-AccrualDay	Accrual Day	Accrual Day	UNTRANSLATED	GLOSSARY	Reeskont Günü	Reeskont Günü		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-DaysToMaturation	Days To Maturation	Days To Maturation	UNTRANSLATED	GLOSSARY	Vadeye Kalan Gün Sayısı	Vadeye Kalan Gün Sayısı		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-DaysToPeriodEndDate	Days To Period End Date	Days To Period End Date	UNTRANSLATED	GLOSSARY	Dönem Bitiş Tarihine Kalan Gün Sayısı	Dönem Bitiş Tarihine Kalan Gün Sayısı		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-ExternalCustomerId	External Customer Id	External Customer Id	UNTRANSLATED	GLOSSARY	Harici Müşteri Kimliği	Harici Müşteri Kimliği		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-AccountNumber	Account Number	Account Number	UNTRANSLATED	GLOSSARY	Hesap Numarası	Hesap Numarası		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-CorporateTypeName	Corporate Type	Corporate Type	UNTRANSLATED	GLOSSARY	Kurumsal Türü	Kurumsal Türü		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-CorporateDetailTypeName	Corporate Detail Type	Corporate Detail Type	UNTRANSLATED	GLOSSARY	Kurumsal Detay Türü	Kurumsal Detay Türü		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-Id	Id	Id	UNTRANSLATED	GLOSSARY	Kimlik	Kimlik		MM
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-ReportDate	Report Date	Report Date	UNTRANSLATED	GLOSSARY	Rapor Tarihi	Rapor Tarihi		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-pageTitle	Interbank Loan	Interbank Loan	UNTRANSLATED	GLOSSARY	Bankalararası Kredi	Bankalararası Kredi		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-popupTitle	Interbank Loan	Interbank Loan	UNTRANSLATED	GLOSSARY	Bankalararası Kredi	Bankalararası Kredi		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-Id	Id	Id	UNTRANSLATED	GLOSSARY	Kimlik	Kimlik		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-LogicalReference	Logical Reference	Logical Reference	UNTRANSLATED	GLOSSARY	Mantıksal Referans	Mantıksal Referans		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-Trader	Trader	Trader	UNTRANSLATED	GLOSSARY	İşlemci	İşlemci		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-MarketName	Market	Market	UNTRANSLATED	GLOSSARY	Piyasa	Piyasa		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-ProductName	Product	Product	UNTRANSLATED	GLOSSARY	Ürün	Ürün		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-CustomerName	Counterparty	Counterparty	UNTRANSLATED	GLOSSARY	Karşı Kurum	Karşı Kurum		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PortfolioName	Portfolio	Portfolio	UNTRANSLATED	GLOSSARY	Portföy	Portföy		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-DirectionName	Direction	Direction	UNTRANSLATED	GLOSSARY	Yön	Yön		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-TxnTypeName	Txn Type	Txn Type	UNTRANSLATED	GLOSSARY	İşlem Türü	İşlem Türü		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-InputDateTime	Input Date	Input Date	UNTRANSLATED	GLOSSARY	Giriş Tarihi	Giriş Tarihi		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-TradeDate	Trade Date	Trade Date	UNTRANSLATED	GLOSSARY	İşlem Tarihi	İşlem Tarihi		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-ValueDate	Value Date	Value Date	UNTRANSLATED	GLOSSARY	Valör Tarihi	Valör Tarihi		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-MaturityDate	Maturity Date	Maturity Date	UNTRANSLATED	GLOSSARY	Vade Tarihi	Vade Tarihi		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PaymentDate	Payment Date	Payment Date	UNTRANSLATED	GLOSSARY	Ödeme Tarihi	Ödeme Tarihi		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-RateTypeName	Rate Type	Rate Type	UNTRANSLATED	GLOSSARY	Kur Türü	Kur Türü		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-FloatingRateTypeName	Floating Rate Type	Floating Rate Type	UNTRANSLATED	GLOSSARY	Değişken Faiz Oranı Türü	Değişken Getiri Oranı Türü	YES	MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PaymentFrequencyName	Payment Frequency	Payment Frequency	UNTRANSLATED	GLOSSARY	Ödeme Sıklığı	Ödeme Sıklığı		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-InterestMethodName	Interest Method	Interest Method	UNTRANSLATED	GLOSSARY	Faiz Yöntemi	Getiri Yöntemi	YES	MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-InterestMethodFrequencyName	Int. Met. Frequency	Int. Met. Frequency	UNTRANSLATED	GLOSSARY	Faiz Hesaplama Sıklığı	Getiri Hesaplama Sıklığı	YES	MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-Amount	Amount	Amount	UNTRANSLATED	GLOSSARY	Tutar	Tutar		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-DateBasisName	Date Basis	Date Basis	UNTRANSLATED	GLOSSARY	Tarih Esası	Tarih Esası		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PrincipalAmount	Principal Amount	Principal Amount	UNTRANSLATED	GLOSSARY	Anapara Tutarı	Anapara Tutarı		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-CurrencyCode	Currency	Currency	UNTRANSLATED	GLOSSARY	Para Birimi	Para Birimi		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-RateTypeId	Rate Type	Rate Type	UNTRANSLATED	GLOSSARY	Kur Türü	Kur Türü		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-Rate	Rate	Rate	UNTRANSLATED	GLOSSARY	Kur	Kur		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-FloatingRateTypeId	Floating Rate Type	Floating Rate Type	UNTRANSLATED	GLOSSARY	Değişken Faiz Oranı Türü	Değişken Getiri Oranı Türü	YES	MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-Spread	Spread	Spread	UNTRANSLATED	GLOSSARY	Marj	Marj		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PaymentFrequencyId	Payment Frequency	Payment Frequency	UNTRANSLATED	GLOSSARY	Ödeme Sıklığı	Ödeme Sıklığı		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-InterestMethodId	Interest Method	Interest Method	UNTRANSLATED	GLOSSARY	Faiz Yöntemi	Getiri Yöntemi	YES	MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-InterestMethodFrequencyId	Int. Met. Frequency	Int. Met. Frequency	UNTRANSLATED	GLOSSARY	Faiz Hesaplama Sıklığı	Getiri Hesaplama Sıklığı	YES	MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-DateBasisCode	Date Basis	Date Basis	UNTRANSLATED	GLOSSARY	Tarih Esası	Tarih Esası		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-DaysInYear	Days in Year	Days in Year	UNTRANSLATED	GLOSSARY	Yıldaki Gün Sayısı	Yıldaki Gün Sayısı		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PaymentLagDays	Payment Lag Days	Payment Lag Days	UNTRANSLATED	GLOSSARY	Ödeme Gecikme Günleri	Ödeme Gecikme Günleri		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-FixingLagDays	Fixing Lag Days	Fixing Lag Days	UNTRANSLATED	GLOSSARY	Sabitleme Gecikme Günleri	Sabitleme Gecikme Günleri		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-IndexChartName	Index Chart	Index Chart	UNTRANSLATED	GLOSSARY	Endeks Grafiği	Endeks Grafiği		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-SettlementTypeId	Settlement Type	Settlement Type	UNTRANSLATED	GLOSSARY	Takas Türü	Takas Türü		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PaymentInstructionTypeId	Payment Instruction Type	Payment Instruction Type	UNTRANSLATED	GLOSSARY	Ödeme Talimatı Türü	Ödeme Talimatı Türü		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-Instructions	Instructions	Instructions	UNTRANSLATED	GLOSSARY	Talimatlar	Talimatlar		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-BusinessKey	Business Key	Business Key	UNTRANSLATED	GLOSSARY	İş Anahtarı	İş Anahtarı		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-LogicalReference	Logical Reference	Logical Reference	UNTRANSLATED	GLOSSARY	Mantıksal Referans	Mantıksal Referans		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Transaction	Transaction	Transaction	UNTRANSLATED	GLOSSARY	İşlem	İşlem		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-CashFlow	Cash Flow	Cash Flow	UNTRANSLATED	GLOSSARY	Nakit Akışı	Nakit Akışı		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PrincipalAndDates	Principal & Dates	Principal & Dates	UNTRANSLATED	GLOSSARY	Anapara ve Tarihler	Anapara ve Tarihler		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-RateSection	Rate & Interest	Rate & Interest	UNTRANSLATED	GLOSSARY	Kur ve Faiz	Kur ve Getiri	YES	MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Portfolio	Portfolio	Portfolio	UNTRANSLATED	GLOSSARY	Portföy	Portföy		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Product	Product	Product	UNTRANSLATED	GLOSSARY	Ürün	Ürün		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-FundSourceId	Fund Source	Fund Source	UNTRANSLATED	GLOSSARY	Fon Kaynağı	Fon Kaynağı		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-SubFundSourceCode	Sub Fund Source	Sub Fund Source	UNTRANSLATED	GLOSSARY	Alt Fon Kaynağı	Alt Fon Kaynağı		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Direction	Direction	Direction	UNTRANSLATED	GLOSSARY	Yön	Yön		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Market	Market	Market	UNTRANSLATED	GLOSSARY	Piyasa	Piyasa		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Currency	Currency	Currency	UNTRANSLATED	GLOSSARY	Para Birimi	Para Birimi		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Customer	Counterparty	Counterparty	UNTRANSLATED	GLOSSARY	Karşı Kurum	Karşı Kurum		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Basis	Date Basis	Date Basis	UNTRANSLATED	GLOSSARY	Tarih Esası	Tarih Esası		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-DaysInYear	Days in Year	Days in Year	UNTRANSLATED	GLOSSARY	Yıldaki Gün Sayısı	Yıldaki Gün Sayısı		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Trader	Trader	Trader	UNTRANSLATED	GLOSSARY	İşlemci	İşlemci		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-InputDate	Input Date	Input Date	UNTRANSLATED	GLOSSARY	Giriş Tarihi	Giriş Tarihi		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TradeDate	Trade Date	Trade Date	UNTRANSLATED	GLOSSARY	İşlem Tarihi	İşlem Tarihi		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-ValueDate	Value Date	Value Date	UNTRANSLATED	GLOSSARY	Valör Tarihi	Valör Tarihi		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-MaturityDate	Maturity Date	Maturity Date	UNTRANSLATED	GLOSSARY	Vade Tarihi	Vade Tarihi		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PaymentDate	Payment Date	Payment Date	UNTRANSLATED	GLOSSARY	Ödeme Tarihi	Ödeme Tarihi		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Amount	Principal Amount	Principal Amount	UNTRANSLATED	GLOSSARY	Anapara Tutarı	Anapara Tutarı		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-RateType	Rate Type	Rate Type	UNTRANSLATED	GLOSSARY	Kur Türü	Kur Türü		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-RateTypeName	Rate Type	Rate Type	UNTRANSLATED	GLOSSARY	Kur Türü	Kur Türü		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Rate	Rate	Rate	UNTRANSLATED	GLOSSARY	Kur	Kur		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-FloatingRateType	Floating Rate Type	Floating Rate Type	UNTRANSLATED	GLOSSARY	Değişken Faiz Oranı Türü	Değişken Getiri Oranı Türü	YES	MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-FixingLagDays	Fixing Lag Days	Fixing Lag Days	UNTRANSLATED	GLOSSARY	Sabitleme Gecikme Günleri	Sabitleme Gecikme Günleri		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Spread	Spread	Spread	UNTRANSLATED	GLOSSARY	Marj	Marj		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PaymentFrequency	Payment Frequency	Payment Frequency	UNTRANSLATED	GLOSSARY	Ödeme Sıklığı	Ödeme Sıklığı		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-InterestMethod	Interest Method	Interest Method	UNTRANSLATED	GLOSSARY	Faiz Yöntemi	Getiri Yöntemi	YES	MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-InterestMethodFrequency	Int. Met. Frequency	Int. Met. Frequency	UNTRANSLATED	GLOSSARY	Faiz Hesaplama Sıklığı	Getiri Hesaplama Sıklığı	YES	MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PaymentLagDays	Payment Lag Days	Payment Lag Days	UNTRANSLATED	GLOSSARY	Ödeme Gecikme Günleri	Ödeme Gecikme Günleri		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-IndexChart	Index Chart	Index Chart	UNTRANSLATED	GLOSSARY	Endeks Grafiği	Endeks Grafiği		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Instructions	Instructions	Instructions	UNTRANSLATED	GLOSSARY	Talimatlar	Talimatlar		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-SendConfirmation	Send Confirmation	Send Confirmation	UNTRANSLATED	GLOSSARY	Teyit Gönder	Teyit Gönder		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-SendPayment	Send Payment	Send Payment	UNTRANSLATED	GLOSSARY	Ödeme Gönder	Ödeme Gönder		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-SendNoticeToReceive	Send Notice To Receive	Send Notice To Receive	UNTRANSLATED	GLOSSARY	Alıcıya Bildirim Gönder	Alıcıya Bildirim Gönder		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-SettlementType	Settlement Type	Settlement Type	UNTRANSLATED	GLOSSARY	Takas Türü	Takas Türü		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PaymentInstructionType	Payment Instruction Type	Payment Instruction Type	UNTRANSLATED	GLOSSARY	Ödeme Talimatı Türü	Ödeme Talimatı Türü		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-CustomerId	Counterparty	Counterparty	UNTRANSLATED	GLOSSARY	Karşı Kurum	Karşı Kurum		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PortfolioId	Portfolio	Portfolio	UNTRANSLATED	GLOSSARY	Portföy	Portföy		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-DirectionCode	Direction	Direction	UNTRANSLATED	GLOSSARY	Yön	Yön		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-CurrencyCode	Currency	Currency	UNTRANSLATED	GLOSSARY	Para Birimi	Para Birimi		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-DealAmount	Principal Amount	Principal Amount	UNTRANSLATED	GLOSSARY	Anapara Tutarı	Anapara Tutarı		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-BasisCode	Date Basis	Date Basis	UNTRANSLATED	GLOSSARY	Tarih Esası	Tarih Esası		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-FixedRate	Fixed Rate	Fixed Rate	UNTRANSLATED	GLOSSARY	Sabit Oran	Sabit Oran		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PayFreq	Payment Frequency	Payment Frequency	UNTRANSLATED	GLOSSARY	Ödeme Sıklığı	Ödeme Sıklığı		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-InterestMethodFreq	Interest Method Frequency	Interest Method Frequency	UNTRANSLATED	GLOSSARY	Faiz Yöntemi Sıklığı	Getiri Yöntemi Sıklığı	YES	MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-ValidationError	Please fill in all required fields.	Please fill in all required fields.	UNTRANSLATED	GLOSSARY	Lütfen tüm gerekli alanları doldurun.	Lütfen tüm gerekli alanları doldurun.		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-SaveSuccess	Transaction successful!	Transaction successful!	UNTRANSLATED	GLOSSARY	İşlem başarıyla tamamlandı!	İşlem başarıyla tamamlandı!		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-OutgoingCorrespondent	Outgoing Correspondent	Outgoing Correspondent	UNTRANSLATED	GLOSSARY	Giden Muhabir	Giden Muhabir		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-OutgoingAccountNumber	Outgoing Account Number	Outgoing Account Number	UNTRANSLATED	GLOSSARY	Giden Hesap Numarası	Giden Hesap Numarası		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-OutgoingAccountGLCode	Outgoing Account GL Code	Outgoing Account GL Code	UNTRANSLATED	GLOSSARY	Giden Hesap GL Kodu	Giden Hesap GL Kodu		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-IncomingCorrespondent	Incoming Correspondent	Incoming Correspondent	UNTRANSLATED	GLOSSARY	Gelen Muhabir	Gelen Muhabir		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-IncomingAccountNumber	Incoming Account Number	Incoming Account Number	UNTRANSLATED	GLOSSARY	Gelen Hesap Numarası	Gelen Hesap Numarası		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-IncomingAccountGLCode	Incoming Account GL Code	Incoming Account GL Code	UNTRANSLATED	GLOSSARY	Gelen Hesap Muhaseb Kodu	Gelen Hesap Muhaseb Kodu		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TheirSender	Their Sender	Their Sender	UNTRANSLATED	GLOSSARY	Karşı Tarafın Göndericisi	Karşı Tarafın Göndericisi		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TheirSenderSwift	Their Sender Swift Code	Their Sender Swift Code	UNTRANSLATED	GLOSSARY	Karşı Tarafın Gönderici Swift Kodu	Karşı Tarafın Gönderici Swift Kodu		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TheirSenderAccount	Their Sender Account Number	Their Sender Account Number	UNTRANSLATED	GLOSSARY	Karşı Tarafın Gönderici Hesap Numarası	Karşı Tarafın Gönderici Hesap Numarası		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TheirBeneficiary	Their Beneficiary	Their Beneficiary	UNTRANSLATED	GLOSSARY	Karşı Tarafın Lehtarı	Karşı Tarafın Lehtarı		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TheirBeneficiarySwift	Their Beneficiary Swift Code	Their Beneficiary Swift Code	UNTRANSLATED	GLOSSARY	Karşı Tarafın Lehtar Swift Kodu	Karşı Tarafın Lehtar Swift Kodu		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TheirBeneficiaryAccount	Their Beneficiary Account Number	Their Beneficiary Account Number	UNTRANSLATED	GLOSSARY	Karşı Tarafın Lehtar Hesap Numarası	Karşı Tarafın Lehtar Hesap Numarası		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Portfolio	Portfolio	Portfolio	UNTRANSLATED	GLOSSARY	Portföy	Portföy		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-LogicalReference	Logical Reference	Logical Reference	UNTRANSLATED	GLOSSARY	Mantıksal Referans	Mantıksal Referans		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Product	Product	Product	UNTRANSLATED	GLOSSARY	Ürün	Ürün		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Direction	Direction	Direction	UNTRANSLATED	GLOSSARY	Yön	Yön		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Market	Market	Market	UNTRANSLATED	GLOSSARY	Piyasa	Piyasa		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Currency	Currency	Currency	UNTRANSLATED	GLOSSARY	Para Birimi	Para Birimi		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Customer	Counterparty	Counterparty	UNTRANSLATED	GLOSSARY	Karşı Kurum	Karşı Kurum		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Basis	Date Basis	Date Basis	UNTRANSLATED	GLOSSARY	Tarih Esası	Tarih Esası		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-DaysInYear	Days in Year	Days in Year	UNTRANSLATED	GLOSSARY	Yıldaki Gün Sayısı	Yıldaki Gün Sayısı		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Trader	Trader	Trader	UNTRANSLATED	GLOSSARY	İşlemci	İşlemci		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-InputDate	Input Date	Input Date	UNTRANSLATED	GLOSSARY	Giriş Tarihi	Giriş Tarihi		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-TradeDate	Trade Date	Trade Date	UNTRANSLATED	GLOSSARY	İşlem Tarihi	İşlem Tarihi		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-ValueDate	Value Date	Value Date	UNTRANSLATED	GLOSSARY	Valör Tarihi	Valör Tarihi		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-MaturityDate	Maturity Date	Maturity Date	UNTRANSLATED	GLOSSARY	Vade Tarihi	Vade Tarihi		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-PaymentDate	Payment Date	Payment Date	UNTRANSLATED	GLOSSARY	Ödeme Tarihi	Ödeme Tarihi		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Amount	Principal Amount	Principal Amount	UNTRANSLATED	GLOSSARY	Anapara Tutarı	Anapara Tutarı		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-RateType	Rate Type	Rate Type	UNTRANSLATED	GLOSSARY	Kur Türü	Kur Türü		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Rate	Rate	Rate	UNTRANSLATED	GLOSSARY	Kur	Kur		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-FloatingRateType	Floating Rate Type	Floating Rate Type	UNTRANSLATED	GLOSSARY	Değişken Faiz Oranı Türü	Değişken Getiri Oranı Türü	YES	MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-FixingLagDays	Fixing Lag Days	Fixing Lag Days	UNTRANSLATED	GLOSSARY	Sabitleme Gecikme Günleri	Sabitleme Gecikme Günleri		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Spread	Spread	Spread	UNTRANSLATED	GLOSSARY	Marj	Marj		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-PaymentFrequency	Payment Frequency	Payment Frequency	UNTRANSLATED	GLOSSARY	Ödeme Sıklığı	Ödeme Sıklığı		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-InterestMethod	Interest Method	Interest Method	UNTRANSLATED	GLOSSARY	Faiz Yöntemi	Getiri Yöntemi	YES	MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-InterestMethodFrequency	Int. Met. Frequency	Int. Met. Frequency	UNTRANSLATED	GLOSSARY	Faiz Hesaplama Sıklığı	Getiri Hesaplama Sıklığı	YES	MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-PaymentLagDays	Payment Lag Days	Payment Lag Days	UNTRANSLATED	GLOSSARY	Ödeme Gecikme Günleri	Ödeme Gecikme Günleri		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-IndexChart	Index Chart	Index Chart	UNTRANSLATED	GLOSSARY	Endeks Grafiği	Endeks Grafiği		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Instructions	Instructions	Instructions	UNTRANSLATED	GLOSSARY	Talimatlar	Talimatlar		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-SendConfirmation	Send Confirmation	Send Confirmation	UNTRANSLATED	GLOSSARY	Teyit Gönder	Teyit Gönder		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-SendPayment	Send Payment	Send Payment	UNTRANSLATED	GLOSSARY	Ödeme Gönder	Ödeme Gönder		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-SendNoticeToReceive	Send Notice To Receive	Send Notice To Receive	UNTRANSLATED	GLOSSARY	Alıcıya Bildirim Gönder	Alıcıya Bildirim Gönder		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-SettlementType	Settlement Type	Settlement Type	UNTRANSLATED	GLOSSARY	Takas Türü	Takas Türü		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-PaymentInstructionType	Payment Instruction Type	Payment Instruction Type	UNTRANSLATED	GLOSSARY	Ödeme Talimatı Türü	Ödeme Talimatı Türü		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-MsgSaveNotCreatedCashFlow	You’ve made changes to the form, but the cash flow hasn’t been updated.<br> Do you want to generate it now?	You’ve made changes to the form, but the cash flow hasn’t been updated.<br> Do you want to generate it now?	UNTRANSLATED	GLOSSARY	Formda değişiklik yaptınız ancak nakit akışı güncellenmedi. Nakit akışını şimdi yeniden oluşturmak ister misiniz?	Formda değişiklik yaptınız ancak nakit akışı güncellenmedi. Nakit akışını şimdi yeniden oluşturmak ister misiniz?		MM
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PaymentValidation	Please check PaymentValidation data!	Please check PaymentValidation data!	UNTRANSLATED	GLOSSARY	Lütfen Ödeme Doğrulama verilerini kontrol edin!	Lütfen Ödeme Doğrulama verilerini kontrol edin!		MM
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-Id	Id	Id	UNTRANSLATED	GLOSSARY	Kimlik	Kimlik		MM
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-IYE_YF_YO	IYE/YF/YO	IYE/YF/YO	UNTRANSLATED	GLOSSARY	IYE/YF/YO	IYE/YF/YO		MM
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-BSMV	BSMV	BSMV	UNTRANSLATED	GLOSSARY	BSMV	BSMV		MM
+pages/treasury/interbank-loan/interbank-loan	interbankLoan-AmortizationValidation	Please select the amortization amount or percentage!	Please select the amortization amount or percentage!	UNTRANSLATED	GLOSSARY	Lütfen amortisman tutarını veya yüzdesini seçin!	Lütfen amortisman tutarını veya yüzdesini seçin!		MM
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-pageTitle	Issue Bond Revaluation	Issue Bond Revaluation	UNTRANSLATED	GLOSSARY	Menkul Kıymet İhracı Yeniden Değerlemesi	Menkul Kıymet İhracı Yeniden Değerlemesi		MM
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-popupTitle	Issue Bond Revaluation	Issue Bond Revaluation	UNTRANSLATED	GLOSSARY	Menkul Kıymet İhracı Yeniden Değerlemesi	Menkul Kıymet İhracı Yeniden Değerlemesi		MM
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-Id	Id	Id	UNTRANSLATED	GLOSSARY	Kimlik	Kimlik		MM
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-ISIN	ISIN	ISIN	UNTRANSLATED	GLOSSARY	ISIN Kodu	ISIN Kodu		MM
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-ValueDate	Issue Date	Issue Date	UNTRANSLATED	GLOSSARY	İhraç Tarihi	İhraç Tarihi		MM
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-MaturityDate	Maturity Date	Maturity Date	UNTRANSLATED	GLOSSARY	Vade Tarihi	Vade Tarihi		MM
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-BaseAmount	Base Amount	Base Amount	UNTRANSLATED	GLOSSARY	Baz Tutar	Baz Tutar		MM
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-AccrualAmount	Accrual Amount	Accrual Amount	UNTRANSLATED	GLOSSARY	Reeskont Tutarı	Reeskont Tutarı		MM
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-AccEntryMainId	Account No	Account No	UNTRANSLATED	GLOSSARY	Hesap Numarası	Hesap Numarası		MM
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-AccrualDay	Accrual Day	Accrual Day	UNTRANSLATED	GLOSSARY	Reeskont Günü	Reeskont Günü		MM
+pages/treasury/issue-bond/issue-bond	dgBondIssue-ISIN	ISIN	ISIN	UNTRANSLATED	GLOSSARY	ISIN Kodu	ISIN Kodu		MM
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-Isın	ISIN	ISIN	UNTRANSLATED	GLOSSARY	ISIN Kodu	ISIN Kodu		MM
+pages/treasury/money-market/money-market	dgMMTransactions-pageTitle	Borrowing and Placement	Borrowing and Placement	UNTRANSLATED	GLOSSARY	Borç Alma ve Borç Verme	Borç Alma ve Borç Verme		MM
+pages/treasury/money-market/money-market	dgMMTransactions-popupTitle	Borrowing and Placement	Borrowing and Placement	UNTRANSLATED	GLOSSARY	Borç Alma ve Borç Verme	Borç Alma ve Borç Verme		MM
+pages/treasury/money-market/money-market	dgMMTransactions-Id	Id	Id	UNTRANSLATED	GLOSSARY	Kimlik	Kimlik		MM
+pages/treasury/money-market/money-market	dgMMTransactions-PortfolioName	Portfolio	Portfolio	UNTRANSLATED	GLOSSARY	Portföy	Portföy		MM
+pages/treasury/money-market/money-market	dgMMTransactions-DirectionName	Direction	Direction	UNTRANSLATED	GLOSSARY	Yön	Yön		MM
+pages/treasury/money-market/money-market	dgMMTransactions-ProductName	Product Type	Product Type	UNTRANSLATED	GLOSSARY	Ürün Türü	Ürün Türü		MM
+pages/treasury/money-market/money-market	dgMMTransactions-LogicalReference	Logical Reference	Logical Reference	UNTRANSLATED	GLOSSARY	Mantıksal Referans	Mantıksal Referans		MM
+pages/treasury/money-market/money-market	dgMMTransactions-BusinessKey	Business Key	Business Key	UNTRANSLATED	GLOSSARY	İş Anahtarı	İş Anahtarı		MM
+pages/treasury/money-market/money-market	dgMMTransactions-CustomerName	Counterparty	Counterparty	UNTRANSLATED	GLOSSARY	Karşı Kurum	Karşı Kurum		MM
+pages/treasury/money-market/money-market	dgMMTransactions-CcyCode	CCY	CCY	UNTRANSLATED	GLOSSARY	Para Birimi	Para Birimi		MM
+pages/treasury/money-market/money-market	dgMMTransactions-MarketName	Market	Market	UNTRANSLATED	GLOSSARY	Piyasa	Piyasa		MM
+pages/treasury/money-market/money-market	dgMMTransactions-InterestRate	Rate	Rate	UNTRANSLATED	GLOSSARY	Kur	Kur		MM
+pages/treasury/money-market/money-market	dgMMTransactions-DealAmount	Deal Amount	Deal Amount	UNTRANSLATED	GLOSSARY	İşlem Tutarı	İşlem Tutarı		MM
+pages/treasury/money-market/money-market	dgMMTransactions-MaturityAmount	Maturity Amount	Maturity Amount	UNTRANSLATED	GLOSSARY	Vade Tutarı	Vade Tutarı		MM
+pages/treasury/money-market/money-market	dgMMTransactions-InterestAmount	Accrued amount	Accrued amount	UNTRANSLATED	GLOSSARY	Tahakkuk Tutarı	Tahakkuk Tutarı		MM
+pages/treasury/money-market/money-market	dgMMTransactions-InputDate	Input Date	Input Date	UNTRANSLATED	GLOSSARY	Giriş Tarihi	Giriş Tarihi		MM
+pages/treasury/money-market/money-market	dgMMTransactions-TradeDate	Trade Date	Trade Date	UNTRANSLATED	GLOSSARY	İşlem Tarihi	İşlem Tarihi		MM
+pages/treasury/money-market/money-market	dgMMTransactions-ValueDate	Value Date	Value Date	UNTRANSLATED	GLOSSARY	Valör Tarihi	Valör Tarihi		MM
+pages/treasury/money-market/money-market	dgMMTransactions-MaturityDate	Maturity Date	Maturity Date	UNTRANSLATED	GLOSSARY	Vade Tarihi	Vade Tarihi		MM
+pages/treasury/money-market/money-market	dgMMTransactions-BasisName	Basis Name	Basis Name	UNTRANSLATED	GLOSSARY	Baz Adı	Baz Adı		MM
+pages/treasury/money-market/money-market	dgMMTransactions-DaysInYear	Days In Year	Days In Year	UNTRANSLATED	GLOSSARY	Yıldaki Gün Sayısı	Yıldaki Gün Sayısı		MM
+pages/treasury/money-market/money-market	dgMMTransactions-RolloverParentTransactionId	Parent Transaction Id	Parent Transaction Id	UNTRANSLATED	GLOSSARY	Üst İşlem Kimliği	Üst İşlem Kimliği		MM
+pages/treasury/money-market/money-market	dgMMTransactions-RolloverParentLogicalReference	Parent Logical Reference	Parent Logical Reference	UNTRANSLATED	GLOSSARY	Üst Mantıksal Referans	Üst Mantıksal Referans		MM
+pages/treasury/money-market/money-market	dgMMTransactions-TransactionItemType	Transaction Type	Transaction Type	UNTRANSLATED	GLOSSARY	İşlem Türü	İşlem Türü		MM
+pages/treasury/money-market/money-market	dgMMTransactions-Instructions	Instructions	Instructions	UNTRANSLATED	GLOSSARY	Talimatlar	Talimatlar		MM
+pages/treasury/money-market/money-market	dgMMTransactions-ExternalCustomerId	External Customer ID	External Customer ID	UNTRANSLATED	GLOSSARY	Harici Müşteri Kimliği	Harici Müşteri Kimliği		MM
+pages/treasury/money-market/money-market	dgMMTransactions-AccountNumber	Account Number	Account Number	UNTRANSLATED	GLOSSARY	Hesap Numarası	Hesap Numarası		MM
+pages/treasury/money-market/money-market	dgMMTransactions-Ccy	Ccy	Ccy	UNTRANSLATED	GLOSSARY	Para Birimi	Para Birimi		MM
+pages/treasury/money-market/money-market	dgMMTransactions-MarketCode	Market Code	Market Code	UNTRANSLATED	GLOSSARY	Piyasa Kodu	Piyasa Kodu		MM
+pages/treasury/money-market/money-market	dgMMTransactions-WeReceiveName	We Receive	We Receive	UNTRANSLATED	GLOSSARY	Alınacak	Alınacak		MM
+pages/treasury/money-market/money-market	dgMMTransactions-WeSendName	We Send	We Send	UNTRANSLATED	GLOSSARY	Gönderilecek	Gönderilecek		MM
+pages/treasury/money-market/money-market	dgMMTransactions-TheyReceiveName	They Receive	They Receive	UNTRANSLATED	GLOSSARY	Karşı Tarafın Alacağı	Karşı Tarafın Alacağı		MM
+pages/treasury/money-market/money-market	dgMMTransactions-TheySendName	They Send	They Send	UNTRANSLATED	GLOSSARY	Karşı Tarafın Göndereceği	Karşı Tarafın Göndereceği		MM
+pages/treasury/money-market/money-market	dgMMTransactions-CustomerType	Customer Type	Customer Type	UNTRANSLATED	GLOSSARY	Müşteri Türü	Müşteri Türü		MM
+pages/treasury/money-market/money-market	frmMMTransaction-PortfolioId	Portfolio	Portfolio	UNTRANSLATED	GLOSSARY	Portföy	Portföy		MM
+pages/treasury/money-market/money-market	frmMMTransaction-ProductId	Product Type	Product Type	UNTRANSLATED	GLOSSARY	Ürün Türü	Ürün Türü		MM
+pages/treasury/money-market/money-market	frmMMTransaction-DirectionCode	Direction	Direction	UNTRANSLATED	GLOSSARY	Yön	Yön		MM
+pages/treasury/money-market/money-market	frmMMTransaction-FundSourceId	Fund Source	Fund Source	UNTRANSLATED	GLOSSARY	Fon Kaynağı	Fon Kaynağı		MM
+pages/treasury/money-market/money-market	frmMMTransaction-SubFundSourceCode	Sub Fund Source	Sub Fund Source	UNTRANSLATED	GLOSSARY	Alt Fon Kaynağı	Alt Fon Kaynağı		MM
+pages/treasury/money-market/money-market	frmMMTransaction-MarketCode	Market	Market	UNTRANSLATED	GLOSSARY	Piyasa	Piyasa		MM
+pages/treasury/money-market/money-market	frmMMTransaction-CurrencyCode	Currency	Currency	UNTRANSLATED	GLOSSARY	Para Birimi	Para Birimi		MM
+pages/treasury/money-market/money-market	frmMMTransaction-CustomerId	Counterparty	Counterparty	UNTRANSLATED	GLOSSARY	Karşı Kurum	Karşı Kurum		MM
+pages/treasury/money-market/money-market	frmMMTransaction-BasisCode	Date Basis	Date Basis	UNTRANSLATED	GLOSSARY	Tarih Esası	Tarih Esası		MM
+pages/treasury/money-market/money-market	frmMMTransaction-DaysInYear	Days in Year	Days in Year	UNTRANSLATED	GLOSSARY	Yıldaki Gün Sayısı	Yıldaki Gün Sayısı		MM
+pages/treasury/money-market/money-market	frmMMTransaction-WeSend	We Send	We Send	UNTRANSLATED	GLOSSARY	Gönderilecek	Gönderilecek		MM
+pages/treasury/money-market/money-market	frmMMTransaction-WeReceive	We Receive	We Receive	UNTRANSLATED	GLOSSARY	Alınacak	Alınacak		MM
+pages/treasury/money-market/money-market	frmMMTransaction-Instructions	Instructions	Instructions	UNTRANSLATED	GLOSSARY	Talimatlar	Talimatlar		MM
+pages/treasury/money-market/money-market	frmMMTransaction-Trader	Trader	Trader	UNTRANSLATED	GLOSSARY	İşlemci	İşlemci		MM
+pages/treasury/money-market/money-market	frmMMTransaction-InputDate	Input Date	Input Date	UNTRANSLATED	GLOSSARY	Giriş Tarihi	Giriş Tarihi		MM
+pages/treasury/money-market/money-market	frmMMTransaction-TradeDate	Trade Date	Trade Date	UNTRANSLATED	GLOSSARY	İşlem Tarihi	İşlem Tarihi		MM
+pages/treasury/money-market/money-market	frmMMTransaction-ValueDate	Value Date	Value Date	UNTRANSLATED	GLOSSARY	Valör Tarihi	Valör Tarihi		MM
+pages/treasury/money-market/money-market	frmMMTransaction-MaturityDate	Maturity Date	Maturity Date	UNTRANSLATED	GLOSSARY	Vade Tarihi	Vade Tarihi		MM
+pages/treasury/money-market/money-market	frmMMTransaction-DayCount	Day Count	Day Count	UNTRANSLATED	GLOSSARY	Gün Sayısı	Gün Sayısı		MM
+pages/treasury/money-market/money-market	frmMMTransaction-PaymentType	Payment Type	Payment Type	UNTRANSLATED	GLOSSARY	Ödeme Türü	Ödeme Türü		MM
+pages/treasury/money-market/money-market	frmMMTransaction-DealAmount	Amount	Amount	UNTRANSLATED	GLOSSARY	Tutar	Tutar		MM
+pages/treasury/money-market/money-market	frmMMTransaction-InterestRate	Rate	Rate	UNTRANSLATED	GLOSSARY	Kur	Kur		MM
+pages/treasury/money-market/money-market	frmMMTransaction-ProfitAmount	Interest Amount	Interest Amount	UNTRANSLATED	GLOSSARY	Faiz Tutarı	Getiri Tutarı	YES	MM
+pages/treasury/money-market/money-market	frmMMTransaction-MaturityAmountInput	Maturity Amount	Maturity Amount	UNTRANSLATED	GLOSSARY	Vade Tutarı	Vade Tutarı		MM
+pages/treasury/money-market/money-market	frmMMTransaction-TheirSend	They Send	They Send	UNTRANSLATED	GLOSSARY	Karşı Tarafın Göndereceği	Karşı Tarafın Göndereceği		MM
+pages/treasury/money-market/money-market	frmMMTransaction-TheirReceive	They Receive	They Receive	UNTRANSLATED	GLOSSARY	Karşı Tarafın Alacağı	Karşı Tarafın Alacağı		MM
+pages/treasury/money-market/money-market	frmMMTransaction-CollateralType	Collateral Type	Collateral Type	UNTRANSLATED	GLOSSARY	Teminat Türü	Teminat Türü		MM
+pages/treasury/money-market/money-market	frmMMTransaction-Generate	Generate	Generate	UNTRANSLATED	GLOSSARY	Oluştur	Oluştur		MM
+pages/treasury/money-market/money-market	frmMMTransaction-PaymentSchedule	Payment Schedule	Payment Schedule	UNTRANSLATED	GLOSSARY	Ödeme Planı	Ödeme Planı		MM
+pages/treasury/money-market/money-market	frmMMTransaction-SendConfirmation	Send Confirmation	Send Confirmation	UNTRANSLATED	GLOSSARY	Teyit Gönder	Teyit Gönder		MM
+pages/treasury/money-market/money-market	frmMMTransaction-SendPayment	Send Payment	Send Payment	UNTRANSLATED	GLOSSARY	Ödeme Gönder	Ödeme Gönder		MM
+pages/treasury/money-market/money-market	frmMMTransaction-SendNoticeToReceive	Send Notice To Receive	Send Notice To Receive	UNTRANSLATED	GLOSSARY	Alıcıya Bildirim Gönder	Alıcıya Bildirim Gönder		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-PortfolioId	Portfolio	Portfolio	UNTRANSLATED	GLOSSARY	Portföy	Portföy		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-ProductId	Product Type	Product Type	UNTRANSLATED	GLOSSARY	Ürün Türü	Ürün Türü		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-DirectionCode	Direction	Direction	UNTRANSLATED	GLOSSARY	Yön	Yön		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-FundSourceId	Fund Source	Fund Source	UNTRANSLATED	GLOSSARY	Fon Kaynağı	Fon Kaynağı		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-SubFundSourceCode	Sub Fund Source	Sub Fund Source	UNTRANSLATED	GLOSSARY	Alt Fon Kaynağı	Alt Fon Kaynağı		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-MarketCode	Market	Market	UNTRANSLATED	GLOSSARY	Piyasa	Piyasa		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-CurrencyCode	Currency	Currency	UNTRANSLATED	GLOSSARY	Para Birimi	Para Birimi		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-CustomerId	Counterparty	Counterparty	UNTRANSLATED	GLOSSARY	Karşı Kurum	Karşı Kurum		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-BasisCode	Date Basis	Date Basis	UNTRANSLATED	GLOSSARY	Tarih Esası	Tarih Esası		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-DaysInYear	Days in Year	Days in Year	UNTRANSLATED	GLOSSARY	Yıldaki Gün Sayısı	Yıldaki Gün Sayısı		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-WeSend	We Send	We Send	UNTRANSLATED	GLOSSARY	Gönderilecek	Gönderilecek		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-WeReceive	We Receive	We Receive	UNTRANSLATED	GLOSSARY	Alınacak	Alınacak		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-Instructions	Instructions	Instructions	UNTRANSLATED	GLOSSARY	Talimatlar	Talimatlar		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-Trader	Trader	Trader	UNTRANSLATED	GLOSSARY	İşlemci	İşlemci		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-InputDate	Input Date	Input Date	UNTRANSLATED	GLOSSARY	Giriş Tarihi	Giriş Tarihi		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-TradeDate	Trade Date	Trade Date	UNTRANSLATED	GLOSSARY	İşlem Tarihi	İşlem Tarihi		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-ValueDate	Value Date	Value Date	UNTRANSLATED	GLOSSARY	Valör Tarihi	Valör Tarihi		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-MaturityDate	Maturity Date	Maturity Date	UNTRANSLATED	GLOSSARY	Vade Tarihi	Vade Tarihi		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-DayCount	Day Count	Day Count	UNTRANSLATED	GLOSSARY	Gün Sayısı	Gün Sayısı		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-PaymentType	Payment Type	Payment Type	UNTRANSLATED	GLOSSARY	Ödeme Türü	Ödeme Türü		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-DealAmount	Start Amount	Start Amount	UNTRANSLATED	GLOSSARY	Başlangıç Tutarı	Başlangıç Tutarı		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-InterestRate	Rate	Rate	UNTRANSLATED	GLOSSARY	Kur	Kur		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-TheirSend	They Send	They Send	UNTRANSLATED	GLOSSARY	Karşı Tarafın Göndereceği	Karşı Tarafın Göndereceği		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-TheirReceive	They Receive	They Receive	UNTRANSLATED	GLOSSARY	Karşı Tarafın Alacağı	Karşı Tarafın Alacağı		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-CollateralType	Collateral Type	Collateral Type	UNTRANSLATED	GLOSSARY	Teminat Türü	Teminat Türü		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-Generate	Generate	Generate	UNTRANSLATED	GLOSSARY	Oluştur	Oluştur		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-PaymentSchedule	Payment Schedule	Payment Schedule	UNTRANSLATED	GLOSSARY	Ödeme Planı	Ödeme Planı		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-SendConfirmation	Send Confirmation	Send Confirmation	UNTRANSLATED	GLOSSARY	Teyit Gönder	Teyit Gönder		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-SendPayment	Send Payment	Send Payment	UNTRANSLATED	GLOSSARY	Ödeme Gönder	Ödeme Gönder		MM
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-SendNoticeToReceive	Send Notice To Receive	Send Notice To Receive	UNTRANSLATED	GLOSSARY	Alıcıya Bildirim Gönder	Alıcıya Bildirim Gönder		MM
+pages/treasury/money-market/money-market	dgPaymentSchedule-Id	Id	Id	UNTRANSLATED	GLOSSARY	Kimlik	Kimlik		MM
+pages/treasury/money-market/money-market	dgPaymentSchedule-PeriodId	Period	Period	UNTRANSLATED	GLOSSARY	Dönem	Dönem		MM
+pages/treasury/money-market/money-market	dgPaymentSchedule-PeriodStartDate	Start Date	Start Date	UNTRANSLATED	GLOSSARY	Başlangıç Tarihi	Başlangıç Tarihi		MM
+pages/treasury/money-market/money-market	dgPaymentSchedule-PeriodEndDate	End Date	End Date	UNTRANSLATED	GLOSSARY	Bitiş Tarihi	Bitiş Tarihi		MM
+pages/treasury/money-market/money-market	dgPaymentSchedule-DayCount	Day Count	Day Count	UNTRANSLATED	GLOSSARY	Gün Sayısı	Gün Sayısı		MM
+pages/treasury/money-market/money-market	dgPaymentSchedule-InterestRate	Rate	Rate	UNTRANSLATED	GLOSSARY	Kur	Kur		MM
+pages/treasury/money-market/money-market	dgPaymentSchedule-Amount	Amount	Amount	UNTRANSLATED	GLOSSARY	Tutar	Tutar		MM
+pages/treasury/money-market/money-market	dgPaymentSchedule-FlowType	Flow Type	Flow Type	UNTRANSLATED	GLOSSARY	Akış Türü	Akış Türü		MM
+pages/treasury/money-market/money-market	dgPaymentSchedule-Actions	Actions	Actions	UNTRANSLATED	GLOSSARY	İşlemler	İşlemler		MM
+pages/treasury/money-market/money-market	dgPaymentSchedule-GenerateSchedule	Generate Schedule	Generate Schedule	UNTRANSLATED	GLOSSARY	Plan Oluştur	Plan Oluştur		MM
+pages/treasury/money-market/money-market	frmMMPreview-PortfolioName	Portfolio	Portfolio	UNTRANSLATED	GLOSSARY	Portföy	Portföy		MM
+pages/treasury/money-market/money-market	frmMMPreview-LogicalReference	Logical Reference	Logical Reference	UNTRANSLATED	GLOSSARY	Mantıksal Referans	Mantıksal Referans		MM
+pages/treasury/money-market/money-market	frmMMPreview-ProductType	Product Type	Product Type	UNTRANSLATED	GLOSSARY	Ürün Türü	Ürün Türü		MM
+pages/treasury/money-market/money-market	frmMMPreview-Direction	Direction	Direction	UNTRANSLATED	GLOSSARY	Yön	Yön		MM
+pages/treasury/money-market/money-market	frmMMPreview-FundSource	Fund Source	Fund Source	UNTRANSLATED	GLOSSARY	Fon Kaynağı	Fon Kaynağı		MM
+pages/treasury/money-market/money-market	frmMMPreview-SubFundSource	Sub Fund Source	Sub Fund Source	UNTRANSLATED	GLOSSARY	Alt Fon Kaynağı	Alt Fon Kaynağı		MM
+pages/treasury/money-market/money-market	frmMMPreview-Market	Market	Market	UNTRANSLATED	GLOSSARY	Piyasa	Piyasa		MM
+pages/treasury/money-market/money-market	frmMMPreview-Currency	Currency	Currency	UNTRANSLATED	GLOSSARY	Para Birimi	Para Birimi		MM
+pages/treasury/money-market/money-market	frmMMPreview-Counterparty	Counterparty	Counterparty	UNTRANSLATED	GLOSSARY	Karşı Kurum	Karşı Kurum		MM
+pages/treasury/money-market/money-market	frmMMPreview-DateBasis	Date Basis	Date Basis	UNTRANSLATED	GLOSSARY	Tarih Esası	Tarih Esası		MM
+pages/treasury/money-market/money-market	frmMMPreview-DaysInYear	Days in Year	Days in Year	UNTRANSLATED	GLOSSARY	Yıldaki Gün Sayısı	Yıldaki Gün Sayısı		MM
+pages/treasury/money-market/money-market	frmMMPreview-WeSend	We Send	We Send	UNTRANSLATED	GLOSSARY	Gönderilecek	Gönderilecek		MM
+pages/treasury/money-market/money-market	frmMMPreview-WeReceive	We Receive	We Receive	UNTRANSLATED	GLOSSARY	Alınacak	Alınacak		MM
+pages/treasury/money-market/money-market	frmMMPreview-Instructions	Instructions	Instructions	UNTRANSLATED	GLOSSARY	Talimatlar	Talimatlar		MM
+pages/treasury/money-market/money-market	frmMMPreview-Trader	Trader	Trader	UNTRANSLATED	GLOSSARY	İşlemci	İşlemci		MM
+pages/treasury/money-market/money-market	frmMMPreview-InputDate	Input Date	Input Date	UNTRANSLATED	GLOSSARY	Giriş Tarihi	Giriş Tarihi		MM
+pages/treasury/money-market/money-market	frmMMPreview-TradeDate	Trade Date	Trade Date	UNTRANSLATED	GLOSSARY	İşlem Tarihi	İşlem Tarihi		MM
+pages/treasury/money-market/money-market	frmMMPreview-ValueDate	Value Date	Value Date	UNTRANSLATED	GLOSSARY	Valör Tarihi	Valör Tarihi		MM
+pages/treasury/money-market/money-market	frmMMPreview-MaturityDate	Maturity Date	Maturity Date	UNTRANSLATED	GLOSSARY	Vade Tarihi	Vade Tarihi		MM
+pages/treasury/money-market/money-market	frmMMPreview-DayCount	Day Count	Day Count	UNTRANSLATED	GLOSSARY	Gün Sayısı	Gün Sayısı		MM
+pages/treasury/money-market/money-market	frmMMPreview-PaymentType	Payment Type	Payment Type	UNTRANSLATED	GLOSSARY	Ödeme Türü	Ödeme Türü		MM
+pages/treasury/money-market/money-market	frmMMPreview-StartAmount	Start Amount	Start Amount	UNTRANSLATED	GLOSSARY	Başlangıç Tutarı	Başlangıç Tutarı		MM
+pages/treasury/money-market/money-market	frmMMPreview-InterestRate	Rate	Rate	UNTRANSLATED	GLOSSARY	Kur	Kur		MM
+pages/treasury/money-market/money-market	frmMMPreview-ProfitAmount	Interest Amount	Interest Amount	UNTRANSLATED	GLOSSARY	Faiz Tutarı	Getiri Tutarı	YES	MM
+pages/treasury/money-market/money-market	frmMMPreview-MaturityAmount	Maturity Amount	Maturity Amount	UNTRANSLATED	GLOSSARY	Vade Tutarı	Vade Tutarı		MM
+pages/treasury/money-market/money-market	frmMMPreview-TheirSend	They Send	They Send	UNTRANSLATED	GLOSSARY	Karşı Tarafın Göndereceği	Karşı Tarafın Göndereceği		MM
+pages/treasury/money-market/money-market	frmMMPreview-TheirReceive	They Receive	They Receive	UNTRANSLATED	GLOSSARY	Karşı Tarafın Alacağı	Karşı Tarafın Alacağı		MM
+pages/treasury/money-market/money-market	frmMMPreview-AccountNumber	Account Number	Account Number	UNTRANSLATED	GLOSSARY	Hesap Numarası	Hesap Numarası		MM
+pages/treasury/money-market/money-market	frmMMPreview-CollateralType	Collateral Type	Collateral Type	UNTRANSLATED	GLOSSARY	Teminat Türü	Teminat Türü		MM
+pages/treasury/money-market/money-market	frmMMPreview-SendConfirmation	Send Confirmation	Send Confirmation	UNTRANSLATED	GLOSSARY	Teyit Gönder	Teyit Gönder		MM
+pages/treasury/money-market/money-market	frmMMPreview-SendPayment	Send Payment	Send Payment	UNTRANSLATED	GLOSSARY	Ödeme Gönder	Ödeme Gönder		MM
+pages/treasury/money-market/money-market	frmMMPreview-SendNoticeToReceive	Send Notice To Receive	Send Notice To Receive	UNTRANSLATED	GLOSSARY	Alıcıya Bildirim Gönder	Alıcıya Bildirim Gönder		MM
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-StartDate	Start Date	Start Date	UNTRANSLATED	GLOSSARY	Başlangıç Tarihi	Başlangıç Tarihi		MM
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-EndDate	End Date	End Date	UNTRANSLATED	GLOSSARY	Bitiş Tarihi	Bitiş Tarihi		MM
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-TotalDay	Total Day	Total Day	UNTRANSLATED	GLOSSARY	Toplam Gün	Toplam Gün		MM
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-StartAmount	Start Amount	Start Amount	UNTRANSLATED	GLOSSARY	Başlangıç Tutarı	Başlangıç Tutarı		MM
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-MaturityAmount	Maturity Amount	Maturity Amount	UNTRANSLATED	GLOSSARY	Vade Tutarı	Vade Tutarı		MM
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-ScheduleOption	Schedule Option	Schedule Option	UNTRANSLATED	GLOSSARY	Plan Seçeneği	Plan Seçeneği		MM
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-TimeBased	Time Based	Time Based	UNTRANSLATED	GLOSSARY	Zaman Bazlı	Zaman Bazlı		MM
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-PeriodCount	Period Count	Period Count	UNTRANSLATED	GLOSSARY	Dönem Sayısı	Dönem Sayısı		MM
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-NumberOfPayment	Number Of Payment	Number Of Payment	UNTRANSLATED	GLOSSARY	Ödeme Numarası	Ödeme Numarası		MM
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-RateOption	Rate Option	Rate Option	UNTRANSLATED	GLOSSARY	Kur Seçeneği	Kur Seçeneği		MM
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-RateBased	Rate Based	Rate Based	UNTRANSLATED	GLOSSARY	Kur Bazlı	Kur Bazlı		MM
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-Rate	Rate	Rate	UNTRANSLATED	GLOSSARY	Kur	Kur		MM
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-AmountBased	Amount Based	Amount Based	UNTRANSLATED	GLOSSARY	Tutar Bazlı	Tutar Bazlı		MM
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-Amount	Amount	Amount	UNTRANSLATED	GLOSSARY	Tutar	Tutar		MM
+pages/treasury/money-market/money-market	MMTemplatedgCustomers-Id	Id	Id	UNTRANSLATED	GLOSSARY	Kimlik	Kimlik		MM
+pages/treasury/money-market/money-market	MMTemplatedgCustomers-Code	Code	Code	UNTRANSLATED	GLOSSARY	Kod	Kod		MM
+pages/treasury/money-market/money-market	MMTemplatedgCustomers-Name	Name	Name	UNTRANSLATED	GLOSSARY	Ad	Ad		MM
+pages/treasury/money-market/money-market	MMTemplatedgCustomers-CcyCode	CCY	CCY	UNTRANSLATED	GLOSSARY	Para Birimi	Para Birimi		MM
+pages/treasury/money-market/money-market	MMTemplatedgCustomers-CountryCode	Country	Country	UNTRANSLATED	GLOSSARY	Ülke	Ülke		MM
+pages/treasury/money-market/money-market	MMTemplatedgCustomers-CounterpartyId	Counterparty Id	Counterparty Id	UNTRANSLATED	GLOSSARY	Karşı Kurum Kimliği	Karşı Kurum Kimliği		MM
+pages/treasury/money-market/money-market	MMTemplatedgWeSend-AccNo	Acc No	Acc No	UNTRANSLATED	GLOSSARY	Hesap Numarası	Hesap Numarası		MM
+pages/treasury/money-market/money-market	MMTemplatedgWeSend-Name	Name	Name	UNTRANSLATED	GLOSSARY	Ad	Ad		MM
+pages/treasury/money-market/money-market	MMTemplatedgWeSend-CustomerId	Customer Id	Customer Id	UNTRANSLATED	GLOSSARY	Müşteri Kimliği	Müşteri Kimliği		MM
+pages/treasury/money-market/money-market	MMTemplatedgWeReceive-AccNo	Acc No	Acc No	UNTRANSLATED	GLOSSARY	Hesap Numarası	Hesap Numarası		MM
+pages/treasury/money-market/money-market	MMTemplatedgWeReceive-Name	Name	Name	UNTRANSLATED	GLOSSARY	Ad	Ad		MM
+pages/treasury/money-market/money-market	MMTemplatedgWeReceive-CustomerId	Customer Id	Customer Id	UNTRANSLATED	GLOSSARY	Müşteri Kimliği	Müşteri Kimliği		MM
+pages/treasury/money-market/money-market	MMTemplatedgTheirSend-SwiftCode	Swift Code	Swift Code	UNTRANSLATED	GLOSSARY	Swift Kodu	Swift Kodu		MM
+pages/treasury/money-market/money-market	MMTemplatedgTheirSend-Name	Name	Name	UNTRANSLATED	GLOSSARY	Ad	Ad		MM
+pages/treasury/money-market/money-market	MMTemplatedgTheirSend-AccNo	Acc No	Acc No	UNTRANSLATED	GLOSSARY	Hesap Numarası	Hesap Numarası		MM
+pages/treasury/money-market/money-market	MMTemplatedgTheirReceive-SwiftCode	Swift Code	Swift Code	UNTRANSLATED	GLOSSARY	Swift Kodu	Swift Kodu		MM
+pages/treasury/money-market/money-market	MMTemplatedgTheirReceive-Name	Name	Name	UNTRANSLATED	GLOSSARY	Ad	Ad		MM
+pages/treasury/money-market/money-market	MMTemplatedgTheirReceive-AccNo	Acc No	Acc No	UNTRANSLATED	GLOSSARY	Hesap Numarası	Hesap Numarası		MM
+pages/treasury/money-market/money-market	gridFileImportMM-MusteriTipi	Musteri Tipi	Musteri Tipi	UNTRANSLATED	GLOSSARY	Müşteri Türü	Müşteri Türü		MM
+pages/treasury/money-market/money-market	gridFileImportMM-IYE_YF_YO	IYE_YF_YO	IYE_YF_YO	UNTRANSLATED	GLOSSARY	IYE_YF_YO	IYE_YF_YO		MM
+pages/treasury/money-market/money-market	gridFileImportMM-IslemNo	Islem No	Islem No	UNTRANSLATED	GLOSSARY	İşlem Numarası	İşlem Numarası		MM
+pages/treasury/money-market/money-market	gridFileImportMM-Valor	Valor	Valor	UNTRANSLATED	GLOSSARY	Valör	Valör		MM
+pages/treasury/money-market/money-market	gridFileImportMM-Vade	Vade	Vade	UNTRANSLATED	GLOSSARY	Vade	Vade		MM
+pages/treasury/money-market/money-market	gridFileImportMM-IslemTipi	Islem Tipi	Islem Tipi	UNTRANSLATED	GLOSSARY	İşlem Türü	İşlem Türü		MM
+pages/treasury/money-market/money-market	gridFileImportMM-EmirNo	Emir No	Emir No	UNTRANSLATED	GLOSSARY	Emir Numarası	Emir Numarası		MM
+pages/treasury/money-market/money-market	gridFileImportMM-Sure	Sure	Sure	UNTRANSLATED	GLOSSARY	Elbette	Elbette		MM
+pages/treasury/money-market/money-market	gridFileImportMM-FaizOrani	Faiz Orani	Faiz Orani	UNTRANSLATED	GLOSSARY	Faiz Oranı	Getiri Oranı	YES	MM
+pages/treasury/money-market/money-market	gridFileImportMM-Tutar	Tutar	Tutar	UNTRANSLATED	GLOSSARY	Tutar	Tutar		MM
+pages/treasury/money-market/money-market	gridFileImportMM-Faiz	Faiz	Faiz	UNTRANSLATED	GLOSSARY	Faiz	Getiri	YES	MM
+pages/treasury/money-market/money-market	gridFileImportMM-BSMV	BSMV	BSMV	UNTRANSLATED	GLOSSARY	BSMV	BSMV		MM
+pages/treasury/money-market/money-market	gridFileImportMM-Stopaj	Stopaj	Stopaj	UNTRANSLATED	GLOSSARY	Vergi Kesintisi	Vergi Kesintisi		MM
+pages/treasury/money-market/money-market	gridFileImportMM-Toplam	Toplam	Toplam	UNTRANSLATED	GLOSSARY	Toplam	Toplam		MM
+pages/treasury/money-market/money-market	gridFileImportMM-TemsilciAdSoyad	Temsilci Ad Soyad	Temsilci Ad Soyad	UNTRANSLATED	GLOSSARY	Temsilci Ad Soyad	Temsilci Ad Soyad		MM
+pages/treasury/money-market/money-market	gridFileImportMM-IslemZamani	Islem Zamani	Islem Zamani	UNTRANSLATED	GLOSSARY	İşlem Zamanı	İşlem Zamanı		MM
+pages/treasury/money-market/money-market	gridFileImportMM-StateName	Durum	Durum	UNTRANSLATED	GLOSSARY	Durum	Durum		MM
+pages/treasury/money-market/money-market	gridFileImportMM-FileImport	File Import	File Import	UNTRANSLATED	GLOSSARY	Dosya İçe Aktar	Dosya İçe Aktar		MM
+pages/treasury/money-market/money-market	dgMMTransactionsRollover-PopupTitle	Rollover	Rollover	UNTRANSLATED	GLOSSARY	Vade Yenileme	Vade Yenileme		MM
+pages/treasury/money-market/money-market	gridFileImportMM-ImportFrom	Import From	Import From	UNTRANSLATED	GLOSSARY	Şuradan İçe Aktar	Şuradan İçe Aktar		MM
+pages/treasury/money-market/money-market	gridFileImportMM-Import	Import	Import	UNTRANSLATED	GLOSSARY	İçe Aktar	İçe Aktar		MM
+pages/treasury/money-market/money-market	gridFileImportMM-responseSuccess	*The auto-verify parameter is True. After importing, the status must be input verified.	*The auto-verify parameter is True. After importing, the status must be input verified.	UNTRANSLATED	GLOSSARY	*Otomatik onay parametresi “Evet” olarak ayarlanmıştır. İçe aktarma sonrasında kayıt durumu “Giriş Onaylandı” olmalıdır.	*Otomatik onay parametresi “Evet” olarak ayarlanmıştır. İçe aktarma sonrasında kayıt durumu “Giriş Onaylandı” olmalıdır.		MM
+pages/treasury/money-market/money-market	gridFileImportMM-responseError	*The auto-verify parameter is False. After importing, the status must be input.	*The auto-verify parameter is False. After importing, the status must be input.	UNTRANSLATED	GLOSSARY	*Otomatik onay parametresi “Hayır” olarak ayarlanmıştır. İçe aktarma sonrasında kayıt durumu “Giriş” olmalıdır.	*Otomatik onay parametresi “Hayır” olarak ayarlanmıştır. İçe aktarma sonrasında kayıt durumu “Giriş” olmalıdır.		MM
+pages/treasury/money-market/money-market	dgCurrentAccount-ProductName	Product Name	Product Name	UNTRANSLATED	GLOSSARY	Ürün Adı	Ürün Adı		MM
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-Liquidation	Liquidation	Liquidation	UNTRANSLATED	MISSING				MM
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-repo-popupTitle	Repo	Repo	UNTRANSLATED	GLOSSARY	Geri Alım Vaadiyle Satım İşlemi	Geri Alım Vaadiyle Satım İşlemi		MM
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-Nominal	Nominal	Nominal	UNTRANSLATED	GLOSSARY	Nominal Değer	Nominal Değer		MM
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-Trader	Trader	Trader	UNTRANSLATED	GLOSSARY	İşlemci	İşlemci		MM
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-Id	Id	Id	UNTRANSLATED	GLOSSARY	Kimlik	Kimlik		MM
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-Repo	Repo	Repo	UNTRANSLATED	GLOSSARY	Geri Alım Vaadiyle Satım İşlemi	Geri Alım Vaadiyle Satım İşlemi		MM
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionRepo-Nominal	Nominal	Nominal	UNTRANSLATED	GLOSSARY	Nominal Değer	Nominal Değer		MM
+pages/treasury/money-market/repo-transactions	dgFiRepoTransactionReverseRepo-Nominal	Nominal	Nominal	UNTRANSLATED	GLOSSARY	Nominal Değer	Nominal Değer		MM
+pages/treasury/money-market/repo-transactions	dgFiRepoInventory-ISIN	ISIN	ISIN	UNTRANSLATED	GLOSSARY	ISIN Kodu	ISIN Kodu		MM
+pages/treasury/money-market/repo-transactions	dgFiRepoSecurityTemp-ISIN	ISIN	ISIN	UNTRANSLATED	GLOSSARY	ISIN Kodu	ISIN Kodu		MM
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-SecurityISIN	ISIN	ISIN	UNTRANSLATED	GLOSSARY	ISIN Kodu	ISIN Kodu		MM
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-NominalRrpNominal	RRP Nominal	RRP Nominal	UNTRANSLATED	GLOSSARY	Geri Satım Vaadiyle Alım İşlemi Nominal	Geri Satım Vaadiyle Alım İşlemi Nominal		MM
+pages/treasury/money-market/repo-transactions	dgFiRRPDisplay-TransactionFiTrader	Trader	Trader	UNTRANSLATED	GLOSSARY	İşlemci	İşlemci		MM
+pages/treasury/money-market/repo-transactions	dgStockActionsRRP-Nominal	Nominal	Nominal	UNTRANSLATED	GLOSSARY	Nominal Değer	Nominal Değer		MM
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-SecurityISIN	ISIN	ISIN	UNTRANSLATED	GLOSSARY	ISIN Kodu	ISIN Kodu		MM
+pages/treasury/money-market/repo-transactions	dgFiRepoDisplay-TransactionFiTrader	Trader	Trader	UNTRANSLATED	GLOSSARY	İşlemci	İşlemci		MM
+pages/treasury/money-market/repo-transactions	dgBondDetailRepo-Nominal	Nominal	Nominal	UNTRANSLATED	GLOSSARY	Nominal Değer	Nominal Değer		MM
+pages/treasury/money-market/repo-transactions	dgStockActionsRepo-Nominal	Nominal	Nominal	UNTRANSLATED	GLOSSARY	Nominal Değer	Nominal Değer		MM
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-IsFon	Is Fon	Is Fon	UNTRANSLATED	GLOSSARY	Fon mu	Fon mu		MM
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-Id	Id	Id	UNTRANSLATED	GLOSSARY	Kimlik	Kimlik		MM
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-CounterpartyAccountAfk	CounterpartyAccountAfk		NO_TR_KEY	GLOSSARY	Karşı Kurum Hesab Afk	Karşı Kurum Hesab Afk		MM
+pages/treasury/money-market/repo-transactions	dgFileImportRepTrans-SelectAll	IsFon Select All	IsFon Select All	UNTRANSLATED	GLOSSARY	Tüm Yatırım Fonu Seçilsin mi	Tüm Yatırım Fonu Seçilsin mi		MM
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-Id	Id	Id	UNTRANSLATED	GLOSSARY	Kimlik	Kimlik		MM
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-IsParticipantCustomer	IsParticipantCustomer	IsParticipantCustomer	UNTRANSLATED	GLOSSARY	Katılımcı Müşteri mi	Katılımcı Müşteri mi		MM
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-UseBlockage	UseBlockage	UseBlockage	UNTRANSLATED	GLOSSARY	Blokaj Kullan	Blokaj Kullan		MM
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-UsePoolAllocation	UsePoolAllocation	UsePoolAllocation	UNTRANSLATED	GLOSSARY	Havuz Tahsisi Kullan	Havuz Tahsisi Kullan		MM
+pages/treasury/money-market/repo-transactions	dgCustomerImportRepoTrans-IsCustomer	IsCustomer	IsCustomer	UNTRANSLATED	GLOSSARY	Müşteri mi	Müşteri mi		MM
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-multipleRepo-popupTitle	Multiple Repo (Experimental)	Multiple Repo (Experimental)	UNTRANSLATED	MISSING				MM
+pages/treasury/money-market/repo-transactions	DGFIREPOTRANSACTION-MULTIPLEREPO	Multiple Repo (Experimental)	Multiple Repo (Experimental)	UNTRANSLATED	MISSING				MM
+pages/treasury/money-market/repo-transactions	dgFiRepoCollateral-Nominal	Nominal	Nominal	UNTRANSLATED	GLOSSARY	Nominal Değer	Nominal Değer		MM
+pages/treasury/money-market/repo-transactions	dgFiRepoCollateral-Haircut	Haircut (%)	Haircut (%)	UNTRANSLATED	MISSING				MM
+pages/treasury/money-market/repo-transactions	dgMultipleRepoCollateralDisplay-LineNo	#	#	UNTRANSLATED	MISSING				MM
+pages/treasury/money-market/repo-transactions	dgMultipleRepoCollateralDisplay-Nominal	Nominal	Nominal	UNTRANSLATED	GLOSSARY	Nominal Değer	Nominal Değer		MM
+pages/treasury/money-market/repo-transactions	dgMultipleRepoCollateralDisplay-HaircutRate	Haircut (%)	Haircut (%)	UNTRANSLATED	MISSING				MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-pageTitle	Tawarruq	Tawarruq	UNTRANSLATED	GLOSSARY	Teverruk	Teverruk		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-popupTitle	Tawarruq	Tawarruq	UNTRANSLATED	GLOSSARY	Teverruk	Teverruk		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-LogicalReference	Logical Reference	Logical Reference	UNTRANSLATED	GLOSSARY	Mantıksal Referans	Mantıksal Referans		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-MMLogicalReference	MM Logical Reference	MM Logical Reference	UNTRANSLATED	GLOSSARY	MM Mantıksal Referans	MM Mantıksal Referans		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-PortfolioName	Portfolio	Portfolio	UNTRANSLATED	GLOSSARY	Portföy	Portföy		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-CounterpartyContractDate	Counterparty Contract Date	Counterparty Contract Date	UNTRANSLATED	GLOSSARY	Karşı Kurum Sözleşme Tarihi	Karşı Kurum Sözleşme Tarihi		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-MMAmount	Amount	Amount	UNTRANSLATED	GLOSSARY	Tutar	Tutar		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-TransactionDirectCode	Transaction Direct Code	Transaction Direct Code	UNTRANSLATED	GLOSSARY	Doğrudan İşlem Kodu	Doğrudan İşlem Kodu		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-CustomerName	Counterparty	Counterparty	UNTRANSLATED	GLOSSARY	Karşı Kurum	Karşı Kurum		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-TawarruqDate	Tawarruq Date	Tawarruq Date	UNTRANSLATED	GLOSSARY	Teverruk Tarihi	Teverruk Tarihi		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-MMCurrency	Currency	Currency	UNTRANSLATED	GLOSSARY	Para Birimi	Para Birimi		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-Trader	Trader	Trader	UNTRANSLATED	GLOSSARY	İşlemci	İşlemci		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-PMCurrency	PM Currency	PM Currency	UNTRANSLATED	GLOSSARY	KM Para Birimi	KM Para Birimi		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-BrokerTicketNo	Broker Ticket No	Broker Ticket No	UNTRANSLATED	GLOSSARY	Aracı Kurum Fiş Numarası	Aracı Kurum Fiş Numarası		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-Location	Location	Location	UNTRANSLATED	GLOSSARY	Konum	Konum		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-OunceDealRate	Ounce Deal Rate	Ounce Deal Rate	UNTRANSLATED	GLOSSARY	Ons İşlem Oranı	Ons İşlem Oranı		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-OunceAmount	Ounce Amount	Ounce Amount	UNTRANSLATED	GLOSSARY	Ons Tutarı	Ons Tutarı		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-GramAmount	Gram Amount	Gram Amount	UNTRANSLATED	GLOSSARY	Gram Tutarı	Gram Tutarı		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-InputDate	Input Date	Input Date	UNTRANSLATED	GLOSSARY	Giriş Tarihi	Giriş Tarihi		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-BusinessKey	Business Key	Business Key	UNTRANSLATED	GLOSSARY	İş Anahtarı	İş Anahtarı		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-ValueDate	Tawarruq Date	Tawarruq Date	UNTRANSLATED	GLOSSARY	Teverruk Tarihi	Teverruk Tarihi		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-ExternalTxnCurrency	Currency	Currency	UNTRANSLATED	GLOSSARY	Para Birimi	Para Birimi		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-PMCCy	PM Currency	PM Currency	UNTRANSLATED	GLOSSARY	KM Para Birimi	KM Para Birimi		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-ExcludeProxy	Exclude Proxy	Exclude Proxy	UNTRANSLATED	GLOSSARY	Proxy Hariç Tut	Proxy Hariç Tut		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-LogicalReference	Logical Reference	Logical Reference	UNTRANSLATED	GLOSSARY	Mantıksal Referans	Mantıksal Referans		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-MMLogicalReference	MM Logical Reference	MM Logical Reference	UNTRANSLATED	GLOSSARY	MM Mantıksal Referans	MM Mantıksal Referans		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Portfolio	Portfolio	Portfolio	UNTRANSLATED	GLOSSARY	Portföy	Portföy		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-ContractDate	Contract Date	Contract Date	UNTRANSLATED	GLOSSARY	Sözleşme Tarihi	Sözleşme Tarihi		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-CounterpartyContractDate	Counterparty Contract Date	Counterparty Contract Date	UNTRANSLATED	GLOSSARY	Karşı Kurum Sözleşme Tarihi	Karşı Kurum Sözleşme Tarihi		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-StartAmount	Start Amount	Start Amount	UNTRANSLATED	GLOSSARY	Başlangıç Tutarı	Başlangıç Tutarı		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-MMAmount	Amount	Amount	UNTRANSLATED	GLOSSARY	Tutar	Tutar		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Direction	Direction	Direction	UNTRANSLATED	GLOSSARY	Yön	Yön		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TransactionDirectCode	Transaction Direct Code	Transaction Direct Code	UNTRANSLATED	GLOSSARY	Doğrudan İşlem Kodu	Doğrudan İşlem Kodu		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Counterparty	Counterparty	Counterparty	UNTRANSLATED	GLOSSARY	Karşı Kurum	Karşı Kurum		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TawarruqDate	Tawarruq Date	Tawarruq Date	UNTRANSLATED	GLOSSARY	Teverruk Tarihi	Teverruk Tarihi		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Currency	Currency	Currency	UNTRANSLATED	GLOSSARY	Para Birimi	Para Birimi		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-MMCurrency	Currency	Currency	UNTRANSLATED	GLOSSARY	Para Birimi	Para Birimi		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-PMCurrency	PM Currency	PM Currency	UNTRANSLATED	GLOSSARY	KM Para Birimi	KM Para Birimi		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Trader	Trader	Trader	UNTRANSLATED	GLOSSARY	İşlemci	İşlemci		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-InputDate	Input Date	Input Date	UNTRANSLATED	GLOSSARY	Giriş Tarihi	Giriş Tarihi		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-BrokerTicketNo	Broker Ticket No	Broker Ticket No	UNTRANSLATED	GLOSSARY	Aracı Kurum Fiş Numarası	Aracı Kurum Fiş Numarası		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Location	Location	Location	UNTRANSLATED	GLOSSARY	Konum	Konum		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OunceDealRate	Ounce Deal Rate	Ounce Deal Rate	UNTRANSLATED	GLOSSARY	Ons İşlem Oranı	Ons İşlem Oranı		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OunceAmount	Ounce Amount	Ounce Amount	UNTRANSLATED	GLOSSARY	Ons Tutarı	Ons Tutarı		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-GramAmount	Gram Amount	Gram Amount	UNTRANSLATED	GLOSSARY	Gram Tutarı	Gram Tutarı		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-ExcludeProxy	Exclude Proxy	Exclude Proxy	UNTRANSLATED	GLOSSARY	Proxy Hariç Tut	Proxy Hariç Tut		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Instructions	Instructions	Instructions	UNTRANSLATED	GLOSSARY	Talimatlar	Talimatlar		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OurAgent	Our Agent	Our Agent	UNTRANSLATED	GLOSSARY	Temsilcimiz	Temsilcimiz		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Role	Role	Role	UNTRANSLATED	GLOSSARY	Rol	Rol		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-BrokerName	Broker Name	Broker Name	UNTRANSLATED	GLOSSARY	Aracı Kurum Adı	Aracı Kurum Adı		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-CurrentAccount	Current Account	Current Account	UNTRANSLATED	GLOSSARY	Cari Hesap	Cari Hesap		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-AccountNumber	Account Number	Account Number	UNTRANSLATED	GLOSSARY	Hesap Numarası	Hesap Numarası		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-GLCode	GL Code	GL Code	UNTRANSLATED	GLOSSARY	Muhasebe Kodu	Muhasebe Kodu		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-CurrencyCode	Currency Code	Currency Code	UNTRANSLATED	GLOSSARY	Para Birimi Kodu	Para Birimi Kodu		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TheirAgent	Their Agent	Their Agent	UNTRANSLATED	GLOSSARY	Karşı Tarafın Temsilcisi	Karşı Tarafın Temsilcisi		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-ExternalTransaction	External Transaction	External Transaction	UNTRANSLATED	GLOSSARY	Harici İşlem	Harici İşlem		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-SalesOffer	Sales Offer	Sales Offer	UNTRANSLATED	GLOSSARY	Satış Teklifi	Satış Teklifi		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-MMLogicalReference-Required	MM Logical Reference is required	MM Logical Reference is required	UNTRANSLATED	GLOSSARY	MM Mantıksal Referans gereklidir	MM Mantıksal Referans gereklidir		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Portfolio-Required	Portfolio is required	Portfolio is required	UNTRANSLATED	GLOSSARY	Portfolyo gereklidir.	Portfolyo gereklidir.		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Counterparty-Required	Counterparty is required	Counterparty is required	UNTRANSLATED	GLOSSARY	Karşı Kurum gerekli	Karşı Kurum gerekli		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-MMAmount-Required	MM Amount is required	MM Amount is required	UNTRANSLATED	GLOSSARY	MM Tutarı gereklidir	MM Tutarı gereklidir		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-MMCurrency-Required	MM Currency is required	MM Currency is required	UNTRANSLATED	GLOSSARY	MM Para Birimi gereklidir	MM Para Birimi gereklidir		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TawarruqDate-Required	Tawarruq Date is required	Tawarruq Date is required	UNTRANSLATED	GLOSSARY	Teverruk Tarihi gereklidir	Teverruk Tarihi gereklidir		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-BrokerTicketNo-Required	Broker Ticket No is required	Broker Ticket No is required	UNTRANSLATED	GLOSSARY	Aracı Kurum Fiş Numarası zorunludur	Aracı Kurum Fiş Numarası zorunludur		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Location-Required	Location is required	Location is required	UNTRANSLATED	GLOSSARY	Konum gereklidir	Konum gereklidir		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-PMCurrency-Required	PM Currency is required	PM Currency is required	UNTRANSLATED	GLOSSARY	KM para birimi gereklidir.	KM para birimi gereklidir.		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OunceDealRate-Required	Ounce Deal Rate is required	Ounce Deal Rate is required	UNTRANSLATED	GLOSSARY	Ons İşlem Oranı gereklidir	Ons İşlem Oranı gereklidir		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OunceAmount-Required	Ounce Amount is required	Ounce Amount is required	UNTRANSLATED	GLOSSARY	Ons Tutarı gereklidir	Ons Tutarı gereklidir		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OurAgentRole-Required	Our Agent Role is required	Our Agent Role is required	UNTRANSLATED	GLOSSARY	Temsilcimizin Rolü gereklidir	Temsilcimizin Rolü gereklidir		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OurAgentBroker-Required	Our Agent Broker is required	Our Agent Broker is required	UNTRANSLATED	GLOSSARY	Temsilcimizin Aracı Kurumu gereklidir	Temsilcimizin Aracı Kurumu gereklidir		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OurAgentCurrentAccount-Required	Our Agent Current Account is required	Our Agent Current Account is required	UNTRANSLATED	GLOSSARY	Temsilcimizin cari hesabı zorunludur.	Temsilcimizin cari hesabı zorunludur.		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TheirAgentRole-Required	Their Agent Role is required	Their Agent Role is required	UNTRANSLATED	GLOSSARY	Karşı tarafın temsilci rolü zorunludur.	Karşı tarafın temsilci rolü zorunludur.		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TheirAgentBroker-Required	Their Agent Broker is required	Their Agent Broker is required	UNTRANSLATED	GLOSSARY	Karşı tarafın temsilci aracı kurumu zorunludur.	Karşı tarafın temsilci aracı kurumu zorunludur.		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TheirAgentCurrentAccount-Required	Their Agent Current Account is required	Their Agent Current Account is required	UNTRANSLATED	GLOSSARY	Karşı tarafın temsilcisine ait cari hesap zorunludur.	Karşı tarafın temsilcisine ait cari hesap zorunludur.		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-BORROWING	Borrowing	Borrowing	UNTRANSLATED	GLOSSARY	Borç Alma	Borç Alma		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Portfolio	Portfolio	Portfolio	UNTRANSLATED	GLOSSARY	Portföy	Portföy		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Trader	Trader	Trader	UNTRANSLATED	GLOSSARY	İşlemci	İşlemci		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-ExternalTransaction	External Transaction	External Transaction	UNTRANSLATED	GLOSSARY	Harici İşlem	Harici İşlem		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-ExternalTxnLogicalReference	Ext. Logical Reference	Ext. Logical Reference	UNTRANSLATED	GLOSSARY	Har. Mantıksal Referans	Har. Mantıksal Referans		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-LogicalReference	Twr. Logical Reference	Twr. Logical Reference	UNTRANSLATED	GLOSSARY	Teverruk İşlem Numarası	Teverruk İşlem Numarası		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-MMLogicalReference	MM Logical Reference	MM Logical Reference	UNTRANSLATED	GLOSSARY	MM Mantıksal Referans	MM Mantıksal Referans		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Counterparty	Counterparty	Counterparty	UNTRANSLATED	GLOSSARY	Karşı Kurum	Karşı Kurum		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-ContractDate	Contract Date	Contract Date	UNTRANSLATED	GLOSSARY	Sözleşme Tarihi	Sözleşme Tarihi		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-CounterpartyContractDate	Counterparty Contract Date	Counterparty Contract Date	UNTRANSLATED	GLOSSARY	Karşı Kurum Sözleşme Tarihi	Karşı Kurum Sözleşme Tarihi		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-TawarruqDate	Tawarruq Date	Tawarruq Date	UNTRANSLATED	GLOSSARY	Teverruk Tarihi	Teverruk Tarihi		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-StartAmount	Start Amount	Start Amount	UNTRANSLATED	GLOSSARY	Başlangıç Tutarı	Başlangıç Tutarı		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-MMAmount	Amount	Amount	UNTRANSLATED	GLOSSARY	Tutar	Tutar		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Currency	Currency	Currency	UNTRANSLATED	GLOSSARY	Para Birimi	Para Birimi		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-MMCurrency	Currency	Currency	UNTRANSLATED	GLOSSARY	Para Birimi	Para Birimi		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Direction	Direction	Direction	UNTRANSLATED	GLOSSARY	Yön	Yön		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-TransactionDirectCode	Transaction Direct Code	Transaction Direct Code	UNTRANSLATED	GLOSSARY	Doğrudan İşlem Kodu	Doğrudan İşlem Kodu		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-PMCurrency	PM Currency	PM Currency	UNTRANSLATED	GLOSSARY	KM Para Birimi	KM Para Birimi		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-InputDate	Input Date	Input Date	UNTRANSLATED	GLOSSARY	Giriş Tarihi	Giriş Tarihi		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-BrokerTicketNo	Broker Ticket No	Broker Ticket No	UNTRANSLATED	GLOSSARY	Aracı Kurum Fiş Numarası	Aracı Kurum Fiş Numarası		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Location	Location	Location	UNTRANSLATED	GLOSSARY	Konum	Konum		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-OunceDealRate	Ounce Deal Rate	Ounce Deal Rate	UNTRANSLATED	GLOSSARY	Ons İşlem Oranı	Ons İşlem Oranı		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-OunceAmount	Ounce Amount	Ounce Amount	UNTRANSLATED	GLOSSARY	Ons Tutarı	Ons Tutarı		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-GramAmount	Gram Amount	Gram Amount	UNTRANSLATED	GLOSSARY	Gram Tutarı	Gram Tutarı		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-ExcludeProxy	Exclude Proxy	Exclude Proxy	UNTRANSLATED	GLOSSARY	Proxy Hariç Tut	Proxy Hariç Tut		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Instructions	Instructions	Instructions	UNTRANSLATED	GLOSSARY	Talimatlar	Talimatlar		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-SalesOffer	Sales Offer	Sales Offer	UNTRANSLATED	GLOSSARY	Satış Teklifi	Satış Teklifi		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-AgentInstructions	Agent Instructions	Agent Instructions	UNTRANSLATED	GLOSSARY	Temsilci Talimatları	Temsilci Talimatları		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Role	Role	Role	UNTRANSLATED	GLOSSARY	Rol	Rol		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-BrokerName	Broker Name	Broker Name	UNTRANSLATED	GLOSSARY	Aracı Kurum Adı	Aracı Kurum Adı		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-CurrentAccount	Current Account	Current Account	UNTRANSLATED	GLOSSARY	Cari Hesap	Cari Hesap		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-OurAgent	Our Agent	Our Agent	UNTRANSLATED	GLOSSARY	Temsilcimiz	Temsilcimiz		MM
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-TheirAgent	Their Agent	Their Agent	UNTRANSLATED	GLOSSARY	Karşı Tarafın Temsilcisi	Karşı Tarafın Temsilcisi		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-Instructions	Instructions	Instructions	UNTRANSLATED	GLOSSARY	Talimatlar	Talimatlar		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-ExternalTxnLogicalReference	Ext. Logical Reference	Ext. Logical Reference	UNTRANSLATED	GLOSSARY	Har. Mantıksal Referans	Har. Mantıksal Referans		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-TawarruqContractDate	Counterparty Contract Date	Counterparty Contract Date	UNTRANSLATED	GLOSSARY	Karşı Kurum Sözleşme Tarihi	Karşı Kurum Sözleşme Tarihi		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-ExternalTxnAmount	Amount	Amount	UNTRANSLATED	GLOSSARY	Tutar	Tutar		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruq-ExternalTxnDirectionCode	Transaction Direct Code	Transaction Direct Code	UNTRANSLATED	GLOSSARY	Doğrudan İşlem Kodu	Doğrudan İşlem Kodu		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-LogicalReference	Logical Reference	Logical Reference	UNTRANSLATED	GLOSSARY	Mantıksal Referans	Mantıksal Referans		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-ExternalTxnLogicalReference	Ext. Logical Reference	Ext. Logical Reference	UNTRANSLATED	GLOSSARY	Har. Mantıksal Referans	Har. Mantıksal Referans		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-PortfolioName	Portfolio	Portfolio	UNTRANSLATED	GLOSSARY	Portföy	Portföy		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-CustomerName	Counterparty	Counterparty	UNTRANSLATED	GLOSSARY	Karşı Kurum	Karşı Kurum		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-InputDate	Input Date	Input Date	UNTRANSLATED	GLOSSARY	Giriş Tarihi	Giriş Tarihi		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-TawarruqContractDate	Counterparty Contract Date	Counterparty Contract Date	UNTRANSLATED	GLOSSARY	Karşı Kurum Sözleşme Tarihi	Karşı Kurum Sözleşme Tarihi		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-ValueDate	Tawarruq Date	Tawarruq Date	UNTRANSLATED	GLOSSARY	Teverruk Tarihi	Teverruk Tarihi		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-ExternalTxnAmount	Amount	Amount	UNTRANSLATED	GLOSSARY	Tutar	Tutar		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-PMCCy	PM Currency	PM Currency	UNTRANSLATED	GLOSSARY	KM Para Birimi	KM Para Birimi		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-OunceDealRate	Ounce Deal Rate	Ounce Deal Rate	UNTRANSLATED	GLOSSARY	Ons İşlem Oranı	Ons İşlem Oranı		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-OunceAmount	Ounce Amount	Ounce Amount	UNTRANSLATED	GLOSSARY	Ons Tutarı	Ons Tutarı		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-GramAmount	Gram Amount	Gram Amount	UNTRANSLATED	GLOSSARY	Gram Tutarı	Gram Tutarı		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-ExternalTxnDirectionCode	Transaction Direct Code	Transaction Direct Code	UNTRANSLATED	GLOSSARY	Doğrudan İşlem Kodu	Doğrudan İşlem Kodu		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-Trader	Trader	Trader	UNTRANSLATED	GLOSSARY	İşlemci	İşlemci		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-Instructions	Instructions	Instructions	UNTRANSLATED	GLOSSARY	Talimatlar	Talimatlar		MM
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-BusinessKey	Business Key	Business Key	UNTRANSLATED	GLOSSARY	İş Anahtarı	İş Anahtarı		MM

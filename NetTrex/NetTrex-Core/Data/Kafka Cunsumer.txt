@@ -1,0 +1,127 @@
+Kafka Consumer
+
+Follow
+1
+
+Edit
+
+
+Ege Bezirci
+Yesterday
+Kafka Consumer
+Piyasa verisi NetTrexCommon'da girilir ve Kafka üzerinden modül veritabanlarına akar. Paket bu akışın consumer tarafını hazır verir: mesaj sözleşmeleri, Mapster eşlemeleri, MediatR handler'ları ve topic listesi.
+
+Modül AddCoreData ve AddCoreDataConsumer çağrılarını yapar; CurrencyPair dilimini tüketen modül ayrıca AddCurrencyPairCache çağırır. Handler, eşleme ve topic listesi için modülde kod yazılmaz.
+
+AddCoreDataConsumer
+builder.Services.AddCoreDataConsumer(slices);
+ApplyCoreDataModel'e verilen dilimlerin aynısını alır. Kayıtlar dilime göre seçicidir: seçilmeyen dilimin handler'ı kaydedilmez.
+
+Çağrı yalnızca handler'ları ve Mapster kayıtlarını yapar; IMarketDataCacheInvalidator kaydı önbelleğin sahibi olan pakettedir, data manager kaydı AddCoreData'dadır ve dilim seçiminden bağımsızdır. AddCoreData çağrılmadan handler çözümlemesi hata verir.
+
+Çağrı Mapster eşlemelerini de tarar (TypeAdapterConfig.GlobalSettings.Scan), ayrıca AddMapster gerekmez. TypeAdapterConfig.GlobalSettings (Singleton) ve IMapper → ServiceMapper (Scoped) TryAdd ile kaydedilir.
+
+Handler'lar AddScoped ile kaydedilir, TryAdd ile değil. İki kez çağrıldığında aynı handler iki kez kaydolur; MediatR handler'ı tekil çözdüğü için son kayıt kullanılır.
+
+CoreDataTopics
+Abone olunacak topic'leri dilim seçiminden üretir.
+
+var topics = CoreDataTopics.For(slices);
+// FrozenDictionary<string, Type> — topic adi -> mesaj tipi
+Dilim	Topic	Mesaj	Davranış
+Currency	currency-insert	CurrencyInsertRequest	Kod ile upsert
+CurrencyPair	currency-pair-insert	CurrencyPairInsertRequest	Parite ile upsert
+CurrencyPair	currency-pair-delete	CurrencyPairDeleteRequest	Parite ile silme
+FxRate	fxrate-insert	FxRateInsertRequest	Id ile upsert
+FxRate	fxratedetail-insert	FxRateDetailInsertRequest	Aynı üçlünün satırını silip upsert
+FxRate	fxratedetail-delete	FxRateDetailDeleteRequest	Id ile silme
+InterestRate	interestrate-insert	InterestRateInsertRequest	Id ile upsert
+InterestRate	interestrate-detail-insert	InterestRateDetailInsertRequest	Id ile upsert
+InterestRate	interestrate-detail-delete	InterestRateDetailDeleteRequest	Id ile silme
+Volatility	volatilityRate-insert	VolatilityRateInsertRequest	Id ile upsert
+Volatility	volatilityratedetail-insert	VolatilityRateDetailInsertRequest	Altı alanlı arama ile upsert
+Volatility	volatilityrate-detail-delete	VolatilityRateDetailDeleteRequest	Id ile silme
+Calendar	calendar-insert	CalendarInsertRequest	Yıl + para birimi bazında değiştirme
+Calendar	calendar-delete	CalendarDeleteRequest	Id ile silme
+Holiday	holiday-insert	HolidayInsertRequest	Yıl + para birimi bazında değiştirme
+Holiday	holiday-delete	HolidayDeleteRequest	Id ile silme
+HalfWorkingDay	halfworkingday-insert	HalfWorkingDayInsertRequest	Id ile upsert
+Chart	chart-insert	ChartInsertRequest	Id ile upsert
+DateBasis	datebasis-insert	DateBasisInsertRequest	BasisCode ile upsert
+Point	point-insert	PointInsertRequest	Id ile upsert
+Customer	customer-insert	CustomerInsertRequest	Id ile upsert
+Customer	corporate-type-insert	CorporateTypeInsertRequest	Id ile upsert; detay satırları silinip yeniden eklenir
+Portfolio	portfolio-insert	PortfolioInsertRequest	Id ile upsert
+Country	country-insert	CountryInsertRequest	Code ile upsert
+Market	market-insert	MarketInsertRequest	Code ile upsert
+TxnType	txn-insert	TxnTypeInsertRequest	TxnTypeCode ile upsert
+MarketCustomerMap	marketcustomermap-insert	MarketCustomerMapInsertRequest	Id ile upsert
+SettlementType ve PaymentInstructionType dilimlerinin topic'i ve handler'ı yoktur; bu tablolar consumer ile beslenmez.
+
+Topic adlandırması tutarsızdır: volatilityRate-insert camelCase, detay eki bazen bitişik (fxratedetail-insert) bazen tireli (interestrate-detail-insert). Bunlar üretimdeki gerçek topic adlarıdır, düzeltilmiş hâlleri değil. CoreDataTopics.For bu adları elle yazma ihtiyacını ortadan kaldırır.
+
+Handler'lar ne yapar
+Ortak kalıp: kayıt var mı diye bakılır, Mapster ile entity'ye çevrilir, Update veya Insert uygulanır, IUnitOfWork.CommitAsync çağrılır. Silme mesajlarında kayıt yoksa handler IsSuccess false döner ve commit yapmaz.
+
+Sapmalar:
+
+fxratedetail-insert önce aynı (FromCurrency, ToCurrency, FXRateId) üçlüsüne sahip satırı arar ve varsa siler, sonra ekleme adımına geçer.
+volatilityratedetail-insert kaydın var olup olmadığını Id yerine altı alanlı bir arama modeliyle kontrol eder: Id, VolatilityRateId, VolatilityTypeId, PointId, FromCurrency, ToCurrency.
+DateBasis, Market, TxnType ve Country mesajları kayıt varlığını Id yerine iş koduyla (BasisCode, Code, TxnTypeCode, Code) kontrol eder.
+corporate-type-insert üst kaydı upsert eder, ardından defCorporateDetailType satırlarını silip mesajdaki listeyle yeniden ekler.
+calendar-insert ve holiday-insert upsert yapmaz. Liste boşsa başarı döner ve değişiklik yapılmaz. Aksi hâlde listenin ilk öğesindeki yıl (Holiday'de Date.Year) ve CurrencyCode ile eşleşen mevcut satırlar silinir, mesajdaki satırlar InsertRange ile eklenir.
+calendar-delete ve holiday-delete Id ile siler; kayıt yoksa IsSuccess false döner.
+Id kaynak sistemden geldiği gibi yazılır, bu yüzden veritabanı rolü KafkaReplica olur — bkz. Dilimler.
+
+Önbellek düşürme
+Handler'ların bir bölümü commit sonrası önbellek düşürür.
+
+Mesaj	Düşürülen
+currency-pair-insert, currency-pair-delete	ICurrencyPairService.InvalidateAll()
+interestrate-insert	InvalidateInterestRateCurves(YieldDate) — yalnızca YieldDate doluysa
+interestrate-detail-insert, interestrate-detail-delete	InvalidateInterestRateCurves(YieldDate)
+volatilityRate-insert	InvalidateVolatility(YieldDate)
+volatilityratedetail-insert, volatilityrate-detail-delete	InvalidateVolatility(YieldDate)
+calendar-insert	InvalidateCalendar(CurrencyCode) — listenin ilk öğesinin para birimi; boş listede çağrılmaz
+calendar-delete	InvalidateCalendar(request.CurrencyCode)
+Faiz ve volatilite detay mesajlarının da önbellek düşürmesinin sebebi, başlık ve detayların ayrı mesajlarla gelmesidir. Başlık mesajı detaylardan önce işlendiğinde başlık handler'ının geçersiz kılması detaylar yazılmadan gerçekleşir; arada yapılan bir okuma önbelleği eksik eğriyle doldurur ve eksik eğri Duration dolana kadar servis edilir. Detay handler'ları son detay yazımından sonra da bir geçersiz kılma gelmesini sağlar.
+
+Detay mesajları getiri tarihini taşımaz, yalnızca üst kaydın kimliğini taşır. Tarih IInterestRateDataManager.GetYieldDateAsync / IVolatilityRateDataManager.GetYieldDateAsync ile bu kimlikten çözülür; üst kayıt bulunamazsa önbellek düşürme atlanır.
+
+Bu iki metot, aktif kayıt filtresi uygulayan diğer okuma metotlarının aksine yalnızca kimlikle sorgular ve durum filtresi uygulamaz. Tarih yalnızca kimlik tabloda yoksa null gelir; bu durumda önbellek düşürme atlanır ve eğri Duration dolana kadar bayat kalır.
+
+Üretici bir takvim yılını silerken her satır için ayrı calendar-delete mesajı gönderir; her mesaj ayrı commit ve ayrı önbellek düşürme yapar. Silme sürerken yapılan okumalar kısmi yılı görür; son mesajın düşürmesi önbelleğin son veritabanı durumuna dönmesini sağlar.
+
+holiday-insert ve holiday-delete önbellek düşürmez: takvim önbelleği yalnızca Calendar tablosundaki çalışma günlerinden kurulur, Holiday tablosunu okumaz.
+
+FX rate mesajlarının hiçbiri önbellek düşürmez; IMarketDataCacheInvalidator faiz, volatilite ve takvim handler'larında kullanılır. Düşürme her zaman commit sonrasında yapılır.
+
+IMarketDataCacheInvalidator
+Faiz, volatilite ve takvim verisi veritabanına yazıldıktan sonra fiyatlama önbelleği bayat kalır. Paket bu önbellekleri kendisi düşüremez: Treasy.QuGet Core.Data'ya bağımlıdır, bağımlılık ters yönde kurulamaz. Arayüz bu boşluğu kapatır.
+
+public interface IMarketDataCacheInvalidator
+{
+    void InvalidateInterestRateCurves(DateTime yieldDate);
+    void InvalidateVolatility(DateTime yieldDate);
+    void InvalidateCalendar(string currencyCode);
+}
+AddCoreDataConsumer bu arayüz için kayıt yapmaz ve varsayılan bir implementasyon sunmaz. Kayıt yoksa faiz, volatilite ve takvim handler'ları çözümlenemez; hata açılışta değil, ilgili topic'ten ilk mesaj geldiğinde oluşur. Kaydın AddCoreDataConsumer'dan önce ya da sonra yapılması fark etmez.
+
+Implementasyonun hedef yeri Treasy.QuGet'tir: eğri, volatilite ve takvim önbellekleri orada durur, kayıt da AddQuant içinde yapılır. Bu yapılana kadar OptionsFX ve FX kendi MarketDataCacheInvalidator kopyalarını kaydeder. Bu kopyalar InvalidateCalendar üyesini uygulamadığı için 10.0.14 ile derlenmez; modüller Core.Data ile birlikte QuGet'i yükseltir ve kendi kopyalarını kaldırır.
+
+CurrencyPair dilimi
+CurrencyPair dilimindeki handler'lar ICurrencyPairService ve ICurrencyPairDataManager'a bağımlıdır. ICurrencyPairDataManager'ı AddCoreData, ICurrencyPairService'i AddCurrencyPairCache kaydeder — bkz. ICurrencyPairService. AddCurrencyPairCache çağrılmayan modülde bu dilimin handler'ları çözümlenemez.
+
+Parite eklendiğinde veya silindiğinde handler önbelleği düşürür; backplane değişikliği diğer pod'ların L1'ine yayar.
+
+Mevcut modüllerde yükseltme
+CoreDataTopics.For çıktısı, modülün kendi topic → mesaj tipi eşlemesiyle birleşir. Aynı topic adı iki listede de bulunduğunda sonuç birleştirme yöntemine bağlıdır. Dictionary.Add ArgumentException fırlatır; eşleme statik bir alanda kuruluyorsa consumer host'u açılışta TypeInitializationException ile durur. Indexer ile atamada ise son yazılan kayıt geçerli olur ve mesaj öbür handler'a hiç ulaşmaz.
+
+10.0.14 ile Calendar, Holiday, HalfWorkingDay, Chart, DateBasis, Point, Customer, Portfolio, Country, Market, TxnType ve MarketCustomerMap dilimleri de topic taşır. Bu topic'leri kendi handler'larıyla işleyen modülde çakışma iki yoldan giderilir:
+
+Modülün aynı adlı topic ve handler kayıtları kaldırılır; mesajları Core.Data handler'ları işler.
+CoreDataTopics.For ve AddCoreDataConsumer çağrılarına modelin dilim kümesi yerine yalnızca Core.Data handler'larına bırakılan dilimleri içeren ayrı bir küme verilir.
+Wire formatı
+Mesaj sözleşmeleri (Consumer/Contracts) üretici payload'ının alan adlarını ve tiplerini birebir yansıtır; sözleşmelerde JsonPropertyName özniteliği bulunmaz.
+
+Paket deserializer yapılandırmaz, bu ayar modülün KafkaFlow consumer'ına aittir. OptionsFX JsonCoreDeserializer'ı parametresiz oluşturur; KafkaFlow 4.2.0'da bu kurucu varsayılan JsonSerializerOptions kullanır. Alan adları büyük/küçük harfe duyarlıdır ve sayısal alanlara tırnaklı değer ("12") kabul edilmez. Üreticide bir alanın adı değiştiğinde alan varsayılan değerde kalır ve hata üretilmez; tipi değiştiğinde deserializer JsonException fırlatır.

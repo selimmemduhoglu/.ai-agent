@@ -1,0 +1,105 @@
+Dilimler
+
+Follow
+0
+
+Edit
+
+
+Ege Bezirci
+Yesterday
+Dilimler
+NetTrex.Core.Data 24 tablo taşır. Bir modül bunların hepsine ihtiyaç duymaz. CoreDataSlice hangi tabloların DbContext modeline gireceğini belirler.
+
+modelBuilder.ApplyCoreDataModel(
+    CoreDataDbRole.KafkaReplica,
+    CoreDataSlice.DateBasis | CoreDataSlice.Currency | CoreDataSlice.Point |
+    CoreDataSlice.Chart | CoreDataSlice.InterestRate);
+Seçilmeyen dilimin tablosu modele girmez, IRepository<T> üzerinden sorgulanamaz ve replika veritabanında bulunması gerekmez.
+
+[!NOTE] İmza, parametre ve exception bilgisi tipin XML dokümantasyonunda durur ve IDE'de Quick Info ile görülür. Bu sayfa dilim seçiminin mimari sonuçlarını anlatır.
+
+Dilimler ve tabloları
+Dilim	Tablolar	Gerektirdiği
+DateBasis	DateBasis	yok
+Currency	Currency	DateBasis
+CurrencyPair	CurrencyPair	Currency
+Chart	Chart	yok
+Point	Point	yok
+Calendar	Calendar	yok
+Holiday	Holiday	Currency
+HalfWorkingDay	HalfWorkingDay	yok
+FxRate	FXRate, FXRateDetail	yok
+InterestRate	InterestRate, InterestRateDetail	Point
+Volatility	VolatilityRate, VolatilityRateDetail	Point
+Country	Country	yok
+Customer	cusCustomer, defCorporateType, defCorporateDetailType	Country
+Portfolio	PrfPortfolio	Country
+SettlementType	SettlementType	yok
+PaymentInstructionType	PaymentInstructionType	yok
+Market	Market	yok
+TxnType	defTxnType	yok
+MarketCustomerMap	MarketCustomerMap	Customer
+CoreDataSlice bir [Flags] enum'dur. Bit değerleri:
+
+Dilim	Bit	Dilim	Bit
+DateBasis	1 << 0	Customer	1 << 15
+Currency	1 << 1	Portfolio	1 << 16
+CurrencyPair	1 << 2	SettlementType	1 << 17
+Chart	1 << 3	PaymentInstructionType	1 << 18
+Point	1 << 4	Market	1 << 19
+Calendar	1 << 5	TxnType	1 << 20
+Holiday	1 << 6	MarketCustomerMap	1 << 21
+HalfWorkingDay	1 << 7		
+FxRate	1 << 8		
+InterestRate	1 << 10		
+Volatility	1 << 12		
+Country	1 << 14		
+1 << 9 ve 1 << 11 bit değerleri boş bırakılmıştır: eskiden FxRateDetail ve InterestRateDetail dilimlerine aitti, 10.0.8'de kaldırıldılar ve yeniden kullanılmadılar. 1 << 13 eski VolatilityDefinitions diliminindi; o da kaldırıldı ve yeniden kullanılmadı.
+
+Bağımlılık ne demek
+Sağ kolon iş mantığı bağımlılığını değil, yapılandırılmış bir EF navigation'ını gösterir. Currency.DateBasis, CurrencyPair.FromCurrencyEntity, Holiday.Currency, InterestRateDetail.Point, Customer.Country ve MarketCustomerMap.Customer, HasOne/WithMany ile kurulmuş gerçek ilişkilerdir. Bir navigation, işaret ettiği entity'yi modele sürükler; o entity'nin yapılandırması yoksa EF kendi konvansiyonlarına düşer ve yanlış tablo adı, yanlış kolon tipi üretir.
+
+FxRate diliminin Chart gerektirmemesinin sebebi budur. FXRate.ChartId çıplak bir int, navigation değil. Chart'sız bir kur eğrisi iş mantığı olarak anlamsızdır ama EF modeli için eksik yoktur. Aynısı FXRateDetail.FromCurrency için de geçerli: para birimi kodu string olarak durur, Currency tablosuna FK yoktur.
+
+Yani bağımlılık listesi EF hatalarına karşı korur, veri bütünlüğüne karşı değil.
+
+Eksik seçim
+Bağımlılık kontrolü çift bazında yapılır ve geçişli olarak çözülmez. CurrencyPair seçilip Currency verilmezse hata düşer; Currency verilip DateBasis verilmezse yine hata düşer.
+
+Incomplete core data slice selection: Currency requires DateBasis. Selected slices: Currency, Point.
+Eksik dilim kendiliğinden eklenmez. Replika veritabanında her tablo bir DDL demektir ve şemanın sessizce büyümesi istenmez.
+
+Modeli ikinci bir kontrol daha denetler. Bir navigation üzerinden modele giren ama seçilmemiş bir tablo kalırsa açılışta şu hata düşer:
+
+Core.Data model is incomplete: unconfigured entities entered the model through navigations and
+would fall back to EF conventions. CurrencyEntity needs slice Currency. Selected slices: CurrencyPair.
+Birinci kontrol bilinen bağımlılıkları, ikincisi modelin gerçek hâlini denetler. İkisinin mesajı da hangi dilimin eksik olduğunu söyler.
+
+CoreDataDbRole
+Birinci parametre veritabanının rolünü söyler ve Id kolonlarının nasıl üretileceğini belirler. ApplyCoreDataModel bu değere göre her Core.Data entity'sinin Id property'sinde EF'in değer üretme stratejisini kurar.
+
+Kaydı kullanıcıdan alan CRUD uygulaması SourceOfTruth rolünde çalışır; piyasa verisi için bu uygulama NetTrexCommon. Kafka'dan senkron olan modül veritabanları KafkaReplica kullanır, çünkü bu veritabanlarında Id kaynak sistemden geldiği gibi yazılır. Her iki rolün kurduğu Id davranışı CoreDataDbRole üyelerinin XML dokümantasyonunda yazılıdır.
+
+Rol yalnızca birincil anahtarı tek bir Id adlı int veya long property olan Core.Data entity'lerine uygulanır. Diğerleri olduğu gibi kalır.
+
+[!WARNING] KafkaReplica yerine SourceOfTruth verildiğinde veritabanı kendi Id'sini üretir, kaynak sistemdeki Id kaybolur ve FXRateDetail.FXRateId gibi alanlar hiçbir satıra denk gelmez. Hata düşmez, veri eşleşmez. Modül replikaları KafkaReplica kullanır.
+
+Kendi entity'si olan bir modül
+Modüllerin çoğu bu tabloların kendi kopyasını taşır. O dilim ApplyCoreDataModel'e verildiği anda aynı fiziksel tabloya iki CLR tipi bakar ve EF açılışta fırlatır.
+
+Geçiş tablo tablo yürür:
+
+Modülün kendi entity'si ve IEntityTypeConfiguration'ı silinir.
+DbContext'teki DbSet<...> satırı silinir. Core.Data tabloları IRepository<T> üzerinden okunur.
+using satırları Core.Data namespace'ine çevrilir.
+Dilim ApplyCoreDataModel çağrısına eklenir.
+Kolon tipleri karşılaştırılır. Kaynak sistem NetTrexCommon ve Core.Data int kullanır; modül kopyasında long varsa replika şemasında bigint kolon durur; int'e geçiş bir daraltma migration'ı ile yapılır.
+Aynı anda birden fazla dilim taşımak hata mesajlarını birbirine karıştırır. Bir dilim bitip uygulama açıldıktan sonra sıradakine geçilir.
+
+Açılışta düşen hatalar
+Exception	Mesaj	Çözüm
+ArgumentException (selected)	At least one core data slice must be selected	ApplyCoreDataModel'e CoreDataSlice.None verilmiş. Modülün okuduğu tabloların dilimleri seçilir.
+ArgumentException (selected)	Incomplete core data slice selection: X requires Y	Bağımlı olunan dilim seçilmemiş. Mesajın adını verdiği dilim seçime eklenir; bağımlılık geçişli çözülmediği için zincirin her halkası ayrı eklenir.
+InvalidOperationException	Core.Data model is incomplete: unconfigured entities entered the model through navigations	Navigation üzerinden modele giren bir tablonun dilimi seçilmemiş. Mesajdaki X needs slice Y satırlarının dilimleri eklenir.
+İlk iki hata CoreDataSliceMap.Validate, üçüncüsü ApplyCoreDataModel içindeki ValidateConfiguredEntities denetiminde üretilir.

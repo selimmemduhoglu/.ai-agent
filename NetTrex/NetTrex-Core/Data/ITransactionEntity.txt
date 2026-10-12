@@ -1,0 +1,59 @@
+ITransactionEntity
+
+Follow
+1
+
+Edit
+
+
+Ege Bezirci
+Yesterday
+ITransactionEntity
+ITransactionEntity, modüllerin işlem tablolarında tekrar eden iki ayrı bilgiyi tek arayüzde toplar. İkisi bağımsızdır; arayüz onları bir araya getiren kapsayıcıdır, tek bir kavramı temsil etmez.
+
+Bilgi	Alan sayısı	Her satırda var mı
+İşlemin kaynağı	1	Evet
+Başka bir işleme bağ	4	Hayır, yalnızca türetilmiş işlemlerde
+Alan adları, tipleri ve kolon kuralları NetTrex.Core.Data tarafından tanımlanır; her modül kendi tablosuna bu alanları ekler ve tanımı paketten alır.
+
+İşlemin kaynağı
+TransactionOriginType işlemin sisteme hangi yoldan girdiğini tutar: ekrandan mı girildi, dış sistemden mi geldi, başka bir işlemden mi türedi. Her işlem satırında doludur ve tek başına anlamlıdır — bağ alanları boş olsa da bu alan okunur.
+
+Alan	Tip	Anlam
+TransactionOriginType	int, required	İşlemin kaynak tipi
+Bu ayrım olmadan türetilmiş bir işlem (exercise, rollover, unwind) manuel girilmiş bir işlemden ayırt edilemiyordu.
+
+Başka bir işleme bağ
+Dört LinkedTransaction* alanı, işlemin hangi işlemden türediğini ve bağın sebebini tutar. Kaynak tipinden farklı bir soruya cevap verir: TransactionOriginType işlemin nereden geldiğini, bu alanlar neyden türediğini söyler. Manuel ya da dış kaynaklı bir işlemde dördü de null'dır.
+
+Alan	Tip	Anlam
+LinkedTransactionId	bigint, optional	Bağlı işlemin anahtarı
+LinkedTransactionReference	nvarchar(50), optional	Bağlı işlemin referans numarası
+LinkedTransactionTrader	nvarchar(80), optional	Bağı kuran trader
+LinkedTransactionReasonType	int, optional	Bağın sebebi
+Dördü birlikte doldurulur ya da birlikte null kalır. LinkedTransactionId yabancı anahtar değildir — bağlı işlem başka bir tabloda, hatta başka bir modülde olabilir; bu yüzden referans ve trader değerleri bağ kurulduğu andaki hâliyle kopyalanır.
+
+İki taraf pratikte kesişir: bağ taşıyan bir işlemin kaynak tipi Generated olur. Tersi zorunlu değildir — Generated bir işlem, kaynağı aynı sistemde kayıtlı olmadığında bağ alanlarını boş bırakabilir. Kaynak işlemin aksiyonu geri alındığında türev kayıt kendi anahtarıyla bulunur; LinkedTransactionId isteğin doğru kaynaktan geldiğini doğrulamak için karşılaştırılır.
+
+Enum'lar
+public enum TransactionOriginType
+{
+    None = 0,       // atanmamış
+    Manual = 1,     // ekrandan girilen
+    Generated = 2,  // başka bir işlemden türeyen
+    Imported = 3    // dış kaynaktan alınan (STP, Bloomberg)
+}
+
+public enum LinkedTransactionReasonType
+{
+    Rollover = 1, Unwind = 2, Exercise = 3,
+    Assignment = 4, Liquidation = 5, Termination = 6
+}
+None = 0 bir kaynak tipi değildir. Nullable referans tipleri kapalı olan projelerde entity new ile oluşturulduğunda alanın default(TransactionOriginType) ile başlaması için tanımlıdır; "kaynak tipi henüz atanmadı" durumunu temsil eder.
+
+Veritabanına yazılan her satırın TransactionOriginType değeri 1, 2 veya 3'tür. Tabloda 0 görülen satır atanmamış bir kayıttır: geçişte doldurulmamış ya da kaydetme akışında kaynak tipi çözülmeden yazılmıştır. Sorgular None'ı geçerli bir durum olarak ele almaz — raporlama ve filtreleme üç değer üzerinden kurulur.
+
+İki enum da NetTrex.Core.Data.Domain.Common.Transactions altındadır. Modüller kendi kopyalarını tanımlamaz; int değerleri tüm modüllerde aynı anlama gelir.
+
+Uygulama
+Alanların iş kuralları, Oracle kolon adları, EF yapılandırması ve dolu tablolar için geçiş sırası LinkedTransaction Alanları sayfasındadır.

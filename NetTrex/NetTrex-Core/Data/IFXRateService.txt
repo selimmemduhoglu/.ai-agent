@@ -1,0 +1,101 @@
+IFXRateService
+
+Follow
+1
+
+Edit
+
+
+Ege Bezirci
+11 Eyl
+IFXRateService
+Döviz kuru okur. İki metot sunar, ikisi de aynı imzayı taşır ve decimal döner.
+
+Task<decimal> GetRateAsync(
+    FxRateSource source, int chartId, DateTime executionDate,
+    string fromCurrency, string toCurrency, QuoteSideType side,
+    CancellationToken ct = default);
+Servisi AddCoreData kaydeder.
+
+Hangisi nerede
+Metot	Davranış	Kullanım
+GetRateAsync	Kaynaktan tek pariteyi çeker, önbelleğe dokunmaz.	Ekran, tek işlem, anlık sorgu.
+GetCachedRateAsync	İlk çağrıda o (kaynak, chart, tarih) eğrisinin tamamını tek sorguda scope belleğine alır, sonraki çağrılar bellekten döner.	EOD, toplu değerleme, aynı eğriden çok parite okuyan iş.
+// Tek kur.
+var rate = await fxRates.GetRateAsync(
+    FxRateSource.Database, chartId, executionDate, "EUR", "TRY", QuoteSideType.M, ct);
+
+// Ayni egriden coklu okuma. Ilk cagri egriyi yukler, gerisi bellekten.
+foreach (var deal in deals)
+{
+    var r = await fxRates.GetCachedRateAsync(
+        FxRateSource.Database, chartId, executionDate, deal.BaseCcy, deal.QuoteCcy,
+        QuoteSideType.M, ct);
+}
+Önbellek scope ömürlüdür: HTTP isteği veya batch item'ı bittiğinde düşer. Kalıcı bir önbellek değildir ve elle boşaltma yolu yoktur. Aynı eğriden birkaç kur okuyan kod GetCachedRateAsync kullanır; GetRateAsync'i döngüde çağırmak parite sayısı kadar sorgu demektir.
+
+executionDate'in saat kısmı yok sayılır. Tarih tam eşleşme aranır, en yakın tarihe düşülmez.
+
+FxRateSource
+Değer	Kaynak
+Database	Kendi veritabanındaki FXRate / FXRateDetail tabloları.
+Common	Common servisine HTTP çağrısı.
+Common seçeneği CommonApi yapılandırma anahtarını gerektirir. Anahtar boşsa istemci hiç kaydedilmez ve çağrı şu hatayla düşer:
+
+FxRateSource.Common requires the 'CommonApi' configuration key. If this process is the Common API
+itself, use FxRateSource.Database; it reads the same FXRate table.
+Common'ın kendi process'i Database kullanır — aynı tabloyu okur, araya HTTP koymanın karşılığı yoktur.
+
+Common üzerinden giden çağrılar AddStandardResilienceHandler politikasına tabidir: retry ve timeout uygulanır.
+
+QuoteSideType
+Değer	Anlam
+B	Bid, alış
+M	Mid, orta
+A	Ask, satış
+Enum değerleri B=0, M=1, A=2. Sıra alfabetik değil, alış–orta–satış mantığındadır; sayısal değere dayanan kod kırılgandır. JSON'a metin olarak serialize edilir (JsonStringEnumConverter).
+
+Chart
+chartId kotasyon setini seçer. Aynı gün için farklı chart'lar farklı kurlar taşır. Kaynak sistemdeki değerler:
+
+Id	Chart
+2	Daily Market Prices
+3	CBT Rates & Prices
+4	Benchmark Prices
+5	Bank Prices
+10	Revaluation Rates & Prices
+Hangi chart'ın kullanılacağını Core.Data belirlemez, çağıran taraf bilir. Modüllerde bu genellikle bir framework parametresinden okunur.
+
+FXRateDetail alanları
+Doğrudan IRepository<FXRateDetailEntity> üzerinden okuyan kod için:
+
+Alan	Tip	İçerik
+FXRateId	int	Bağlı olduğu eğri başlığı (FXRate.Id).
+FromCurrency, ToCurrency	string(3)	Parite.
+AskRate, MidRate, BidRate	decimal(18,10)?	Kotasyonlar. O taraf için kotasyon girilmemişse boş.
+RateSourceId	int?	Kotasyonun geldiği veri sağlayıcı.
+Oran alanları kur değeridir, yüzde değil: EUR/TRY = 34.5000.
+
+RateSourceId bir sağlayıcı kimliğidir, tarih değil. Kaynak sistemdeki değerler (NetTrex.Common.Domain.Enums.DataSource):
+
+Id	Sağlayıcı
+2	MNL (elle giriş)
+3	Calculated
+10	Bloomberg Data License
+11	Bloomberg BPipe
+30	Integral
+31	Integral Spot
+70	TCMB
+Bu enum Core.Data'da tanımlı değildir ve RateSource tablosu bir dilim olarak yoktur. Sağlayıcı adını gösteren kod Common servisinden okur.
+
+Hatalar
+Exception	Ne zaman
+FxRateNotFoundException	Parite bulunamadı, ya da parite var ama istenen kotasyon tarafı boş.
+FxRateCurveNotFoundException	O (kaynak, chart, tarih) için hiç kotasyon yayınlanmamış. Yalnızca GetCachedRateAsync atar.
+FX rate not found: EUR/TRY M (source=Database, chart=2, date=2026-09-09).
+FX rate curve is empty: no rates published (source=Database, chart=2, date=2026-09-09).
+Ayrım teşhis içindir. FxRateCurveNotFoundException o gün o chart'a hiç fiyat girilmediğini, FxRateNotFoundException eğrinin var olduğunu ama bu paritenin bulunmadığını söyler.
+
+İkisi de sorgu parametrelerini typed property olarak taşır — RateSource, ChartId, ExecutionDate ve FxRateNotFoundException'da ayrıca FromCurrency, ToCurrency, Side. Mesaj metnini ayrıştırmaya gerek yoktur.
+
+GetRateAsync eğri boş olduğunda FxRateCurveNotFoundException atmaz, FxRateNotFoundException atar: tek parite sorgusu eğrinin tamamına bakmaz.

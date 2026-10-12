@@ -1,0 +1,16 @@
+---Check Database Name
+Use NetTrexDerivSWP
+GO
+BEGIN TRANSACTION;
+
+BEGIN TRY   
+
+    COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+    PRINT 'rollback';
+    IF @@TRANCOUNT > 0
+        ROLLBACK TRANSACTION;
+    PRINT ERROR_MESSAGE();
+    throw;
+END CATCH;

@@ -1,0 +1,42 @@
+Sorun Giderme
+
+Follow
+1
+
+Edit
+
+
+Ege Bezirci
+14 Eyl
+Sorun Giderme
+Açılışta düşen hatalar
+Belirti	Neden	Çözüm
+İlk istekte IAccountingEngineDataFactory çözülemiyor	AddAccountingEngine bu arayüzü kaydetmez	Kural verisini okuyan implementasyon modül tarafında AddScoped ile kaydedilir
+Çalışma anındaki hatalar
+Motorun fırlattığı tek istisna tipi AccountingEngineException. Metin, hangi alanda ve hangi kuralda takıldığını taşır.
+
+İstisna metni	Neden	Çözüm
+Account rule value source error in field : <alan> Path : <eventPath> Rule ID: <id>	Kuraldaki ...Source değeri işlem modelinde bulunmayan bir property adını gösteriyor	Kural tablosundaki kaynak adı ile modeldeki property adı karşılaştırılır; model tarafında yeniden adlandırma yapıldıysa kural güncellenir
+Account Engine <alan> has null value.	Kaynak property bulundu ama değeri null ve alanın tipi string değil	İşlem modeli muhasebe tetiklenmeden önce doldurulur; alan gerçekten opsiyonelse kuraldaki ...Source boşaltılır
+Alan adının kaynak adından farklı olduğuna dikkat edilir: mesajdaki field motorun hedef alanıdır (CustomerAccountTypeCode gibi), value source ise kuralda yazılı property adıdır.
+
+Sessiz kalan alanlar
+Bu durumlar istisna fırlatmaz; fiş üretilir, alan boş çıkar.
+
+Belirti	Neden	Çözüm
+CustomerAccountWorkGroupCode veya CustomerAccountTypeCode boş	Hesap kuralında ilgili ...Source boş ve seçilen map satırında ...SourceRule yok	İki kaynaktan biri doldurulur — bkz. WorkGroup ve AccountType
+Account map ezmesi çalışmıyor	Map satırı seçildi ama o alanın ...SourceRule navigation'ı boş	Ezme alan bazındadır; map'in seçilmesi tek başına yetmez, ilgili alanın rule'u tanımlanır
+Beklenen map satırı hiç seçilmiyor	Source kuralın GLCode değerine eşit değil, IsEnabled kapalı, Path olayın EventPath değerinde geçmiyor, ya da ValidationRules geçmiyor	Dört filtre sırayla kontrol edilir
+AccAccountMapId null geliyor	Kural için uygun map satırı bulunamadı	Alanlar hesap kuralından çözülmüştür; beklenen davranış
+CustomerAccountBranchCode her zaman boş	Motor bu alanı doldurmaz	Değer motor sonrası çağıran modülde set edilir
+ExtendedText1–ExtendedText5 her zaman boş	Motor bu alanları doldurmaz	Aynı şekilde motor sonrası doldurulur
+Dinamik rule hataları
+Belirti	Neden	Çözüm
+Metin beklenen alana sayı geliyor	Rule Calculation tipiyle (Type = 2) tanımlanmış	Metin döndüren alanlar Comment tipiyle (Type = 1) tanımlanır
+Doğrulama kuralı hiç geçmiyor, grup atlanıyor	Validation rule'u bool dışında bir değer döndürüyor veya işlem modelinde olmayan bir alana bakıyor	Rule ifadesi işlem modelinin güncel property adlarıyla karşılaştırılır
+Bilinen sınırlamalar
+Kural tablosu ile işlem modeli arasındaki bağ string üzerinden kurulur ve derleyici tarafından denetlenmez. Modelde bir property yeniden adlandırıldığında derleme başarılı olur, hata ancak o kuralı tetikleyen ilk işlemde ortaya çıkar. Model tarafında yeniden adlandırma yapılırken kural tablosundaki ...Source değerleri birlikte taranır.
+
+Motorun bütün metotları senkrondur. Veri okuma maliyeti IAccountingEngineDataFactory implementasyonuna aittir; kural verisi her fiş üretiminde yeniden okunuyorsa yük bu katmandadır.
+
+Hesap tipi kodu akışının otomatik test kapsamı yoktur. Çalışma grubu kodu için iki test bulunur: biri kural kaynağından okumayı, diğeri map rule'unun kural kaynağını ezmesini doğrular.

@@ -1,0 +1,108 @@
+WorkGroup ve AccountType
+
+Follow
+1
+
+Edit
+
+
+Ege Bezirci
+14 Eyl
+WorkGroup ve AccountType
+Fimple fişleri, satırın hangi çalışma grubuna ait olduğunu ve müşteri hesabının tipini ister. Bu iki bilgi işlem modelinde durur ve motor tarafından fiş satırına taşınır: kural tarafında hangi alandan okunacağı tanımlanır, motor değeri okuyup üretilen satıra yazar.
+
+10.0.1 sürümüyle hesap tipi kodu bu zincire eklendi. Çalışma grubu kodu daha önceki sürümlerde zaten taşınıyordu.
+
+Motor tarafındaki alanlar
+Katman	Çalışma grubu	Hesap tipi
+İşlem modeli (TxnModel)	modülün kendi property'si	modülün kendi property'si
+AccEngineAccountRule	CustomerAccountWorkGroupCodeSource	CustomerAccountTypeCodeSource
+AccEngineAccountMap	CustomerAccountWorkGroupCodeSourceRuleId	CustomerAccountTypeCodeSourceRuleId
+Üretilen satır	CustomerAccountWorkGroupCode	CustomerAccountTypeCode
+Üretilen satırdaki iki alan da string. Çalışma grubu motorda sayı olarak değil kod olarak taşınır; Fimple'a gönderilen fiş deseninde bu değer WorkGroupId alanına yazılır, dönüşüm çağıran modülün sorumluluğudur.
+
+Değerin çözülme sırası
+Her iki alan da aynı iki yoldan çözülür ve öncelik sırası sabittir.
+
+flowchart LR
+    A[Hesap kuralı] --> B{Account map seçildi mi<br/>ve alanın SourceRule'u dolu mu?}
+    B -- Evet --> C[Dinamik rule çalıştırılır<br/>ExecuteComment]
+    B -- Hayır --> D{Kuralda ...Source dolu mu?}
+    D -- Evet --> E[TxnModel property'si<br/>reflection ile okunur]
+    D -- Hayır --> F[Alan null kalır]
+Map üzerindeki dinamik rule her zaman kazanır. Bir olay için map satırı seçilmiş olsa bile o alanın ...SourceRule navigation'ı boşsa motor hesap kuralındaki ...Source değerine geri düşer.
+
+İki alan da boş bırakılabilir. ...Source boşsa motor istisna fırlatmaz, alanı null bırakır. Fişte çalışma grubu veya hesap tipi eksik çıkıyorsa hata kuralın çalışmamasında değil, kural tablosunda o alanın hiç doldurulmamış olmasındadır.
+
+Dinamik rule tanımları
+Bu iki alan metin döndürdüğü için dinamik rule'ları Comment tipiyle (Type = 1) tanımlanır. Calculation tipiyle tanımlanan bir rule decimal döndürür ve alan çözülemez.
+
+Engine tarafında tanımlı rule'lar ve okudukları alanlar:
+
+Rule kodu	Okuduğu alan
+IncomingExternalCustomerAccountWorkGroupId	TxnModel.IncomingExternalCustomerAccountWorkGroupId
+OutgoingExternalCustomerAccountWorkGroupId	TxnModel.OutgoingExternalCustomerAccountWorkGroupId
+IncomingExternalCustomerAccountTypeCode	TxnModel.IncomingExternalCustomerAccountTypeCode
+OutgoingExternalCustomerAccountTypeCode	TxnModel.OutgoingExternalCustomerAccountTypeCode
+Muhasebe kurallarını her modül kendi iş akışına göre yazar. Yukarıdaki dört rule dışında yeni bir dinamik rule eklenmeden önce Core ekibine haber verilir; rule kümesi modüller arasında ortaktır ve tek taraflı eklemeler eşleştirme tablolarını bozar.
+
+İşlem modeli tarafı
+Alanlar TxnModel üzerinde string olarak tanımlanır. Kaynaktaki değer int ise modele taşınırken .ToString() ile çevrilir; motor FindValueBySource içinde tipi dönüştürmez, doğrudan cast eder.
+
+public class OptionsAccountingTxnModel : BaseAccountingTxnModel
+{
+    public string IncomingExternalCustomerAccountWorkGroupId { get; set; }
+    public string IncomingExternalCustomerAccountTypeCode { get; set; }
+    public string OutgoingExternalCustomerAccountWorkGroupId { get; set; }
+    public string OutgoingExternalCustomerAccountTypeCode { get; set; }
+}
+Tek yönlü para hareketi olan akışlarda Incoming/Outgoing ön eki kullanılmaz; alan adı doğrudan hesap tipiyle biter (CustomerCurrentAccountWorkGroupId, CustomerInvestmentAccountWorkGroupId, CustomerWHTAccountWorkGroupId). İki yönlü akışlarda aynı adların başına Incoming veya Outgoing eklenir.
+
+Değerler nereden gelir
+Çalışma grubu. Fimple Deposit API'sinden müşteri hesapları çekildiğinde her hesap kaydında WorkgroupId döner. Hesap seçildiği anda bu değer hesap numarası ve GL hesabıyla birlikte işlem kaydına yazılır.
+
+GET <<Api>>/Deposit/Accounts/ByParameters
+Hesap tipi. Deposit cevabında hesap tipi kodu bulunmaz; hesabın GL kodu ile chart of accounts sorgulanır ve cevaptaki AccountType alanı kullanılır.
+
+GET <<Api>>/Accounting/ChartOfAccounts/ByGLCode/02200100
+AccountType her GL kodunda dolu gelmez. Müşteri hesabı üzerinden çalışan GL gruplarında döner — 020–025, 320, 321, 390, 391 gibi. Dönmeyen GL kodlarında alan boş geçilir.
+
+Örnek: Options tarafında kurulum
+Options'ta hesap bilgileri işlem kaydının üzerinde, her hesap slotu için ayrı kolon olarak durur. Tablo TxnTransaction, desen <Aşama><Yön><HesapTipi>Account ve yanındaki üç alan.
+
+Kolon soneki	DB tipi	C# tipi
+...Account	bigint	long?
+...AccountGLCode	nvarchar	string?
+...AccountWorkGroupId	int	int?
+...AccountTypeCode	nvarchar(30)	string?
+PremiumCustomerCurrentAccount             bigint
+PremiumCustomerCurrentAccountGLCode       nvarchar
+PremiumCustomerCurrentAccountWorkGroupId  int
+PremiumCustomerCurrentAccountTypeCode     nvarchar(30)
+
+ExerciseCustomerIncomingCurrentAccountWorkGroupId  int
+ExerciseCustomerIncomingCurrentAccountTypeCode     nvarchar(30)
+ExerciseCustomerOutgoingCurrentAccountWorkGroupId  int
+ExerciseCustomerOutgoingCurrentAccountTypeCode     nvarchar(30)
+Aynı desen Investment ve WHT hesapları için tekrarlanır. Hesap tipi (Current / Investment / WHT) kolon adının içinde durur; ...AccountTypeCode ise bundan bağımsızdır ve Fimple'daki hesap tipi kodunu taşır.
+
+Akış üç adımda kapanır:
+
+Hesap seçildiğinde AccountNumber, GLAccount, WorkgroupId ve GL'den çözülen AccountType birlikte ilgili slotun dört kolonuna yazılır.
+Muhasebe tetiklenirken bu kolonlar işlem modelinin Incoming/Outgoing alanlarına string olarak taşınır.
+Motor kural tablosundaki ...Source veya map rule'u üzerinden değeri okuyup üretilen satıra CustomerAccountWorkGroupCode ve CustomerAccountTypeCode olarak yazar.
+Üretilen satır
+{
+  "SequenceNumber": 5,
+  "GLAccount": "22500400",
+  "ReferenceType": "None",
+  "CurrencyId": "USD",
+  "Description": "TOFXBC2604220001 referanslı FX OTC BUY/CALL açılış fişi",
+  "Debit": 0.0,
+  "Credit": 1.0,
+  "WorkGroupId": 2
+}
+Fimple'a giden desendeki WorkGroupId, motorun döndürdüğü CustomerAccountWorkGroupCode değeridir. Hesap tipi kodu aynı satırda referans tipi karşılığı olarak taşınır.
+
+Kapsam dışı kalanlar
+AccEngineGeneratedAccountEntry üzerinde CustomerAccountBranchCode ve ExtendedText1– ExtendedText5 alanları tanımlıdır, ancak motor bu alanları doldurmaz. Şube kodunu çözen kod bloğu kaynakta yorum satırı hâlindedir; AccEngineAccountMap.CustomerAccountBranchCodeSourceRuleId okunmaz. Bu alanlara değer gerekiyorsa motor sonrası, çağıran modül tarafından set edilir.

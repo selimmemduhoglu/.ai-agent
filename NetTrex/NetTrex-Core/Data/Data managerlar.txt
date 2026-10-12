@@ -1,0 +1,176 @@
+Data Managerlar
+
+Follow
+1
+
+Edit
+
+
+Ege Bezirci
+Yesterday
+Data Manager'lar
+Data manager, bir tablonun IRepository<T>'sini sarar ve o tabloya özgü sorguları ekler. Paket 22 manager arayüzü sunar (Abstractions/Managers/Common/Definitions altında). Hepsi internal sealed, dışarıya yalnızca arayüzleriyle görünürler.
+
+Aynı tablo IRepository<T> üzerinden de okunabilir. Manager'ın farkı, çağıranın EF sorgusu kurmasına gerek bırakmaması ve sonucu entity yerine amaca uygun bir modele projelemesidir.
+
+Ortak yüzey
+Hepsi IDataManager<T>'yi uygular:
+
+Metot	Döner	Tracking
+InsertAsync(entity, ct)	Task	—
+UpdateAsync(entity, ct)	Task	—
+DeleteAsync(entity, ct)	Task	—
+AnyAsync(where, ct)	Task<bool>	—
+FindAsync(where, ct)	Task<T?>	AsNoTracking
+ListAsync(where, skip, take, ct)	Task<IReadOnlyList<T>>	AsNoTracking
+CountAsync(where, ct)	Task<int>	—
+Entity döndüren iki metot AsNoTracking ile çalışır. Yazma metotları IRepository<T>'ye devreder, SaveChanges çağırmaz ve CancellationToken'ı kullanmaz — alttaki repository metotları token almaz. Commit Veri Katmanı sayfasındaki IUnitOfWork'ün işidir.
+
+[!WARNING] ListAsync sıralama uygulamaz. skip/take sıralanmamış bir sorgunun üzerine biner ve SQL Server'ın döndürdüğü sıra kararlı değildir. Aynı sayfa iki kez istendiğinde farklı satırlar gelebilir. Kararlı sayfalama IRepository<T>.Queryable() üzerinde açıkça verilen bir OrderBy gerektirir.
+
+Kayıt
+Manager'ların kaydını iki çağrı yapar. Hepsi TryAddScoped.
+
+Kaydeden	Koşul	Manager
+AddCoreData	dilimden bağımsız	ICurrencyDataManager, ICurrencyPairDataManager, ICalendarDataManager, IHolidayDataManager, IHalfWorkingDayDataManager, IFxRateDataManager, IFxRateDetailDataManager, IInterestRateDataManager, IInterestRateDetailDataManager, IVolatilityRateDataManager, IVolatilityRateDetailDataManager, IChartDataManager, IDateBasisDataManager, IPointDataManager, ICustomerDataManager, ICorporateTypeDataManager, ICorporateDetailTypeDataManager, ICountryDataManager, IPortfolioDataManager, IMarketDataManager, ITxnTypeDataManager, IMarketCustomerMapDataManager
+AddCurrencyPairCache	CurrencyPair dilimi kullanılırken	ICurrencyPairDataManager (TryAdd, AddCoreData ile çift kayıt zararsızdır)
+AddCoreData'nın kayıtları dilim seçiminden bağımsızdır; bir manager'ın enjekte edilebilmesi tablosunun modelde olduğu anlamına gelmez. AddCoreDataConsumer data manager kaydetmez.
+
+Dilim tanım manager'ları
+Aşağıdaki manager'lar IDataManager<T> dışında yalnızca tabloda verilen metotları taşır. Kafka handler'ları insert ile update arasında IsExistsAsync ile karar verir.
+
+Manager	Dilim	Ekstra metotlar
+ICurrencyDataManager	Currency	IsExistsAsync(string code, ct)
+IDateBasisDataManager	DateBasis	IsExistsAsync(string basisCode, ct)
+ICountryDataManager	Country	IsExistsAsync(string countryCode, ct)
+IMarketDataManager	Market	IsExistsAsync(string code, ct)
+ITxnTypeDataManager	TxnType	IsExistsAsync(string txnTypeCode, ct)
+IHolidayDataManager	Holiday	yok
+ICorporateDetailTypeDataManager	Customer	yok
+IHalfWorkingDayDataManager	HalfWorkingDay	yok
+IChartDataManager	Chart	yok
+IPointDataManager	Point	yok
+ICustomerDataManager	Customer	yok
+ICorporateTypeDataManager	Customer	yok
+IPortfolioDataManager	Portfolio	yok
+IMarketCustomerMapDataManager	MarketCustomerMap	yok
+SettlementType ve PaymentInstructionType dilimlerinin manager'ı yoktur; bu tablolar IRepository<T> ile okunur.
+
+IsExistsAsync taşıyan market data manager'ları
+Manager	Ekstra
+IFxRateDataManager	IsExistsAsync(int id, ct)
+IFxRateDetailDataManager	IsExistsAsync(int id, ct)
+IInterestRateDataManager	IsExistsAsync(int id, ct)
+IInterestRateDetailDataManager	IsExistsAsync(int id, ct)
+IVolatilityRateDataManager	IsExistsAsync(long id, ct)
+IVolatilityRateDetailDataManager	IsExistsAsync(long id, ct) ve IsExistsAsync(VolatilityRateDetailDataManagerGetModel, ct)
+ICurrencyPairDataManager	IsExistsAsync(string fromCurrency, string toCurrency, ct)
+Bu manager'ların diğer metotları aşağıdaki bölümlerdedir. IsExistsAsync metotlarının hiçbiri maker-checker durum filtresi uygulamaz; gerekçesi Durum filtresi bölümündedir.
+
+VolatilityRateDetailDataManagerGetModel altı alanla eşleşme arar: Id, VolatilityRateId, VolatilityTypeId, PointId, FromCurrencyCode, ToCurrencyCode. Id 0 verildiğinde o alan eşleşmeye girmez — kaynak sistemden Id'siz gelen bir detay satırını diğer beş alanla bulmak için.
+
+ICalendarDataManager
+Dilim: Calendar, AddCoreData ile kayıtlı.
+
+IReadOnlyList<CalendarWorkingDay> GetWorkingDays(string currencyCode);
+Toplu ekleme IDataManager<T>.InsertRangeAsync üzerinden yapılır; ICalendarDataManager, IHolidayDataManager ve ICorporateDetailTypeDataManager kendi InsertRangeAsync'ini taşımaz.
+
+CalendarWorkingDay bir readonly record struct, iki alan taşır: Year ve DayOfYear. Takvim kaydı tarih olarak değil, yıl + yılın günü olarak tutulur.
+
+GetWorkingDays yalnızca Calendar tablosunu okur. Year veya DayOfYear boş olan satırları eler, başka filtre uygulamaz.
+
+[!IMPORTANT] Metot bütün yılları döner, yıl parametresi almaz. Holiday ve HalfWorkingDay tablolarına bakmaz; yarım gün bilgisi sonuçta yer almaz. Sonuç sıralı değildir.
+
+Tatil ve yarım gün mantığını uygulayan taraf Treasy.QuGet'tir: CalendarStore bu listeyi alır ve takvimi kendisi kurar.
+
+ICurrencyPairDataManager
+IReadOnlyList<CurrencyPairRow> GetAll();
+Task<bool> IsExistsAsync(string fromCurrency, string toCurrency, CancellationToken ct);
+Task<CurrencyPairEntity?> GetAsync(string fromCurrency, string toCurrency, CancellationToken ct);
+GetAll CurrencyPair tablosundaki aktif kayıtları döner; sıralama yoktur. Okuma sırasında iki normalizasyon uygulanır:
+
+Alan	Kural
+SwapPointFactor	NULL veya 0'dan küçük/eşitse 10000
+StateMaker projeksiyona alınmaz. Kolon veritabanında nullable, entity'de non-nullable olduğu için okunsa NULL satırlarda materialize hatası verirdi.
+
+GetAll senkron çalışır ve bu bilinçlidir: çağıran CurrencyPairStore, önbellek store'unun senkron ComputeCore sözleşmesini uygular. Tanım tablosu birkaç yüz satır mertebesindedir.
+
+Servis katmanı ve önbellek davranışı ICurrencyPairService sayfasında.
+
+IFxRateDataManager
+Task<bool> IsExistsAsync(int id, CancellationToken ct);
+Task<decimal?> GetRateAsync(FXRateDataManagerGetRateModel model, CancellationToken ct);
+Task<IReadOnlyList<FxRateDataManagerRateRow>> GetCurveAsync(FXRateDataManagerGetCurveModel model,
+    CancellationToken ct);
+Tip	Alanlar
+FXRateDataManagerGetRateModel	Source, FromCurrencyCode, ToCurrencyCode, ChartId, QuoteSideType, ExecutionDate
+FXRateDataManagerGetCurveModel	Source, ChartId, ExecutionDate
+FxRateDataManagerRateRow	FromCurrency, ToCurrency, AskRate, MidRate, BidRate — üç oran da decimal?
+Bu manager diğerlerinden farklı olarak ICommonApi'yi de alır. Source alanı dallanmayı belirler: Database veritabanına, Common Common servisine gider. Common seçildiğinde ICommonApi DI'da kayıtlı değilse InvalidOperationException düşer — CommonApi yapılandırma anahtarı boş bırakıldığında istemci hiç kaydedilmez.
+
+Veri bulunamadığında manager null ya da boş liste döner, exception atmaz. FxRateNotFoundException ve FxRateCurveNotFoundException'ı üstteki IFXRateService üretir — bkz. IFXRateService.
+
+IInterestRateDataManager
+Task<bool> IsExistsAsync(int id, CancellationToken ct);
+Task<DateTime?> GetYieldDateAsync(int id, CancellationToken ct);
+Task<GetRateResult> GetRateAsync(InterestRateQuery query, CancellationToken ct);
+IReadOnlyDictionary<string, double> GetCurve(InterestRateQuery query);
+GetYieldDateAsync üst kaydın kimliğinden getiri tarihini döndürür, kayıt yoksa null. Tek filtresi kimliktir; durum filtresi uygulanmaz (aşağıda Durum filtresi). Detay Kafka mesajları getiri tarihini taşımadığı için önbellek düşürme bu çözümlemeye dayanır (bkz. Kafka-Consumer). Aynı metot IVolatilityRateDataManager üzerinde de var.
+
+InterestRateQuery bir readonly record struct: ChartId, QuoteSideType, YieldDate, CurrencyCode.
+
+GetRateResult tek alan taşır — Rates, bir GetRateModel koleksiyonu. GetRateModel üç alanlı: Rate, Day, CurrencyCode.
+
+Rate yüzde değeridir, oran değil: 3.65 yüzde 3,65 demektir. FX kurlarında aynı alan fiyat taşır; iki paket arasında geçiş yapan kod bu farkı gözetir.
+
+İki metot eksik veriye zıt tepki verir:
+
+Durum	GetRateAsync	GetCurve
+Oran veya gün sayısı boş	Satırı sessizce atlar	InvalidOperationException
+Hiç satır yok	Boş koleksiyon	InvalidOperationException
+PointCode boş veya tekrar ediyor	—	InvalidOperationException
+GetCurve'ün sözlük anahtarı Point.PointCode, yani tenor kodudur; tarih değildir. Değer double olarak döner. Metot senkron çalışır ve bloklayan bir veritabanı sorgusu yapar.
+
+Hiçbirinde interpolasyon yoktur; dönen noktalar veritabanındaki ham vertex'lerdir. Eğri interpolasyonu Treasy.QuGet'in işidir. YieldDate tam eşleşme aranır, önceki güne düşülmez.
+
+IVolatilityRateDataManager
+Task<bool> IsExistsAsync(long id, CancellationToken ct);
+Task<DateTime?> GetYieldDateAsync(long id, CancellationToken ct);
+Task<GetVolatilityRateResult> GetRateAsync(GetVolatilityRateContext context, CancellationToken ct);
+GetVolatilityCurveResult GetCurve(GetVolatilityCurveContext context);
+Tip	Alanlar
+GetVolatilityRateContext	VolatilityTypeId, ChartId, ChartAbm, YieldDate, FromCurrencyCode, ToCurrencyCode
+GetVolatilityCurveContext	Aynıları, ancak VolatilityTypeId opsiyoneldir (int?, varsayılan null)
+GetVolatilityRateModel	VolatilityTypeId, Rate, Day, FromCurrencyCode, ToCurrencyCode
+GetVolatilityCurveRow	VolatilityTypeId, Rate, Day
+ChartAbm hangi kotasyon tarafının okunacağını söyler: A → AskRate, B → BidRate, M → MidRate.
+
+GetRateAsync tek bir volatilite tipiyle çalışır. GetCurve'de VolatilityTypeId boş bırakıldığında bütün tipler döner.
+
+[!WARNING] GetRateAsync eksik veriyi sıfırlar: seçilen taraftaki oran NULL ise 0, Point.Days NULL ise 0 döner. Satır atlanmaz. Sonuçtaki 0 bir volatilite değeri olabileceği gibi eksik veri de olabilir, ikisi ayırt edilemez. GetCurve aynı durumda InvalidOperationException atar.
+
+GetCurve hiç satır bulamadığında da fırlatır. Hata mesajları sorgu bağlamını chartId:abm:parite:tarih:type= biçiminde taşır.
+
+GetRateAsync ve GetCurve sonuçları sıralı değildir ve interpolasyon uygulanmaz.
+
+Durum filtresi
+Maker-checker akışına giren tablolarda onay bekleyen, reddedilen ve silinmiş satırlar canlı satırlarla aynı tabloda durur (bkz. Entityler). Piyasa verisi okuyan metotlar StateId üzerinde Verified bayrağını arayıp Deleted bayrağını dışlar, yani yalnızca onaylanmış ve silinmemiş satırları döner.
+
+Metot	Durum filtresi
+ICurrencyPairDataManager.GetAll	Var
+IFxRateDataManager.GetRateAsync, GetCurveAsync	Source = Database dalında var
+IInterestRateDataManager.GetRateAsync, GetCurve	Var
+IVolatilityRateDataManager.GetRateAsync, GetCurve	Var
+Bütün IsExistsAsync metotları	Yok
+GetYieldDateAsync (faiz ve volatilite)	Yok
+ICurrencyPairDataManager.GetAsync	Yok
+IsExistsAsync filtresizdir: Kafka handler'ları upsert kararını bu metotla verir, silinmiş bir satırın üzerine ikinci kayıt açılmaması için kontrol bütün satırları görür. GetYieldDateAsync de filtresizdir; filtrelendiğinde silinmiş bir başlık kaydı için null döner ve detay handler'ı önbellek düşürmeyi atlar (bkz. Kafka-Consumer).
+
+Detay tablolarında StateId kolonu yoktur, filtre yalnızca başlık tablosuna uygulanır. Source = Common seçildiğinde veri Common servisinden gelir ve durum filtresi Common tarafının sorumluluğundadır.
+
+Ortak davranışlar
+Bütün sorgu metotlarında YieldDate ve ExecutionDate tam eşleşme aranır; veri olmayan bir gün için en yakın tarihe düşülmez.
+
+Hiçbir metot sonucu sıralamaz. Sıra veritabanının döndürdüğü sıradır.
+
+Senkron metotlar — GetWorkingDays, GetAll ve iki GetCurve — bellekten okumaz, bloklayan bir veritabanı sorgusu çalıştırır. Senkron olmalarının belgelenmiş gerekçesi yalnızca GetAll'da vardır; diğer üçü Treasy.QuGet'in senkron store yollarından çağrılır.

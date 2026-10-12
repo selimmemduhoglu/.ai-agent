@@ -1,0 +1,416 @@
+
+Manuel Reeskont Ekranı
+Base Component — Ortak Bileşen Tasarımı
+
+<<<TABLE>>>
+| Doküman Türü | Base Component — Fonksiyonel & Teknik Tasarım |
+| Kullanım | Tek base component; Investment, Security ve Treasury olmak üzere üç ekran |
+| Versiyon | Version 1.0 |
+| Tarih | 28 Temmuz 2026 |
+<<<END TABLE>>>
+
+İçindekiler
+	İçindekiler	2
+	0. Özet	3
+	1. Amaç ve Kapsam	3
+	1.1 Amaç	3
+	1.2 Kapsam	3
+	2. Terimler	3
+	3. Durum Modeli	4
+	3.1 Durumlar	4
+	3.2 Durumların Belirlenmesi	4
+	3.3 Ekran Açıklaması	5
+	3.4 İşlem Sonucu ve Hata (Popup)	5
+	3.5 Durum Geçişleri	5
+	3.6 Durum Geçiş Diyagramı	5
+	4. Fonksiyonel Kurallar	5
+	4.1 Reeskont Kesme (Not Rediscounted)	6
+	4.2 Ters Fiş Kesme (Not Reversed)	6
+	4.3 Yeniden Çalıştırma (Rediscounted / Re-run)	6
+	4.4 Çalıştırma Modeli (Execute selected)	6
+	4.5 UI ve Backend Doğrulaması	6
+	5. Ekran Tasarımı, Alanlar ve Filtreler	6
+	5.1 Zorunlu Alanlar	6
+	5.2 Kolon Sırası	7
+	5.3 Filtreler	7
+	5.4 Toplu Seçim (Select all / N)	7
+	6. Teknik Mimari	7
+	6.1 Asenkron İşlem Mimarisi	8
+	7. UI/UX	8
+	7.1 Renklendirme	8
+	8. Örnek Ekranlar	9
+	8.1 Genel Görünüm ve Filtreler	9
+	8.2 Not Reversed — Ters Fiş Valör Seçimi (T+1 / T+0)	9
+	8.3 Toplu Seçim ve Execute Selected	10
+	8.4 Hata Popup	10
+
+0. Özet
+Bu yapı; Manuel Reeskont üst menüsü altında yer alan Investment, Security ve Treasury ekranlarının tamamı tarafından kullanılan tek bir base component olarak tasarlanmıştır. Ürün başına ayrı bir ekran geliştirilmez; ekranlar bağlı oldukları modüllerin ürünlerini ve bu ürünlere ait reeskont süreçlerini kendi içlerinde karşılar.
+
+Component, seçilen değerleme tarihi ve ilgili ürün kapsamındaki açık durumdaki transaction’ların değerleme süreçlerinin merkezi ve standart bir yapıda izlenmesini amaçlamaktadır. Kullanıcılar, ilgili işlemlere ait muhasebe adımlarının tamamlanıp tamamlanmadığını görüntüleyebilir; örneğin, ilgili tarihte reeskont kaydının oluşturulup oluşturulmadığı veya oluşturulan reeskont kaydının ters kaydının atılıp atılmadığı kontrol edilebilir. Bu bilgiler, işlem bazında Status alanı aracılığıyla kullanıcıya açık ve tutarlı bir şekilde sunulur.
+
+Sistem, eksik veya tamamlanmamış reeskont ve ters fiş işlemlerinin kullanıcı tarafından manuel olarak tamamlanabilmesine olanak sağlar. Kullanıcılar, ilgili işlemleri tekil veya toplu olarak seçebilir ve gerekli operasyonları doğrudan ilgili ekran üzerinden gerçekleştirebilir.
+
+İş akışı tek yönlü olarak tasarlanmıştır. Kullanıcı, öncelikle gerçekleştirmek istediği işlemi temsil eden bir Status seçer, ardından ilgili transaction’ları işaretler ve Execute Selected aksiyonu aracılığıyla seçilen kayıtlar üzerinde bireysel veya toplu işlem başlatır.
+
+Ekran yapısı, filtreler, sabit kolonlar ve çalıştırma akışı tüm ürünlerde aynıdır. Ürüne göre değişen tek unsur, sabit kolonların ardından gösterilen ürüne özel kolonlardır; bu kolonlar UI tarafındaki JSON konfigürasyonundan gelir (bkz. Bölüm 5.5). Böylece farklı ürünlere ait değerleme süreçleri ortak bir mimari çerçevede yönetilirken, her ürünün kendine özgü iş kuralları ilgili ürün servisi tarafından korunur.
+
+0.1 Fazlama ve Yol Haritası
+Bu doküman kapsamındaki fonksiyonellik, aşağıdaki fazlar halinde geliştirilir. Her faz, bir önceki fazın üzerine ek davranış getirir; çalışma prensipleri fazlar arasında değişmez.
+
+<<<TABLE>>>
+| Faz | Kapsam |
+| Faz 1 | Base component ve Treasury ekranı. Treasury kapsamındaki ürünler (FX Transaction, MM/Loan Transactions, Options, Derivative) desteklenir. Generate ve Regenerate aksiyonları, çok statülü (All) çalışma, durum bazlı özet ve onay penceresi. |
+| Faz 2 | Security ve Investment ekranlarının devreye alınması. Regenerate işleminde, seçilen günden bugüne kadar geçmiş tarihli yeniden değerleme. |
+| Faz 3 | Generate ve Regenerate öncesinde hesaplanan yeni değerleme tutarlarının önizlemesi. |
+| Faz 4+ | İleride tanımlanacak (genişlemeye açık). |
+<<<END TABLE>>>
+
+1. Amaç ve Kapsam
+1.1 Amaç
+Kullanıcı, seçtiği değerleme tarihi ve ürünler için açık transaction'ların değerleme durumunu ve eksiklerini tek ekrandan görür: reeskont kesilmiş mi, ilgili güne ait reeskontun tersi atılmış mı, değerleme döngüsü tam mı yarım mı? Eksik kalan reeskont/ters fiş işlemlerini güvenli biçimde buradan tamamlar.
+1.2. Kapsam
+- Base component tektir ve ürün ekipleri tarafından yeniden geliştirilmez. Ürün ekipleri, kendi ürünlerine ait iki endpoint’i sözleşmeye uygun biçimde sağlar ve ürünün kolon konfigürasyonunu teslim eder; UI tarafında geliştirme yapmaz.
+- İşlemlerin durum takibi ve görüntülenmesi, Logical Reference bazında gerçekleştirilir.
+- Kullanıcılar, tek bir Status seçimi ile filtreleme yapmalıdır; ayrıca satır bazında seçim yaparak tekil veya toplu işlem (Execute Selected) gerçekleştirebilir.
+- Sistem aşağıdaki operasyonları destekler:
+  - Reeskont işlemi oluşturma,
+  - Ters fiş oluşturma (Not Reversed durumunda T+0 veya T+1 valör seçeneği ile),
+  - Yeniden çalıştırma (Re-run) işlemi (Rediscounted durumundaki kayıtlar için).
+- Desteklenen filtreleme kriterleri:
+  - Execution Date
+  - Product (tekli seçim, zorunlu)
+  - Sub Product (tekli seçim, zorunlu)
+  - Revaluation Type (tekli seçim)
+  - Status (tekli seçim)
+- Sol üst köşede yer alan seçim kontrolü aracılığıyla tüm kayıtlar veya belirli sayıda kayıt toplu olarak seçilebilir.
+- Hata ile sonuçlanan işlemler, başarılı işlemlerle birlikte anlık olarak ekranda gösterilir (Error). Bu bilgi DB'de veya geçici tabloda saklanmaz.
+- Kullanıcı arayüzünde seçilen işlemler, işlem başlatılmadan önce backend tarafında yeniden doğrulanarak veri tutarlılığı ve işlem güvenliği sağlanır.
+
+1.3 Menü ve Ekran Hiyerarşisi
+Manuel Reeskont, üst menü olarak konumlanır. Bu menü altında Investment, Security ve Treasury olmak üzere üç ekran yer alır. Her ekran, bağlı olduğu modülün ürünlerini ve bu ürünlerin reeskont süreçlerini kendi içinde karşılar. Ürün başına ayrı ekran açılmaz.
+Seçim üç seviyelidir: Ekran (Product Group) → Product → Sub Product. Product ve Sub Product filtrelerinin ikisi de tekli ve zorunludur. Product seçildiğinde ilgili ürünün Sub Product listesi yüklenir (bağımlı liste). Ürüne özel kolonlar Product seviyesine bağlanır; Sub Product seçimi kolon setini değiştirmez, yalnızca veri kapsamını daraltır.
+
+<<<TABLE>>>
+| Ekran (Product Group) | Product | Sub Product (örnek) |
+| Investment | FON | Ürün bazında tanımlanır |
+| Investment | Hisse | Ürün bazında tanımlanır |
+| Investment | Warrant | Ürün bazında tanımlanır |
+| Security | Bond | Ürün bazında tanımlanır |
+| Security | Repo | Ürün bazında tanımlanır |
+| Treasury | FX Transaction | Spot, Forward, Swap |
+| Treasury | MM/Loan Transactions | Murabaha, Wakala |
+| Treasury | Options | Ürün bazında tanımlanır |
+| Treasury | Derivative | Ürün bazında tanımlanır |
+<<<END TABLE>>>
+
+[GÖRSEL — Manuel Reeskont menüsü ve üç seviyeli ekran/ürün hiyerarşisi]
+Sub Product listeleri ilgili ürün servisi tarafından sağlanır; yukarıdaki tabloda yalnızca örnek değerler yer alır. Yeni bir ürünün eklenmesi, ait olduğu ekranın altına Product olarak tanımlanmasıyla gerçekleşir ve UI tarafında yapısal bir değişiklik gerektirmez.
+2. Terimler
+
+<<<TABLE>>>
+| Terim | Tanım |
+| Base Component | Tüm ürünler tarafından ayrı ayrı implemente edilen ortak bileşendir. Zorunlu alanları, durum modelini, filtreleme yapısını ve Execute Selected gibi temel davranışları tanımlar. |
+| Product | İşleme ait ürün tipini ifade eder (ör. FX Transaction, MM/Loan Transactions, Options, Derivative, Bond, Repo, FON). Tekli ve zorunlu bir filtredir; ürüne özel kolon seti bu seviyeye bağlanır. |
+| Revaluation Type | İşleme uygulanan değerleme türünü ifade eder. Filtreleme alanında seçilebilir ve ilgili transaction'ların görüntülenmesinde kullanılır. |
+| Transaction | Değerlemeye konu olan finansal işlemdir. Ekrandaki her satır tek bir transaction'ı temsil eder. |
+| Logical Reference | Bir transaction'ı sistem içerisinde benzersiz olarak tanımlayan anahtar bilgidir. İşlem bazında takip ve durum görüntüleme bu referans üzerinden gerçekleştirilir. |
+| Reeskont | İşlemin güncel kur veya fiyat bilgileri kullanılarak yeniden değerlenmesi ve oluşan sonucun muhasebe fişi olarak kaydedilmesi işlemidir. Standart valör tarihi, ilgili Execution Date (T+0) tarihidir. |
+| Ters Fiş (Reverse) | Oluşturulan reeskont muhasebe kaydının tersini alan muhasebe fişidir. Varsayılan olarak T+1 valör tarihi ile oluşturulur. Not Reversed durumunda kullanıcı tarafından T+0 veya T+1 valör seçenekleri belirlenebilir. |
+| External Customer Id / Name | Müşterinin core banking sistemindeki kimlik numarasını ve müşteri adını ifade eder. |
+| TransactionId | İşleme ait teknik referans bilgisidir. Kullanıcı arayüzünde gösterilmez (hidden field). İşlem yürütme, hata yönetimi ve detay gösterimleri bu alan üzerinden gerçekleştirilir. |
+| Product Group | Ekranı temsil eden üst kırılımdır (Investment, Security, Treasury). Her ekran bir Product Group’a karşılık gelir ve o gruba bağlı ürünleri listeler. |
+| Sub Product | Bir ürünün alt tipidir (ör. FX Transaction altında Spot, Forward, Swap; MM/Loan altında Murabaha, Wakala). Tekli ve zorunlu bir filtredir. |
+| Kolon Konfigürasyonu | UI tarafında tutulan ve ürüne özel kolonları tanımlayan JSON yapısıdır. Product seçildiği anda grid bu konfigürasyona göre kurulur (bkz. Bölüm 5.5). |
+| Ürün Servisi | İlgili ürünün reeskont verisini ve işlem yürütmesini sağlayan mikroservistir. Sözleşmede tanımlı iki endpoint’i implemente etmekle yükümlüdür (bkz. Bölüm 6.2). |
+<<<END TABLE>>>
+
+3. Durum Modeli
+Her transaction, tanımlı durumlardan (status) yalnızca birine sahip olabilir. Processing durumu, işlem yürütme sürecinde kullanılan geçici bir durum olup kalıcı olarak saklanmaz.
+
+Bir işlemin yürütülmesi sırasında hata oluşması durumunda, ilgili kayıt anlık olarak Error durumunda görüntülenir. Bu hata bilgisi yalnızca kullanıcı arayüzünde gösterilir ve veritabanında kalıcı olarak tutulmaz. Hatalı işlemler, başarılı işlemlerle birlikte aynı sonuç ekranında görüntülenebilir; ancak ilgili transaction'ın sistemdeki kalıcı durumu değiştirilmez.
+
+Bu yaklaşım sayesinde, işlem sonuçları kullanıcıya anlık olarak sunulurken, yalnızca başarıyla tamamlanan işlemler transaction'ın kalıcı durumunu etkiler.
+
+3.1 Durumlar
+
+<<<TABLE>>>
+| Etiket | Kod | Tanım |
+| Not Rediscounted | NOT_REDISCOUNTED | İlgili değerleme tarihi için reeskont kaydı oluşturulmamıştır. İşlem için değerleme süreci henüz tamamlanmamıştır. |
+| Processing | PROCESSING | İşlem, core banking sistemine iletilmiş olup sonucu beklenmektedir. Bu durum geçici olup sistemde kalıcı olarak saklanmaz. |
+| Not Reversed | NOT_REVERSED | Reeskont kaydı oluşturulmuş ancak ilgili ters fiş henüz oluşturulmamıştır. Değerleme süreci kısmen tamamlanmıştır. |
+| Rediscounted | REDISCOUNTED | Hem reeskont kaydı hem de ilgili ters fiş oluşturulmuştur. İşleme ait değerleme döngüsü tamamlanmıştır. |
+| Error | ERROR | İşlem yürütülmesi sırasında hata oluşmuştur. Bu durum yalnızca işlem sonucunda anlık olarak gösterilir ve veritabanında kalıcı olarak saklanmaz. Hata detayları Status Description alanında görüntülenir. İlgili transaction'ın kalıcı durumu değiştirilmez. |
+<<<END TABLE>>>
+
+3.2 Durumların Belirlenmesi
+Bir transaction'ın durumu, ilgili işleme ait en son (güncel) reeskont ve ters fiş hareketleri dikkate alınarak belirlenir. Bir transaction yaşam döngüsü boyunca birden fazla muhasebe hareketi içerebilir (örneğin; reeskont → ters fiş → yeni reeskont → ters fiş şeklinde).
+Durum değerlendirmesinde, işlem geçmişindeki tüm hareketler yerine, ilgili transaction için oluşturulan en güncel ve aktif muhasebe kaydı esas alınır. Dolayısıyla, transaction'ın mevcut durumu, en son oluşturulan reeskont veya ters fiş hareketinin niteliğine göre belirlenir.
+Bu yaklaşım, birden fazla değerleme döngüsüne tabi tutulan işlemlerde güncel durumun doğru ve tutarlı bir şekilde izlenmesini sağlar.
+
+<<<TABLE>>>
+| Durum | Koşul |
+| Not Rediscounted | Transaction için açık (ters fiş ile kapatılmamış) bir reeskont kaydı bulunmamaktadır. Bu durum, ilgili işleme ait hiç reeskont oluşturulmamış olması veya en son oluşturulan reeskont kaydı ile buna ait ters fişin aynı değerleme döngüsü içerisinde kapanmış olması halinde oluşur. Her iki durumda da, ilgili Execution Date için yeni bir reeskont kaydı oluşturulması gerekmektedir. |
+| Not Reversed | Transaction için oluşturulmuş bir reeskont kaydı bulunmaktadır ancak bu kayda karşılık gelen ters fiş henüz oluşturulmamıştır. Başka bir ifadeyle, işlem üzerinde açık bir reeskont kaydı bulunmakta olup ilgili tahakkuk kaydı ters fiş işlemini beklemektedir. |
+| Rediscounted | İlgili Execution Date için oluşturulmuş reeskont kaydı ile buna karşılık gelen ters fiş kaydı (t+1) mevcuttur. En son aktif hareket, tamamlanmış bir reeskont–ters fiş çiftini temsil etmekte olup işlemin değerleme döngüsü tamamlanmıştır. |
+<<<END TABLE>>>
+
+Bir kaydın üzerinde gerçekleştirilebilecek işlem, kaydın bulunduğu duruma göre belirlenir. Processing ve Error durumundaki kayıtlar işleme uygun değildir ve aksiyon kapsamı dışında bırakılır.
+3.3 Ekran Açıklaması
+Status alanı, sistem içerisinde kullanılan İngilizce durum kodunu ve etiketini ifade eder. Kullanıcıya yönelik açıklama ise zorunlu olan Status Description alanında gösterilir. Bu alan, ilgili durumun veya hata nedeninin kullanıcı tarafından kolayca anlaşılabilmesi amacıyla kısa, açık ve anlaşılır mesajlar içermelidir.
+
+<<<TABLE>>>
+| Status | Açıklama |
+| Not Rediscounted | Reeskont işlemi oluşturulmayı beklemektedir. (Waiting for rediscount processing.) |
+| Processing | İşlem başlatılmış olup sonuç beklenmektedir. (Processing has been initiated and the result is pending.) |
+| Not Reversed | Ters fiş işlemi oluşturulmayı beklemektedir. (Waiting for reverse entry creation.) |
+| Rediscounted | Reeskont ve ilgili ters fiş işlemleri başarıyla tamamlanmıştır. (Rediscount and reverse entries have been completed successfully.) |
+| Error | İşlem sırasında hata oluşmuştur: [Hata Nedeni] (An error occurred during processing: [Error Reason]). |
+<<<END TABLE>>>
+
+3.4 İşlem Sonuçları ve Hata Yönetimi
+Execute işlemi sonrasında sonuçlar kullanıcıya anlık olarak gösterilir. Bir işlemin başarısız olması durumunda aşağıdaki kurallar uygulanır:
+
+- Sonuçlar, başarılı işlemlerle birlikte aynı ekranda anlık olarak görüntülenir. Başarısız kayıtlar Error durumunda gösterilir ve hata nedeni Status Description alanı üzerinden kullanıcıya sunulur.
+- Hata bilgileri veritabanında veya herhangi bir geçici tabloda saklanmaz. Bu nedenle sistemde kalıcı bir Error durumu veya Error filtresi bulunmaz. Başarısız işlem sonrasında ilgili transaction, veritabanındaki mevcut durumunu korumaya devam eder.
+- Kullanıcı, ilgili durum filtresi altında görüntülenen kaydı yeniden seçerek işlemi tekrar çalıştırabilir. Yeniden çalıştırma sırasında backend katmanı, transaction'ın güncel durumunu yeniden değerlendirir ve gerekli işlemi otomatik olarak belirleyerek ilgili adımı yeniden yürütür.
+
+3.5 Durum Geçişleri
+
+<<<TABLE>>>
+| Status | Aksiyon → Sonraki Durum |
+| Not Rediscounted | Execute → Processing → (başarılı) 
+Not Reversed / (hata) anlık Error |
+| Processing | Sonuç başarılı → sonraki durum / hata → anlık Error (kalıcı durum korunur) |
+| Not Reversed | Execute (ters fiş, T+1/T+0) → Processing → (başarılı) Rediscounted / (hata) anlık Error |
+| Rediscounted | Execute (re-run) → Processing → Rediscounted / (hata) anlık Error |
+<<<END TABLE>>>
+
+3.6 Durum Geçiş Diyagramı
+
+[[IMAGE: media/image1.png]]
+
+4. Fonksiyonel Kurallar
+4.1 Reeskont Kesme (Not Rediscounted)
+Not Rediscounted durumundaki kayıtlar için Execute aksiyonu çalıştırılır. İşlem kapsamında güncel kur veya fiyat bilgisi alınır, değerleme hesaplaması gerçekleştirilir ve Execution Date (T+0) valörüyle reeskont fişi oluşturulur.
+İşlemin başarıyla tamamlanması halinde ilgili kayıt Not Reversed durumuna geçer.
+
+4.2 Ters Fiş Kesme (Not Reversed)
+Not Reversed durumundaki kayıtlar için Execute aksiyonu çalıştırılır. İşlem başlatılmadan önce kullanıcıya ters fişin valör tarihi için aşağıdaki seçenekler sunulur:
+
+- T+1 (Varsayılan): Reeskont kaydının ters fişi, Execution Date + 1 iş günü valörü ile oluşturulur.
+- T+0: Ters fiş, Execution Date valörü ile aynı gün oluşturulur.
+
+Varsayılan seçim T+1'dir. Kullanıcının seçtiği valör bilgisi kullanılarak ters fiş oluşturulur.
+İşlemin başarıyla tamamlanması halinde ilgili kayıt Rediscounted durumuna geçer. Toplu çalıştırma senaryolarında seçilen valör seçeneği, işaretlenen tüm transaction'lara aynı şekilde uygulanır.
+
+4.3 Yeniden Çalıştırma (Rediscounted / Re-run)
+Rediscounted durumundaki kayıtlar, güncel kur veya fiyat bilgileri kullanılarak yeniden değerleme amacıyla tekrar çalıştırılabilir (Re-run).
+Yeniden çalıştırma işlemi sırasında, mevcut reeskont ve ters fiş kayıtları karşı kayıtları ile kapatılır. Ardından, seçilen Execution Date (T+0) için yeni reeskont kaydı oluşturulur ve buna karşılık gelen ters fiş kaydı T+1 valörü ile yeniden oluşturulur.
+İşlemin başarıyla tamamlanması halinde kayıt Rediscounted durumunda kalmaya devam eder. Bu işlem, ilgili transaction'ın güncel piyasa verileri üzerinden yeniden değerlenmesini ve muhasebe kayıtlarının güncellenmesini sağlar.
+
+4.4 Çalıştırma Modeli (Execute selected)
+Execute İş Akışı
+Status filtresi tek seçimli olduğundan, ekran her zaman yalnızca tek bir duruma ait kayıtları listeler. Kullanıcı ilgili satırları seçer ve işlemleri tek bir ana aksiyon olan Execute Selected butonu üzerinden gerçekleştirir.
+Execute Selected butonu, herhangi bir kayıt seçilmediği durumda pasif (disabled) olarak görüntülenir. En az bir kayıt seçildiğinde buton aktif hale gelir. Gerçekleştirilecek işlem, seçili Status değerine göre belirlenir.
+- Not Rediscounted: Seçilen kayıtlar için Execution Date (T+0) valörü ile reeskont işlemi gerçekleştirilir. Kullanıcı Execute Selected aksiyonunu başlattığında bir onay penceresi açılır ve işlem özeti görüntülenir (ör. "100 kayıt seçildi. Reeskont işlemi gerçekleştirilecektir."). Kullanıcının onayı sonrasında işlem başlatılır; iptal edilmesi halinde herhangi bir işlem gerçekleştirilmez.
+- Not Reversed: Seçilen kayıtlar için ters fiş oluşturulur. İşlem öncesinde kullanıcıya ters fiş valörü seçimi sunulur (T+1 veya T+0). Varsayılan değer T+1'dir. Valör seçiminin ardından işlem özeti gösterilir (ör. "100 kayıt seçildi. Ters fiş (T+1) oluşturulacaktır."). Kullanıcının onayı ile işlem başlatılır. Seçilen valör değeri tüm seçili kayıtlar için geçerli olur.
+- Rediscounted: Seçilen kayıtlar için yeniden çalıştırma (Re-run) işlemi gerçekleştirilir. Mevcut muhasebe kayıtları kapatılarak yeni reeskont ve ters fiş kayıtları oluşturulur. İşlem öncesinde kullanıcıya işlem özeti gösterilir ve onay alınır. Kullanıcının işlemi iptal etmesi halinde herhangi bir aksiyon alınmaz.
+Tüm senaryolarda işlem, yalnızca kullanıcı onayı alındıktan sonra başlatılır.
+
+4.5 UI ve Ürün Servisi Doğrulaması
+İş kurallarının uygulanmasındaki nihai otorite ilgili ürün servisidir. Kullanıcı arayüzü (UI), yalnızca kullanıcının seçtiği transaction’ları ve ekranda görüntülenen mevcut durum bilgilerini ürün servisine iletir.
+
+İşlem başlatıldığında ürün servisi, her transaction’ın güncel durumunu yeniden doğrular ve yalnızca ilgili işlem için uygun durumda bulunan kayıtlar üzerinde işlem gerçekleştirir. Bu doğrulama, grid’in yüklenmesi ile işlemin çalıştırılması arasında oluşabilecek durum değişikliklerinin etkisini önlemeyi amaçlar.
+
+İşlem için uygun olmayan kayıtlar kullanıcı arayüzünde ilgili hata veya uyarı bilgisi ile işaretlenir. Böylece, durumu sonradan değişen transaction'lar üzerinde hatalı veya mükerrer işlem yapılması engellenmiş olur.
+
+4.6 Çalıştırma Modeli (Generate / Regenerate)
+Ekranda, seçilen kayıtların durumuna göre iki aksiyon yer alır: Generate ve Regenerate.
+Generate aksiyonu, seçilen kayıtlar için reeskont (T+0) ve ters fişlerini (T+1) oluşturur. İşlem, her kaydın bulunduğu duruma göre uygulanır: Not Rediscounted kayıtlar için reeskont, Not Reversed kayıtlar için ters fiş oluşturulur.
+Regenerate aksiyonu, seçilen kayıtların mevcut değerlemesini yeniden oluşturur. Varsa önceki değerleme geri alınır ve güncel değerle yeni reeskont (T+0) ile ters fişi (T+1) kesilir. Önceki değerleme bulunmuyorsa doğrudan yeni değerleme oluşturulur.
+Status filtresinde All seçildiğinde, farklı durumlardaki kayıtlar aynı listede yer alabilir. Bu durumda her kayıt üzerinde uygulanacak işlem, kaydın kendi durumuna göre belirlenir.
+Seçilen kayıtların tamamı aynı Revaluation Type değilse Generate aksiyonu pasif duruma getirilir; Regenerate aksiyonu aktif kalır.
+İlgili ekran örnekleri için bkz. Bölüm 8.
+4.7 Onay Mekanizması
+Generate veya Regenerate çalıştırıldığında, işlem başlatılmadan önce gerçekleştirilecek işlemlerin özetini içeren bir onay penceresi görüntülenir. Kullanıcı onay verdiğinde işlem başlatılır.
+5. Ekran Tasarımı, Alanlar ve Filtreler
+5.1 Zorunlu Alanlar
+Aşağıdaki alanlar tüm ürünler için ortak ve zorunludur. Ürüne özel alanlar bu ortak alanların ardından, UI kolon konfigürasyonunda tanımlandığı şekilde gösterilir; ortak alanların içeriği, sırası ve görünümü hiçbir ürün tarafından değiştirilemez.
+
+<<<TABLE>>>
+| Alan | Görünürlük | Açıklama |
+| TransactionId | Gizli | İşleme ait teknik referans bilgisidir. İşlem yürütme ve hata gösterimi bu alan üzerinden gerçekleştirilir. |
+| Product | Görünür | İşleme ait ürün tipini ifade eder. Tüm ürünler için zorunlu alandır. |
+| Logical Reference | Görünür | Transaction'ı benzersiz olarak tanımlayan referans numarasıdır. |
+| External Customer Id | Görünür | Müşterinin core banking sistemindeki kimlik bilgisidir. |
+| External Customer Name | Görünür | Müşterinin core banking sistemindeki ad bilgisidir. |
+| Status | Görünür | İşlemin mevcut durumunu gösteren İngilizce durum etiketi ve rozeti. |
+| Status Description | Görünür | Seçili duruma veya işlem sonucuna göre dinamik olarak oluşturulan açıklama alanıdır. |
+<<<END TABLE>>>
+
+5.2 Kolon Sıralaması
+Grid üzerinde yer alan görünür kolonlar soldan sağa aşağıdaki sırada görüntülenir:
+[☑ Seçim] → Product → Logical Reference → External Customer Id → External Customer Name → Status → Status Description → Kolon konfigürasyonunda tanımlı ürüne özel kolonlar
+- İlk kolon, toplu işlem yapılabilmesi amacıyla kullanılan seçim (checkbox) kolonudur.
+- Product, Logical Reference, External Customer Id, External Customer Name, Status ve Status Description kolonları tüm ürünler için ortak olup sabit sırada görüntülenir.
+- Ürüne özgü alanlar, Status Description kolonundan sonra eklenir. Bu alanların hangi ürün için hangi sırada gösterileceği UI kolon konfigürasyonu ile belirlenir (bkz. Bölüm 5.5).
+- Ortak kolonların sırası ve konumu değiştirilemez.
+- Grid üzerinde ayrı bir Action veya Last Result kolonu bulunmaz. İşlem sonuçları ve hata bilgileri Status ve Status Description alanları üzerinden gösterilir.
+5.3 Filtreleme Alanları
+Grid üzerinde yer alan filtre alanları, hangi tarih, ürün ve durum için işlem yapılacağını belirlemek amacıyla kullanılır.
+- Execution Date: Değerleme işleminin gerçekleştirileceği tarihi ifade eder.
+- Product (Tekli Seçim, Zorunlu): İşlem yapılacak ürünü belirler. Listede yalnızca içinde bulunulan ekranın (Product Group) ürünleri yer alır. Ürüne özel kolon seti bu seçime göre kurulur.
+- Sub Product (Tekli Seçim, Zorunlu): Seçilen ürünün alt tipini belirler. Liste Product seçimine bağlıdır; Product değiştiğinde Sub Product seçimi sıfırlanır. Kolon setini etkilemez.
+- Revaluation Type (Çoklu Seçim): Kayıtların değerleme türüne göre filtrelenmesini sağlar. Birden fazla değerleme türü seçilebilir.
+- Status (Tek Seçim): İşlem yapılacak durumu belirler. Yalnızca Not Rediscounted, Not Reversed veya Rediscounted durumlarından biri seçilebilir.
+Product ve Sub Product zorunlu filtrelerdir. İkisi de seçilmeden grid sorgulanmaz; ekran ilk açıldığında otomatik sorgu atılmaz ve grid, kullanıcıyı ürün seçimine yönlendiren bir bilgilendirme ile boş olarak görüntülenir. Product değiştiğinde Sub Product seçimi sıfırlanır ve grid boşaltılır.
+Status filtresine All seçeneği eklenir. All seçildiğinde grid, farklı durumlardaki kayıtları aynı listede görüntüler ve her kayıt üzerinde uygulanacak işlem, kaydın kendi durumuna göre belirlenir.
+Datagrid'in üzerinde, geçerli filtreye ait kayıt sayıları durum bazında özetlenir. Özet satırı, Status seçeneklerinin altında ve grid başlığının hemen üzerinde yer alır.
+İlgili ekran örnekleri için bkz. Bölüm 8.
+5.4 Toplu Seçim (Select All / N)
+Başlık satırında bulunan seçim kutusunun yanındaki açılır menü (caret) üzerinden toplu seçim işlemleri gerçekleştirilebilir. Kullanıcı, tüm kayıtları seçebileceği gibi belirli bir kayıt adedini de seçebilir (Select All, 100, 50, 25 veya Custom).
+
+Yapılan seçim yalnızca ekranda görüntülenen sayfayı değil, mevcut filtre kriterlerine uyan tüm veri kümesini kapsar. Seçim özeti kullanıcıya "100 of 248 selected" formatında gösterilir.
+
+Başlık satırındaki seçim kutusu, kayıtların yalnızca bir kısmı seçildiğinde indeterminate (yarı seçili) durumda görüntülenir. Bu gösterim, kısmi seçimin kullanıcı tarafından kolayca anlaşılmasını sağlar.
+
+Örnek ekranlar için bkz. Bölüm 7.
+5.5 Kolon Konfigürasyonu (UI JSON)
+Ürüne özel kolonlar backend tarafından metadata olarak döndürülmez; UI tarafında tutulan bir JSON konfigürasyonu ile tanımlanır. Kullanıcı Product seçtiği anda grid, o ürünün konfigürasyonuna göre yeniden kurulur. Bu yaklaşım kolonların sunum kararlarını (başlık, format, genişlik, hizalama) UI katmanında tutar ve yeni bir ürünün kolonları için servis tarafında sürüm çıkılmasını gerektirmez.
+Konfigürasyon, ürün bazında aşağıdaki bilgileri taşır:
+- productGroup: Ekran kırılımı (Investment / Security / Treasury).
+- product: Ürün kodu. Konfigürasyonun anahtarı productGroup + product ikilisidir.
+- baseUrl: İlgili ürün servisinin adresi. Sabit endpoint yolları bu adrese eklenir (bkz. Bölüm 6.2).
+- columns: Ürüne özel kolon listesi. Her kolon için key, caption, dataType, format, width, alignment ve order bilgileri tanımlanır.
+Konfigürasyonda tanımlı kolonlar yalnızca sabit kolonların sağına eklenir; sabit kolonların sırası, içeriği ve görünümü konfigürasyon ile değiştirilemez. Konfigürasyon Product seviyesine bağlanır, Sub Product bu yapıya girmez.
+Kolon konfigürasyonundaki key değerleri, ilgili ürün servisinin satır verisinde döndüğü alan adlarıyla birebir aynı olmak zorundadır. Bu eşleşme bir sözleşmedir; alan adının değiştirilmesi kırıcı değişiklik olarak değerlendirilir. Aşağıdaki kurallar geçerlidir:
+- Konfigürasyonda tanımlı olup veri içerisinde bulunmayan bir key için grid boş hücre gösterir ve ilgili durum sessiz geçilmez, geliştirici konsoluna uyarı yazılır.
+- Veri içerisinde bulunup konfigürasyonda tanımlı olmayan alanlar gösterilmez.
+- Kolon konfigürasyonu ürün servisinin döndüğü veriden bağımsız olduğundan, sonuç kümesi boş olsa dahi grid kolonlarıyla birlikte kurulur.
+6. Teknik Mimari
+6.1 Teknoloji ve Yapı
+Bu component, ASP.NET MVC, jQuery ve DevExtreme teknolojileri kullanılarak, üç ekranın tamamı tarafından kullanılan tek ve yeniden kullanılabilir bir base component olarak geliştirilecektir.
+Amaç, ürün ekiplerinin ekran, grid, filtre veya iş akışı geliştirmesine gerek kalmadan; yalnızca sözleşmeye uygun iki endpoint ve bir kolon konfigürasyonu sağlayarak sisteme dahil olabilmesidir.
+Component iki ana katmandan oluşur:
+- Ortak Base UI: DevExtreme grid, sabit kolonlar, filtreleme alanları, toplu seçim, onay akışları ve Execute Selected iş mantığını kapsar. Ürün bazında yeniden geliştirilmez.
+- Ürün Servisleri: Her ürünün reeskont verisini ve işlem yürütmesini sağlayan mikroservislerdir. Base component bu servislere sözleşmede tanımlı iki endpoint üzerinden gider.
+
+6.2 Endpoint Sözleşmesi ve Ürün Servisleri
+Base component, ürün bazlı controller türetmesi kullanmaz. Her ürün, kendi mikroservisi üzerinde aşağıdaki iki endpoint’i sağlar. Endpoint yolları sözleşme niteliğindedir ve tüm ürünlerde birebir aynıdır; ürüne göre değişen yalnızca servis adresidir (baseUrl).
+Sabit endpoint yolları:
+
+- POST {baseUrl}/manuel-reeskont/eligible-transactions — seçilen filtrelere göre reeskonta uygun işlemlerin listelenmesi
+- POST {baseUrl}/manuel-reeskont/executions — seçili kayıtlar üzerinde reeskont / ters fiş işleminin çalıştırılması
+
+Örnek kullanım:
+- POST /fx/manuel-reeskont/eligible-transactions
+- POST /fx/manuel-reeskont/executions
+- POST /mm/manuel-reeskont/eligible-transactions
+- POST /mm/manuel-reeskont/executions
+Bu iki endpoint dışında ürün bazlı ek uç tanımlanmaz. Yapılacak işlem, executions isteği içerisindeki Operation ve Status alanları ile yönetilir.
+Base component; filtre doğrulaması, grid kurulumu, toplu seçim, onay akışı, sonuç ve hata gösterimini yönetir. İlgili ürün servisi ise kendi ürününe ait veriyi sağlamak, durum belirlemek ve işlemi yürütmekle yükümlüdür. Sorumluluk dağılımı aşağıdaki gibidir:
+- Base component: filtrelerin ve zorunlu alanların doğrulanması, kolon konfigürasyonunun uygulanması, isteklerin sözleşmeye uygun biçimde hazırlanması, sonuçların ve hataların gösterimi.
+- Ürün servisi: reeskonta uygun işlemlerin belirlenmesi, satır verisinin sözleşmeye uygun döndürülmesi, işlemin çalıştırılması ve durum doğrulaması (bkz. Bölüm 4.5).
+İş kurallarının uygulanmasındaki nihai otorite ürün servisidir. Base component, kullanıcı seçimlerini ve ekranda görüntülenen durum bilgilerini iletmekle sınırlıdır.
+UI, çağıracağı servis adresini kolon konfigürasyonundaki baseUrl bilgisinden çözer ve sabit endpoint yolunu bu adrese ekler. Böylece ürün ekiplerinin UI içerisinde endpoint tanımlaması veya base component üzerinde değişiklik yapması gerekmez.
+6.3 UI Entegrasyonu
+Component, farklı UI entegrasyon yöntemlerini destekleyecek şekilde tasarlanmalıdır.
+- DevExtreme (MVC / C#) entegrasyonu: Component, Razor sayfasına tek satırlık bir tanımlama ile eklenebilir.
+@(Html.DevExtreme().ManuelReeskont().ProductGroup("Treasury"))
+- jQuery entegrasyonu: Component, bağımsız bir JavaScript modülü olarak kullanılabilir.
+ManuelReeskont.init({ productGroup: "Treasury" });
+Her iki yaklaşımda da yalnızca ekranın Product Group bilgisi verilir. Ürün listesi, kolon seti ve servis adresi kolon konfigürasyonundan çözülür. Grid yapısı, filtreler, durum yönetimi, toplu seçim, onay akışları ve Execute Selected iş mantığı base component tarafından sağlanır ve ürün bazında yeniden geliştirilmez.
+6.4 İstek/Yanıt Sözleşmesi
+Aşağıdaki modeller, tüm ürün servislerinin uymakla yükümlü olduğu ortak sözleşmeyi tanımlar. Servisler dağıtık olduğundan bu alanlar isteğe bağlı değildir; base component yalnızca sözleşmeye uygun yanıtları işleyebilir.
+Ürüne özel alanlar, satır verisi içerisindeki Data sözlüğü üzerinden taşınır ve UI kolon konfigürasyonundaki key değerleri ile eşleşir. Ürün bazlı request veya response modeli türetilmez.
+
+6.4.1 EligibleTransactionsRequest — POST {baseUrl}/manuel-reeskont/eligible-transactions
+- ExecutionDate (DateTime): Değerleme işleminin gerçekleştirileceği tarihi ifade eder.
+- ProductGroup (string, zorunlu): Ekran kırılımı (Investment / Security / Treasury).
+- Product (string, zorunlu): Seçilen ürün. Tekli seçimdir.
+- SubProduct (string, zorunlu): Seçilen alt ürün. Tekli seçimdir ve boş gönderilemez.
+- RevaluationTypes (List): Seçilen değerleme türlerini içerir. Birden fazla değerleme türü seçilebilir.
+- Status (enum): Kullanıcı tarafından seçilen durumu ifade eder. Aynı anda yalnızca bir durum seçilebilir.  Enum değerleri: Error = 0, NotRediscounted = 1, Processing = 2, NotReversed = 3, Rediscounted = 4 (Error = 0 başta; yeni durumlar sona eklenir).
+- Sayfalama alanları (Skip, Take) ve sıralama bilgisi ortak sözleşmenin parçasıdır.
+Ürün bazlı request türetmesi yapılmaz. Ürüne özgü ek filtre ihtiyacı doğduğunda, bu alanlar ExtraFilters (Dictionary<string, object>) üzerinden taşınır.
+Zorunlu alanların eksik gönderilmesi durumunda istek doğrulama hatası ile reddedilir; base component bu alanlar dolmadan istek göndermez.
+
+6.4.2 EligibleTransactionsResponse — eligible-transactions dönüşü
+- Items (List<ManuelReeskontItem>): satırlar.
+- TotalCount (int): toplam kayıt sayısı (sayfalama).
+- Satır modeli ManuelReeskontItem: TransactionId (gizli), Product, LogicalReference, ExternalCustomerId, ExternalCustomerName, Status, StatusDescription.
+- Data (Dictionary<string, object>): Ürüne özel alanlar. Anahtarlar, UI kolon konfigürasyonundaki key değerleriyle birebir aynı olmak zorundadır (bkz. Bölüm 5.5). Yanıt içerisinde kolon metadata’sı dönmez.
+
+6.4.3 ExecutionsRequest — POST {baseUrl}/manuel-reeskont/executions
+- ProductGroup / Product / SubProduct: Listeleme isteğindeki değerlerle aynı ve zorunludur.
+- Status (enum): çalıştırılan durum; yapılacak aksiyonu belirler.
+- TransactionIds (List<string>): seçili işlemlerin TransactionId’leri.
+- ReverseValueDate (enum?, T1 / T0): yalnızca Not Reversed’da gönderilir; diğer durumlarda null.
+6.4.4 ExecutionsResponse — executions dönüşü
+- Succeeded (List<string>): başarılı TransactionId’ler.
+- Failed (List<ManuelReeskontError>): başarısız kayıtlar; her biri TransactionId, LogicalReference, Reason.
+- Backend, başarısız kayıtları Error olarak (Reason ile) döner; UI bunları başarılı işlemlerle birlikte anlık gösterir. Bu bilgi DB'de saklanmaz.
+Execute isteği, gerçekleştirilecek aksiyonu (Generate / Regenerate) ve geçmiş tarihli yeniden değerleme kapsamını belirten alanlarla genişletilir.
+ExecutionsRequest (alanlar):
+  Operation        : enum { Generate, Regenerate }
+ProductGroup     : string
+Product          : string
+SubProduct       : string
+  ExecutionDate    : DateTime
+  RegenerateToToday: bool          // Regenerate icin gecmis tarih kapsami
+  TransactionIds   : List<string>
+Yeniden değerlenecek gün aralığı ürün servisi tarafında türetilir; istemci gün listesi göndermez. İşlem başlatıldığında her kaydın güncel durumu ürün servisi tarafından yeniden doğrulanır; doğrulama sırasında durumu değişen kayıtlar işleme alınmaz (bkz. 4.5).
+6.5 Ürün Entegrasyonu
+Bir ürünün Manuel Reeskont kapsamına alınması için ürün ekibinin sağlaması gerekenler aşağıdaki iki maddeden oluşur:
+- Bölüm 6.2’de tanımlı iki endpoint’in, Bölüm 6.4’teki istek/yanıt sözleşmesine uygun biçimde ürün mikroservisi üzerinde sağlanması.
+- Ürünün kolon konfigürasyon bloğunun (productGroup, product, baseUrl, columns) teslim edilmesi (bkz. Bölüm 5.5).
+Bu iki madde tamamlandığında ürün, ait olduğu ekranın Product listesinde görünür hale gelir. Base component üzerinde, ilgili ekranda veya diğer ürünlerde herhangi bir değişiklik gerekmez.
+7. UI/UX
+7.1 Renklendirme
+- Not Rediscounted — Turuncu rozet
+- Processing — Mavi rozet
+- Not Reversed — Sarı rozet
+- Rediscounted — Yeşil rozet
+- Error — Kırmızı rozet
+
+8. Örnek Ekranlar
+8.1 Genel Görünüm ve Filtreler
+Filtre çubuğu (Execution Date, tekli Product, tekli Sub Product, Revaluation Type) ve Status. Product ilk kolondur. Sabit kolonların ardından, seçilen ürünün konfigürasyonunda tanımlı kolonlar gösterilir.
+Status filtresinde All seçildiğinde, farklı durumlardaki kayıtlar aynı listede görüntülenir. Datagrid'in üzerinde kayıt sayıları durum bazında özetlenir. Seçilen kayıtların durumuna göre Generate ve Regenerate aksiyonları kullanılır.
+
+[[IMAGE: media/image2.png]]
+
+Genel görünüm: All seçeneği, durum bazlı özet satırı ve Generate / Regenerate aksiyonları.
+Seçilen kayıtların tamamı aynı Revaluation Type değilse Generate aksiyonu pasif duruma geçer; Regenerate aksiyonu aktif kalır.
+
+[[IMAGE: media/image3.png]]
+
+Karışık Revaluation Type seçiminde Generate aksiyonu pasiftir.
+Aynı ekranda Product değiştirildiğinde sabit kolonlar korunur, yalnızca ürüne özel kolonlar değişir. Aşağıdaki iki görsel bu davranışı Treasury ekranı üzerinden karşılaştırmalı olarak göstermektedir.
+[GÖRSEL — Treasury ekranı, Product = FX Transaction (Sub Product seçili)]
+[GÖRSEL — Treasury ekranı, Product = MM/Loan Transactions: sabit kolonlar aynı, ürüne özel kolonlar farklı]
+[GÖRSEL — Product ve Sub Product listelerinin açık hali (bağımlı liste davranışı)]
+8.2 Not Reversed — Ters Fiş Valör Seçimi (T+1 / T+0)
+Treasury ekranı, Product = FX Transaction. Not Reversed durumunda Execute öncesi ters fişin valörü sorulur: T+1 (standart) veya T+0. Diğer durumlarda seçim sorulmaz.
+
+[[IMAGE: media/image4.png]]
+
+8.3 Toplu Seçim, Generate ve Regenerate Onayı
+Sol üstteki seçim kutusunun yanındaki ok ile hepsi (Select all) veya belirli adet (100 / 50 / 25 / custom) seçilir; seçim tüm veri kümesini kapsar ve “100 of 248 selected” biçiminde gösterilir. Ekran tek statü gösterdiğinden seçim o statü içindir; “Execute selected” seçili satırlara o statünün aksiyonunu uygular.
+Generate veya Regenerate aksiyonu çalıştırıldığında, işlem başlatılmadan önce gerçekleştirilecek işlemlerin özetini içeren bir onay penceresi görüntülenir.
+
+[[IMAGE: media/image5.png]]
+
+Generate onay penceresi.
+
+[[IMAGE: media/image6.png]]
+
+Regenerate onay penceresi (durum bazında özet).
+8.4 İşlem Sonucu ve Hata Gösterimi
+Execute sonrası işlem sonuçları anlık gösterilir: başarılı işlemlerle birlikte hata alanlar da aynı ekranda (Error olarak, nedeniyle) görüntülenir. Hatalar DB'de saklanmaz; kalıcı bir Error durumu veya filtresi yoktur. Sayfa yenilendiğinde başarısız kayıt, kalıcı (DB) durumunda görünür.
+
+[[IMAGE: media/image7.png]]
+
+9. Yetkilendirme
+Investment, Security ve Treasury ekranları ayrı ayrı yetkilendirilir. Bir kullanıcının bir ekrana erişebilmesi, diğer ekranlara erişebileceği anlamına gelmez.

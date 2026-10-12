@@ -1,0 +1,122 @@
+module	key	en	current_tr	status	fill_source	tr_yatirim	tr_katilim	scheme_split	scope
+global/main-menu	mainMenu-MoneyAndMarketBlotterKey	Money Market Revaluation	Money Market Revaluation	UNTRANSLATED	MISSING				
+global/main-menu	mainMenu-CustomerRiskDefinitionKey	Customer Risk Definition	Customer Risk Definition	UNTRANSLATED	MISSING				
+global/main-menu	mainMenu-WarrantUnderlyingKey	Warrant Underlying	Warrant Underlying	UNTRANSLATED	MISSING				
+global/main-menu	mainMenu-WarrantUnderlyingTypeKey	Warrant Underlying Type	Warrant Underlying Type	UNTRANSLATED	MISSING				
+global/main-menu	mainMenu-WarrantIssuerKey	Warrant Issuer	Warrant Issuer	UNTRANSLATED	MISSING				
+global/main-menu	mainMenu-InvFundSweepKey	Account Sweep Instructions	Account Sweep Instructions	UNTRANSLATED	MISSING				
+global/main-menu	mainMenu-InvFundSweepRunLogKey	Sweep Run Log	Sweep Run Log	UNTRANSLATED	MISSING				
+global/main-menu-katilim	mainMenu-MoneyAndMarketBlotterKey	Money Market Revaluation	Money Market Revaluation	UNTRANSLATED	MISSING				
+global/main-menu-yatirim	mainMenu-MoneyAndMarketBlotterKey	Money Market Revaluation	Money Market Revaluation	UNTRANSLATED	MISSING				
+global/main-menu-yatirim	mainMenu-QuantKey	Quant	Quant	UNTRANSLATED	MISSING				
+global/main-menu-yatirim	mainMenu-VolSmileStrikePlotKey	FX Implied Volatility Smile (Strike to IV)	FX Implied Volatility Smile (Strike to IV)	UNTRANSLATED	MISSING				
+global/main-menu-yatirim	mainMenu-VolSmileDeltaPlot	Vol Smile Delta Plot	Vol Smile Delta Plot	UNTRANSLATED	MISSING				
+global/treasy-global	deleteConfirmDialogTitle	Delete Confirmation	Delete Confirmation	UNTRANSLATED	MISSING				
+global/treasy-global	makerChecker-PendingTransmission	Pending Transmission	Pending Transmission	UNTRANSLATED	MISSING				
+global/treasy-global	makerChecker-NotTransmitted	Not Transmitted	Not Transmitted	UNTRANSLATED	MISSING				
+global/treasy-global	session-reconnect	Re-Connect		NO_TR_KEY	MISSING				
+pages/Funds/fdk-reconciliation	dgFdkRecon-TefasDayEndStock	TEFAS	TEFAS	UNTRANSLATED	MISSING				
+pages/Funds/fdk-reconciliation	dgFdkRecon-TefasUnitPrice	TEFAS	TEFAS	UNTRANSLATED	MISSING				
+pages/Funds/fdk-reconciliation	dgFdkRecon-TefasManagementFeeRate	TEFAS	TEFAS	UNTRANSLATED	MISSING				
+pages/Funds/fdk-reconciliation	dgFdkRecon-TefasDistributorCommissionRate	TEFAS	TEFAS	UNTRANSLATED	MISSING				
+pages/Funds/fdk-reconciliation	dgFdkRecon-TefasCommissionAmount	TEFAS	TEFAS	UNTRANSLATED	MISSING				
+pages/Funds/fdk-reconciliation	dgFdkRecon-Tefas	TEFAS	TEFAS	UNTRANSLATED	MISSING				
+pages/Funds/funds-definition	formFundsDefinition-IsSweepEligible	Is Sweep Eligible		NO_TR_KEY	MISSING				
+pages/Funds/inv-fund-customer-order-status	dgInvFundCustomerOrderStatusView-PartiallyFilledBadge	Partial		NO_TR_FILE	MISSING				
+pages/Funds/inv-portfolio	dgInvPortfolio-KpiNoData	—	—	UNTRANSLATED	MISSING				
+pages/Funds/pending-settlement-detail	dgPendingSettlementDetailYf48-rcvAccNo	Alıcı Yatırımcı Hesap No	Alıcı Yatırımcı Hesap No	UNTRANSLATED	MISSING				
+pages/components/limit-check/limit-check-component	limitCheckComponent-CapLimit	Cap Limit	Cap Limit	UNTRANSLATED	MISSING				
+pages/components/limit-check/limit-check-component	limitCheckComponent-Risk	Risk	Risk	UNTRANSLATED	MISSING				
+pages/customer-treasury-limit-detail/customer-treasury-limit-detail	customerTreasuryLimitDetail-LimitRiskTab	Limit Risk	Limit Risk	UNTRANSLATED	MISSING				
+pages/customer-treasury-limit-detail/customer-treasury-limit-detail	customerTreasuryLimitDetail-MarginCallTab	Margin Call	Margin Call	UNTRANSLATED	MISSING				
+pages/customer-treasury-limit-detail/customer-treasury-limit-detail	dgCustomerTreasuryLimitMaster-CustomerLimit.TotalLimit	Limit Amount	Limit Amount	UNTRANSLATED	MISSING				
+pages/customer-treasury-limit-detail/customer-treasury-limit-detail	dgCustomerTreasuryLimitMaster-CustomerLimit.UsedLimit	Used Limit	Used Limit	UNTRANSLATED	MISSING				
+pages/customer-treasury-limit-detail/customer-treasury-limit-detail	dgCustomerTreasuryLimitMaster-CustomerLimit.RemainingLimit	Remaining Limit	Remaining Limit	UNTRANSLATED	MISSING				
+pages/customer-treasury-limit-detail/customer-treasury-limit-detail	dgCustomerTreasuryLimitMaster-TransactionCount	Transaction Count	Transaction Count	UNTRANSLATED	MISSING				
+pages/customer-treasury-limit-detail/customer-treasury-limit-detail	dgCustomerTreasuryLimitMarginCallMaster-CustomerLimit.TotalLimit	Limit Amount	Limit Amount	UNTRANSLATED	MISSING				
+pages/customer-treasury-limit-detail/customer-treasury-limit-detail	dgCustomerTreasuryLimitMarginCallMaster-CustomerLimit.UsedLimit	Used Limit	Used Limit	UNTRANSLATED	MISSING				
+pages/customer-treasury-limit-detail/customer-treasury-limit-detail	dgCustomerTreasuryLimitMarginCallMaster-CustomerLimit.RemainingLimit	Remaining Limit	Remaining Limit	UNTRANSLATED	MISSING				
+pages/customer-treasury-limit-detail/customer-treasury-limit-detail	dgCustomerTreasuryLimitMarginCallMaster-TransactionCount	Transaction Count	Transaction Count	UNTRANSLATED	MISSING				
+pages/customer-treasury-limit-detail/customer-treasury-limit-detail	dgCustomerTreasuryLimitMarginCallMaster-TotalMarginCallLimitPercentAmount	Total Margin Call Limit Percent Amount	Total Margin Call Limit Percent Amount	UNTRANSLATED	MISSING				
+pages/customer-treasury-limit-detail/customer-treasury-limit-detail	dgCustomerTreasuryLimitMarginCallMaster-TotalMarginCallAmount	Total Margin Call Amount	Total Margin Call Amount	UNTRANSLATED	MISSING				
+pages/customer-treasury-limit-detail/customer-treasury-limit-detail	dgCustomerTreasuryLimitMarginCallMaster-MarginStatus	Margin Status	Margin Status	UNTRANSLATED	MISSING				
+pages/customer-treasury-limit-detail/customer-treasury-limit-detail	dgCustomerTreasuryLimitMarginCallDetail-MarginCallLimitPercentAmount	Margin Call Limit Percent Amount	Margin Call Limit Percent Amount	UNTRANSLATED	MISSING				
+pages/customer-treasury-limit-detail/customer-treasury-limit-detail	dgCustomerTreasuryLimitMarginCallDetail-MarginCallPercentAmount	Margin Call Percent Amount	Margin Call Percent Amount	UNTRANSLATED	MISSING				
+pages/customer-treasury-limit-detail/customer-treasury-limit-detail	dgCustomerTreasuryLimitMarginCallDetail-MarginCallStopOutPercentAmount	Margin Call Stop Out Percent Amount	Margin Call Stop Out Percent Amount	UNTRANSLATED	MISSING				
+pages/customer-treasury-limit-detail/customer-treasury-limit-detail	dgCustomerTreasuryLimitMarginCallDetail-MarginCallMinimumCollateralPercentAmount	Margin Call Minimum Collateral Percent Amount	Margin Call Minimum Collateral Percent Amount	UNTRANSLATED	MISSING				
+pages/definitions/securities/security-depot-mapping	screenCode-1	TKSBNKRECON01	TKSBNKRECON01	UNTRANSLATED	MISSING				
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-pageTitle	Money Market Revaluation	Money Market Revaluation	UNTRANSLATED	MISSING				MM
+pages/reports/options-fx/options-fx-revaluation-report	dgOptFXRevaluationReport-PrimaryProviderDelta	Primary Provider Delta Rate	Primary Provider Delta Rate	UNTRANSLATED	MISSING				
+pages/reports/options-fx/options-fx-revaluation-report	dgOptFXRevaluationReport-PrimaryProviderGamma	Primary Provider Gamma Rate	Primary Provider Gamma Rate	UNTRANSLATED	MISSING				
+pages/reports/options-fx/options-fx-revaluation-report	dgOptFXRevaluationReport-PrimaryProviderTheta	Primary Provider Theta Rate	Primary Provider Theta Rate	UNTRANSLATED	MISSING				
+pages/reports/options-fx/options-fx-revaluation-report	dgOptFXRevaluationReport-PrimaryProviderVega	Primary Provider Vega Rate	Primary Provider Vega Rate	UNTRANSLATED	MISSING				
+pages/reports/security/mkk-dibs-buy-sell-declaration	dgMKKDibsBuySellDeclaration-orderNo	Emir Sıra No	Emir Sıra No	UNTRANSLATED	MISSING				
+pages/reports/security/mkk-dibs-buy-sell-declaration	dgMKKDibsBuySellDeclaration-memberAccNo	Üye Hesap No	Üye Hesap No	UNTRANSLATED	MISSING				
+pages/reports/security/mkk-dibs-buy-sell-declaration	dgMKKDibsBuySellDeclaration-txnType	İşlem Türü	İşlem Türü	UNTRANSLATED	MISSING				
+pages/reports/security/mkk-dibs-buy-sell-declaration	dgMKKDibsBuySellDeclaration-processType	İşlem Tipi	İşlem Tipi	UNTRANSLATED	MISSING				
+pages/reports/security/mkk-dibs-buy-sell-declaration	dgMKKDibsBuySellDeclaration-amount	Adet	Adet	UNTRANSLATED	MISSING				
+pages/reports/security/mkk-dibs-buy-sell-declaration	dgMKKDibsBuySellDeclaration-description	Açıklama	Açıklama	UNTRANSLATED	MISSING				
+pages/tender-bid/shared/tender-bid-shared	submissionMethod-2	EVAS	EVAS	UNTRANSLATED	MISSING				
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-Liquidation	Liquidation	Liquidation	UNTRANSLATED	MISSING				MM
+pages/treasury/money-market/repo-transactions	dgFiRepoTransaction-multipleRepo-popupTitle	Multiple Repo (Experimental)	Multiple Repo (Experimental)	UNTRANSLATED	MISSING				MM
+pages/treasury/money-market/repo-transactions	DGFIREPOTRANSACTION-MULTIPLEREPO	Multiple Repo (Experimental)	Multiple Repo (Experimental)	UNTRANSLATED	MISSING				MM
+pages/treasury/money-market/repo-transactions	dgFiRepoCollateral-Haircut	Haircut (%)	Haircut (%)	UNTRANSLATED	MISSING				MM
+pages/treasury/money-market/repo-transactions	dgMultipleRepoCollateralDisplay-LineNo	#	#	UNTRANSLATED	MISSING				MM
+pages/treasury/money-market/repo-transactions	dgMultipleRepoCollateralDisplay-HaircutRate	Haircut (%)	Haircut (%)	UNTRANSLATED	MISSING				MM
+pages/treasury/options/options-fx	frmOptionsFX-Exercise	Exercise	Exercise	UNTRANSLATED	MISSING				
+pages/treasury/options/options-fx	frmOptionsFX-Expire	Expire	Expire	UNTRANSLATED	MISSING				
+pages/treasury/options/options-fx	frmOptionsFX-MsgRollbackExpire	The expire operation will be rolled back.	The expire operation will be rolled back.	UNTRANSLATED	MISSING				
+pages/treasury/options/options-fx	dgOptionsFX-OptionState	Option State	Option State	UNTRANSLATED	MISSING				
+pages/treasury/options/options-fx	dgOptionsFX-OptionStateName	Option State	Option State	UNTRANSLATED	MISSING				
+pages/treasury/options/options-fx	dgOptionsFXValuation-PrimaryProviderDelta	Primary Provider Delta Rate	Primary Provider Delta Rate	UNTRANSLATED	MISSING				
+pages/treasury/options/options-fx	dgOptionsFXValuation-PrimaryProviderGamma	Primary Provider Gamma Rate	Primary Provider Gamma Rate	UNTRANSLATED	MISSING				
+pages/treasury/options/options-fx	dgOptionsFXValuation-PrimaryProviderTheta	Primary Provider Theta Rate	Primary Provider Theta Rate	UNTRANSLATED	MISSING				
+pages/treasury/options/options-fx	dgOptionsFXValuation-PrimaryProviderVega	Primary Provider Vega Rate	Primary Provider Vega Rate	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dataGridCusTxn-IsBrokerageDeal	Is Brokerage Deal		NO_TR_KEY	MISSING				
+pages/treasury/security-transactions/customer-transactions	cusTxnImport-DropDownButtonText	IMPORT FROM	IMPORT FROM	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	cusTxnImport-DropDownDataSource_BIST_CTS_Text	BIST Brokerage - CTS		NO_TR_KEY	MISSING				
+pages/treasury/security-transactions/customer-transactions	cusTxnImport-DropDownDataSource_BIST_CRP_Text	BIST Brokerage - CRP		NO_TR_KEY	MISSING				
+pages/treasury/security-transactions/customer-transactions	cusTxnImport-popupTitle-CTS	BIST Brokerage - CTS Import		NO_TR_KEY	MISSING				
+pages/treasury/security-transactions/customer-transactions	cusTxnImport-popupTitle-CRP	BIST Brokerage - CRP Import		NO_TR_KEY	MISSING				
+pages/treasury/security-transactions/customer-transactions	cusTxnImport-ImportButtonText	IMPORT	IMPORT	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-TradeNumber	Trade Number	Trade Number	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-MemberTradeNumber	Member Trade Number	Member Trade Number	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-AccountAfk	Account Afk	Account Afk	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-CounterpartyAccount	Counterparty Account	Counterparty Account	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-CounterpartyAccountAfk	Counterparty Account Afk	Counterparty Account Afk	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-CounterpartyAccountType	Counterparty Account Type	Counterparty Account Type	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-CounterpartyMember	Counterparty Member	Counterparty Member	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-DtmRepoTime	Dtm Repo Time	Dtm Repo Time	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-DaysToCoupon	Days To Coupon	Days To Coupon	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-PriceRateSwapPoint	Price/Rate/SwapPoint	Price/Rate/SwapPoint	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-SecondaryPrice	Secondary Price	Secondary Price	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-AccruedInterestAccruedLease	Accrued Interest Accrued Lease	Accrued Interest Accrued Lease	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-AccruedInterestAmountAccruedLeaseAmount	Accrued Interest Amount/Accrued Lease Amount	Accrued Interest Amount/Accrued Lease Amount	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-PrincipalInterestWitholdingTax	Principal Interest Witholding Tax	Principal Interest Witholding Tax	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-TradeTypeForOtcTrades	Trade Type For Otc Trades	Trade Type For Otc Trades	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-OrginalClearingTradeId	Orginal Clearing TradeId	Orginal Clearing TradeId	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-RepoCollateralNominal	Repo Collateral Nominal	Repo Collateral Nominal	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-CalcCleanPrice	Calc Clean Price	Calc Clean Price	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-IsCalculation	Is Calculation	Is Calculation	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-InflationIndex	Inflation Index	Inflation Index	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-CalcDirtyPrice	Calc Dirty Price	Calc Dirty Price	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-SettlementPrice	Settlement Price	Settlement Price	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-MaturityDatePrice	Maturity Date Price	Maturity Date Price	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-ClearingHouse	Clearing House	Clearing House	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-WitholdingTaxAmount	Witholding Tax Amount	Witholding Tax Amount	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-FundTrade	Fund Trade	Fund Trade	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-TradeType	Trade Type	Trade Type	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-ClearingDealId	Clearing Deal Id	Clearing Deal Id	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-ClearingTradeId	Clearing Trade Id	Clearing Trade Id	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-RepoCollateralCode	Repo Collateral Code	Repo Collateral Code	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-TradeReport	Trade Report	Trade Report	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	dgCusTxnImport-SelectAll	Is Fon Select All	Is Fon Select All	UNTRANSLATED	MISSING				
+pages/treasury/security-transactions/customer-transactions	formCusTxnPurch-CustomerTaxNumber	Customer Tax Number		NO_TR_KEY	MISSING				
+pages/treasury/security-transactions/customer-transactions	formCusTxnPurch-CounterpartyAccountAfk	Counterparty Account Afk		NO_TR_KEY	MISSING				
+pages/treasury/security-transactions/customer-transactions	formCusTxnSale-CustomerTaxNumber	Customer Tax Number		NO_TR_KEY	MISSING				
+pages/treasury/security-transactions/customer-transactions	formCusTxnSale-CounterpartyAccountAfk	Counterparty Account Afk		NO_TR_KEY	MISSING				
+pages/treasury/security-transactions/security-transactions	fiTransactionBranchTxn-SecurityPriceNotExistWarningMessage	Security price not found. Please check the security prices and try again		NO_TR_KEY	MISSING				
+pages/warrant/warrant-definition	formWarrant-StructureType-2	Quanto	Quanto	UNTRANSLATED	MISSING				
+pages/warrant/warrant-definition	formWarrant-StructureType-3	Flexo	Flexo	UNTRANSLATED	MISSING				
+pages/warrant/warrant-definition	formWarrant-StructureType-4	Düello	Düello	UNTRANSLATED	MISSING				
+pages/warrant/warrant-definition	formWarrant-StructureType-5	Turbo	Turbo	UNTRANSLATED	MISSING				

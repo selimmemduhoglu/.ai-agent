@@ -1,0 +1,23 @@
+Surum Notlari
+
+Follow
+1
+
+Edit
+
+
+Ege Bezirci
+14 Eyl
+Sürüm Notları
+Biçim Keep a Changelog , sürümleme SemVer 2.0.0  izler.
+
+10.0.1
+Eklenenler
+Müşteri hesabı tipi kodu fiş satırına taşınır. Üretilen satırda CustomerAccountTypeCode, hesap kuralında CustomerAccountTypeCodeSource, account map üzerinde CustomerAccountTypeCodeSourceRuleId alanları bulunur. Çözülme sırası çalışma grubu kodundaki ile aynıdır: map üzerindeki dinamik rule, hesap kuralındaki kaynağı ezer. Ayrıntı WorkGroup ve AccountType sayfasında.
+Geçiş
+Alan opsiyoneldir. CustomerAccountTypeCodeSource boş bırakıldığında motor istisna fırlatmaz, üretilen satırda alan null kalır. Mevcut kural tablolarında değişiklik gerekmez.
+
+Hesap tipi kodunu kullanacak modüller üç adım uygular: işlem modeline string alan eklenir, hesap kuralının CustomerAccountTypeCodeSource değeri bu property adına ayarlanır, üretilen satırdaki CustomerAccountTypeCode fiş yükünde referans tipi alanına taşınır.
+
+10.0.0
+net10.0 hedefleyen ilk sürüm.

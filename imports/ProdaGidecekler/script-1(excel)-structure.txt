@@ -1,0 +1,1740 @@
+-- BRWPLC1 Script 1 - (Excel ile yazılan).
+
+USE [NetTrexAcc_134_Test_Selim]
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- HEADER STARTED -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+GO
+
+SET XACT_ABORT ON;
+
+BEGIN TRANSACTION;
+
+BEGIN TRY
+
+
+    DECLARE @tempTable TABLE (Id INT);
+    DECLARE
+        @StateId INT = 18,
+        @stateDate datetime = getdate(),
+        @stateMaker nvarchar(80) = N'SYSTEM',
+        @number INT = 0;
+
+    DECLARE
+        @lastAccEngineDynamicRuleId INT = 0,
+        @accEngineDynamicRuleColumnTypeId INT = 1,
+        @lastAccEngineAccountRuleId INT = 0,
+        @accEngineAccountRuleColumnTypeId INT = 2,
+        @lastAccEngineComponentId INT = 0,
+        @accEngineComponentColumnTypeId INT = 3,
+        @lastAccEngineGroupId INT = 0,
+        @accEngineGroupColumnTypeId INT = 4,
+        @lastAccEngineEventId INT = 0,
+        @accEngineEventColumnTypeId INT = 5,
+        @lastAccEngineItemId INT = 0,
+        @accEngineItemColumnTypeId INT = 7,
+        @lastAccEngineModelDefinitionId INT = 0,
+        @accEngineModelDefinitionColumnTypeId INT = 10;
+
+    DECLARE
+        @dynamicRuleValueDateEqualLogicalDateId INT = 0,
+        @dynamicRulePeriodEndDateEqualLogicalDateId INT = 0,
+        @dynamicRuleMaturityDateEqualLogicalDateId INT = 0,
+        @dynamicRuleOpeningCommentRuleId INT = 0,
+        @dynamicRuleMaturationCommentRuleId INT = 0,
+        @dynamicRulePaymentCommentRuleId INT = 0,
+        @dynamicRuleRevaluationCommentRuleId INT = 0,
+		@dynamicRulePeriodPaymentDateEqualLogicalDateId INT = 0,
+        @dynamicRuleAmortizationCommentRuleId INT = 0,
+        @dynamicRuleFeeCommentRuleId INT = 0,
+        @dynamicRuleFeeAmountGtZeroId INT = 0,
+        @dynamicRuleFeeAmountLtZeroId INT = 0;
+
+    -- ------------------------------------------------------------------------------------------------------------------------------------------------
+    -- DefNumberGen - ID sayaçları
+    -- ------------------------------------------------------------------------------------------------------------------------------------------------
+    SELECT @lastAccEngineAccountRuleId = LastNumber + 1 FROM dbo.DefNumberGen WHERE EntityColumnType = @accEngineAccountRuleColumnTypeId AND Definition = N'AccEngineAccountRule Id'
+    IF (@lastAccEngineAccountRuleId = 0) THROW 500001, 'AccEngineAccountRule Last Id Not Found', 1
+
+    SELECT @lastAccEngineDynamicRuleId = LastNumber + 1 FROM dbo.DefNumberGen WHERE EntityColumnType = @accEngineDynamicRuleColumnTypeId AND Definition = N'AccEngineDynamicRule Id'
+    IF (@lastAccEngineDynamicRuleId = 0) THROW 500001, 'AccEngineDynamicRule Last Id Not Found', 1
+
+    SELECT @lastAccEngineComponentId = LastNumber + 1 FROM dbo.DefNumberGen WHERE EntityColumnType = @accEngineComponentColumnTypeId AND Definition = N'AccEngineComponent Id'
+    IF (@lastAccEngineComponentId = 0) THROW 500001, 'AccEngineComponent Last Id Not Found', 1
+
+    SELECT @lastAccEngineGroupId = LastNumber + 1 FROM dbo.DefNumberGen WHERE EntityColumnType = @accEngineGroupColumnTypeId AND Definition = N'AccEngineGroup Id'
+    IF (@lastAccEngineGroupId = 0) THROW 500001, 'AccEngineGroup Last Id Not Found', 1
+
+    SELECT @lastAccEngineEventId = LastNumber + 1 FROM dbo.DefNumberGen WHERE EntityColumnType = @accEngineEventColumnTypeId AND Definition = N'AccEngineEvent Id'
+    IF (@lastAccEngineEventId = 0) THROW 500001, 'AccEngineEvent Last Id Not Found', 1
+
+    SELECT @lastAccEngineItemId = LastNumber + 1 FROM dbo.DefNumberGen WHERE EntityColumnType = @accEngineItemColumnTypeId AND Definition = N'AccEngineItem Id'
+    IF (@lastAccEngineItemId = 0) THROW 500001, 'AccEngineItem Last Id Not Found', 1
+
+    SELECT @lastAccEngineModelDefinitionId = Id FROM dbo.AccEngineModelDefinition WHERE Name = N'Borrowing & Placement V1'
+    IF (@lastAccEngineModelDefinitionId = 0) THROW 500001, 'Borrowing & Placement V1 Model Definition Not Found', 1
+
+    -- ------------------------------------------------------------------------------------------------------------------------------------------------
+    -- AccEngineDynamicRule - Validation Rules
+    -- ------------------------------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.ValueDate.getTime() === TxnModel.LogicalDate.getTime()')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'ValueDate = LogicalDate', N'TxnModel.ValueDate.getTime() === TxnModel.LogicalDate.getTime()', 0, N'', @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleValueDateEqualLogicalDateId = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1
+        END
+    ELSE SELECT @dynamicRuleValueDateEqualLogicalDateId = Id FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.ValueDate.getTime() === TxnModel.LogicalDate.getTime()'
+
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.MaturityDate.getTime() === TxnModel.LogicalDate.getTime()')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'MaturityDate = LogicalDate', N'TxnModel.MaturityDate.getTime() === TxnModel.LogicalDate.getTime()', 0, N'', @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleMaturityDateEqualLogicalDateId = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1
+        END
+    ELSE SELECT @dynamicRuleMaturityDateEqualLogicalDateId = Id FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.MaturityDate.getTime() === TxnModel.LogicalDate.getTime()'
+
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.PeriodEndDate.getTime() === TxnModel.LogicalDate.getTime()')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'PeriodEndDate = LogicalDate', N'TxnModel.PeriodEndDate.getTime() === TxnModel.LogicalDate.getTime()', 0, N'', @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRulePeriodEndDateEqualLogicalDateId = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1
+        END
+    ELSE SELECT @dynamicRulePeriodEndDateEqualLogicalDateId = Id FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.PeriodEndDate.getTime() === TxnModel.LogicalDate.getTime()'
+
+    -- ------------------------------------------------------------------------------------------------------------------------------------------------
+    -- AccEngineDynamicRule - Comment Rules
+    -- ------------------------------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE Name = N'BRWPLC1 Opening Accounting Description')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'BRWPLC1 Opening Accounting Description',
+                    N'`${TxnModel.CustomerName} ile yapilan ${TxnModel.TxnReference} referansli islem acilis fisi`',
+                    1, N'', @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleOpeningCommentRuleId = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1
+        END
+    ELSE SELECT @dynamicRuleOpeningCommentRuleId = Id FROM dbo.AccEngineDynamicRule WHERE Name = N'BRWPLC1 Opening Accounting Description'
+
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE Name = N'BRWPLC1 Maturation Accounting Description')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'BRWPLC1 Maturation Accounting Description',
+                    N'`${TxnModel.CustomerName} ile yapilan ${TxnModel.TxnReference} referansli islem kapanis fisi`',
+                    1, N'', @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleMaturationCommentRuleId = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1
+        END
+    ELSE SELECT @dynamicRuleMaturationCommentRuleId = Id FROM dbo.AccEngineDynamicRule WHERE Name = N'BRWPLC1 Maturation Accounting Description'
+
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE Name = N'BRWPLC1 Payment Accounting Description')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'BRWPLC1 Payment Accounting Description',
+                    N'`${TxnModel.CustomerName} ile yapilan ${TxnModel.TxnReference} referansli islem odeme fisi`',
+                    1, N'', @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRulePaymentCommentRuleId = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1
+        END
+    ELSE SELECT @dynamicRulePaymentCommentRuleId = Id FROM dbo.AccEngineDynamicRule WHERE Name = N'BRWPLC1 Payment Accounting Description'
+
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE Name = N'BRWPLC1 Revaluation Accounting Description')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'BRWPLC1 Revaluation Accounting Description',
+                    N'`${TxnModel.CustomerName} ile yapilan ${TxnModel.TxnReference} referansli islem reeskont fisi`',
+                    1, N'', @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleRevaluationCommentRuleId = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1
+        END
+    ELSE SELECT @dynamicRuleRevaluationCommentRuleId = Id FROM dbo.AccEngineDynamicRule WHERE Name = N'BRWPLC1 Revaluation Accounting Description'
+
+
+	-- PeriodPaymentDate = LogicalDate
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.PeriodPaymentDate !== null ? TxnModel.PeriodPaymentDate.getTime() === TxnModel.LogicalDate.getTime() : false')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'PeriodPaymentDate = LogicalDate', N'TxnModel.PeriodPaymentDate !== null ? TxnModel.PeriodPaymentDate.getTime() === TxnModel.LogicalDate.getTime() : false', 0, N'', @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRulePeriodPaymentDateEqualLogicalDateId = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1
+        END
+    ELSE SELECT @dynamicRulePeriodPaymentDateEqualLogicalDateId = Id FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.PeriodPaymentDate !== null ? TxnModel.PeriodPaymentDate.getTime() === TxnModel.LogicalDate.getTime() : false'
+
+    -- Fee Amount > 0
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.PeriodPaymentDirection === "Incoming"')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'Fee Amount > 0', N'TxnModel.PeriodPaymentDirection === "Incoming"', 0, N'', @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleFeeAmountGtZeroId = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1
+        END
+    ELSE SELECT @dynamicRuleFeeAmountGtZeroId = Id FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.PeriodPaymentDirection === "Incoming"'
+
+    -- Fee Amount < 0
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.PeriodPaymentDirection === "Outgoing"')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'Fee Amount < 0', N'TxnModel.PeriodPaymentDirection === "Outgoing"', 0, N'', @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleFeeAmountLtZeroId = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1
+        END
+    ELSE SELECT @dynamicRuleFeeAmountLtZeroId = Id FROM dbo.AccEngineDynamicRule WHERE [Rule] = N'TxnModel.PeriodPaymentDirection === "Outgoing"'
+
+    -- BRWPLC1 Amortization Accounting Description
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE Name = N'BRWPLC1 Amortization Accounting Description')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'BRWPLC1 Amortization Accounting Description',
+                    N'`${TxnModel.CustomerName} ile yapılan ${TxnModel.TxnReference} referanslı ${TxnModel.PeriodAmortizationAmount.toFixed(2).replace(''.'', '','').replace(/\B(?=(\d{3})+(?!\d))/g, ''.'')} ${TxnModel.CCY} değerli ${TxnModel.DirectionCode === ''BRW'' ? ''borç alma'' : ''borç verme''} işlemi amortisman fişi`',
+                    0, N'', @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleAmortizationCommentRuleId = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1
+        END
+    ELSE SELECT @dynamicRuleAmortizationCommentRuleId = Id FROM dbo.AccEngineDynamicRule WHERE Name = N'BRWPLC1 Amortization Accounting Description'
+
+    -- BRWPLC1 Fee Accounting Description
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineDynamicRule WHERE Name = N'BRWPLC1 Fee Accounting Description')
+        BEGIN
+            INSERT INTO dbo.AccEngineDynamicRule (Id, Name, [Rule], Type, Description, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineDynamicRuleId, N'BRWPLC1 Fee Accounting Description',
+                    N'`${TxnModel.CustomerName} ile yapılan ${TxnModel.TxnReference} referanslı ${TxnModel.PeriodFeeAmount.toFixed(2).replace(''.'', '','').replace(/\B(?=(\d{3})+(?!\d))/g, ''.'')} ${TxnModel.CCY} değerli ${TxnModel.DirectionCode === ''BRW'' ? ''borç alma'' : ''borç verme''} işlemi fee fişi`',
+                    0, N'', @StateId, @stateDate, @stateMaker);
+            SELECT @dynamicRuleFeeCommentRuleId = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineDynamicRuleId = @lastAccEngineDynamicRuleId + 1
+        END
+    ELSE SELECT @dynamicRuleFeeCommentRuleId = Id FROM dbo.AccEngineDynamicRule WHERE Name = N'BRWPLC1 Fee Accounting Description'
+
+
+
+
+    -- ------------------------------------------------------------------------------------------------------------------------------------------------
+    -- AccEngineItemCode - BRWPLC1
+    -- ------------------------------------------------------------------------------------------------------------------------------------------------
+    DECLARE @LastNumberAccEngineItemCode INT;
+    SELECT @LastNumberAccEngineItemCode = LastNumber FROM dbo.DefNumberGen WHERE Definition = N'AccEngineItemCode Id';
+
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineItemCode WHERE [Code] = N'BRWPLC1')
+    BEGIN
+        INSERT INTO dbo.AccEngineItemCode (Id, Code, Name, ItemTypeCode, StateId, StateDate, StateMaker)
+        VALUES (@LastNumberAccEngineItemCode + 1, N'BRWPLC1', N'Borrowing & Placement Version 2', N'Prd', 18, GETDATE(), N'SYSTEM');
+    END
+
+    UPDATE dbo.DefNumberGen
+    SET LastNumber = @LastNumberAccEngineItemCode + 1, LastUpdateDate = GETDATE()
+    WHERE Definition = N'AccEngineItemCode Id';
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- HEADER FINISHED ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- CONTENT STARTED (EXCEL'DEN GELEN SCRIPT) -----------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    -- =============================================================
+    -- AUTO-GENERATED DECLARE BLOCK
+    -- =============================================================
+    DECLARE
+        @itemId_BRW_LCY INT = 0,
+        @itemId_BRW_FCY INT = 0,
+        @itemId_PLC_LCY INT = 0,
+        @itemId_PLC_FCY INT = 0,
+        @evtId_BRW_LCY_Opening INT = 0,
+        @evtId_BRW_LCY_Maturation INT = 0,
+        @evtId_BRW_LCY_Payment INT = 0,
+        @evtId_BRW_LCY_Revaluation INT = 0,
+        @evtId_BRW_LCY_Amortization INT = 0,
+        @evtId_BRW_LCY_Fee INT = 0,
+        @evtId_BRW_FCY_Opening INT = 0,
+        @evtId_BRW_FCY_Maturation INT = 0,
+        @evtId_BRW_FCY_Payment INT = 0,
+        @evtId_BRW_FCY_Revaluation INT = 0,
+        @evtId_BRW_FCY_Amortization INT = 0,
+        @evtId_BRW_FCY_Fee INT = 0,
+        @evtId_PLC_LCY_Opening INT = 0,
+        @evtId_PLC_LCY_Maturation INT = 0,
+        @evtId_PLC_LCY_Payment INT = 0,
+        @evtId_PLC_LCY_Revaluation INT = 0,
+        @evtId_PLC_LCY_Amortization INT = 0,
+        @evtId_PLC_LCY_Fee INT = 0,
+        @evtId_PLC_FCY_Opening INT = 0,
+        @evtId_PLC_FCY_Maturation INT = 0,
+        @evtId_PLC_FCY_Payment INT = 0,
+        @evtId_PLC_FCY_Revaluation INT = 0,
+        @evtId_PLC_FCY_Amortization INT = 0,
+        @evtId_PLC_FCY_Fee INT = 0,
+        @grpId_BRW_LCY_Opening INT = 0,
+        @grpId_BRW_LCY_Maturation INT = 0,
+        @grpId_BRW_LCY_Payment INT = 0,
+        @grpId_BRW_LCY_Revaluation INT = 0,
+        @grpId_BRW_LCY_Amortization INT = 0,
+        @grpId_BRW_LCY_Fee INT = 0,
+        @grpId_BRW_FCY_Opening INT = 0,
+        @grpId_BRW_FCY_Maturation INT = 0,
+        @grpId_BRW_FCY_Payment INT = 0,
+        @grpId_BRW_FCY_Revaluation INT = 0,
+        @grpId_BRW_FCY_Amortization INT = 0,
+        @grpId_BRW_FCY_Fee INT = 0,
+        @grpId_PLC_LCY_Opening INT = 0,
+        @grpId_PLC_LCY_Maturation INT = 0,
+        @grpId_PLC_LCY_Payment INT = 0,
+        @grpId_PLC_LCY_Revaluation INT = 0,
+        @grpId_PLC_LCY_Amortization INT = 0,
+        @grpId_PLC_LCY_Fee INT = 0,
+        @grpId_PLC_FCY_Opening INT = 0,
+        @grpId_PLC_FCY_Maturation INT = 0,
+        @grpId_PLC_FCY_Payment INT = 0,
+        @grpId_PLC_FCY_Revaluation INT = 0,
+        @grpId_PLC_FCY_Amortization INT = 0,
+        @grpId_PLC_FCY_Fee INT = 0,
+        @cmpId_BRW_LCY_Opening_502 INT = 0,
+        @cmpId_BRW_LCY_Maturation_504 INT = 0,
+        @cmpId_BRW_LCY_Payment_507 INT = 0,
+        @cmpId_BRW_LCY_Revaluation_510 INT = 0,
+        @cmpId_BRW_LCY_Amortization_601 INT = 0,
+        @cmpId_BRW_LCY_Fee_602 INT = 0,
+        @cmpId_BRW_LCY_Fee_603 INT = 0,
+        @cmpId_BRW_FCY_Opening_502 INT = 0,
+        @cmpId_BRW_FCY_Maturation_504 INT = 0,
+        @cmpId_BRW_FCY_Payment_507 INT = 0,
+        @cmpId_BRW_FCY_Revaluation_510 INT = 0,
+        @cmpId_BRW_FCY_Amortization_601 INT = 0,
+        @cmpId_BRW_FCY_Fee_602 INT = 0,
+        @cmpId_BRW_FCY_Fee_603 INT = 0,
+        @cmpId_PLC_LCY_Opening_503 INT = 0,
+        @cmpId_PLC_LCY_Maturation_505 INT = 0,
+        @cmpId_PLC_LCY_Payment_506 INT = 0,
+        @cmpId_PLC_LCY_Payment_110 INT = 0,
+        @cmpId_PLC_LCY_Revaluation_510 INT = 0,
+        @cmpId_PLC_LCY_Amortization_600 INT = 0,
+        @cmpId_PLC_LCY_Fee_602 INT = 0,
+        @cmpId_PLC_LCY_Fee_603 INT = 0,
+        @cmpId_PLC_FCY_Opening_503 INT = 0,
+        @cmpId_PLC_FCY_Maturation_505 INT = 0,
+        @cmpId_PLC_FCY_Payment_506 INT = 0,
+        @cmpId_PLC_FCY_Revaluation_510 INT = 0,
+        @cmpId_PLC_FCY_Amortization_505 INT = 0,
+        @cmpId_PLC_FCY_Fee_602 INT = 0,
+        @cmpId_PLC_FCY_Fee_603 INT = 0;
+
+    ------------------------------------------------------------------------------------------------------------------------
+    -- AccEngineItem - Path Hiyerarsisi (AUTO-GENERATED)
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineItem WHERE Path = N'TREX/BRWPLC1/')
+        BEGIN
+            SELECT @number = Id FROM dbo.accEngineItem WHERE Path = N'TREX/'
+            INSERT INTO dbo.AccEngineItem (Id, ItemCode, ParentId, Path, ModelDefinitionId, StateId, StateDate, StateMaker, TemplateId)
+            VALUES (@lastAccEngineItemId, N'BRWPLC1', @number, N'TREX/BRWPLC1/', null, @StateId, @stateDate, @stateMaker, 1);
+            SELECT @lastAccEngineItemId = @lastAccEngineItemId + 1
+        END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineItem WHERE Path = N'TREX/BRWPLC1/LOAN/')
+        BEGIN
+            SELECT @number = Id FROM dbo.accEngineItem WHERE Path = N'TREX/BRWPLC1/'
+            INSERT INTO dbo.AccEngineItem (Id, ItemCode, ParentId, Path, ModelDefinitionId, StateId, StateDate, StateMaker, TemplateId)
+            VALUES (@lastAccEngineItemId, N'LOAN', @number, N'TREX/BRWPLC1/LOAN/', null, @StateId, @stateDate, @stateMaker, 1);
+            SELECT @lastAccEngineItemId = @lastAccEngineItemId + 1
+        END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineItem WHERE Path = N'TREX/BRWPLC1/LOAN/BRW/')
+        BEGIN
+            SELECT @number = Id FROM dbo.accEngineItem WHERE Path = N'TREX/BRWPLC1/LOAN/'
+            INSERT INTO dbo.AccEngineItem (Id, ItemCode, ParentId, Path, ModelDefinitionId, StateId, StateDate, StateMaker, TemplateId)
+            VALUES (@lastAccEngineItemId, N'BRW', @number, N'TREX/BRWPLC1/LOAN/BRW/', null, @StateId, @stateDate, @stateMaker, 1);
+            SELECT @lastAccEngineItemId = @lastAccEngineItemId + 1
+        END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineItem WHERE Path = N'TREX/BRWPLC1/LOAN/PLC/')
+        BEGIN
+            SELECT @number = Id FROM dbo.accEngineItem WHERE Path = N'TREX/BRWPLC1/LOAN/'
+            INSERT INTO dbo.AccEngineItem (Id, ItemCode, ParentId, Path, ModelDefinitionId, StateId, StateDate, StateMaker, TemplateId)
+            VALUES (@lastAccEngineItemId, N'PLC', @number, N'TREX/BRWPLC1/LOAN/PLC/', null, @StateId, @stateDate, @stateMaker, 1);
+            SELECT @lastAccEngineItemId = @lastAccEngineItemId + 1
+        END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineItem WHERE Path = N'TREX/BRWPLC1/LOAN/BRW/LCY/')
+        BEGIN
+            SELECT @number = Id FROM dbo.accEngineItem WHERE Path = N'TREX/BRWPLC1/LOAN/BRW/'
+            INSERT INTO dbo.AccEngineItem (Id, ItemCode, ParentId, Path, ModelDefinitionId, StateId, StateDate, StateMaker, TemplateId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineItemId, N'LCY', @number, N'TREX/BRWPLC1/LOAN/BRW/LCY/', @lastAccEngineModelDefinitionId, @StateId, @stateDate, @stateMaker, 1);
+            SELECT @itemId_BRW_LCY = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineItemId = @lastAccEngineItemId + 1
+        END
+    ELSE SELECT @itemId_BRW_LCY = Id FROM dbo.AccEngineItem WHERE Path = N'TREX/BRWPLC1/LOAN/BRW/LCY/'
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineItem WHERE Path = N'TREX/BRWPLC1/LOAN/BRW/FCY/')
+        BEGIN
+            SELECT @number = Id FROM dbo.accEngineItem WHERE Path = N'TREX/BRWPLC1/LOAN/BRW/'
+            INSERT INTO dbo.AccEngineItem (Id, ItemCode, ParentId, Path, ModelDefinitionId, StateId, StateDate, StateMaker, TemplateId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineItemId, N'FCY', @number, N'TREX/BRWPLC1/LOAN/BRW/FCY/', @lastAccEngineModelDefinitionId, @StateId, @stateDate, @stateMaker, 1);
+            SELECT @itemId_BRW_FCY = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineItemId = @lastAccEngineItemId + 1
+        END
+    ELSE SELECT @itemId_BRW_FCY = Id FROM dbo.AccEngineItem WHERE Path = N'TREX/BRWPLC1/LOAN/BRW/FCY/'
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineItem WHERE Path = N'TREX/BRWPLC1/LOAN/PLC/LCY/')
+        BEGIN
+            SELECT @number = Id FROM dbo.accEngineItem WHERE Path = N'TREX/BRWPLC1/LOAN/PLC/'
+            INSERT INTO dbo.AccEngineItem (Id, ItemCode, ParentId, Path, ModelDefinitionId, StateId, StateDate, StateMaker, TemplateId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineItemId, N'LCY', @number, N'TREX/BRWPLC1/LOAN/PLC/LCY/', @lastAccEngineModelDefinitionId, @StateId, @stateDate, @stateMaker, 1);
+            SELECT @itemId_PLC_LCY = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineItemId = @lastAccEngineItemId + 1
+        END
+    ELSE SELECT @itemId_PLC_LCY = Id FROM dbo.AccEngineItem WHERE Path = N'TREX/BRWPLC1/LOAN/PLC/LCY/'
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineItem WHERE Path = N'TREX/BRWPLC1/LOAN/PLC/FCY/')
+        BEGIN
+            SELECT @number = Id FROM dbo.accEngineItem WHERE Path = N'TREX/BRWPLC1/LOAN/PLC/'
+            INSERT INTO dbo.AccEngineItem (Id, ItemCode, ParentId, Path, ModelDefinitionId, StateId, StateDate, StateMaker, TemplateId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineItemId, N'FCY', @number, N'TREX/BRWPLC1/LOAN/PLC/FCY/', @lastAccEngineModelDefinitionId, @StateId, @stateDate, @stateMaker, 1);
+            SELECT @itemId_PLC_FCY = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineItemId = @lastAccEngineItemId + 1
+        END
+    ELSE SELECT @itemId_PLC_FCY = Id FROM dbo.AccEngineItem WHERE Path = N'TREX/BRWPLC1/LOAN/PLC/FCY/'
+
+    ------------------------------------------------------------------------------------------------------------------------
+    -- AccEngineEventType (AUTO-GENERATED)
+    ------------------------------------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineEventType WHERE Code = N'OnOpening') INSERT INTO dbo.AccEngineEventType (Name, Code) VALUES (N'OnOpening', N'OnOpening');
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineEventType WHERE Code = N'OnMaturation') INSERT INTO dbo.AccEngineEventType (Name, Code) VALUES (N'OnMaturation', N'OnMaturation');
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineEventType WHERE Code = N'OnPayment') INSERT INTO dbo.AccEngineEventType (Name, Code) VALUES (N'OnPayment', N'OnPayment');
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineEventType WHERE Code = N'OnRevaluation') INSERT INTO dbo.AccEngineEventType (Name, Code) VALUES (N'OnRevaluation', N'OnRevaluation');
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineEventType WHERE Code = N'OnAmortization') INSERT INTO dbo.AccEngineEventType (Name, Code) VALUES (N'OnAmortization', N'OnAmortization');
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineEventType WHERE Code = N'OnFee') INSERT INTO dbo.AccEngineEventType (Name, Code) VALUES (N'OnFee', N'OnFee');
+
+    ------------------------------------------------------------------------------------------------------------------------
+    -- AccEngineEvent (AUTO-GENERATED)
+    ------------------------------------------------------------------------------------------------------------------------
+    -- BRW_LCY / OnOpening
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_BRW_LCY AND EventTypeCode = N'OnOpening')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_BRW_LCY, N'OnOpening', @stateMaker, @stateDate, @dynamicRuleOpeningCommentRuleId);
+            SELECT @evtId_BRW_LCY_Opening = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_BRW_LCY_Opening = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_BRW_LCY AND EventTypeCode = N'OnOpening'
+
+    -- BRW_LCY / OnMaturation
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_BRW_LCY AND EventTypeCode = N'OnMaturation')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_BRW_LCY, N'OnMaturation', @stateMaker, @stateDate, @dynamicRuleMaturationCommentRuleId);
+            SELECT @evtId_BRW_LCY_Maturation = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_BRW_LCY_Maturation = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_BRW_LCY AND EventTypeCode = N'OnMaturation'
+
+    -- BRW_LCY / OnPayment
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_BRW_LCY AND EventTypeCode = N'OnPayment')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_BRW_LCY, N'OnPayment', @stateMaker, @stateDate, @dynamicRulePaymentCommentRuleId);
+            SELECT @evtId_BRW_LCY_Payment = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_BRW_LCY_Payment = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_BRW_LCY AND EventTypeCode = N'OnPayment'
+
+    -- BRW_LCY / OnRevaluation
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_BRW_LCY AND EventTypeCode = N'OnRevaluation')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_BRW_LCY, N'OnRevaluation', @stateMaker, @stateDate, @dynamicRuleRevaluationCommentRuleId);
+            SELECT @evtId_BRW_LCY_Revaluation = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_BRW_LCY_Revaluation = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_BRW_LCY AND EventTypeCode = N'OnRevaluation'
+
+    -- BRW_LCY / OnAmortization
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_BRW_LCY AND EventTypeCode = N'OnAmortization')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_BRW_LCY, N'OnAmortization', @stateMaker, @stateDate, @dynamicRuleAmortizationCommentRuleId);
+            SELECT @evtId_BRW_LCY_Amortization = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_BRW_LCY_Amortization = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_BRW_LCY AND EventTypeCode = N'OnAmortization'
+
+    -- BRW_LCY / OnFee
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_BRW_LCY AND EventTypeCode = N'OnFee')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_BRW_LCY, N'OnFee', @stateMaker, @stateDate, @dynamicRuleFeeCommentRuleId);
+            SELECT @evtId_BRW_LCY_Fee = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_BRW_LCY_Fee = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_BRW_LCY AND EventTypeCode = N'OnFee'
+
+    -- BRW_FCY / OnOpening
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_BRW_FCY AND EventTypeCode = N'OnOpening')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_BRW_FCY, N'OnOpening', @stateMaker, @stateDate, @dynamicRuleOpeningCommentRuleId);
+            SELECT @evtId_BRW_FCY_Opening = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_BRW_FCY_Opening = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_BRW_FCY AND EventTypeCode = N'OnOpening'
+
+    -- BRW_FCY / OnMaturation
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_BRW_FCY AND EventTypeCode = N'OnMaturation')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_BRW_FCY, N'OnMaturation', @stateMaker, @stateDate, @dynamicRuleMaturationCommentRuleId);
+            SELECT @evtId_BRW_FCY_Maturation = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_BRW_FCY_Maturation = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_BRW_FCY AND EventTypeCode = N'OnMaturation'
+
+    -- BRW_FCY / OnPayment
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_BRW_FCY AND EventTypeCode = N'OnPayment')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_BRW_FCY, N'OnPayment', @stateMaker, @stateDate, @dynamicRulePaymentCommentRuleId);
+            SELECT @evtId_BRW_FCY_Payment = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_BRW_FCY_Payment = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_BRW_FCY AND EventTypeCode = N'OnPayment'
+
+    -- BRW_FCY / OnRevaluation
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_BRW_FCY AND EventTypeCode = N'OnRevaluation')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_BRW_FCY, N'OnRevaluation', @stateMaker, @stateDate, @dynamicRuleRevaluationCommentRuleId);
+            SELECT @evtId_BRW_FCY_Revaluation = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_BRW_FCY_Revaluation = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_BRW_FCY AND EventTypeCode = N'OnRevaluation'
+
+    -- BRW_FCY / OnAmortization
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_BRW_FCY AND EventTypeCode = N'OnAmortization')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_BRW_FCY, N'OnAmortization', @stateMaker, @stateDate, @dynamicRuleAmortizationCommentRuleId);
+            SELECT @evtId_BRW_FCY_Amortization = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_BRW_FCY_Amortization = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_BRW_FCY AND EventTypeCode = N'OnAmortization'
+
+    -- BRW_FCY / OnFee
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_BRW_FCY AND EventTypeCode = N'OnFee')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_BRW_FCY, N'OnFee', @stateMaker, @stateDate, @dynamicRuleFeeCommentRuleId);
+            SELECT @evtId_BRW_FCY_Fee = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_BRW_FCY_Fee = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_BRW_FCY AND EventTypeCode = N'OnFee'
+
+    -- PLC_LCY / OnOpening
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_PLC_LCY AND EventTypeCode = N'OnOpening')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_PLC_LCY, N'OnOpening', @stateMaker, @stateDate, @dynamicRuleOpeningCommentRuleId);
+            SELECT @evtId_PLC_LCY_Opening = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_PLC_LCY_Opening = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_PLC_LCY AND EventTypeCode = N'OnOpening'
+
+    -- PLC_LCY / OnMaturation
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_PLC_LCY AND EventTypeCode = N'OnMaturation')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_PLC_LCY, N'OnMaturation', @stateMaker, @stateDate, @dynamicRuleMaturationCommentRuleId);
+            SELECT @evtId_PLC_LCY_Maturation = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_PLC_LCY_Maturation = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_PLC_LCY AND EventTypeCode = N'OnMaturation'
+
+    -- PLC_LCY / OnPayment
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_PLC_LCY AND EventTypeCode = N'OnPayment')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_PLC_LCY, N'OnPayment', @stateMaker, @stateDate, @dynamicRulePaymentCommentRuleId);
+            SELECT @evtId_PLC_LCY_Payment = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_PLC_LCY_Payment = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_PLC_LCY AND EventTypeCode = N'OnPayment'
+
+    -- PLC_LCY / OnRevaluation
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_PLC_LCY AND EventTypeCode = N'OnRevaluation')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_PLC_LCY, N'OnRevaluation', @stateMaker, @stateDate, @dynamicRuleRevaluationCommentRuleId);
+            SELECT @evtId_PLC_LCY_Revaluation = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_PLC_LCY_Revaluation = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_PLC_LCY AND EventTypeCode = N'OnRevaluation'
+
+    -- PLC_LCY / OnAmortization
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_PLC_LCY AND EventTypeCode = N'OnAmortization')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_PLC_LCY, N'OnAmortization', @stateMaker, @stateDate, @dynamicRuleAmortizationCommentRuleId);
+            SELECT @evtId_PLC_LCY_Amortization = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_PLC_LCY_Amortization = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_PLC_LCY AND EventTypeCode = N'OnAmortization'
+
+    -- PLC_LCY / OnFee
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_PLC_LCY AND EventTypeCode = N'OnFee')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_PLC_LCY, N'OnFee', @stateMaker, @stateDate, @dynamicRuleFeeCommentRuleId);
+            SELECT @evtId_PLC_LCY_Fee = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_PLC_LCY_Fee = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_PLC_LCY AND EventTypeCode = N'OnFee'
+
+    -- PLC_FCY / OnOpening
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_PLC_FCY AND EventTypeCode = N'OnOpening')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_PLC_FCY, N'OnOpening', @stateMaker, @stateDate, @dynamicRuleOpeningCommentRuleId);
+            SELECT @evtId_PLC_FCY_Opening = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_PLC_FCY_Opening = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_PLC_FCY AND EventTypeCode = N'OnOpening'
+
+    -- PLC_FCY / OnMaturation
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_PLC_FCY AND EventTypeCode = N'OnMaturation')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_PLC_FCY, N'OnMaturation', @stateMaker, @stateDate, @dynamicRuleMaturationCommentRuleId);
+            SELECT @evtId_PLC_FCY_Maturation = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_PLC_FCY_Maturation = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_PLC_FCY AND EventTypeCode = N'OnMaturation'
+
+    -- PLC_FCY / OnPayment
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_PLC_FCY AND EventTypeCode = N'OnPayment')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_PLC_FCY, N'OnPayment', @stateMaker, @stateDate, @dynamicRulePaymentCommentRuleId);
+            SELECT @evtId_PLC_FCY_Payment = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_PLC_FCY_Payment = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_PLC_FCY AND EventTypeCode = N'OnPayment'
+
+    -- PLC_FCY / OnRevaluation
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_PLC_FCY AND EventTypeCode = N'OnRevaluation')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_PLC_FCY, N'OnRevaluation', @stateMaker, @stateDate, @dynamicRuleRevaluationCommentRuleId);
+            SELECT @evtId_PLC_FCY_Revaluation = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_PLC_FCY_Revaluation = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_PLC_FCY AND EventTypeCode = N'OnRevaluation'
+
+    -- PLC_FCY / OnAmortization
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_PLC_FCY AND EventTypeCode = N'OnAmortization')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_PLC_FCY, N'OnAmortization', @stateMaker, @stateDate, @dynamicRuleAmortizationCommentRuleId);
+            SELECT @evtId_PLC_FCY_Amortization = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_PLC_FCY_Amortization = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_PLC_FCY AND EventTypeCode = N'OnAmortization'
+
+    -- PLC_FCY / OnFee
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineEvent WHERE ItemId = @itemId_PLC_FCY AND EventTypeCode = N'OnFee')
+        BEGIN
+            INSERT INTO dbo.AccEngineEvent (Id, ItemId, EventTypeCode, ModifiedBy, ModifiedDate, EventDescriptionDynamicRuleId)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineEventId, @itemId_PLC_FCY, N'OnFee', @stateMaker, @stateDate, @dynamicRuleFeeCommentRuleId);
+            SELECT @evtId_PLC_FCY_Fee = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineEventId = @lastAccEngineEventId + 1
+        END
+    ELSE SELECT @evtId_PLC_FCY_Fee = Id FROM dbo.AccEngineEvent WHERE ItemId = @itemId_PLC_FCY AND EventTypeCode = N'OnFee'
+
+    ------------------------------------------------------------------------------------------------------------------------
+    -- AccEngineComponentType (AUTO-GENERATED from Component sheet)
+    ------------------------------------------------------------------------------------------------------------------------
+
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineComponentType WHERE Code = N'110') INSERT INTO dbo.AccEngineComponentType (Name, Code, StateId, StateDate, StateMaker) VALUES (N'BITT TAX', N'110', @StateId, @stateDate, @stateMaker);
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineComponentType WHERE Code = N'500') INSERT INTO dbo.AccEngineComponentType (Name, Code, StateId, StateDate, StateMaker) VALUES (N'Value Date Contingent', N'500', @StateId, @stateDate, @stateMaker);
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineComponentType WHERE Code = N'502') INSERT INTO dbo.AccEngineComponentType (Name, Code, StateId, StateDate, StateMaker) VALUES (N'Value Date Incoming Payment', N'502', @StateId, @stateDate, @stateMaker);
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineComponentType WHERE Code = N'503') INSERT INTO dbo.AccEngineComponentType (Name, Code, StateId, StateDate, StateMaker) VALUES (N'Value Date Outgoing Payment', N'503', @StateId, @stateDate, @stateMaker);
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineComponentType WHERE Code = N'504') INSERT INTO dbo.AccEngineComponentType (Name, Code, StateId, StateDate, StateMaker) VALUES (N'Maturity Date Outgoing Payment', N'504', @StateId, @stateDate, @stateMaker);
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineComponentType WHERE Code = N'505') INSERT INTO dbo.AccEngineComponentType (Name, Code, StateId, StateDate, StateMaker) VALUES (N'Maturity Date Incoming Payment', N'505', @StateId, @stateDate, @stateMaker);
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineComponentType WHERE Code = N'506') INSERT INTO dbo.AccEngineComponentType (Name, Code, StateId, StateDate, StateMaker) VALUES (N'Cashflow Incoming Payment', N'506', @StateId, @stateDate, @stateMaker);
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineComponentType WHERE Code = N'507') INSERT INTO dbo.AccEngineComponentType (Name, Code, StateId, StateDate, StateMaker) VALUES (N'Cashflow Outgoing Payment', N'507', @StateId, @stateDate, @stateMaker);
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineComponentType WHERE Code = N'510') INSERT INTO dbo.AccEngineComponentType (Name, Code, StateId, StateDate, StateMaker) VALUES (N'Revaluation', N'510', @StateId, @stateDate, @stateMaker);
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineComponentType WHERE Code = N'600') INSERT INTO dbo.AccEngineComponentType (Name, Code, StateId, StateDate, StateMaker) VALUES (N'Amortization Payment Incoming', N'600', @StateId, @stateDate, @stateMaker);
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineComponentType WHERE Code = N'601') INSERT INTO dbo.AccEngineComponentType (Name, Code, StateId, StateDate, StateMaker) VALUES (N'Amortization Payment Outgoing', N'601', @StateId, @stateDate, @stateMaker);
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineComponentType WHERE Code = N'602') INSERT INTO dbo.AccEngineComponentType (Name, Code, StateId, StateDate, StateMaker) VALUES (N'Fee Payment Incoming', N'602', @StateId, @stateDate, @stateMaker);
+    IF NOT EXISTS (SELECT 1 FROM dbo.AccEngineComponentType WHERE Code = N'603') INSERT INTO dbo.AccEngineComponentType (Name, Code, StateId, StateDate, StateMaker) VALUES (N'Fee Payment Outgoing', N'603', @StateId, @stateDate, @stateMaker);
+
+    ------------------------------------------------------------------------------------------------------------------------
+    -- AccEngineGroup (AUTO-GENERATED)
+    ------------------------------------------------------------------------------------------------------------------------
+    -- BRW_LCY / OnOpening / ValueDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_BRW_LCY_Opening AND ValidationRuleId = @dynamicRuleValueDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_BRW_LCY_Opening, @dynamicRuleValueDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_BRW_LCY_Opening = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_BRW_LCY_Opening = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_BRW_LCY_Opening AND ValidationRuleId = @dynamicRuleValueDateEqualLogicalDateId
+
+    -- BRW_LCY / OnMaturation / MaturityDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_BRW_LCY_Maturation AND ValidationRuleId = @dynamicRuleMaturityDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_BRW_LCY_Maturation, @dynamicRuleMaturityDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_BRW_LCY_Maturation = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_BRW_LCY_Maturation = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_BRW_LCY_Maturation AND ValidationRuleId = @dynamicRuleMaturityDateEqualLogicalDateId
+
+    -- BRW_LCY / OnPayment / PeriodEndDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_BRW_LCY_Payment AND ValidationRuleId = @dynamicRulePeriodEndDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_BRW_LCY_Payment, @dynamicRulePeriodEndDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_BRW_LCY_Payment = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_BRW_LCY_Payment = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_BRW_LCY_Payment AND ValidationRuleId = @dynamicRulePeriodEndDateEqualLogicalDateId
+
+    -- BRW_LCY / OnRevaluation / NO RULE
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_BRW_LCY_Revaluation AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_BRW_LCY_Revaluation, null, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_BRW_LCY_Revaluation = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_BRW_LCY_Revaluation = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_BRW_LCY_Revaluation AND ValidationRuleId IS NULL
+
+    -- BRW_LCY / OnAmortization / PeriodPaymentDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_BRW_LCY_Amortization AND ValidationRuleId = @dynamicRulePeriodPaymentDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_BRW_LCY_Amortization, @dynamicRulePeriodPaymentDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_BRW_LCY_Amortization = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_BRW_LCY_Amortization = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_BRW_LCY_Amortization AND ValidationRuleId = @dynamicRulePeriodPaymentDateEqualLogicalDateId
+
+    -- BRW_LCY / OnFee / PeriodPaymentDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_BRW_LCY_Fee AND ValidationRuleId = @dynamicRulePeriodPaymentDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_BRW_LCY_Fee, @dynamicRulePeriodPaymentDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_BRW_LCY_Fee = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_BRW_LCY_Fee = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_BRW_LCY_Fee AND ValidationRuleId = @dynamicRulePeriodPaymentDateEqualLogicalDateId
+
+    -- BRW_FCY / OnOpening / ValueDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_BRW_FCY_Opening AND ValidationRuleId = @dynamicRuleValueDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_BRW_FCY_Opening, @dynamicRuleValueDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_BRW_FCY_Opening = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_BRW_FCY_Opening = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_BRW_FCY_Opening AND ValidationRuleId = @dynamicRuleValueDateEqualLogicalDateId
+
+    -- BRW_FCY / OnMaturation / MaturityDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_BRW_FCY_Maturation AND ValidationRuleId = @dynamicRuleMaturityDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_BRW_FCY_Maturation, @dynamicRuleMaturityDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_BRW_FCY_Maturation = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_BRW_FCY_Maturation = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_BRW_FCY_Maturation AND ValidationRuleId = @dynamicRuleMaturityDateEqualLogicalDateId
+
+    -- BRW_FCY / OnPayment / PeriodEndDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_BRW_FCY_Payment AND ValidationRuleId = @dynamicRulePeriodEndDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_BRW_FCY_Payment, @dynamicRulePeriodEndDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_BRW_FCY_Payment = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_BRW_FCY_Payment = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_BRW_FCY_Payment AND ValidationRuleId = @dynamicRulePeriodEndDateEqualLogicalDateId
+
+    -- BRW_FCY / OnRevaluation / NO RULE
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_BRW_FCY_Revaluation AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_BRW_FCY_Revaluation, null, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_BRW_FCY_Revaluation = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_BRW_FCY_Revaluation = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_BRW_FCY_Revaluation AND ValidationRuleId IS NULL
+
+    -- BRW_FCY / OnAmortization / PeriodPaymentDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_BRW_FCY_Amortization AND ValidationRuleId = @dynamicRulePeriodPaymentDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_BRW_FCY_Amortization, @dynamicRulePeriodPaymentDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_BRW_FCY_Amortization = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_BRW_FCY_Amortization = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_BRW_FCY_Amortization AND ValidationRuleId = @dynamicRulePeriodPaymentDateEqualLogicalDateId
+
+    -- BRW_FCY / OnFee / PeriodPaymentDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_BRW_FCY_Fee AND ValidationRuleId = @dynamicRulePeriodPaymentDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_BRW_FCY_Fee, @dynamicRulePeriodPaymentDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_BRW_FCY_Fee = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_BRW_FCY_Fee = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_BRW_FCY_Fee AND ValidationRuleId = @dynamicRulePeriodPaymentDateEqualLogicalDateId
+
+    -- PLC_LCY / OnOpening / ValueDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_PLC_LCY_Opening AND ValidationRuleId = @dynamicRuleValueDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_PLC_LCY_Opening, @dynamicRuleValueDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_PLC_LCY_Opening = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_PLC_LCY_Opening = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_PLC_LCY_Opening AND ValidationRuleId = @dynamicRuleValueDateEqualLogicalDateId
+
+    -- PLC_LCY / OnMaturation / MaturityDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_PLC_LCY_Maturation AND ValidationRuleId = @dynamicRuleMaturityDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_PLC_LCY_Maturation, @dynamicRuleMaturityDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_PLC_LCY_Maturation = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_PLC_LCY_Maturation = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_PLC_LCY_Maturation AND ValidationRuleId = @dynamicRuleMaturityDateEqualLogicalDateId
+
+    -- PLC_LCY / OnPayment / PeriodEndDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_PLC_LCY_Payment AND ValidationRuleId = @dynamicRulePeriodEndDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_PLC_LCY_Payment, @dynamicRulePeriodEndDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_PLC_LCY_Payment = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_PLC_LCY_Payment = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_PLC_LCY_Payment AND ValidationRuleId = @dynamicRulePeriodEndDateEqualLogicalDateId
+
+    -- PLC_LCY / OnRevaluation / NO RULE
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_PLC_LCY_Revaluation AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_PLC_LCY_Revaluation, null, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_PLC_LCY_Revaluation = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_PLC_LCY_Revaluation = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_PLC_LCY_Revaluation AND ValidationRuleId IS NULL
+
+    -- PLC_LCY / OnAmortization / PeriodPaymentDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_PLC_LCY_Amortization AND ValidationRuleId = @dynamicRulePeriodPaymentDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_PLC_LCY_Amortization, @dynamicRulePeriodPaymentDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_PLC_LCY_Amortization = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_PLC_LCY_Amortization = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_PLC_LCY_Amortization AND ValidationRuleId = @dynamicRulePeriodPaymentDateEqualLogicalDateId
+
+    -- PLC_LCY / OnFee / PeriodPaymentDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_PLC_LCY_Fee AND ValidationRuleId = @dynamicRulePeriodPaymentDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_PLC_LCY_Fee, @dynamicRulePeriodPaymentDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_PLC_LCY_Fee = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_PLC_LCY_Fee = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_PLC_LCY_Fee AND ValidationRuleId = @dynamicRulePeriodPaymentDateEqualLogicalDateId
+
+    -- PLC_FCY / OnOpening / ValueDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_PLC_FCY_Opening AND ValidationRuleId = @dynamicRuleValueDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_PLC_FCY_Opening, @dynamicRuleValueDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_PLC_FCY_Opening = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_PLC_FCY_Opening = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_PLC_FCY_Opening AND ValidationRuleId = @dynamicRuleValueDateEqualLogicalDateId
+
+    -- PLC_FCY / OnMaturation / MaturityDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_PLC_FCY_Maturation AND ValidationRuleId = @dynamicRuleMaturityDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_PLC_FCY_Maturation, @dynamicRuleMaturityDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_PLC_FCY_Maturation = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_PLC_FCY_Maturation = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_PLC_FCY_Maturation AND ValidationRuleId = @dynamicRuleMaturityDateEqualLogicalDateId
+
+    -- PLC_FCY / OnPayment / PeriodEndDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_PLC_FCY_Payment AND ValidationRuleId = @dynamicRulePeriodEndDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_PLC_FCY_Payment, @dynamicRulePeriodEndDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_PLC_FCY_Payment = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_PLC_FCY_Payment = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_PLC_FCY_Payment AND ValidationRuleId = @dynamicRulePeriodEndDateEqualLogicalDateId
+
+    -- PLC_FCY / OnRevaluation / NO RULE
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_PLC_FCY_Revaluation AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_PLC_FCY_Revaluation, null, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_PLC_FCY_Revaluation = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_PLC_FCY_Revaluation = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_PLC_FCY_Revaluation AND ValidationRuleId IS NULL
+
+    -- PLC_FCY / OnAmortization / PeriodPaymentDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_PLC_FCY_Amortization AND ValidationRuleId = @dynamicRulePeriodPaymentDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_PLC_FCY_Amortization, @dynamicRulePeriodPaymentDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_PLC_FCY_Amortization = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_PLC_FCY_Amortization = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_PLC_FCY_Amortization AND ValidationRuleId = @dynamicRulePeriodPaymentDateEqualLogicalDateId
+
+    -- PLC_FCY / OnFee / PeriodPaymentDate = LogicalDate
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineGroup WHERE EventId = @evtId_PLC_FCY_Fee AND ValidationRuleId = @dynamicRulePeriodPaymentDateEqualLogicalDateId)
+        BEGIN
+            INSERT INTO dbo.AccEngineGroup (Id, EventId, ValidationRuleId, [Order], ModifiedBy, ModifiedDate, StateId, StateDate, StateMaker)
+            OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineGroupId, @evtId_PLC_FCY_Fee, @dynamicRulePeriodPaymentDateEqualLogicalDateId, 1, @stateMaker, @stateDate, @StateId, @stateDate, @stateMaker);
+            SELECT @grpId_PLC_FCY_Fee = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineGroupId = @lastAccEngineGroupId + 1
+        END
+    ELSE SELECT @grpId_PLC_FCY_Fee = Id FROM dbo.AccEngineGroup WHERE EventId = @evtId_PLC_FCY_Fee AND ValidationRuleId = @dynamicRulePeriodPaymentDateEqualLogicalDateId
+
+    ------------------------------------------------------------------------------------------------------------------------
+    -- AccEngineComponent (AUTO-GENERATED)
+    ------------------------------------------------------------------------------------------------------------------------
+    -- BRW_LCY / OnOpening / Component 502 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_BRW_LCY_Opening AND ComponentTypeCode = N'502' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_BRW_LCY_Opening, N'502', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_BRW_LCY_Opening_502 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_BRW_LCY_Opening_502 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_BRW_LCY_Opening AND ComponentTypeCode = N'502' AND ValidationRuleId IS NULL
+
+    -- BRW_LCY / OnMaturation / Component 504 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_BRW_LCY_Maturation AND ComponentTypeCode = N'504' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_BRW_LCY_Maturation, N'504', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_BRW_LCY_Maturation_504 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_BRW_LCY_Maturation_504 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_BRW_LCY_Maturation AND ComponentTypeCode = N'504' AND ValidationRuleId IS NULL
+
+    -- BRW_LCY / OnPayment / Component 507 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_BRW_LCY_Payment AND ComponentTypeCode = N'507' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_BRW_LCY_Payment, N'507', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_BRW_LCY_Payment_507 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_BRW_LCY_Payment_507 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_BRW_LCY_Payment AND ComponentTypeCode = N'507' AND ValidationRuleId IS NULL
+
+    -- BRW_LCY / OnRevaluation / Component 510 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_BRW_LCY_Revaluation AND ComponentTypeCode = N'510' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_BRW_LCY_Revaluation, N'510', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_BRW_LCY_Revaluation_510 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_BRW_LCY_Revaluation_510 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_BRW_LCY_Revaluation AND ComponentTypeCode = N'510' AND ValidationRuleId IS NULL
+
+    -- BRW_LCY / OnAmortization / Component 601 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_BRW_LCY_Amortization AND ComponentTypeCode = N'601' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_BRW_LCY_Amortization, N'601', null, 1, @stateMaker, @stateDate);
+
+            SELECT @cmpId_BRW_LCY_Amortization_601 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_BRW_LCY_Amortization_601 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_BRW_LCY_Amortization AND ComponentTypeCode = N'601' AND ValidationRuleId IS NULL
+
+    -- BRW_LCY / OnFee / Component 602 (order 1) [ValidationRule: Fee Amount > 0]
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_BRW_LCY_Fee AND ComponentTypeCode = N'602' AND ValidationRuleId = @dynamicRuleFeeAmountGtZeroId)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_BRW_LCY_Fee, N'602', @dynamicRuleFeeAmountGtZeroId, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_BRW_LCY_Fee_602 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_BRW_LCY_Fee_602 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_BRW_LCY_Fee AND ComponentTypeCode = N'602' AND ValidationRuleId = @dynamicRuleFeeAmountGtZeroId
+
+    -- BRW_LCY / OnFee / Component 603 (order 2) [ValidationRule: Fee Amount > 0]
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_BRW_LCY_Fee AND ComponentTypeCode = N'603' AND ValidationRuleId = @dynamicRuleFeeAmountGtZeroId)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_BRW_LCY_Fee, N'603', @dynamicRuleFeeAmountGtZeroId, 2, @stateMaker, @stateDate);
+            SELECT @cmpId_BRW_LCY_Fee_603 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_BRW_LCY_Fee_603 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_BRW_LCY_Fee AND ComponentTypeCode = N'603' AND ValidationRuleId = @dynamicRuleFeeAmountGtZeroId
+
+    -- BRW_FCY / OnOpening / Component 502 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_BRW_FCY_Opening AND ComponentTypeCode = N'502' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_BRW_FCY_Opening, N'502', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_BRW_FCY_Opening_502 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_BRW_FCY_Opening_502 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_BRW_FCY_Opening AND ComponentTypeCode = N'502' AND ValidationRuleId IS NULL
+
+    -- BRW_FCY / OnMaturation / Component 504 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_BRW_FCY_Maturation AND ComponentTypeCode = N'504' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_BRW_FCY_Maturation, N'504', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_BRW_FCY_Maturation_504 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_BRW_FCY_Maturation_504 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_BRW_FCY_Maturation AND ComponentTypeCode = N'504' AND ValidationRuleId IS NULL
+
+    -- BRW_FCY / OnPayment / Component 507 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_BRW_FCY_Payment AND ComponentTypeCode = N'507' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_BRW_FCY_Payment, N'507', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_BRW_FCY_Payment_507 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_BRW_FCY_Payment_507 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_BRW_FCY_Payment AND ComponentTypeCode = N'507' AND ValidationRuleId IS NULL
+
+    -- BRW_FCY / OnRevaluation / Component 510 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_BRW_FCY_Revaluation AND ComponentTypeCode = N'510' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_BRW_FCY_Revaluation, N'510', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_BRW_FCY_Revaluation_510 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_BRW_FCY_Revaluation_510 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_BRW_FCY_Revaluation AND ComponentTypeCode = N'510' AND ValidationRuleId IS NULL
+
+    -- BRW_FCY / OnAmortization / Component 601 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_BRW_FCY_Amortization AND ComponentTypeCode = N'601' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_BRW_FCY_Amortization, N'601', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_BRW_FCY_Amortization_601 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_BRW_FCY_Amortization_601 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_BRW_FCY_Amortization AND ComponentTypeCode = N'601' AND ValidationRuleId IS NULL
+
+    -- BRW_FCY / OnFee / Component 602 (order 1) [ValidationRule: Fee Amount > 0]
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_BRW_FCY_Fee AND ComponentTypeCode = N'602' AND ValidationRuleId = @dynamicRuleFeeAmountGtZeroId)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_BRW_FCY_Fee, N'602', @dynamicRuleFeeAmountGtZeroId, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_BRW_FCY_Fee_602 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_BRW_FCY_Fee_602 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_BRW_FCY_Fee AND ComponentTypeCode = N'602' AND ValidationRuleId = @dynamicRuleFeeAmountGtZeroId
+
+    -- BRW_FCY / OnFee / Component 603 (order 2) [ValidationRule: Fee Amount > 0]
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_BRW_FCY_Fee AND ComponentTypeCode = N'603' AND ValidationRuleId = @dynamicRuleFeeAmountGtZeroId)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_BRW_FCY_Fee, N'603', @dynamicRuleFeeAmountGtZeroId, 2, @stateMaker, @stateDate);
+            SELECT @cmpId_BRW_FCY_Fee_603 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_BRW_FCY_Fee_603 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_BRW_FCY_Fee AND ComponentTypeCode = N'603' AND ValidationRuleId = @dynamicRuleFeeAmountGtZeroId
+
+    -- PLC_LCY / OnOpening / Component 503 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_PLC_LCY_Opening AND ComponentTypeCode = N'503' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_PLC_LCY_Opening, N'503', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_PLC_LCY_Opening_503 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_PLC_LCY_Opening_503 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_PLC_LCY_Opening AND ComponentTypeCode = N'503' AND ValidationRuleId IS NULL
+
+    -- PLC_LCY / OnMaturation / Component 505 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_PLC_LCY_Maturation AND ComponentTypeCode = N'505' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_PLC_LCY_Maturation, N'505', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_PLC_LCY_Maturation_505 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_PLC_LCY_Maturation_505 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_PLC_LCY_Maturation AND ComponentTypeCode = N'505' AND ValidationRuleId IS NULL
+
+    -- PLC_LCY / OnPayment / Component 506 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_PLC_LCY_Payment AND ComponentTypeCode = N'506' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_PLC_LCY_Payment, N'506', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_PLC_LCY_Payment_506 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_PLC_LCY_Payment_506 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_PLC_LCY_Payment AND ComponentTypeCode = N'506' AND ValidationRuleId IS NULL
+
+    -- PLC_LCY / OnPayment / Component 110 (order 2)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_PLC_LCY_Payment AND ComponentTypeCode = N'110' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_PLC_LCY_Payment, N'110', null, 2, @stateMaker, @stateDate);
+            SELECT @cmpId_PLC_LCY_Payment_110 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_PLC_LCY_Payment_110 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_PLC_LCY_Payment AND ComponentTypeCode = N'110' AND ValidationRuleId IS NULL
+
+    -- PLC_LCY / OnRevaluation / Component 510 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_PLC_LCY_Revaluation AND ComponentTypeCode = N'510' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_PLC_LCY_Revaluation, N'510', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_PLC_LCY_Revaluation_510 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_PLC_LCY_Revaluation_510 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_PLC_LCY_Revaluation AND ComponentTypeCode = N'510' AND ValidationRuleId IS NULL
+
+    -- PLC_LCY / OnAmortization / Component 600 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_PLC_LCY_Amortization AND ComponentTypeCode = N'600' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_PLC_LCY_Amortization, N'600', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_PLC_LCY_Amortization_600 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_PLC_LCY_Amortization_600 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_PLC_LCY_Amortization AND ComponentTypeCode = N'600' AND ValidationRuleId IS NULL
+
+    -- PLC_LCY / OnFee / Component 602 (order 1) [ValidationRule: Fee Amount > 0]
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_PLC_LCY_Fee AND ComponentTypeCode = N'602' AND ValidationRuleId = @dynamicRuleFeeAmountGtZeroId)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_PLC_LCY_Fee, N'602', @dynamicRuleFeeAmountGtZeroId, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_PLC_LCY_Fee_602 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_PLC_LCY_Fee_602 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_PLC_LCY_Fee AND ComponentTypeCode = N'602' AND ValidationRuleId = @dynamicRuleFeeAmountGtZeroId
+
+    -- PLC_LCY / OnFee / Component 603 (order 2) [ValidationRule: Fee Amount > 0]
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_PLC_LCY_Fee AND ComponentTypeCode = N'603' AND ValidationRuleId = @dynamicRuleFeeAmountGtZeroId)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_PLC_LCY_Fee, N'603', @dynamicRuleFeeAmountGtZeroId, 2, @stateMaker, @stateDate);
+            SELECT @cmpId_PLC_LCY_Fee_603 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_PLC_LCY_Fee_603 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_PLC_LCY_Fee AND ComponentTypeCode = N'603' AND ValidationRuleId = @dynamicRuleFeeAmountGtZeroId
+
+    -- PLC_FCY / OnOpening / Component 503 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_PLC_FCY_Opening AND ComponentTypeCode = N'503' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_PLC_FCY_Opening, N'503', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_PLC_FCY_Opening_503 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_PLC_FCY_Opening_503 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_PLC_FCY_Opening AND ComponentTypeCode = N'503' AND ValidationRuleId IS NULL
+
+    -- PLC_FCY / OnMaturation / Component 505 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_PLC_FCY_Maturation AND ComponentTypeCode = N'505' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_PLC_FCY_Maturation, N'505', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_PLC_FCY_Maturation_505 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_PLC_FCY_Maturation_505 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_PLC_FCY_Maturation AND ComponentTypeCode = N'505' AND ValidationRuleId IS NULL
+
+    -- PLC_FCY / OnPayment / Component 506 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_PLC_FCY_Payment AND ComponentTypeCode = N'506' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_PLC_FCY_Payment, N'506', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_PLC_FCY_Payment_506 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_PLC_FCY_Payment_506 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_PLC_FCY_Payment AND ComponentTypeCode = N'506' AND ValidationRuleId IS NULL
+
+    -- PLC_FCY / OnRevaluation / Component 510 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_PLC_FCY_Revaluation AND ComponentTypeCode = N'510' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_PLC_FCY_Revaluation, N'510', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_PLC_FCY_Revaluation_510 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_PLC_FCY_Revaluation_510 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_PLC_FCY_Revaluation AND ComponentTypeCode = N'510' AND ValidationRuleId IS NULL
+
+    -- PLC_FCY / OnAmortization / Component 505 (order 1)
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_PLC_FCY_Amortization AND ComponentTypeCode = N'505' AND ValidationRuleId IS NULL)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_PLC_FCY_Amortization, N'505', null, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_PLC_FCY_Amortization_505 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_PLC_FCY_Amortization_505 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_PLC_FCY_Amortization AND ComponentTypeCode = N'505' AND ValidationRuleId IS NULL
+
+    -- PLC_FCY / OnFee / Component 602 (order 1) [ValidationRule: Fee Amount > 0]
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_PLC_FCY_Fee AND ComponentTypeCode = N'602' AND ValidationRuleId = @dynamicRuleFeeAmountGtZeroId)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_PLC_FCY_Fee, N'602', @dynamicRuleFeeAmountGtZeroId, 1, @stateMaker, @stateDate);
+            SELECT @cmpId_PLC_FCY_Fee_602 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_PLC_FCY_Fee_602 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_PLC_FCY_Fee AND ComponentTypeCode = N'602' AND ValidationRuleId = @dynamicRuleFeeAmountGtZeroId
+
+    -- PLC_FCY / OnFee / Component 603 (order 2) [ValidationRule: Fee Amount > 0]
+    IF NOT EXISTS (SELECT 1 FROM dbo.accEngineComponent WHERE GroupId = @grpId_PLC_FCY_Fee AND ComponentTypeCode = N'603' AND ValidationRuleId = @dynamicRuleFeeAmountGtZeroId)
+        BEGIN
+            INSERT INTO dbo.AccEngineComponent (Id, GroupId, ComponentTypeCode, ValidationRuleId, [Order], ModifiedBy, ModifiedDate) OUTPUT inserted.Id INTO @tempTable
+            VALUES (@lastAccEngineComponentId, @grpId_PLC_FCY_Fee, N'603', @dynamicRuleFeeAmountGtZeroId, 2, @stateMaker, @stateDate);
+            SELECT @cmpId_PLC_FCY_Fee_603 = Id FROM @tempTable; DELETE FROM @tempTable
+            SELECT @lastAccEngineComponentId = @lastAccEngineComponentId + 1
+        END
+    ELSE SELECT @cmpId_PLC_FCY_Fee_603 = Id FROM dbo.AccEngineComponent WHERE GroupId = @grpId_PLC_FCY_Fee AND ComponentTypeCode = N'603' AND ValidationRuleId = @dynamicRuleFeeAmountGtZeroId
+
+    ------------------------------------------------------------------------------------------------------------------------
+    -- AccEngineAccountRule (AUTO-GENERATED)
+    ------------------------------------------------------------------------------------------------------------------------
+    -- BRW_LCY / OnOpening
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_LCY_Opening_502 AND GLCode = N'IncomingPaymentLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_LCY_Opening_502,N'IncomingPaymentLCY',null,null,N'Debit',null,N'PrincipalAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PrincipalAmount',N'PrincipalAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_LCY_Opening_502 AND GLCode = N'CounterPartyGLAccount')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_LCY_Opening_502,N'CounterPartyGLAccount',null,null,N'Credit',null,N'PrincipalAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PrincipalAmount',N'PrincipalAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- BRW_LCY / OnMaturation
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_LCY_Maturation_504 AND GLCode = N'CounterPartyGLAccount')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_LCY_Maturation_504,N'CounterPartyGLAccount',null,null,N'Debit',null,N'PrincipalAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PrincipalAmount',N'PrincipalAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_LCY_Maturation_504 AND GLCode = N'OutgoingPaymentLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_LCY_Maturation_504,N'OutgoingPaymentLCY',null,null,N'Credit',null,N'PrincipalAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PrincipalAmount',N'PrincipalAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- BRW_LCY / OnPayment
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_LCY_Payment_507 AND GLCode = N'InterestPaid')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_LCY_Payment_507,N'InterestPaid',null,null,N'Debit',null,N'PeriodEndAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodEndAmount',N'PeriodEndAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_LCY_Payment_507 AND GLCode = N'OutgoingPaymentLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_LCY_Payment_507,N'OutgoingPaymentLCY',null,null,N'Credit',null,N'PeriodEndAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodEndAmount',N'PeriodEndAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- BRW_LCY / OnRevaluation
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_LCY_Revaluation_510 AND GLCode = N'InterestExpense')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_LCY_Revaluation_510,N'InterestExpense',null,null,N'Debit',null,N'AccrualAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'AccrualAmount',N'AccrualAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_LCY_Revaluation_510 AND GLCode = N'AccruedExpense')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_LCY_Revaluation_510,N'AccruedExpense',null,null,N'Credit',null,N'AccrualAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'AccrualAmount',N'AccrualAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- BRW_LCY / OnAmortization
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_LCY_Amortization_601 AND GLCode = N'CounterPartyGLAccount')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_LCY_Amortization_601,N'CounterPartyGLAccount',null,null,N'Debit',null,N'PeriodAmortizationAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodAmortizationAmount',N'PeriodAmortizationAmount',0,null,null,@stateMaker,@stateDate,null,null);
+
+     SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_LCY_Amortization_601 AND GLCode = N'OutgoingPaymentLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_LCY_Amortization_601,N'OutgoingPaymentLCY',null,null,N'Credit',null,N'PeriodAmortizationAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodAmortizationAmount',N'PeriodAmortizationAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- BRW_LCY / OnFee
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_LCY_Fee_602 AND GLCode = N'FeeIncome')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_LCY_Fee_602,N'FeeIncome',null,null,N'Credit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_LCY_Fee_602 AND GLCode = N'IncomingPaymentLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_LCY_Fee_602,N'IncomingPaymentLCY',null,null,N'Debit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_LCY_Fee_603 AND GLCode = N'FeeExpense')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_LCY_Fee_603,N'FeeExpense',null,null,N'Debit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_LCY_Fee_603 AND GLCode = N'OutgoingPaymentLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_LCY_Fee_603,N'OutgoingPaymentLCY',null,null,N'Credit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- BRW_FCY / OnOpening
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Opening_502 AND GLCode = N'IncomingPaymentFCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Opening_502,N'IncomingPaymentFCY',null,null,N'Debit',null,N'PrincipalAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PrincipalAmount',N'PrincipalAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Opening_502 AND GLCode = N'CounterPartyGLAccount')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Opening_502,N'CounterPartyGLAccount',null,null,N'Credit',null,N'PrincipalAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PrincipalAmount',N'PrincipalAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- BRW_FCY / OnMaturation
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Maturation_504 AND GLCode = N'CounterPartyGLAccount')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Maturation_504,N'CounterPartyGLAccount',null,null,N'Debit',null,N'PrincipalAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PrincipalAmount',N'PrincipalAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Maturation_504 AND GLCode = N'OutgoingPaymentFCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Maturation_504,N'OutgoingPaymentFCY',null,null,N'Credit',null,N'PrincipalAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PrincipalAmount',N'PrincipalAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- BRW_FCY / OnPayment
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Payment_507 AND GLCode = N'InterestPaid')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Payment_507,N'InterestPaid',null,null,N'Debit',null,N'PeriodEndAmountLCY',N'TxnNo',N'LogicalDate',N'LogicalDate',N'LocalCCY',N'LocalCCY',N'PeriodEndAmountLCY',N'PeriodEndAmountLCY',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Payment_507 AND GLCode = N'FxPositionLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Payment_507,N'FxPositionLCY',null,null,N'Credit',null,N'PeriodEndAmountLCY',N'TxnNo',N'LogicalDate',N'LogicalDate',N'LocalCCY',N'CCY',N'PeriodEndAmountLCY',N'PeriodEndAmountLCY',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Payment_507 AND GLCode = N'FxPosition')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Payment_507,N'FxPosition',null,null,N'Debit',null,N'PeriodEndAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodEndAmount',N'PeriodEndAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Payment_507 AND GLCode = N'OutgoingPaymentFCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Payment_507,N'OutgoingPaymentFCY',null,null,N'Credit',null,N'PeriodEndAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodEndAmount',N'PeriodEndAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- BRW_FCY / OnRevaluation
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Revaluation_510 AND GLCode = N'InterestExpense')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Revaluation_510,N'InterestExpense',null,null,N'Debit',null,N'AccrualAmountLCY',N'TxnNo',N'LogicalDate',N'LogicalDate',N'LocalCCY',N'LocalCCY',N'AccrualAmountLCY',N'AccrualAmountLCY',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Revaluation_510 AND GLCode = N'FxPositionLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Revaluation_510,N'FxPositionLCY',null,null,N'Credit',null,N'AccrualAmountLCY',N'TxnNo',N'LogicalDate',N'LogicalDate',N'LocalCCY',N'CCY',N'AccrualAmountLCY',N'AccrualAmountLCY',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Revaluation_510 AND GLCode = N'FxPosition')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Revaluation_510,N'FxPosition',null,null,N'Debit',null,N'AccrualAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'AccrualAmount',N'AccrualAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Revaluation_510 AND GLCode = N'AccruedExpense')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Revaluation_510,N'AccruedExpense',null,null,N'Credit',null,N'AccrualAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'AccrualAmount',N'AccrualAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- BRW_FCY / OnAmortization
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Amortization_601 AND GLCode = N'CounterPartyGLAccount')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Amortization_601,N'CounterPartyGLAccount',null,null,N'Debit',null,N'PeriodAmortizationAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodAmortizationAmount',N'PeriodAmortizationAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Amortization_601 AND GLCode = N'OutgoingPaymentFCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Amortization_601,N'OutgoingPaymentFCY',null,null,N'Credit',null,N'PeriodAmortizationAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodAmortizationAmount',N'PeriodAmortizationAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- BRW_FCY / OnFee
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Fee_602 AND GLCode = N'FeeIncome')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Fee_602,N'FeeIncome',null,null,N'Credit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'LocalCCY',N'LocalCCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Fee_602 AND GLCode = N'FxPositionLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Fee_602,N'FxPositionLCY',null,null,N'Debit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'LocalCCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Fee_602 AND GLCode = N'FxPosition')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Fee_602,N'FxPosition',null,null,N'Credit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Fee_602 AND GLCode = N'IncomingPaymentFCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Fee_602,N'IncomingPaymentFCY',null,null,N'Debit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Fee_603 AND GLCode = N'FeeExpense')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Fee_603,N'FeeExpense',null,null,N'Debit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'LocalCCY',N'LocalCCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Fee_603 AND GLCode = N'FxPositionLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Fee_603,N'FxPositionLCY',null,null,N'Credit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'LocalCCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Fee_603 AND GLCode = N'FxPosition')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Fee_603,N'FxPosition',null,null,N'Debit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_BRW_FCY_Fee_603 AND GLCode = N'OutgoingPaymentFCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_BRW_FCY_Fee_603,N'OutgoingPaymentFCY',null,null,N'Credit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- PLC_LCY / OnOpening
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_LCY_Opening_503 AND GLCode = N'CounterPartyGLAccount')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_LCY_Opening_503,N'CounterPartyGLAccount',null,null,N'Debit',null,N'PrincipalAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PrincipalAmount',N'PrincipalAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_LCY_Opening_503 AND GLCode = N'OutgoingPaymentLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_LCY_Opening_503,N'OutgoingPaymentLCY',null,null,N'Credit',null,N'PrincipalAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PrincipalAmount',N'PrincipalAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- PLC_LCY / OnMaturation
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_LCY_Maturation_505 AND GLCode = N'IncomingPaymentLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_LCY_Maturation_505,N'IncomingPaymentLCY',null,null,N'Debit',null,N'PrincipalAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PrincipalAmount',N'PrincipalAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_LCY_Maturation_505 AND GLCode = N'CounterPartyGLAccount')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_LCY_Maturation_505,N'CounterPartyGLAccount',null,null,N'Credit',null,N'PrincipalAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PrincipalAmount',N'PrincipalAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- PLC_LCY / OnPayment
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_LCY_Payment_506 AND GLCode = N'IncomingPaymentLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_LCY_Payment_506,N'IncomingPaymentLCY',null,null,N'Debit',null,N'PeriodEndAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodEndAmount',N'PeriodEndAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_LCY_Payment_506 AND GLCode = N'InterestReceived')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_LCY_Payment_506,N'InterestReceived',null,null,N'Credit',null,N'PeriodEndAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodEndAmount',N'PeriodEndAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_LCY_Payment_110 AND GLCode = N'83000000')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_LCY_Payment_110,N'83000000',null,null,N'Debit',null,N'TaxAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'TaxAmount',N'TaxAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_LCY_Payment_110 AND GLCode = N'38000500')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+       VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_LCY_Payment_110,N'38000500',null,null,N'Credit',null,N'TaxAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'TaxAmount',N'TaxAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- PLC_LCY / OnRevaluation
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_LCY_Revaluation_510 AND GLCode = N'AccruedIncome')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_LCY_Revaluation_510,N'AccruedIncome',null,null,N'Debit',null,N'AccrualAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'AccrualAmount',N'AccrualAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_LCY_Revaluation_510 AND GLCode = N'InterestIncome')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_LCY_Revaluation_510,N'InterestIncome',null,null,N'Credit',null,N'AccrualAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'AccrualAmount',N'AccrualAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- PLC_LCY / OnAmortization
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_LCY_Amortization_600 AND GLCode = N'IncomingPaymentLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_LCY_Amortization_600,N'IncomingPaymentLCY',null,null,N'Debit',null,N'PeriodAmortizationAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodAmortizationAmount',N'PeriodAmortizationAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_LCY_Amortization_600 AND GLCode = N'CounterPartyGLAccount')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_LCY_Amortization_600,N'CounterPartyGLAccount',null,null,N'Credit',null,N'PeriodAmortizationAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodAmortizationAmount',N'PeriodAmortizationAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- PLC_LCY / OnFee
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_LCY_Fee_602 AND GLCode = N'FeeIncome')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_LCY_Fee_602,N'FeeIncome',null,null,N'Credit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_LCY_Fee_602 AND GLCode = N'IncomingPaymentLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_LCY_Fee_602,N'IncomingPaymentLCY',null,null,N'Debit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_LCY_Fee_603 AND GLCode = N'FeeExpense')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_LCY_Fee_603,N'FeeExpense',null,null,N'Debit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_LCY_Fee_603 AND GLCode = N'OutgoingPaymentLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_LCY_Fee_603,N'OutgoingPaymentLCY',null,null,N'Credit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- PLC_FCY / OnOpening
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Opening_503 AND GLCode = N'CounterPartyGLAccount')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Opening_503,N'CounterPartyGLAccount',null,null,N'Debit',null,N'PrincipalAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PrincipalAmount',N'PrincipalAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Opening_503 AND GLCode = N'OutgoingPaymentFCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Opening_503,N'OutgoingPaymentFCY',null,null,N'Credit',null,N'PrincipalAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PrincipalAmount',N'PrincipalAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- PLC_FCY / OnMaturation
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Maturation_505 AND GLCode = N'IncomingPaymentFCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Maturation_505,N'IncomingPaymentFCY',null,null,N'Debit',null,N'PrincipalAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PrincipalAmount',N'PrincipalAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Maturation_505 AND GLCode = N'CounterPartyGLAccount')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Maturation_505,N'CounterPartyGLAccount',null,null,N'Credit',null,N'PrincipalAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PrincipalAmount',N'PrincipalAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- PLC_FCY / OnPayment
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Payment_506 AND GLCode = N'IncomingPaymentFCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Payment_506,N'IncomingPaymentFCY',null,null,N'Debit',null,N'PeriodEndAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodEndAmount',N'PeriodEndAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Payment_506 AND GLCode = N'FxPosition')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Payment_506,N'FxPosition',null,null,N'Credit',null,N'PeriodEndAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodEndAmount',N'PeriodEndAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Payment_506 AND GLCode = N'FxPositionLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Payment_506,N'FxPositionLCY',null,null,N'Debit',null,N'PeriodEndAmountLCY',N'TxnNo',N'LogicalDate',N'LogicalDate',N'LocalCCY',N'CCY',N'PeriodEndAmountLCY',N'PeriodEndAmountLCY',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Payment_506 AND GLCode = N'InterestReceived')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Payment_506,N'InterestReceived',null,null,N'Credit',null,N'PeriodEndAmountLCY',N'TxnNo',N'LogicalDate',N'LogicalDate',N'LocalCCY',N'LocalCCY',N'PeriodEndAmountLCY',N'PeriodEndAmountLCY',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- PLC_FCY / OnRevaluation
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Revaluation_510 AND GLCode = N'AccruedIncome')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Revaluation_510,N'AccruedIncome',null,null,N'Debit',null,N'AccrualAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'AccrualAmount',N'AccrualAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Revaluation_510 AND GLCode = N'FxPosition')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Revaluation_510,N'FxPosition',null,null,N'Credit',null,N'AccrualAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'AccrualAmount',N'AccrualAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Revaluation_510 AND GLCode = N'FxPositionLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Revaluation_510,N'FxPositionLCY',null,null,N'Debit',null,N'AccrualAmountLCY',N'TxnNo',N'LogicalDate',N'LogicalDate',N'LocalCCY',N'CCY',N'AccrualAmountLCY',N'AccrualAmountLCY',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Revaluation_510 AND GLCode = N'InterestIncome')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Revaluation_510,N'InterestIncome',null,null,N'Credit',null,N'AccrualAmountLCY',N'TxnNo',N'LogicalDate',N'LogicalDate',N'LocalCCY',N'LocalCCY',N'AccrualAmountLCY',N'AccrualAmountLCY',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- PLC_FCY / OnAmortization
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Amortization_505 AND GLCode = N'IncomingPaymentFCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Amortization_505,N'IncomingPaymentFCY',null,null,N'Debit',null,N'PeriodAmortizationAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodAmortizationAmount',N'PeriodAmortizationAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Amortization_505 AND GLCode = N'CounterPartyGLAccount')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Amortization_505,N'CounterPartyGLAccount',null,null,N'Credit',null,N'PeriodAmortizationAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodAmortizationAmount',N'PeriodAmortizationAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    -- PLC_FCY / OnFee
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Fee_602 AND GLCode = N'FeeIncome')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Fee_602,N'FeeIncome',null,null,N'Credit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'LocalCCY',N'LocalCCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Fee_602 AND GLCode = N'FxPositionLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Fee_602,N'FxPositionLCY',null,null,N'Debit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'LocalCCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Fee_602 AND GLCode = N'FxPosition')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Fee_602,N'FxPosition',null,null,N'Credit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Fee_602 AND GLCode = N'IncomingPaymentFCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Fee_602,N'IncomingPaymentFCY',null,null,N'Debit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Fee_603 AND GLCode = N'FeeExpense')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Fee_603,N'FeeExpense',null,null,N'Debit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'LocalCCY',N'LocalCCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Fee_603 AND GLCode = N'FxPositionLCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Fee_603,N'FxPositionLCY',null,null,N'Credit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'LocalCCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Fee_603 AND GLCode = N'FxPosition')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Fee_603,N'FxPosition',null,null,N'Debit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.accEngineAccountRule WHERE ComponentId = @cmpId_PLC_FCY_Fee_603 AND GLCode = N'OutgoingPaymentFCY')
+        BEGIN INSERT INTO dbo.AccEngineAccountRule(Id,ComponentId,GLCode,CustomerCodeSource,CustomerAccountCodeSource,DebitCredit,CalculationRuleId,AmountSource,TxnNoSource,ValueDateSource,TxnDateSource,CcySource,FcySource,LcyEqvtSource,FcyAmtSource,ReverseRebook,CommentSource,CommentRuleId,ModifiedBy,ModifiedDate,ReverseTxnDateSource,ReverseValueDateSource)
+        VALUES(@lastAccEngineAccountRuleId,@cmpId_PLC_FCY_Fee_603,N'OutgoingPaymentFCY',null,null,N'Credit',null,N'PeriodFeeAmount',N'TxnNo',N'LogicalDate',N'LogicalDate',N'CCY',N'CCY',N'PeriodFeeAmount',N'PeriodFeeAmount',0,null,null,@stateMaker,@stateDate,null,null);
+        SELECT @lastAccEngineAccountRuleId=@lastAccEngineAccountRuleId+1 END
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- CONTENT FINISHED (EXCEL'DEN GELEN SCRIPT) ----------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+--******************************************************************************************************************************************************************************************************************************************************************************
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- FOOTER STARTED  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+-- ================================================================
+-- DefNumberGen Update
+-- ================================================================
+    UPDATE dbo.DefNumberGen SET LastNumber = @lastAccEngineDynamicRuleId, LastUpdateDate = @stateDate WHERE EntityColumnType = @accEngineDynamicRuleColumnTypeId
+    UPDATE dbo.DefNumberGen SET LastNumber = @lastAccEngineAccountRuleId, LastUpdateDate = @stateDate WHERE EntityColumnType = @accEngineAccountRuleColumnTypeId
+    UPDATE dbo.DefNumberGen SET LastNumber = @lastAccEngineComponentId, LastUpdateDate = @stateDate WHERE EntityColumnType = @accEngineComponentColumnTypeId
+    UPDATE dbo.DefNumberGen SET LastNumber = @lastAccEngineGroupId, LastUpdateDate = @stateDate WHERE EntityColumnType = @accEngineGroupColumnTypeId
+    UPDATE dbo.DefNumberGen SET LastNumber = @lastAccEngineEventId, LastUpdateDate = @stateDate WHERE EntityColumnType = @accEngineEventColumnTypeId
+    UPDATE dbo.DefNumberGen SET LastNumber = @lastAccEngineItemId, LastUpdateDate = @stateDate WHERE EntityColumnType = @accEngineItemColumnTypeId
+
+    COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+    IF @@TRANCOUNT > 0
+        ROLLBACK TRANSACTION;
+    DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+    DECLARE @ErrorSeverity INT = ERROR_SEVERITY();
+    DECLARE @ErrorState INT = ERROR_STATE();
+    DECLARE @ErrorLine INT = ERROR_LINE();
+    RAISERROR ('Error on line %d: %s', @ErrorSeverity, @ErrorState, @ErrorLine, @ErrorMessage);
+END CATCH
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- FOOTER FINISHED  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

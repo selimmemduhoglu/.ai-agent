@@ -1,0 +1,26 @@
+PMUnitType
+
+Follow
+1
+
+Edit
+
+
+Ege Bezirci
+21 Eyl
+PMUnitType
+Kıymetli maden işlemlerinde tutarın hangi ağırlık biriminde ifade edildiğini belirtir. NetTrex.Core.Data.Enums altında, 10.0.12 ile yayınlandı.
+
+Üye	Sayısal değer	Anlam
+Ounce	1	Troy ons
+Gram	2	Gram
+Paket bu tipi kendisi kullanmaz
+Core.Data'nın hiçbir entity'si, data manager'ı ya da servisi PMUnitType almaz veya döndürmez. Tip, kıymetli maden işlemi taşıyan modüllerin ortak tanımı olarak yayınlanır. Daha önce aynı enum NetTrex.OptionsFX.Data.Core ve Treasy.QuGet tarafında ayrı ayrı tanımlıydı; iki tanım aynı ada sahip olduğu için global using üzerinden ikisini birden gören tüketici projelerde CS0104 belirsizlik hatası çıkıyordu.
+
+Ons–gram çevrimi ve saflık oranı burada durmaz. O sabitler Treasy.QuGet içindeki Treasy.QuGet.Core.Constraints.PreciousMetalConstants sınıfındadır — Core.Data birim tipini yayınlar, dönüşüm matematiğini taşımaz.
+
+Sayısal değerler sözleşmenin parçası
+1 ve 2 tüketici modüllerde veritabanı kolonuna yazılır. Üyelerin yeniden numaralandırılması veya araya yeni üye eklenmesi mevcut satırların anlamını değiştirir. Yeni bir birim gerektiğinde sıradaki boş değer kullanılır.
+
+Serileştirme
+[!WARNING] Tip JsonStringEnumConverter taşımaz, JSON'a sayı olarak serialize edilir. Aynı namespace'teki QuoteSideType metin olarak çıkar. Bu ayrım bilinçlidir: dönüştürücü eklenmesi tipi kullanan mevcut API sözleşmelerini 1 değerinden "Ounce" değerine kaydırır.

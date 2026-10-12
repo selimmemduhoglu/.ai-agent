@@ -1,0 +1,117 @@
+Veri Katmani
+
+Follow
+1
+
+Edit
+
+
+Ege Bezirci
+Yesterday
+Veri Katmanı
+Core.Data'nın veri erişimi dört parçadan oluşur: DbContext, IRepository<T>, data manager'lar ve IUnitOfWork. Bunların yalnızca data manager'ları Core.Data'ya aittir; diğer üçü Netix.Core.Repository ve Netix.Core.EfCoreRepository paketlerinden gelir ve modülün kendi tablolarında da aynı şekilde çalışır.
+
+Parça	Nereden	Sorumluluk
+DataContext	Netix.Core.EfCoreRepository	DbContext tabanı. Tüketicinin context'i bundan türer.
+IRepository<T>	Netix.Core.Repository	Tablo başına ham EF erişimi.
+IDataManager<T> ve türevleri	NetTrex.Core.Data	Tablo başına CRUD ve hazır sorgular.
+IUnitOfWork	Netix.Core.Repository	SaveChanges. Yazma işlemleri buradan commit edilir.
+DbContext kurulumu
+Paket DbContext kaydetmez, yalnızca modeli ve servisleri verir. Context'i tüketici tanımlar ve kaydeder.
+
+public sealed class EfDbContext(DbContextOptions<EfDbContext> options) : DataContext(options)
+{
+    public DbSet<DealEntity> Deals { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(EfDbContext).Assembly);
+
+        modelBuilder.ApplyCoreDataModel(CoreDataDbRole.KafkaReplica, CoreDataSlices);
+    }
+}
+services.AddScoped<IDataContext, EfDbContext>();
+services.AddScoped<IUnitOfWork, UnitOfWork>();
+services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+DataContext'ten türemek zorunludur. Repository<T> kendisine verilen IDataContext'i DbContext'e cast eder; cast başarısız olursa dbSet hiç atanmaz ve ilk sorguda NullReferenceException düşer.
+
+Core.Data tabloları DbSet olarak açılmaz — hangi tabloların bulunduğu Entity'ler sayfasında. Yukarıdaki açık jenerik IRepository<> kaydı zaten hepsini karşılar; AddCoreData ayrıca tablo başına IRepository<T> kaydı yapar, ikisi de TryAdd* olduğu için çakışmazlar.
+
+IRepository<T>
+Tek bir tabloya ham erişim verir.
+
+Metot	Döner
+Find(params object[]) / FindAsync(params object[])	TEntity — birincil anahtarla
+Insert / InsertAsync	void / Task
+InsertRange / InsertRangeAsync	void / Task
+Update / UpdateAsync	void / Task
+Delete / DeleteAsync	void / Task — entity ya da anahtar ile
+Queryable()	IQueryable<TEntity>
+Select(filter, orderBy, includes, page, pageSize)	IQueryable<TEntity>
+Hiçbir metot CancellationToken almaz ve hiçbiri SaveChanges çağırmaz. Yazma metotları ChangeTracker üzerinde Added / Modified / Deleted işaretler, kayıt IUnitOfWork'ün işidir.
+
+[!WARNING] Queryable() tracking açık bir sorgu döndürür. Salt okuma sorgularında AsNoTracking() zincirlenir; aksi hâlde okunan her satır change tracker'da kalır ve aynı scope içindeki bir CommitAsync çağrısı bunları da taramak zorunda kalır.
+
+var charts = await chartRepository.Queryable()
+    .AsNoTracking()
+    .Where(x => x.IsSystemDefinedChart == true)
+    .ToListAsync(ct);
+Queryable() ham erişimdir ve maker-checker durum filtresi uygulamaz. Core.Data tablolarını IRepository<T> üzerinden okuyan kod, onay bekleyen ve silinmiş satırları da görür; data manager'ların uyguladığı filtre Data Manager'lar sayfasındadır. Filtreyi kuran genişletme metodu internal, yani tüketici tarafından çağrılamaz — koşul elle yazılır:
+
+var pairs = await pairRepository.Queryable()
+    .AsNoTracking()
+    .Where(x => (x.StateId & 2) == 2 && (x.StateId & 4) != 4)
+    .ToListAsync(ct);
+Select(...) sayfalaması 1-tabanlıdır: page = 1 ilk sayfadır, Skip((page - 1) * pageSize) uygulanır.
+
+Modüller kendi tabloları için bu arayüzü daraltılmış bir isimle sarmalar. Ek üye taşımayan bir arayüz DI'da okunabilirlik sağlar:
+
+public interface IChartRepository : IRepository<ChartEntity>;
+Data manager'lar
+Data manager, bir tablonun IRepository<T>'sini sarar ve o tabloya özgü sorguları ekler. Ortak yüzey IDataManager<T>: InsertAsync, InsertRangeAsync, UpdateAsync, DeleteAsync, Queryable, AnyAsync, FindAsync, ListAsync, CountAsync. Queryable() change tracker açık çalışır; filtre, sıralama ve state koşulu uygulamaz. Entity döndüren FindAsync ve ListAsync AsNoTracking ile çalışır, yazma metotları IRepository<T>'ye devreder ve SaveChanges çağırmaz.
+
+Paketteki manager'lar, sorgu tipleri ve tuzakları Data Manager'lar sayfasında.
+
+IUnitOfWork
+Üye	Davranış
+CommitAsync()	DbContext.SaveChangesAsync(). Etkilenen satır sayısını döner.
+Commit()	Senkron karşılığı.
+Rollback()	Change tracker'daki her entry'de Reload() — veritabanı rollback'i değildir.
+Clear()	ChangeTracker.Clear().
+Repository<T>()	Tip başına cache'lenmiş IRepository<T>.
+CommitAsync CancellationToken almaz.
+
+Açık bir transaction yoktur. Atomiklik tek bir SaveChanges çağrısının kendi implicit transaction'ından gelir: bir commit içindeki bütün değişiklikler birlikte yazılır veya hiçbiri yazılmaz. Birden fazla commit'i tek bir transaction'da toplamak gerekiyorsa DbContext.Database üzerinden transaction açılır.
+
+Baştan sona bir yazma
+Data manager değişiklikleri işaretler, IUnitOfWork kaydeder. Paketin kendi Kafka handler'ları da bu deseni kullanır.
+
+internal sealed class HolidayImportService(
+    ICalendarDataManager calendar,
+    IRepository<HolidayEntity> holidays,
+    IUnitOfWork unitOfWork)
+{
+    public async Task ImportAsync(string currencyCode, IReadOnlyList<DateTime> dates,
+        CancellationToken ct)
+    {
+        var existing = await holidays.Queryable()
+            .Where(x => x.CurrencyCode == currencyCode)
+            .ToListAsync(ct);
+
+        foreach (var holiday in existing)
+            await holidays.DeleteAsync(holiday);
+
+        foreach (var date in dates)
+            await holidays.InsertAsync(new HolidayEntity
+            {
+                CurrencyCode = currencyCode,
+                Date         = date,
+                DayOfYear    = date.DayOfYear
+            });
+
+        await unitOfWork.CommitAsync();
+    }
+}
+Silinecek satırlar tracking açık okunur; AsNoTracking ile okunan bir entity'yi DeleteAsync'e vermek için önce Attach gerekir.
+
+CommitAsync çağrılmadığında hiçbir değişiklik veritabanına ulaşmaz ve hata da düşmez; scope kapandığında change tracker ile birlikte kaybolurlar.

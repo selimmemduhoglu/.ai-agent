@@ -1,0 +1,750 @@
+module	key	en	old_tr	new_tr	source
+pages/treasury/money-market/money-market	dgMMTransactions-pageTitle	Borrowing and Placement	Borrowing and Placement	Borç Alma ve Borç Verme	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-popupTitle	Borrowing and Placement	Borrowing and Placement	Borç Alma ve Borç Verme	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-Id	Id	Id	Kimlik	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-PortfolioName	Portfolio	Portfolio	Portföy	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-DirectionName	Direction	Direction	Yön	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-ProductName	Product Type	Product Type	Ürün Türü	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-LogicalReference	Logical Reference	Logical Reference	Mantıksal Referans	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-BusinessKey	Business Key	Business Key	İş Anahtarı	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-CustomerName	Counterparty	Counterparty	Karşı Kurum	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-CcyCode	CCY	CCY	Para Birimi	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-MarketName	Market	Market	Piyasa	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-InterestRate	Rate	Rate	Faiz Oranı	OVERRIDE
+pages/treasury/money-market/money-market	dgMMTransactions-DealAmount	Deal Amount	Deal Amount	İşlem Tutarı	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-MaturityAmount	Maturity Amount	Maturity Amount	Vade Tutarı	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-InterestAmount	Accrued amount	Accrued amount	Tahakkuk Tutarı	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-InputDate	Input Date	Input Date	Giriş Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-TradeDate	Trade Date	Trade Date	İşlem Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-ValueDate	Value Date	Value Date	Valör Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-MaturityDate	Maturity Date	Maturity Date	Vade Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-BasisName	Basis Name	Basis Name	Baz Adı	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-DaysInYear	Days In Year	Days In Year	Yıldaki Gün Sayısı	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-RolloverParentTransactionId	Parent Transaction Id	Parent Transaction Id	Üst İşlem Kimliği	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-RolloverParentLogicalReference	Parent Logical Reference	Parent Logical Reference	Üst Mantıksal Referans	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-TransactionItemType	Transaction Type	Transaction Type	İşlem Türü	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-Instructions	Instructions	Instructions	Talimatlar	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-ExternalCustomerId	External Customer ID	External Customer ID	Harici Müşteri Kimliği	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-AccountNumber	Account Number	Account Number	Hesap Numarası	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-Ccy	Ccy	Ccy	Para Birimi	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-MarketCode	Market Code	Market Code	Piyasa Kodu	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-WeReceiveName	We Receive	We Receive	Alınacak	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-WeSendName	We Send	We Send	Gönderilecek	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-TheyReceiveName	They Receive	They Receive	Karşı Tarafın Alacağı	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-TheySendName	They Send	They Send	Karşı Tarafın Göndereceği	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactions-CustomerType	Customer Type	Customer Type	Müşteri Türü	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-PortfolioId	Portfolio	Portfolio	Portföy	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-ProductId	Product Type	Product Type	Ürün Türü	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-DirectionCode	Direction	Direction	Yön	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-FundSourceId	Fund Source	Fund Source	Fon Kaynağı	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-SubFundSourceCode	Sub Fund Source	Sub Fund Source	Alt Fon Kaynağı	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-MarketCode	Market	Market	Piyasa	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-CurrencyCode	Currency	Currency	Para Birimi	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-CustomerId	Counterparty	Counterparty	Karşı Kurum	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-BasisCode	Date Basis	Date Basis	Tarih Esası	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-DaysInYear	Days in Year	Days in Year	Yıldaki Gün Sayısı	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-WeSend	We Send	We Send	Gönderilecek	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-WeReceive	We Receive	We Receive	Alınacak	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-Instructions	Instructions	Instructions	Talimatlar	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-Trader	Trader	Trader	İşlemci	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-InputDate	Input Date	Input Date	Giriş Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-TradeDate	Trade Date	Trade Date	İşlem Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-ValueDate	Value Date	Value Date	Valör Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-MaturityDate	Maturity Date	Maturity Date	Vade Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-DayCount	Day Count	Day Count	Gün Sayısı	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-PaymentType	Payment Type	Payment Type	Ödeme Türü	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-DealAmount	Amount	Amount	Tutar	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-InterestRate	Rate	Rate	Faiz Oranı	OVERRIDE
+pages/treasury/money-market/money-market	frmMMTransaction-ProfitAmount	Interest Amount	Interest Amount	Faiz Tutarı	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-MaturityAmountInput	Maturity Amount	Maturity Amount	Vade Tutarı	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-TheirSend	They Send	They Send	Karşı Tarafın Göndereceği	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-TheirReceive	They Receive	They Receive	Karşı Tarafın Alacağı	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-CollateralType	Collateral Type	Collateral Type	Teminat Türü	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-Generate	Generate	Generate	Oluştur	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-PaymentSchedule	Payment Schedule	Payment Schedule	Ödeme Planı	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-SendConfirmation	Send Confirmation	Send Confirmation	Teyit Gönder	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-SendPayment	Send Payment	Send Payment	Ödeme Gönder	GLOSSARY
+pages/treasury/money-market/money-market	frmMMTransaction-SendNoticeToReceive	Send Notice To Receive	Send Notice To Receive	Alıcıya Bildirim Gönder	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-PortfolioId	Portfolio	Portfolio	Portföy	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-ProductId	Product Type	Product Type	Ürün Türü	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-DirectionCode	Direction	Direction	Yön	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-FundSourceId	Fund Source	Fund Source	Fon Kaynağı	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-SubFundSourceCode	Sub Fund Source	Sub Fund Source	Alt Fon Kaynağı	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-MarketCode	Market	Market	Piyasa	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-CurrencyCode	Currency	Currency	Para Birimi	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-CustomerId	Counterparty	Counterparty	Karşı Kurum	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-BasisCode	Date Basis	Date Basis	Tarih Esası	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-DaysInYear	Days in Year	Days in Year	Yıldaki Gün Sayısı	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-WeSend	We Send	We Send	Gönderilecek	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-WeReceive	We Receive	We Receive	Alınacak	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-Instructions	Instructions	Instructions	Talimatlar	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-Trader	Trader	Trader	İşlemci	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-InputDate	Input Date	Input Date	Giriş Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-TradeDate	Trade Date	Trade Date	İşlem Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-ValueDate	Value Date	Value Date	Valör Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-MaturityDate	Maturity Date	Maturity Date	Vade Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-DayCount	Day Count	Day Count	Gün Sayısı	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-PaymentType	Payment Type	Payment Type	Ödeme Türü	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-DealAmount	Start Amount	Start Amount	Başlangıç Tutarı	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-InterestRate	Rate	Rate	Faiz Oranı	OVERRIDE
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-TheirSend	They Send	They Send	Karşı Tarafın Göndereceği	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-TheirReceive	They Receive	They Receive	Karşı Tarafın Alacağı	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-CollateralType	Collateral Type	Collateral Type	Teminat Türü	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-Generate	Generate	Generate	Oluştur	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-PaymentSchedule	Payment Schedule	Payment Schedule	Ödeme Planı	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-SendConfirmation	Send Confirmation	Send Confirmation	Teyit Gönder	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-SendPayment	Send Payment	Send Payment	Ödeme Gönder	GLOSSARY
+pages/treasury/money-market/money-market	frmRolloverMMTransaction-SendNoticeToReceive	Send Notice To Receive	Send Notice To Receive	Alıcıya Bildirim Gönder	GLOSSARY
+pages/treasury/money-market/money-market	dgPaymentSchedule-Id	Id	Id	Kimlik	GLOSSARY
+pages/treasury/money-market/money-market	dgPaymentSchedule-PeriodId	Period	Period	Dönem	GLOSSARY
+pages/treasury/money-market/money-market	dgPaymentSchedule-PeriodStartDate	Start Date	Start Date	Başlangıç Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	dgPaymentSchedule-PeriodEndDate	End Date	End Date	Bitiş Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	dgPaymentSchedule-DayCount	Day Count	Day Count	Gün Sayısı	GLOSSARY
+pages/treasury/money-market/money-market	dgPaymentSchedule-InterestRate	Rate	Rate	Faiz Oranı	OVERRIDE
+pages/treasury/money-market/money-market	dgPaymentSchedule-Amount	Amount	Amount	Tutar	GLOSSARY
+pages/treasury/money-market/money-market	dgPaymentSchedule-FlowType	Flow Type	Flow Type	Akış Türü	GLOSSARY
+pages/treasury/money-market/money-market	dgPaymentSchedule-Actions	Actions	Actions	İşlemler	GLOSSARY
+pages/treasury/money-market/money-market	dgPaymentSchedule-GenerateSchedule	Generate Schedule	Generate Schedule	Plan Oluştur	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-PortfolioName	Portfolio	Portfolio	Portföy	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-LogicalReference	Logical Reference	Logical Reference	Mantıksal Referans	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-ProductType	Product Type	Product Type	Ürün Türü	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-Direction	Direction	Direction	Yön	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-FundSource	Fund Source	Fund Source	Fon Kaynağı	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-SubFundSource	Sub Fund Source	Sub Fund Source	Alt Fon Kaynağı	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-Market	Market	Market	Piyasa	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-Currency	Currency	Currency	Para Birimi	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-Counterparty	Counterparty	Counterparty	Karşı Kurum	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-DateBasis	Date Basis	Date Basis	Tarih Esası	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-DaysInYear	Days in Year	Days in Year	Yıldaki Gün Sayısı	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-WeSend	We Send	We Send	Gönderilecek	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-WeReceive	We Receive	We Receive	Alınacak	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-Instructions	Instructions	Instructions	Talimatlar	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-Trader	Trader	Trader	İşlemci	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-InputDate	Input Date	Input Date	Giriş Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-TradeDate	Trade Date	Trade Date	İşlem Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-ValueDate	Value Date	Value Date	Valör Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-MaturityDate	Maturity Date	Maturity Date	Vade Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-DayCount	Day Count	Day Count	Gün Sayısı	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-PaymentType	Payment Type	Payment Type	Ödeme Türü	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-StartAmount	Start Amount	Start Amount	Başlangıç Tutarı	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-InterestRate	Rate	Rate	Faiz Oranı	OVERRIDE
+pages/treasury/money-market/money-market	frmMMPreview-ProfitAmount	Interest Amount	Interest Amount	Faiz Tutarı	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-MaturityAmount	Maturity Amount	Maturity Amount	Vade Tutarı	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-TheirSend	They Send	They Send	Karşı Tarafın Göndereceği	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-TheirReceive	They Receive	They Receive	Karşı Tarafın Alacağı	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-AccountNumber	Account Number	Account Number	Hesap Numarası	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-CollateralType	Collateral Type	Collateral Type	Teminat Türü	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-SendConfirmation	Send Confirmation	Send Confirmation	Teyit Gönder	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-SendPayment	Send Payment	Send Payment	Ödeme Gönder	GLOSSARY
+pages/treasury/money-market/money-market	frmMMPreview-SendNoticeToReceive	Send Notice To Receive	Send Notice To Receive	Alıcıya Bildirim Gönder	GLOSSARY
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-StartDate	Start Date	Start Date	Başlangıç Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-EndDate	End Date	End Date	Bitiş Tarihi	GLOSSARY
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-TotalDay	Total Day	Total Day	Toplam Gün	GLOSSARY
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-StartAmount	Start Amount	Start Amount	Başlangıç Tutarı	GLOSSARY
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-MaturityAmount	Maturity Amount	Maturity Amount	Vade Tutarı	GLOSSARY
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-ScheduleOption	Schedule Option	Schedule Option	Plan Seçeneği	GLOSSARY
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-TimeBased	Time Based	Time Based	Zaman Bazlı	GLOSSARY
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-PeriodCount	Period Count	Period Count	Dönem Sayısı	GLOSSARY
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-NumberOfPayment	Number Of Payment	Number Of Payment	Ödeme Numarası	GLOSSARY
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-RateOption	Rate Option	Rate Option	Kur Seçeneği	GLOSSARY
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-RateBased	Rate Based	Rate Based	Kur Bazlı	GLOSSARY
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-Rate	Rate	Rate	Faiz Oranı	OVERRIDE
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-AmountBased	Amount Based	Amount Based	Tutar Bazlı	GLOSSARY
+pages/treasury/money-market/money-market	frmMultiplePaymentSchedule-Amount	Amount	Amount	Tutar	GLOSSARY
+pages/treasury/money-market/money-market	MMTemplatedgCustomers-Id	Id	Id	Kimlik	GLOSSARY
+pages/treasury/money-market/money-market	MMTemplatedgCustomers-Code	Code	Code	Kod	GLOSSARY
+pages/treasury/money-market/money-market	MMTemplatedgCustomers-Name	Name	Name	Ad	GLOSSARY
+pages/treasury/money-market/money-market	MMTemplatedgCustomers-CcyCode	CCY	CCY	Para Birimi	GLOSSARY
+pages/treasury/money-market/money-market	MMTemplatedgCustomers-CountryCode	Country	Country	Ülke	GLOSSARY
+pages/treasury/money-market/money-market	MMTemplatedgCustomers-CounterpartyId	Counterparty Id	Counterparty Id	Karşı Kurum Kimliği	GLOSSARY
+pages/treasury/money-market/money-market	MMTemplatedgWeSend-AccNo	Acc No	Acc No	Hesap Numarası	GLOSSARY
+pages/treasury/money-market/money-market	MMTemplatedgWeSend-Name	Name	Name	Ad	GLOSSARY
+pages/treasury/money-market/money-market	MMTemplatedgWeSend-CustomerId	Customer Id	Customer Id	Müşteri Kimliği	GLOSSARY
+pages/treasury/money-market/money-market	MMTemplatedgWeReceive-AccNo	Acc No	Acc No	Hesap Numarası	GLOSSARY
+pages/treasury/money-market/money-market	MMTemplatedgWeReceive-Name	Name	Name	Ad	GLOSSARY
+pages/treasury/money-market/money-market	MMTemplatedgWeReceive-CustomerId	Customer Id	Customer Id	Müşteri Kimliği	GLOSSARY
+pages/treasury/money-market/money-market	MMTemplatedgTheirSend-SwiftCode	Swift Code	Swift Code	Swift Kodu	GLOSSARY
+pages/treasury/money-market/money-market	MMTemplatedgTheirSend-Name	Name	Name	Ad	GLOSSARY
+pages/treasury/money-market/money-market	MMTemplatedgTheirSend-AccNo	Acc No	Acc No	Hesap Numarası	GLOSSARY
+pages/treasury/money-market/money-market	MMTemplatedgTheirReceive-SwiftCode	Swift Code	Swift Code	Swift Kodu	GLOSSARY
+pages/treasury/money-market/money-market	MMTemplatedgTheirReceive-Name	Name	Name	Ad	GLOSSARY
+pages/treasury/money-market/money-market	MMTemplatedgTheirReceive-AccNo	Acc No	Acc No	Hesap Numarası	GLOSSARY
+pages/treasury/money-market/money-market	gridFileImportMM-MusteriTipi	Musteri Tipi	Musteri Tipi	Müşteri Türü	GLOSSARY
+pages/treasury/money-market/money-market	gridFileImportMM-IslemNo	Islem No	Islem No	İşlem Numarası	GLOSSARY
+pages/treasury/money-market/money-market	gridFileImportMM-Valor	Valor	Valor	Valör	GLOSSARY
+pages/treasury/money-market/money-market	gridFileImportMM-IslemTipi	Islem Tipi	Islem Tipi	İşlem Türü	GLOSSARY
+pages/treasury/money-market/money-market	gridFileImportMM-EmirNo	Emir No	Emir No	Emir Numarası	GLOSSARY
+pages/treasury/money-market/money-market	gridFileImportMM-Sure	Sure	Sure	Elbette	GLOSSARY
+pages/treasury/money-market/money-market	gridFileImportMM-FaizOrani	Faiz Orani	Faiz Orani	Faiz Oranı	GLOSSARY
+pages/treasury/money-market/money-market	gridFileImportMM-Stopaj	Stopaj	Stopaj	Vergi Kesintisi	GLOSSARY
+pages/treasury/money-market/money-market	gridFileImportMM-IslemZamani	Islem Zamani	Islem Zamani	İşlem Zamanı	GLOSSARY
+pages/treasury/money-market/money-market	gridFileImportMM-FileImport	File Import	File Import	Dosya İçe Aktar	GLOSSARY
+pages/treasury/money-market/money-market	dgMMTransactionsRollover-PopupTitle	Rollover	Rollover	Vade Yenileme	GLOSSARY
+pages/treasury/money-market/money-market	gridFileImportMM-ImportFrom	Import From	Import From	Şuradan İçe Aktar	GLOSSARY
+pages/treasury/money-market/money-market	gridFileImportMM-Import	Import	Import	İçe Aktar	GLOSSARY
+pages/treasury/money-market/money-market	gridFileImportMM-responseSuccess	*The auto-verify parameter is True. After importing, the status must be input verified.	*The auto-verify parameter is True. After importing, the status must be input verified.	*Otomatik onay parametresi “Evet” olarak ayarlanmıştır. İçe aktarma sonrasında kayıt durumu “Giriş Onaylandı” olmalıdır.	GLOSSARY
+pages/treasury/money-market/money-market	gridFileImportMM-responseError	*The auto-verify parameter is False. After importing, the status must be input.	*The auto-verify parameter is False. After importing, the status must be input.	*Otomatik onay parametresi “Hayır” olarak ayarlanmıştır. İçe aktarma sonrasında kayıt durumu “Giriş” olmalıdır.	GLOSSARY
+pages/treasury/money-market/money-market	confirm-rollbackRollover	Are you sure you want to rollback this rollover transaction?	Rollover işlemini geri almak istediğinize emin misiniz?	Bu vade yenileme işlemini geri almak istediğinizden emin misiniz?	GLOSSARY
+pages/treasury/money-market/money-market	error-rollbackRollover	An error occurred while rolling back the rollover.	Rollover geri alma işleminde bir hata oluştu.	Vade yenileme işlemi geri alınırken bir hata oluştu.	GLOSSARY
+pages/treasury/money-market/money-market	dgCurrentAccount-ProductName	Product Name	Product Name	Ürün Adı	GLOSSARY
+pages/treasury/money-market/money-market	dgCurrentAccount-GLCode	GL Code	GL Kodu	Muhasebe Kodu	GLOSSARY
+pages/treasury/money-market/money-market	dgCurrentAccount-CurrencyCode	Currency Code	Para Birimi	Para Birimi Kodu	GLOSSARY
+pages/treasury/money-market/money-market	dgCurrentAccount-DisplayExpr	Display Expression	Görünen İfade	Görüntüleme İfadesi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-pageTitle	Interbank Loan	Interbank Loan	Bankalararası Kredi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-popupTitle	Interbank Loan	Interbank Loan	Bankalararası Kredi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-Id	Id	Id	Kimlik	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-LogicalReference	Logical Reference	Logical Reference	Mantıksal Referans	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-Trader	Trader	Trader	İşlemci	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-MarketName	Market	Market	Piyasa	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-ProductName	Product	Product	Ürün	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-CustomerName	Counterparty	Counterparty	Karşı Kurum	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PortfolioName	Portfolio	Portfolio	Portföy	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-DirectionName	Direction	Direction	Yön	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-TxnTypeName	Txn Type	Txn Type	İşlem Türü	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-InputDateTime	Input Date	Input Date	Giriş Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-TradeDate	Trade Date	Trade Date	İşlem Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-ValueDate	Value Date	Value Date	Valör Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-MaturityDate	Maturity Date	Maturity Date	Vade Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PaymentDate	Payment Date	Payment Date	Ödeme Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-RateTypeName	Rate Type	Rate Type	Kur Türü	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-FloatingRateTypeName	Floating Rate Type	Floating Rate Type	Değişken Faiz Oranı Türü	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PaymentFrequencyName	Payment Frequency	Payment Frequency	Ödeme Sıklığı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-InterestMethodName	Interest Method	Interest Method	Faiz Yöntemi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-InterestMethodFrequencyName	Int. Met. Frequency	Int. Met. Frequency	Faiz Hesaplama Sıklığı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-Amount	Amount	Amount	Tutar	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-DateBasisName	Date Basis	Date Basis	Tarih Esası	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PrincipalAmount	Principal Amount	Principal Amount	Anapara Tutarı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-CurrencyCode	Currency	Currency	Para Birimi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-RateTypeId	Rate Type	Rate Type	Kur Türü	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-Rate	Rate	Rate	Faiz Oranı	OVERRIDE
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-FloatingRateTypeId	Floating Rate Type	Floating Rate Type	Değişken Faiz Oranı Türü	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-Spread	Spread	Spread	Marj	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PaymentFrequencyId	Payment Frequency	Payment Frequency	Ödeme Sıklığı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-InterestMethodId	Interest Method	Interest Method	Faiz Yöntemi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-InterestMethodFrequencyId	Int. Met. Frequency	Int. Met. Frequency	Faiz Hesaplama Sıklığı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-DateBasisCode	Date Basis	Date Basis	Tarih Esası	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-DaysInYear	Days in Year	Days in Year	Yıldaki Gün Sayısı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PaymentLagDays	Payment Lag Days	Payment Lag Days	Ödeme Gecikme Günleri	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-FixingLagDays	Fixing Lag Days	Fixing Lag Days	Sabitleme Gecikme Günleri	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-IndexChartName	Index Chart	Index Chart	Endeks Grafiği	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-SettlementTypeId	Settlement Type	Settlement Type	Takas Türü	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-PaymentInstructionTypeId	Payment Instruction Type	Payment Instruction Type	Ödeme Talimatı Türü	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-Instructions	Instructions	Instructions	Talimatlar	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoan-BusinessKey	Business Key	Business Key	İş Anahtarı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-LogicalReference	Logical Reference	Logical Reference	Mantıksal Referans	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Transaction	Transaction	Transaction	İşlem	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-CashFlow	Cash Flow	Cash Flow	Nakit Akışı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PrincipalAndDates	Principal & Dates	Principal & Dates	Anapara ve Tarihler	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-RateSection	Rate & Interest	Rate & Interest	Kur ve Faiz	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Portfolio	Portfolio	Portfolio	Portföy	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Product	Product	Product	Ürün	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-FundSourceId	Fund Source	Fund Source	Fon Kaynağı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-SubFundSourceCode	Sub Fund Source	Sub Fund Source	Alt Fon Kaynağı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Direction	Direction	Direction	Yön	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Market	Market	Market	Piyasa	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Currency	Currency	Currency	Para Birimi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Customer	Counterparty	Counterparty	Karşı Kurum	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Basis	Date Basis	Date Basis	Tarih Esası	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-DaysInYear	Days in Year	Days in Year	Yıldaki Gün Sayısı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Trader	Trader	Trader	İşlemci	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-InputDate	Input Date	Input Date	Giriş Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TradeDate	Trade Date	Trade Date	İşlem Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-ValueDate	Value Date	Value Date	Valör Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-MaturityDate	Maturity Date	Maturity Date	Vade Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PaymentDate	Payment Date	Payment Date	Ödeme Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Amount	Principal Amount	Principal Amount	Anapara Tutarı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-RateType	Rate Type	Rate Type	Kur Türü	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-RateTypeName	Rate Type	Rate Type	Kur Türü	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Rate	Rate	Rate	Faiz Oranı	OVERRIDE
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-FloatingRateType	Floating Rate Type	Floating Rate Type	Değişken Faiz Oranı Türü	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-FixingLagDays	Fixing Lag Days	Fixing Lag Days	Sabitleme Gecikme Günleri	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Spread	Spread	Spread	Marj	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PaymentFrequency	Payment Frequency	Payment Frequency	Ödeme Sıklığı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-InterestMethod	Interest Method	Interest Method	Faiz Yöntemi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-InterestMethodFrequency	Int. Met. Frequency	Int. Met. Frequency	Faiz Hesaplama Sıklığı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PaymentLagDays	Payment Lag Days	Payment Lag Days	Ödeme Gecikme Günleri	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-IndexChart	Index Chart	Index Chart	Endeks Grafiği	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-Instructions	Instructions	Instructions	Talimatlar	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-SendConfirmation	Send Confirmation	Send Confirmation	Teyit Gönder	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-SendPayment	Send Payment	Send Payment	Ödeme Gönder	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-SendNoticeToReceive	Send Notice To Receive	Send Notice To Receive	Alıcıya Bildirim Gönder	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-SettlementType	Settlement Type	Settlement Type	Takas Türü	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PaymentInstructionType	Payment Instruction Type	Payment Instruction Type	Ödeme Talimatı Türü	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-CustomerId	Counterparty	Counterparty	Karşı Kurum	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PortfolioId	Portfolio	Portfolio	Portföy	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-DirectionCode	Direction	Direction	Yön	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-CurrencyCode	Currency	Currency	Para Birimi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-DealAmount	Principal Amount	Principal Amount	Anapara Tutarı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-BasisCode	Date Basis	Date Basis	Tarih Esası	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-FixedRate	Fixed Rate	Fixed Rate	Sabit Oran	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PayFreq	Payment Frequency	Payment Frequency	Ödeme Sıklığı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-InterestMethodFreq	Interest Method Frequency	Interest Method Frequency	Faiz Yöntemi Sıklığı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-ValidationError	Please fill in all required fields.	Please fill in all required fields.	Lütfen tüm gerekli alanları doldurun.	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-SaveSuccess	Transaction successful!	Transaction successful!	İşlem başarıyla tamamlandı!	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-OutgoingCorrespondent	Outgoing Correspondent	Outgoing Correspondent	Giden Muhabir	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-OutgoingAccountNumber	Outgoing Account Number	Outgoing Account Number	Giden Hesap Numarası	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-OutgoingAccountGLCode	Outgoing Account GL Code	Outgoing Account GL Code	Giden Hesap GL Kodu	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-IncomingCorrespondent	Incoming Correspondent	Incoming Correspondent	Gelen Muhabir	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-IncomingAccountNumber	Incoming Account Number	Incoming Account Number	Gelen Hesap Numarası	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-IncomingAccountGLCode	Incoming Account GL Code	Incoming Account GL Code	Gelen Hesap Muhaseb Kodu	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TheirSender	Their Sender	Their Sender	Karşı Tarafın Göndericisi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TheirSenderSwift	Their Sender Swift Code	Their Sender Swift Code	Karşı Tarafın Gönderici Swift Kodu	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TheirSenderAccount	Their Sender Account Number	Their Sender Account Number	Karşı Tarafın Gönderici Hesap Numarası	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TheirBeneficiary	Their Beneficiary	Their Beneficiary	Karşı Tarafın Lehtarı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TheirBeneficiarySwift	Their Beneficiary Swift Code	Their Beneficiary Swift Code	Karşı Tarafın Lehtar Swift Kodu	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TheirBeneficiaryAccount	Their Beneficiary Account Number	Their Beneficiary Account Number	Karşı Tarafın Lehtar Hesap Numarası	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Portfolio	Portfolio	Portfolio	Portföy	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-LogicalReference	Logical Reference	Logical Reference	Mantıksal Referans	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Product	Product	Product	Ürün	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Direction	Direction	Direction	Yön	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Market	Market	Market	Piyasa	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Currency	Currency	Currency	Para Birimi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Customer	Counterparty	Counterparty	Karşı Kurum	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Basis	Date Basis	Date Basis	Tarih Esası	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-DaysInYear	Days in Year	Days in Year	Yıldaki Gün Sayısı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Trader	Trader	Trader	İşlemci	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-InputDate	Input Date	Input Date	Giriş Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-TradeDate	Trade Date	Trade Date	İşlem Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-ValueDate	Value Date	Value Date	Valör Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-MaturityDate	Maturity Date	Maturity Date	Vade Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-PaymentDate	Payment Date	Payment Date	Ödeme Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Amount	Principal Amount	Principal Amount	Anapara Tutarı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-RateType	Rate Type	Rate Type	Kur Türü	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Rate	Rate	Rate	Faiz Oranı	OVERRIDE
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-FloatingRateType	Floating Rate Type	Floating Rate Type	Değişken Faiz Oranı Türü	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-FixingLagDays	Fixing Lag Days	Fixing Lag Days	Sabitleme Gecikme Günleri	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Spread	Spread	Spread	Marj	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-PaymentFrequency	Payment Frequency	Payment Frequency	Ödeme Sıklığı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-InterestMethod	Interest Method	Interest Method	Faiz Yöntemi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-InterestMethodFrequency	Int. Met. Frequency	Int. Met. Frequency	Faiz Hesaplama Sıklığı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-PaymentLagDays	Payment Lag Days	Payment Lag Days	Ödeme Gecikme Günleri	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-IndexChart	Index Chart	Index Chart	Endeks Grafiği	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-Instructions	Instructions	Instructions	Talimatlar	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-SendConfirmation	Send Confirmation	Send Confirmation	Teyit Gönder	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-SendPayment	Send Payment	Send Payment	Ödeme Gönder	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-SendNoticeToReceive	Send Notice To Receive	Send Notice To Receive	Alıcıya Bildirim Gönder	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-SettlementType	Settlement Type	Settlement Type	Takas Türü	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoanPreview-PaymentInstructionType	Payment Instruction Type	Payment Instruction Type	Ödeme Talimatı Türü	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-CashFlowValidationError	The cash flow list contains invalid values. Please check and correct them.	Cash flow listesinde geçersiz değerler bulunmaktadır. Lütfen kontrol ediniz.	Nakit akışı listesi geçersiz değerler içeriyor. Lütfen kontrol edip düzeltin.	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-MsgSaveNotCreatedCashFlow	You’ve made changes to the form, but the cash flow hasn’t been updated.<br> Do you want to generate it now?	You’ve made changes to the form, but the cash flow hasn’t been updated.<br> Do you want to generate it now?	Formda değişiklik yaptınız ancak nakit akışı güncellenmedi. Nakit akışını şimdi yeniden oluşturmak ister misiniz?	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-ValueDateIsHoliday	Value date is a holiday.	Valör tarihi tatil gününe denk gelmektedir.	Valör tarihi tatil günüdür.	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-TransactionValidation	Please check transaction form data!	Lütfen işlem formu verilerini kontrol ediniz!	Lütfen işlem formu verilerini kontrol edin!	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-PaymentValidation	Please check PaymentValidation data!	Please check PaymentValidation data!	Lütfen Ödeme Doğrulama verilerini kontrol edin!	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-FixedRateError	For Fixed Rate Type, Interest Rate must be greater than 0.	Sabit Faiz Tipi için Faiz oranı 0'dan büyük olmalıdır.	Sabit Faiz Türü için Faiz oranı 0'dan büyük olmalıdır	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	frmInterbankLoan-FloatingRateTypeError	For Floating Rate Type, Floating Rate Type must be selected.	Değişken Faiz Tipi için Faiz Oranı Tipi seçilmelidir.	Değişken Faiz Türü için Faiz Oranı Türü seçilmelidir.	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-Id	Id	Id	Kimlik	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-CalculationDate	Calculation Date	Değerleme Tarihi	Hesaplama Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodNumber	Period Number	Dönem No	Dönem Numarası	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodStartDate	Period Start Date	Dönem Başlangıç	Dönem Başlangıç Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodEndDate	Period End Date	Dönem Bitiş	Dönem Bitiş Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodRate	Period Rate	Dönem Faizi	Dönem Oranı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodCCY	Period CCY	Dönem PB	Dönem Para Birimi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodAmountLCY	Period Amount (LCY)	Dönem Tutarı (YP)	Dönem Tutarı LPB	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodLCY	LCY	YP Birimi	Lokal Para Birimi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodAccrualAmountIRR	Accrual Amount (IRR)	Reeskont Tutarı (IRR)	Reeskont Tutarı (İGO)	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodAccrualAmountSL	Accrual Amount (SL)	Reeskont Tutarı (SL)	Reeskont Tutarı (BL)	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodAccrualAmountCCY	Accrual CCY	Reeskont PB	Reeskont Para Birimi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodAccrualAmountIRRLCY	Accrual Amount (LCY-IRR)	Reeskont Tutarı (YP-IRR)	Reeskont Tutarı (LPB-İGO)	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodAccrualAmountSLLCY	Accrual Amount (LCY-SL)	Reeskont Tutarı (YP-SL)	Reeskont Tutarı (LPB-BL)	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PeriodAccrualAmountLCY	Accrual (LCY)	Reeskont (YP)	Reeskont (LPB)	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PrincipalAmountNPV	Principal NPV	Anapara NPV	Anapara NBD	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PrincipalAmountNPVCCY	Principal NPV CCY	Anapara NPV PB	Anapara NBD YPB	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PrincipalAmountNPVLCY	Principal NPV (LCY)	Anapara NPV (YP)	Anapara NBD LPB	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-PrincipalAmountNPVLCYCode	Principal NPV LCY Code	Anapara NPV YP Kod	Anapara NBD LPB Kodu	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-TotalAmountNPV	Total NPV	Toplam NPV	Toplam NBD	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-TotalAmountNPVCCY	Total NPV CCY	Toplam NPV PB	Toplam NBD YPB	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-TotalAmountNPVLCY	Total NPV (LCY)	Toplam NPV (YP)	Toplam NBD (LPB)	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-TotalAmountNPVLCYCode	Total NPV LCY Code	Toplam NPV YP Kod	Toplam NBD LPB Kodu	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-AccrualSpotRate	Spot Rate	Spot Kur	Peşin Kur	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	dgInterbankLoanValuation-AccrualSpotRateABM	Spot Rate (ABM)	Spot Kur (ABM)	Peşin Kur (ABM)	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-MusteriTipi	Customer Type	Müşteri Tipi	Müşteri Türü	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-IslemNo	Transaction No	İşlem No	İşlem Numarası	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-Valor	Value Date	Valör	Valör Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-Vade	Maturity Date	Vade	Vade Tarihi	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-IslemTipi	Transaction Type	İşlem Tipi	İşlem Türü	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-EmirNo	Order No	Emir No	Emir Numarası	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-Sure	Duration	Süre	Durasyon	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-TemsilciAdSoyad	Representative Name	Temsilci Ad Soyad	Temsilci Adı	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	gridFileImportMM-IslemZamani	Transaction Time	İşlem Zamanı	İşlem Saati	GLOSSARY
+pages/treasury/interbank-loan/interbank-loan	interbankLoan-AmortizationValidation	Please select the amortization amount or percentage!	Please select the amortization amount or percentage!	Lütfen amortisman tutarını veya yüzdesini seçin!	GLOSSARY
+pages/treasury/issue-bond/issue-bond	dgBondIssue-pageTitle	Issue Bond	Tahvil İhracı	Menkul Kıymet İhracı	GLOSSARY
+pages/treasury/issue-bond/issue-bond	dgBondIssue-popupTitle	Issue Bond	Tahvil İhracı	Menkul Kıymet İhracı	GLOSSARY
+pages/treasury/issue-bond/issue-bond	dgBondIssue-ProductName	Product Type	Ürün Tipi	Ürün Türü	GLOSSARY
+pages/treasury/issue-bond/issue-bond	dgBondIssue-CustomerName	Issuer	İhraç Eden	İhraççı	GLOSSARY
+pages/treasury/issue-bond/issue-bond	dgBondIssue-InterestRate	Rate	Oran	Faiz Oranı	OVERRIDE
+pages/treasury/issue-bond/issue-bond	dgBondIssue-ISIN	ISIN	ISIN	ISIN Kodu	GLOSSARY
+pages/treasury/issue-bond/issue-bond	dgBondIssue-SecurityTypeName	Security Type Name	Menkul Kıymet Tipi Adı	Menkul Kıymet Türü Adı	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-ProductId	Product Type	Ürün Tipi	Ürün Türü	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-Isın	ISIN	ISIN	ISIN Kodu	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-CustomerName	Issuer	İhraç Eden	İhraççı	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-SecurityTypeName	Security Type Name	Menkul Kıymet Tipi Adı	Menkul Kıymet Türü Adı	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-CustomerId	Counterparty	Karşı Taraf	Karşı Kurum	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-Issuer	Issuer	İhraç Eden	İhraççı	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-BasisCode	Date Basis	Tarih Bazı	Tarih Esası	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-WeSend	We Send	Bizim Gönderdiğimiz	Gönderilecek	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-WeReceive	We Receive	Bizim Aldığımız	Alınacak	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-PaymentType	Payment Type	Ödeme Tipi	Ödeme Türü	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-InterestRate	Rate	Oran	Faiz Oranı	OVERRIDE
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-TheirSend	Their Send	Onların Gönderdiği	Karşı Tarafın Göndereceği	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-TheirReceive	Their Receive	Onların Aldığı	Karşı Tarafın Alacağı	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmBondIssueMMTransaction-CollateralType	Collateral Type	Teminat Tipi	Teminat Türü	GLOSSARY
+pages/treasury/issue-bond/issue-bond	dgPaymentSchedule-InterestRate	Rate	Oran	Faiz Oranı	OVERRIDE
+pages/treasury/issue-bond/issue-bond	frmMMPreview-ProductType	Product Type	Ürün Tipi	Ürün Türü	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmMMPreview-Counterparty	Counterparty	Karşı Taraf	Karşı Kurum	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmMMPreview-DateBasis	Date Basis	Tarih Bazı	Tarih Esası	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmMMPreview-WeSend	We Send	Bizim Gönderdiğimiz	Gönderilecek	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmMMPreview-WeReceive	We Receive	Bizim Aldığımız	Alınacak	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmMMPreview-PaymentType	Payment Type	Ödeme Tipi	Ödeme Türü	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmMMPreview-InterestRate	Rate	Oran	Faiz Oranı	OVERRIDE
+pages/treasury/issue-bond/issue-bond	frmMMPreview-TheirSend	Their Send	Onların Gönderdiği	Karşı Tarafın Göndereceği	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmMMPreview-TheirReceive	Their Receive	Onların Aldığı	Karşı Tarafın Alacağı	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmMMPreview-CollateralType	Collateral Type	Teminat Tipi	Teminat Türü	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmMultiplePaymentSchedule-NumberOfPayment	Number Of Payment	Ödeme Sayısı	Ödeme Numarası	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmMultiplePaymentSchedule-RateOption	Rate Option	Oran Seçeneği	Kur Seçeneği	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmMultiplePaymentSchedule-RateBased	Rate Based	Oran Bazlı	Kur Bazlı	GLOSSARY
+pages/treasury/issue-bond/issue-bond	frmMultiplePaymentSchedule-Rate	Rate	Oran	Faiz Oranı	OVERRIDE
+pages/treasury/issue-bond/issue-bond	MMTemplatedgCustomers-Name	Name	İsim	Ad	GLOSSARY
+pages/treasury/issue-bond/issue-bond	MMTemplatedgWeSend-AccNo	Acc No	Hesap No	Hesap Numarası	GLOSSARY
+pages/treasury/issue-bond/issue-bond	MMTemplatedgWeSend-Name	Name	İsim	Ad	GLOSSARY
+pages/treasury/issue-bond/issue-bond	MMTemplatedgWeReceive-AccNo	Acc No	Hesap No	Hesap Numarası	GLOSSARY
+pages/treasury/issue-bond/issue-bond	MMTemplatedgWeReceive-Name	Name	İsim	Ad	GLOSSARY
+pages/treasury/issue-bond/issue-bond	MMTemplatedgTheirSend-Name	Name	İsim	Ad	GLOSSARY
+pages/treasury/issue-bond/issue-bond	MMTemplatedgTheirSend-AccNo	Acc No	Hesap No	Hesap Numarası	GLOSSARY
+pages/treasury/issue-bond/issue-bond	MMTemplatedgTheirReceive-Name	Name	İsim	Ad	GLOSSARY
+pages/treasury/issue-bond/issue-bond	MMTemplatedgTheirReceive-AccNo	Acc No	Hesap No	Hesap Numarası	GLOSSARY
+pages/treasury/issue-bond/issue-bond	dgBondIssue-TxnTypeName	Txn Type Name	Txn Tip Adı	İşlem Türü Adı	GLOSSARY
+pages/treasury/issue-bond/issue-bond	dgBondIssue-TxnTypeCode	Txn Type Code	Txn Tip Kodu	İşlem Türü Kodu	GLOSSARY
+pages/treasury/issue-bond/issue-bond	dgBondIssue-CustomerId	Customer Id	Müşteri Id	Müşteri Kimliği	GLOSSARY
+pages/treasury/issue-bond/issue-bond	dgBondIssue-BasisCode	Basis Code	Esas Kod	Baz Kodu	GLOSSARY
+pages/treasury/issue-bond/issue-bond	dgBondIssue-TxnMmProductTypeId	Txn MM Product Type Id	Txn MM Ürün Tipi Id	Para Piyasası İşlemi Ürün Türü Kimliği	GLOSSARY
+pages/treasury/issue-bond/issue-bond	dgBondIssue-TheirBeneficiaryCorrespondentName	Their Beneficiary Correspondent Name	Kullanılan Muhabir Adı	Karşı Tarafın Lehtar Muhabir Banka Adı	GLOSSARY
+pages/treasury/issue-bond/issue-bond	dgBondIssue-TheirSenderCorrespondentName	Their Sender Correspondent Name	Gönderen Muhabir Adı	Karşı Tarafın Gönderici Muhabir Banka Adı	GLOSSARY
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-pageTitle	Issue Bond Revaluation	Issue Bond Revaluation	Menkul Kıymet İhracı Yeniden Değerlemesi	GLOSSARY
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-popupTitle	Issue Bond Revaluation	Issue Bond Revaluation	Menkul Kıymet İhracı Yeniden Değerlemesi	GLOSSARY
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-Id	Id	Id	Kimlik	GLOSSARY
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-ISIN	ISIN	ISIN	ISIN Kodu	GLOSSARY
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-ValueDate	Issue Date	Issue Date	İhraç Tarihi	GLOSSARY
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-MaturityDate	Maturity Date	Maturity Date	Vade Tarihi	GLOSSARY
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-BaseAmount	Base Amount	Base Amount	Baz Tutar	GLOSSARY
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-AccrualAmount	Accrual Amount	Accrual Amount	Reeskont Tutarı	GLOSSARY
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-AccEntryMainId	Account No	Account No	Hesap Numarası	GLOSSARY
+pages/treasury/issue-bond-revaluation/issue-bond-revaluation	dgBondIssueValuation-AccrualDay	Accrual Day	Accrual Day	Reeskont Günü	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-pageTitle	Tawarruq	Tawarruq	Teverruk	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-popupTitle	Tawarruq	Tawarruq	Teverruk	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-LogicalReference	Logical Reference	Logical Reference	Mantıksal Referans	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-MMLogicalReference	MM Logical Reference	MM Logical Reference	MM Mantıksal Referans	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-PortfolioName	Portfolio	Portfolio	Portföy	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-CounterpartyContractDate	Counterparty Contract Date	Counterparty Contract Date	Karşı Kurum Sözleşme Tarihi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-MMAmount	Amount	Amount	Tutar	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-TransactionDirectCode	Transaction Direct Code	Transaction Direct Code	Doğrudan İşlem Kodu	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-CustomerName	Counterparty	Counterparty	Karşı Kurum	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-TawarruqDate	Tawarruq Date	Tawarruq Date	Teverruk Tarihi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-MMCurrency	Currency	Currency	Para Birimi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-Trader	Trader	Trader	İşlemci	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-PMCurrency	PM Currency	PM Currency	KM Para Birimi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-BrokerTicketNo	Broker Ticket No	Broker Ticket No	Aracı Kurum Fiş Numarası	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-Location	Location	Location	Konum	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-OunceDealRate	Ounce Deal Rate	Ounce Deal Rate	Ons İşlem Oranı	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-OunceAmount	Ounce Amount	Ounce Amount	Ons Tutarı	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-GramAmount	Gram Amount	Gram Amount	Gram Tutarı	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-InputDate	Input Date	Input Date	Giriş Tarihi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-BusinessKey	Business Key	Business Key	İş Anahtarı	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-ValueDate	Tawarruq Date	Tawarruq Date	Teverruk Tarihi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-ExternalTxnCurrency	Currency	Currency	Para Birimi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-PMCCy	PM Currency	PM Currency	KM Para Birimi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-ExcludeProxy	Exclude Proxy	Exclude Proxy	Proxy Hariç Tut	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-LogicalReference	Logical Reference	Logical Reference	Mantıksal Referans	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-MMLogicalReference	MM Logical Reference	MM Logical Reference	MM Mantıksal Referans	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Portfolio	Portfolio	Portfolio	Portföy	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-ContractDate	Contract Date	Contract Date	Sözleşme Tarihi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-CounterpartyContractDate	Counterparty Contract Date	Counterparty Contract Date	Karşı Kurum Sözleşme Tarihi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-StartAmount	Start Amount	Start Amount	Başlangıç Tutarı	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-MMAmount	Amount	Amount	Tutar	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Direction	Direction	Direction	Yön	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TransactionDirectCode	Transaction Direct Code	Transaction Direct Code	Doğrudan İşlem Kodu	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Counterparty	Counterparty	Counterparty	Karşı Kurum	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TawarruqDate	Tawarruq Date	Tawarruq Date	Teverruk Tarihi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Currency	Currency	Currency	Para Birimi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-MMCurrency	Currency	Currency	Para Birimi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-PMCurrency	PM Currency	PM Currency	KM Para Birimi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Trader	Trader	Trader	İşlemci	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-InputDate	Input Date	Input Date	Giriş Tarihi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-BrokerTicketNo	Broker Ticket No	Broker Ticket No	Aracı Kurum Fiş Numarası	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Location	Location	Location	Konum	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OunceDealRate	Ounce Deal Rate	Ounce Deal Rate	Ons İşlem Oranı	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OunceAmount	Ounce Amount	Ounce Amount	Ons Tutarı	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-GramAmount	Gram Amount	Gram Amount	Gram Tutarı	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-ExcludeProxy	Exclude Proxy	Exclude Proxy	Proxy Hariç Tut	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Instructions	Instructions	Instructions	Talimatlar	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OurAgent	Our Agent	Our Agent	Temsilcimiz	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Role	Role	Role	Rol	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-BrokerName	Broker Name	Broker Name	Aracı Kurum Adı	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-CurrentAccount	Current Account	Current Account	Cari Hesap	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-AccountNumber	Account Number	Account Number	Hesap Numarası	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-GLCode	GL Code	GL Code	Muhasebe Kodu	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-CurrencyCode	Currency Code	Currency Code	Para Birimi Kodu	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TheirAgent	Their Agent	Their Agent	Karşı Tarafın Temsilcisi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-ExternalTransaction	External Transaction	External Transaction	Harici İşlem	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-SalesOffer	Sales Offer	Sales Offer	Satış Teklifi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-MMLogicalReference-Required	MM Logical Reference is required	MM Logical Reference is required	MM Mantıksal Referans gereklidir	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Portfolio-Required	Portfolio is required	Portfolio is required	Portfolyo gereklidir.	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Counterparty-Required	Counterparty is required	Counterparty is required	Karşı Kurum gerekli	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-MMAmount-Required	MM Amount is required	MM Amount is required	MM Tutarı gereklidir	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-MMCurrency-Required	MM Currency is required	MM Currency is required	MM Para Birimi gereklidir	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TawarruqDate-Required	Tawarruq Date is required	Tawarruq Date is required	Teverruk Tarihi gereklidir	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-BrokerTicketNo-Required	Broker Ticket No is required	Broker Ticket No is required	Aracı Kurum Fiş Numarası zorunludur	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-Location-Required	Location is required	Location is required	Konum gereklidir	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-PMCurrency-Required	PM Currency is required	PM Currency is required	KM para birimi gereklidir.	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OunceDealRate-Required	Ounce Deal Rate is required	Ounce Deal Rate is required	Ons İşlem Oranı gereklidir	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OunceAmount-Required	Ounce Amount is required	Ounce Amount is required	Ons Tutarı gereklidir	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OurAgentRole-Required	Our Agent Role is required	Our Agent Role is required	Temsilcimizin Rolü gereklidir	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OurAgentBroker-Required	Our Agent Broker is required	Our Agent Broker is required	Temsilcimizin Aracı Kurumu gereklidir	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-OurAgentCurrentAccount-Required	Our Agent Current Account is required	Our Agent Current Account is required	Temsilcimizin cari hesabı zorunludur.	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TheirAgentRole-Required	Their Agent Role is required	Their Agent Role is required	Karşı tarafın temsilci rolü zorunludur.	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TheirAgentBroker-Required	Their Agent Broker is required	Their Agent Broker is required	Karşı tarafın temsilci aracı kurumu zorunludur.	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruq-TheirAgentCurrentAccount-Required	Their Agent Current Account is required	Their Agent Current Account is required	Karşı tarafın temsilcisine ait cari hesap zorunludur.	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-BORROWING	Borrowing	Borrowing	Borç Alma	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Portfolio	Portfolio	Portfolio	Portföy	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Trader	Trader	Trader	İşlemci	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-ExternalTransaction	External Transaction	External Transaction	Harici İşlem	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-ExternalTxnLogicalReference	Ext. Logical Reference	Ext. Logical Reference	Har. Mantıksal Referans	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-LogicalReference	Twr. Logical Reference	Twr. Logical Reference	Teverruk İşlem Numarası	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-MMLogicalReference	MM Logical Reference	MM Logical Reference	MM Mantıksal Referans	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Counterparty	Counterparty	Counterparty	Karşı Kurum	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-ContractDate	Contract Date	Contract Date	Sözleşme Tarihi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-CounterpartyContractDate	Counterparty Contract Date	Counterparty Contract Date	Karşı Kurum Sözleşme Tarihi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-TawarruqDate	Tawarruq Date	Tawarruq Date	Teverruk Tarihi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-StartAmount	Start Amount	Start Amount	Başlangıç Tutarı	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-MMAmount	Amount	Amount	Tutar	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Currency	Currency	Currency	Para Birimi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-MMCurrency	Currency	Currency	Para Birimi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Direction	Direction	Direction	Yön	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-TransactionDirectCode	Transaction Direct Code	Transaction Direct Code	Doğrudan İşlem Kodu	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-PMCurrency	PM Currency	PM Currency	KM Para Birimi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-InputDate	Input Date	Input Date	Giriş Tarihi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-BrokerTicketNo	Broker Ticket No	Broker Ticket No	Aracı Kurum Fiş Numarası	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Location	Location	Location	Konum	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-OunceDealRate	Ounce Deal Rate	Ounce Deal Rate	Ons İşlem Oranı	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-OunceAmount	Ounce Amount	Ounce Amount	Ons Tutarı	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-GramAmount	Gram Amount	Gram Amount	Gram Tutarı	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-ExcludeProxy	Exclude Proxy	Exclude Proxy	Proxy Hariç Tut	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Instructions	Instructions	Instructions	Talimatlar	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-SalesOffer	Sales Offer	Sales Offer	Satış Teklifi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-AgentInstructions	Agent Instructions	Agent Instructions	Temsilci Talimatları	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-Role	Role	Role	Rol	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-BrokerName	Broker Name	Broker Name	Aracı Kurum Adı	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-CurrentAccount	Current Account	Current Account	Cari Hesap	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-OurAgent	Our Agent	Our Agent	Temsilcimiz	GLOSSARY
+pages/treasury/tawarruq/tawarruq	frmTawarruqPreview-TheirAgent	Their Agent	Their Agent	Karşı Tarafın Temsilcisi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-Instructions	Instructions	Instructions	Talimatlar	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-ExternalTxnLogicalReference	Ext. Logical Reference	Ext. Logical Reference	Har. Mantıksal Referans	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-TawarruqContractDate	Counterparty Contract Date	Counterparty Contract Date	Karşı Kurum Sözleşme Tarihi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-ExternalTxnAmount	Amount	Amount	Tutar	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruq-ExternalTxnDirectionCode	Transaction Direct Code	Transaction Direct Code	Doğrudan İşlem Kodu	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-LogicalReference	Logical Reference	Logical Reference	Mantıksal Referans	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-ExternalTxnLogicalReference	Ext. Logical Reference	Ext. Logical Reference	Har. Mantıksal Referans	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-PortfolioName	Portfolio	Portfolio	Portföy	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-CustomerName	Counterparty	Counterparty	Karşı Kurum	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-InputDate	Input Date	Input Date	Giriş Tarihi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-TawarruqContractDate	Counterparty Contract Date	Counterparty Contract Date	Karşı Kurum Sözleşme Tarihi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-ValueDate	Tawarruq Date	Tawarruq Date	Teverruk Tarihi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-ExternalTxnAmount	Amount	Amount	Tutar	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-PMCCy	PM Currency	PM Currency	KM Para Birimi	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-OunceDealRate	Ounce Deal Rate	Ounce Deal Rate	Ons İşlem Oranı	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-OunceAmount	Ounce Amount	Ounce Amount	Ons Tutarı	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-GramAmount	Gram Amount	Gram Amount	Gram Tutarı	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-ExternalTxnDirectionCode	Transaction Direct Code	Transaction Direct Code	Doğrudan İşlem Kodu	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-Trader	Trader	Trader	İşlemci	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-Instructions	Instructions	Instructions	Talimatlar	GLOSSARY
+pages/treasury/tawarruq/tawarruq	dgTawarruqHistory-BusinessKey	Business Key	Business Key	İş Anahtarı	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-pageTitle	Product Definition	Product Definition	Ürün Tanımı	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-popupTitle	Product Definition	Product Definition	Ürün Tanımı	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-Id	Id	Id	Kimlik	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-ProductDefinitionId	Product Definition Id	Product Definition Id	Ürün Tanımı Kimliği	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-Code	Code	Code	Kod	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-Name	Name	Name	Ad	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-AccountingMapCode	Accounting Code	Accounting Code	Muhasebe Kodu	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-LogicalReferenceTypeCode	Logical Reference Code	Logical Reference Code	Mantıksal Referans Kodu	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-MainProductCode	Main Product Code	Main Product Code	Ana Ürün Kodu	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-ExternalMainProductCode	External Main Product Code	External Main Product Code	Harici Ana Ürün Kodu	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-ExternalSubProductCode	External Sub Product Code	External Sub Product Code	Harici Alt Ürün Kodu	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-UseFundSource	Use Fund Source	Use Fund Source	Fon Kaynağını Kullan	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-UseSubFundSource	Use Sub Fund Source	Use Sub Fund Source	Alt Fon Kaynağını Kullan	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-UseOnUnitValue	Use On Unit Value	Use On Unit Value	Birim Değeri Kullan	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsBorrowing	Is Borrowing	Is Borrowing	Borçlanma mı	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsPlacement	Is Placement	Is Placement	Plasman mı	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsAccountNeeded	Is AccountNeeded	Is AccountNeeded	Hesap Gerekli mi	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsAllowRollover	Is Allow Rollover	Is Allow Rollover	Vade Yenilemeye İzin Veriliyor mu?	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsMarketCommissionApplicable	Is Is Market Commission Applicable	Is Is Market Commission Applicable	Piyasa Komisyonu Uygulanabilir mi	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsAllowBrokerage	Is Allow Brokerage	Is Allow Brokerage	Aracılığa İzin Veriliyor mu	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsAllowTawarruq	Is Allow Tawarruq	Is Allow Tawarruq	Teverruk'a İzin Veriliyor mu	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsMultiplePayment	Is Multiple Payment	Is Multiple Payment	Çoklu Ödeme mi	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsTaxApplicable	Is Tax Applicable	Is Tax Applicable	Vergi Uygulanabilir mi	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsUseTxnGLCode	Is Use Txn GL Code	Is Use Txn GL Code	İşlem Muhasebe Kodu Kullanılsın mı?	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsCollateralized	Is Collateralized	Is Collateralized	Teminatlı mı	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsIntraBank	Is Intra Bank	Is Intra Bank	Banka İçi mi	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsSameDay	Is Same Day	Is Same Day	Aynı Gün mü	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsZeroRate	Is Zero Rate	Is Zero Rate	Sıfır Oran mı	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsGenerateFWDAccounting	Generate FWD Accounting	Generate FWD Accounting	İleriye Yönelik Muhasebe Oluşturma	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-AccountingCalculationMethodTypeName	Calculation Method	Calculation Method	Hesaplama Yöntemi	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-AccountSelectionTypeName	Account Selection Type	Account Selection Type	Hesap Seçim Türü	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-Order	Order	Order	Emir	GLOSSARY
+pages/definitions/product-types/mm-product	dgProductDefinitions-IsEnabled	Is Enabled	Is Enabled	Etkin mi	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-Tab1Title	General	General	Genel	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-Tab2Title	Markets	Markets	Piyasalar	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-Code	Code	Code	Kod	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-Name	Name	Name	Ad	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-AccountingMapCode	Accounting Code	Accounting Code	Muhasebe Kodu	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-LogicalReferenceTypeId	LogicalReferenceTypeId	LogicalReferenceTypeId	Mantıksal Referans Türü Kimliği	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-MainProductCode	Main Product Code	Main Product Code	Ana Ürün Kodu	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-ExternalMainProductCode	External Main Product Code	External Main Product Code	Harici Ana Ürün Kodu	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-ExternalSubProductCode	External Sub Product Code	External Sub Product Code	Harici Alt Ürün Kodu	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-UseFundSource	Use Fund Source	Use Fund Source	Fon Kaynağını Kullan	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-UseSubFundSource	Use Sub Fund Source	Use Sub Fund Source	Alt Fon Kaynağını Kullan	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-UseOnUnitValue	Use On Unit Value	Use On Unit Value	Birim Değeri Kullan	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-IsBorrowing	Is Borrowing	Is Borrowing	Borçlanma mı	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-IsPlacement	Is Placement	Is Placement	Plasman mı	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-IsAccountNeeded	Is Account Needed	Is Account Needed	Hesap Gerekli mi	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-IsAllowRollover	Is Allow Rollover	Is Allow Rollover	Vade Yenilemeye İzin Veriliyor mu?	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-IsMarketCommissionApplicable	Is Market Commission Applicable	Is Market Commission Applicable	Piyasa Komisyonu Uygulanıyor mu?	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-IsAllowBrokerage	Is Allow Brokerage	Is Allow Brokerage	Aracılığa İzin Veriliyor mu	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-IsAllowTawarruq	Is Allow Tawarruq	Is Allow Tawarruq	Teverruk'a İzin Veriliyor mu	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-IsMultiplePayment	Is Multiple Payment	Is Multiple Payment	Çoklu Ödeme mi	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-IsTaxApplicable	Is Tax Applicable	Is Tax Applicable	Vergi Uygulanabilir mi	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-IsUseTxnGLCode	Is Use Txn GL Code	Is Use Txn GL Code	İşlem Muhasebe Kodu Kullanılsın mı?	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-IsCollateralized	Is Collateralized	Is Collateralized	Teminatlı mı	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-IsIntraBank	Is Intra Bank	Is Intra Bank	Banka İçi mi	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-IsSameDay	Is Same Day	Is Same Day	Aynı Gün mü	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-IsZeroRate	Is Zero Rate	Is Zero Rate	Sıfır Oran mı	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-IsGenerateFWDAccounting	Generate FWD Accounting	Generate FWD Accounting	İleriye Yönelik Muhasebe Oluşturma	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-AccountingCalculationMethodTypeId	Calculation Method	Calculation Method	Hesaplama Yöntemi	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-AccountSelectionTypeId	Account Selection	Account Selection	Hesap Seçimi	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-Order	Order	Order	Emir	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinition-IsEnabled	Is Enabled	Is Enabled	Etkin mi	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-Tab1Title	General	General	Genel	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-Tab2Title	Markets	Markets	Piyasalar	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-Code	Code	Code	Kod	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-Name	Name	Name	Ad	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-AccountingMapCode	Accounting Code	Accounting Code	Muhasebe Kodu	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-MainProductCode	Main Product Code	Main Product Code	Ana Ürün Kodu	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-ExternalMainProductCode	External Main Product Code	External Main Product Code	Harici Ana Ürün Kodu	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-ExternalSubProductCode	External Sub Product Code	External Sub Product Code	Harici Alt Ürün Kodu	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-UseFundSource	Use Fund Source	Use Fund Source	Fon Kaynağını Kullan	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-UseSubFundSource	Use Sub Fund Source	Use Sub Fund Source	Alt Fon Kaynağını Kullan	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-UseOnUnitValue	Use On Unit Value	Use On Unit Value	Birim Değeri Kullan	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsBorrowing	Is Borrowing	Is Borrowing	Borçlanma mı	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsPlacement	Is Placement	Is Placement	Plasman mı	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsAccountNeeded	Is AccountNeeded	Is AccountNeeded	Hesap Gerekli mi	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsAllowRollover	Is Allow Rollover	Is Allow Rollover	Vade Yenilemeye İzin Veriliyor mu?	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsMarketCommissionApplicable	Is Market Commission Applicable	Is Market Commission Applicable	Piyasa Komisyonu Uygulanıyor mu?	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsAllowBrokerage	Is Allow Brokerage	Is Allow Brokerage	Aracılığa İzin Veriliyor mu	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsAllowTawarruq	Is Allow Tawarruq	Is Allow Tawarruq	Teverruk'a İzin Veriliyor mu	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsMultiplePayment	Is Multiple Payment	Is Multiple Payment	Çoklu Ödeme mi	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsTaxApplicable	Is Tax Applicable	Is Tax Applicable	Vergi Uygulanabilir mi	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsUseTxnGLCode	Is Use Txn GL Code	Is Use Txn GL Code	İşlem Muhasebe Kodu Kullanılsın mı?	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsCollateralized	Is Collateralized	Is Collateralized	Teminatlı mı	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsIntraBank	Is Intra Bank	Is Intra Bank	Banka İçi mi	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsSameDay	Is Same Day	Is Same Day	Aynı Gün mü	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsZeroRate	Is Zero Rate	Is Zero Rate	Sıfır Oran mı	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsGenerateFWDAccounting	Generate FWD Accounting	Generate FWD Accounting	İleriye Yönelik Muhasebe Oluşturma	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-AccountingCalculationMethodTypeName	Calculation Method	Calculation Method	Hesaplama Yöntemi	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-AccountSelectionTypeName	Account Selection	Account Selection	Hesap Seçimi	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-Order	Order	Order	Emir	GLOSSARY
+pages/definitions/product-types/mm-product	frmProductDefinitionPreview-IsEnabled	Is Enabled	Is Enabled	Etkin mi	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-CalculationDate	Report Date	Report Date	Rapor Tarihi	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-LogicalReference	Logical Reference	Logical Reference	Mantıksal Referans	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-DirectionName	Direction Name	Direction Name	Yön Adı	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-ProductName	Product Name	Product Name	Ürün Adı	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-CustomerName	Customer Name	Customer Name	Müşteri Adı	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-MarketCode	Market	Market	Piyasa	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-Ccy	CCY	CCY	Para Birimi	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-InputDate	Input Date	Input Date	Giriş Tarihi	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-TradeDate	Trade Date	Trade Date	İşlem Tarihi	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-ValueDate	Value Date	Value Date	Valör Tarihi	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-MaturityDate	Maturity Date	Maturity Date	Vade Tarihi	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-DealAmount	Deal Amount	Deal Amount	İşlem Tutarı	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-MaturityAmount	Maturity Amount	Maturity Amount	Vade Tutarı	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-InterestRate	Rate	Rate	Faiz Oranı	OVERRIDE
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-FXRate	FX Rate	FX Rate	Döviz Kuru	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-AccrualAmount	Accrual Amount	Accrual Amount	Reeskont Tutarı	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-AccrualAmountLCY	Accrual Amount LCY	Accrual Amount LCY	Reeskont Tutarı (LPB)	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-AccrualAmountSL	Accrual Amount SL	Accrual Amount SL	Reeskont Tutarı (BL)	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-AccrualAmountIRRCL	Accrual Amount IRR (CL)	Accrual Amount IRR (CL)	Reeskont Tutarı İGO (DB)	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-PeriodStartDate	Period Start Date	Period Start Date	Dönem Başlangıç Tarihi	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-PeriodEndDate	Period End Date	Period End Date	Dönem Bitiş Tarihi	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-PeriodAmount	Period Amount	Period Amount	Dönem Tutarı	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-AccrualDay	Accrual Day	Accrual Day	Reeskont Günü	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-DaysToMaturation	Days To Maturation	Days To Maturation	Vadeye Kalan Gün Sayısı	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-DaysToPeriodEndDate	Days To Period End Date	Days To Period End Date	Dönem Bitiş Tarihine Kalan Gün Sayısı	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-ExternalCustomerId	External Customer Id	External Customer Id	Harici Müşteri Kimliği	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-AccountNumber	Account Number	Account Number	Hesap Numarası	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-CorporateTypeName	Corporate Type	Corporate Type	Kurumsal Türü	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-CorporateDetailTypeName	Corporate Detail Type	Corporate Detail Type	Kurumsal Detay Türü	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-Id	Id	Id	Kimlik	GLOSSARY
+pages/reports/money-market/money-market-revaluation-report	dgMMRevaluationReport-ReportDate	Report Date	Report Date	Rapor Tarihi	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-pageTitle	Interbank Loan Revaluation Report	Interbank Loan Revaluation Report	Bankalararası Kredi Yeniden Değerleme Raporu	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-ReportDate	Report Date	Report Date	Rapor Tarihi	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-StartDate	Start Date	Start Date	Başlangıç Tarihi	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-EndDate	End Date	End Date	Bitiş Tarihi	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-MarketCode	Market	Market	Piyasa	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-TxnTypeCode	Direction	Direction	Yön	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-Id	Id	Id	Kimlik	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-CalculationDate	Report Date	Report Date	Rapor Tarihi	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-LogicalReference	Logical Reference	Logical Reference	Mantıksal Referans	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PrincipalAmount	Principal Amount	Principal Amount	Anapara Tutarı	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-Direction	Direction	Direction	Yön	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-ProductDefinitionName	Product	Product	Ürün	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-CustomerName	Customer	Customer	Müşteri	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodNumber	Period No	Period No	Dönem Numarası	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-CurrencyCode	CCY	CCY	Para Birimi	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-InputDateTime	Input Date Time	Input Date Time	Giriş Tarihi ve Saati	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodStartDate	Period Start Date	Period Start Date	Dönem Başlangıç Tarihi	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodEndDate	Period End Date	Period End Date	Dönem Bitiş Tarihi	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodPaymentDate	Period Payment Date	Period Payment Date	Dönem Ödeme Tarihi	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodRate	Period Rate	Period Rate	Dönem Oranı	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAmount	Period Amount	Period Amount	Dönem Tutarı	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodCCY	Period CCY	Period CCY	Dönem Para Birimi	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAmountLCY	Period Amount LCY	Period Amount LCY	Dönem Tutarı LPB	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodLCY	Period LCY	Period LCY	Dönem LPB	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualRate	Period Accrual Rate	Period Accrual Rate	Dönem Reeskont Oranı	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualAmountIRR	Period Accrual Amount IRR	Period Accrual Amount IRR	Dönem Reeskont Tutarı İGO	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualAmountSL	Period Accrual Amount SL	Period Accrual Amount SL	Dönem Reeskont Tutarı BL	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualAmountCCY	Period Accrual Amount CCY	Period Accrual Amount CCY	Dönem Reeskont Tutarı Yabancı Para Birimi	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualAmountIRRLCY	Period Accrual Amount IRR LCY	Period Accrual Amount IRR LCY	Dönem Reeskont Tutarı İGO LPB	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualAmountSLLCY	Period Accrual Amount SL LCY	Period Accrual Amount SL LCY	Dönem Reeskont Tutarı BL LPB	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PeriodAccrualAmountLCY	Period Accrual Amount LCY	Period Accrual Amount LCY	Dönem Reeskont Tutarı LPB	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PrincipalAmountNPV	Principal Amount NPV	Principal Amount NPV	Anapara Tutarı NBD	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PrincipalAmountNPVCCY	Principal Amount NPV CCY	Principal Amount NPV CCY	Anapara Tutarı NBD YPB	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PrincipalAmountNPVLCY	Principal Amount NPV LCY	Principal Amount NPV LCY	Anapara Tutarı NBD LPB	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-PrincipalAmountNPVLCYCode	Principal Amount NPV LCY Code	Principal Amount NPV LCY Code	Anapara Tutarı NBD LPB Kodu	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-TotalAmountNPV	Total Amount NPV	Total Amount NPV	Toplam Tutar NBD	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-TotalAmountNPVCCY	Total Amount NPV CCY	Total Amount NPV CCY	Toplam Tutar NBD YPB	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-TotalAmountNPVLCY	Total Amount NPV LCY	Total Amount NPV LCY	Toplam Tutar NBD LPB	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-TotalAmountNPVLCYCode	Total Amount NPV LCY Code	Total Amount NPV LCY Code	Toplam Tutar NBD LPB Kodu	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-AccrualSpotRate	Accrual Spot Rate	Accrual Spot Rate	Reeskont Spot Kuru	GLOSSARY
+pages/reports/interbank-loan/interbank-loan-revaluation-report	dgLNRevaluationReport-AccrualSpotRateABM	Accrual Spot Rate ABM	Accrual Spot Rate ABM	Reeskont Spot Kuru ABM	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-pageTitle	External MM Blotter	External MM Blotter	Harici MM İşlem Listesi	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-popupTitle	External MM Blotter	External MM Blotter	Harici MM İşlem Listesi	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-Id	Id	Id	Kimlik	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-Message	Message	Message	Mesaj	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-ParsedMessage	Parsed Message	Parsed Message	Ayrıştırılmış Mesaj	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-Reference	External Reference	External Reference	Harici Referans	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-ExternalReferenceSourceName	External Source	External Source	Harici Kaynak	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-ExternalReferenceSourceId	ExternalReferenceSourceId	ExternalReferenceSourceId	Harici Referans Kaynağı Kimliği	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-TxnStateId	TxnStateId	TxnStateId	İşlem Durumu Kimliği	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-Status	Sync	Sync	Senkronize Et	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-StateIdTxnName	Transaction State	Transaction State	İşlem Durumu	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-CreatedTime	Capture Time	Capture Time	Yakalama Zamanı	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-ResendTime	Resend Time	Resend Time	Yeniden Gönderme Zamanı	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-SyncStatus	Sync Status	Sync Status	Senkronizasyon Durumu	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-SyncMessage	Sync Message	Sync Message	Senkronizasyon Mesajı	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-TransactionReference	Transaction Reference	Transaction Reference	İşlem Referansı	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-TransactionStateDate	Transaction State Date	Transaction State Date	İşlem Durumu Tarihi	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dxMMFrmFilterStp-DataSource	External Source	External Source	Harici Kaynak	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dxMMFrmFilterStp-StartDate	Start Date	Start Date	Başlangıç Tarihi	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dxMMFrmFilterStp-EndDate	End Date	End Date	Bitiş Tarihi	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dxMMFrmFilterStp-Apply	Search	Search	Ara	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dxMMFrmFilterStp-SyncStatus	Sync Status	Sync Status	Senkronizasyon Durumu	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-ExternalTransactionType	External Transaction Type	External Transaction Type	Harici İşlem Türü	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-CoveredExecId	Covered Exec Id	Covered Exec Id	Karşılanan İşlem Numarası	GLOSSARY
+pages/reconciliation/platform-reconciliation/external-mm-stp	dgMMExternalStp-Product	Product	Product	Ürün	GLOSSARY

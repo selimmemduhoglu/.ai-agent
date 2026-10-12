@@ -1,0 +1,63 @@
+Kavramlar
+
+Follow
+1
+
+Edit
+
+
+Ege Bezirci
+14 Eyl
+Kavramlar
+Kural verisi dört seviyeli bir ağaçtır. Motor bu ağacı yukarıdan aşağı gezer, her seviyede doğrulama kuralını değerlendirir ve en alttaki hesap kuralından bir fiş satırı üretir.
+
+flowchart TD
+    Item[AccEngineItem] --> Event[AccEngineEvent]
+    Event --> Group[AccEngineGroup]
+    Group --> Component[AccEngineComponent]
+    Component --> Rule[AccEngineAccountRule]
+    Rule --> Entry[AccEngineGeneratedAccountEntry]
+    Map[AccEngineAccountMap] -.-> Entry
+Seviye	Ne taşır
+AccEngineItem	Ürün/işlem türü. Olayları gruplar.
+AccEngineEvent	Olay kodu ve fiş açıklamasını üreten dinamik rule.
+AccEngineGroup	Sıralı fiş grubu. Kendi doğrulama kuralı vardır; kural geçmezse grup atlanır.
+AccEngineComponent	Grup içindeki fiş bileşeni. Kendi doğrulama kuralını taşır.
+AccEngineAccountRule	Tek bir fiş satırının reçetesi: GL kodu, borç/alacak, tutar kaynağı, müşteri ve hesap alanlarının kaynakları.
+Doğrulama kuralları eleyicidir: grubun kuralı geçmezse altındaki bütün bileşenler, bileşenin kuralı geçmezse altındaki bütün hesap kuralları çalıştırılmaz.
+
+Alan kaynakları
+AccEngineAccountRule üzerindeki ...Source alanları string'tir ve işlem modelinin property adını taşır. Motor değeri reflection ile okur.
+
+AmountSource        = "PremiumAmount"     → txnModel.PremiumAmount
+CustomerCodeSource  = "ExternalCustomerNo" → txnModel.ExternalCustomerNo
+Hesaplama gerektiren alanlar için ...Source yerine dinamik rule kullanılır. CalculationRule ve CommentRule navigation'ları doluysa motor ilgili alanı reflection ile değil, script çalıştırarak üretir.
+
+Dinamik rule'lar
+AccEngineDynamicRule.Rule alanı bir JavaScript ifadesidir ve Jint üzerinde, işlem modeli bağlam olarak verilerek değerlendirilir. Type alanı ifadenin ne döndürdüğünü belirler.
+
+Type	Sabit	Dönüş
+0	Validation	bool
+1	Comment	string
+2	Calculation	decimal
+Sabitler DynamicRuleConstants.RuleTypes altındadır. Tip ile kullanıldığı yer uyuşmazsa hata kural tanımlandığı anda değil, motor o kuralı çalıştırdığı anda ortaya çıkar.
+
+Metin döndüren alanlar — çalışma grubu kodu ve hesap tipi kodu dâhil — Comment tipiyle çalışır.
+
+Account map
+AccEngineAccountMap, hesap kuralının verdiği sonucu çalışma anında ezmek için kullanılır. Motor her hesap kuralı için uygun bir map satırı arar:
+
+Source alanı kuralın GLCode değerine eşit olan satırlar süzülür.
+IsEnabled kapalı satırlar elenir.
+Path dolu olan satırlarda Path değeri olayın EventPath değerinin içinde geçmelidir.
+Kalan satırlar Order sırasına göre gezilir; ValidationRules listesinin tamamı geçen ilk satır seçilir.
+Uygun satır bulunamazsa map devreye girmez ve bütün alanlar hesap kuralındaki ...Source değerlerinden çözülür.
+
+Öncelik her alanda aynıdır: map üzerindeki dinamik rule, hesap kuralındaki kaynağı ezer. Map satırı seçilmiş olsa bile, o alanın ...SourceRule navigation'ı boşsa motor hesap kuralına geri düşer. Yani map'in seçilmiş olması tek başına alanı değiştirmez; ezme alan bazında olur.
+
+Seçilen map satırının kimliği üretilen satıra AccAccountMapId olarak yazılır; hangi fişin hangi eşleştirmeden geldiği sonradan buradan izlenir.
+
+Ters kayıt
+AccEngineAccountRule.ReverseRebook açıksa motor üretilen satırın bir kopyasını çıkarır, borç/alacak yönünü çevirir, tarihleri ReverseTxnDateSource ve ReverseValueDateSource üzerinden yeniden okur ve açıklamanın başına Reverse: ekler. Kopya, ana satırın ReverseGeneratedRule alanında durur ve MainId ile ana satıra bağlıdır.
+
+Ters kayıt ana satırın kopyası olduğundan çalışma grubu ve hesap tipi kodu da aynen taşınır.
