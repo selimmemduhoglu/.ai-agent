@@ -96,6 +96,8 @@ Kurulu olduğu repolar → aşağıdaki [§ Hook kurulum durumu](#hook-kurulum-d
 |---|---|---|---|---|
 | Manuel Reeskont — analiz & mimari | [manuel-reeskont-analiz/](manuel-reeskont-analiz/) | 2 | 2026-08-12 | Doküman analizi, MD katmanı, mimari kararı (Common → **iptal**, WebUI direkt) |
 | Manuel Reeskont — kodlama (Faz 1–3) | [manuel-reeskont-kodlama/](manuel-reeskont-kodlama/) | 4 | 2026-08-17 | Faz 1–3 kod, canlı DB analizi, `accounting-db-script` + `mssql-read` skill'leri · **#3:** Web.UI doküman uyumluluğu (9/9 kapandı) + 🔤 rename `ManuelReeskont` → **`ManualRediscount`** + ölü modül client'ları silindi · MM 74 + JS 334 test yeşil · **#4:** DevExtreme reflection 500 fix (uncommitted), Docker ortam yanıtsızlığı raporu, kullanıcı DB'yi 191 endpoint'e bağladı, menü satırları DB'de var ama ekranda görünmüyor — `ModuleName`/Translation kolonları NULL şüphesi, mssql-read ile araştırılıyor |
+| ColManagement — INCI model uyarlama | [colmanagement-inci-model-uyarlama/](colmanagement-inci-model-uyarlama/) | 3 | 2026-11-02 | INCI Excel karşılaştırma + uyarlama; Annex/Definition ekran hataları |
+| IL reeskont + ProductDefinition ekran görünürlüğü | [il-reeskont-urun-ekran/](il-reeskont-urun-ekran/) | 1 | 2026-11-09 | IL reeskontu InterestMethod→ürün metodu (onay bekliyor, riskler ölçüldü) · ProductDefinition MM/IL ekran görünürlüğü (**tamam**, testler yeşil) |
 
 ---
 

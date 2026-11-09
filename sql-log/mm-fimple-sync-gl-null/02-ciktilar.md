@@ -113,3 +113,51 @@ MainId|PC|MType|InDirect|InAgent|OutDirect|OutAgent
 (`IncomingAgentPaymentAmount`) bacağı **birlikte** bulunmuyor. Tawarruq fişlerinde yalnız agent,
 MM fişlerinde yalnız doğrudan bacak var. → Fix'teki `OrderBy(AgentPayment ? 1 : 0)` mevcut veride
 **hiçbir zaman devreye girmiyor**; savunma amaçlı, gerekliliği ispatlanmış değil.
+
+## 19 — Vade fişlerinde ödeme bacağı Source'u (NetTrexMM_134)
+```
+Pfx   |MType|Source             |Adet
+TMMPLC|4    |IncomingPaymentLCY |186
+TMMPLC|1    |OutgoingPaymentLCY |154
+TMMBRW|1    |IncomingPaymentLCY |90
+TMMBRW|4    |OutgoingPaymentLCY |62
+TMMPLC|1    |OutgoingPaymentFCY |21
+TMMPLC|4    |IncomingPaymentFCY |20
+TMMBRW|1    |IncomingPaymentFCY |10
+```
+**Bulgu:** Açılış (Type 1): BRW → Incoming, PLC → Outgoing. Vade (Type 4): BRW → **Outgoing**, PLC → **Incoming**.
+Yani vade fişi, açılışta olmayan KARŞI bacağı üretiyor. Osman'ın iddiası doğrulandı.
+
+## 20 — Vadesi gelmiş işlemlerde TxnSync (Fimple'a giden) GL durumu
+```
+Pfx   |SyncIn|SyncOut|Adet
+TMMPLC|null  |dolu   |166
+TMMBRW|dolu  |null   |79
+TMMBRW|null  |null   |8
+TMMPLC|null  |null   |1
+```
+**Bulgu:** Vadesi gelmiş 254 işlemin TxnSync'inde vade bacağı HİÇ yok (BRW'de Out null, PLC'de In null).
+Fimple'daki işlem kaydı vade gününde bu bacak için GL taşımıyor.
+
+## 21 — Açılış bacağı GL'i vs vade bacağı GL'i (NetTrexMM_134)
+```
+Pfx   |AcilisVsVade|Adet
+TMMPLC|AYNI        |102
+TMMBRW|AYNI        |31
+```
+**Bulgu:** 133 işlemin 133'ünde açılış bacağının GL'i ile vade bacağının GL'i AYNI (FARKLI = 0).
+Mirror'ın varsayımı bu veritabanında hep tutuyor → bu DB'de dekont sorunu ÜRETİLEMEZ.
+Osman/Münire'nin tarif ettiği ayrı hesap aileleri (incoming 280/281, outgoing 392/393) bu DB'nin hesap
+planında yok. Prod'un hesap planı buradan görülemez; "prod'da farklı" çıkarımı kullanıcı beyanına dayanıyor.
+
+## 22 — InterbankLoan açılış/vade fişi ödeme bacakları (NetTrexMM_134)
+```
+Dir|MType|Src               |Adet
+BRW|1    |IncomingPaymentLCY|16
+PLC|1    |OutgoingPaymentLCY|10
+PLC|4    |IncomingPaymentLCY|4
+BRW|1    |IncomingPaymentFCY|4
+BRW|4    |OutgoingPaymentLCY|2
+```
+**Bulgu:** Loan'da da MM ile aynı desen — vade fişi BRW'de Outgoing, PLC'de Incoming üretiyor.
+Step 17'nin loan updater'ı tetiklenecek.

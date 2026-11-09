@@ -499,13 +499,21 @@ ile sarmala — emsal: `9-NetTrexCommon-SwiftMessageFullScript.sql`. `CREATE OR 
 kendi batch'inde bırak, sarmalamaya gerek kalmaz.
 
 🔴 **Yeni trigger'ı AÇIK KOLON LİSTESİYLE yaz.** MM'de iki kuşak var:
-- Eski (`PrdProductDefinitionTrigger`): `INSERT INTO …History SELECT * FROM inserted;` — `BEGIN/END` ve
-  `SET NOCOUNT ON` bile yok. **Kopyalama.**
+- Eski (`SELECT * FROM inserted`, `BEGIN/END` ve `SET NOCOUNT ON` bile yok) — **kopyalama.**
+  `PrdProductDefinitionTrigger` 2026-11-09'a kadar böyleydi; `NetTrex.MM/.ai-agent/outputs/2026-11-09-ProductDefinition-VisibleScreens/`
+  ile açık listeye çevrildi.
 - Doğru (`TxnMMTrigger`): `SET NOCOUNT ON;` + `INSERT INTO [dbo].[TxnMMHistory] ([AccountNumber],[BasisCode],…)
   SELECT [AccountNumber],[BasisCode],… FROM inserted;`
 
 `SELECT *` kolon **sırasına** bağımlıdır; ana tabloya kolon eklendiğinde History'ye de **aynı sırada**
 eklenmezse trigger sessizce yanlış kolona yazar.
+
+🔑 **Kolon ekle + backfill + trigger yenile deseni (emsal: `2026-11-09-ProductDefinition-VisibleScreens/1-…sql`):**
+(1) trigger'ı **önce DROP** et → backfill History'ye sahte satır yazmaz (Gotcha 20'nin `DISABLE`'sız çözümü);
+(2) backfill'i kolonu ekleyen `IF NOT EXISTS` bloğunun **içinde** `EXEC(N'UPDATE …')` ile koş → aynı batch'te
+"Invalid column name" olmaz **ve** tekrar koşuda ekrandan yapılmış ayarlar ezilmez;
+(3) trigger'ı ayrı batch'te `CREATE OR ALTER` + açık kolon listesiyle yeniden yaz. Hepsi `SET XACT_ABORT ON` +
+tek transaction; bir adım patlarsa DROP da geri gelir.
 
 **Log/append-only tablo History istemez** — gerekçesini script notuna yaz.
 

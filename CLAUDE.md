@@ -28,35 +28,36 @@ Detaylı mimari (portlar, bağlantı topolojisi, hangi modül nerede) → [`.ai-
 
 ### Backend (modül API'leri)
 
-| Repo | Modül | Klon | `CLAUDE.md` |
-|------|-------|:----:|:-----------:|
-| `NetTrex.MM` | Money Market + InterbankLoan + IssueBond | ✅ | ✅ |
-| `NetTrex.Fx` | FX + PM (kıymetli maden) | ✅ | ⬜ |
-| `NetTrex.Common` | Ortak/referans veri, menü, parametre, SWIFT + 4 DB projesi (`TrexCommon`, `TrexFramework`, `TrexFI`, `TaoBase_Net`) | ✅ | ✅ |
-| `NetTrex.Accounting` | Muhasebe motoru | ✅ | ⬜ |
-| `NetTrex.OptionsFX` | FX Opsiyon | ✅ | ⬜ |
-| `NetTrex.DerivSwp` | Türev / Swap | ✅ | ⬜ |
-| `NetTrex.InvFund` | Yatırım Fonu | ❌ | — |
+| Repo                   | Modül                                                                                                                                                       | Klon | `CLAUDE.md` |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | :--: | :-----------: |
+| `NetTrex.MM`         | Money Market + InterbankLoan + IssueBond                                                                                                                     |  ✅  |      ✅      |
+| `NetTrex.Core`       | Ortak kütüphane/NuGet'ler — 🔴 **Accounting Engine kaynağı** (`NetTrex.Core.Accounting.Engine`); `wiki/` var. Diğer paketler tespit edilmedi |  ✅  |      ⬜      |
+| `NetTrex.Fx`         | FX + PM (kıymetli maden)                                                                                                                                    |  ✅  |      ⬜      |
+| `NetTrex.Common`     | Ortak/referans veri, menü, parametre, SWIFT + 4 DB projesi (`TrexCommon`, `TrexFramework`, `TrexFI`, `TaoBase_Net`)                                 |  ✅  |      ✅      |
+| `NetTrex.Accounting` | Muhasebe motoru                                                                                                                                              |  ✅  |      ⬜      |
+| `NetTrex.OptionsFX`  | FX Opsiyon                                                                                                                                                   |  ✅  |      ⬜      |
+| `NetTrex.DerivSwp`   | Türev / Swap                                                                                                                                                |  ✅  |      ⬜      |
+| `NetTrex.InvFund`    | Yatırım Fonu                                                                                                                                               |  ❌  |      —      |
 
 ### UI
 
-| Repo | Ne | Klon | `CLAUDE.md` |
-|------|----|:----:|:-----------:|
-| `NetTrex.Web.UI` | **Monolit UI** (`Trex.WebUI`) — tüm modüllerin ekranları | ✅ | ✅ |
-| `Treasy.MM.UI` | MM Micro UI | ✅ | ✅ |
-| `Treasy.Common.UI` | **Ortak Micro UI** — Micro UI'lerin paylaştığı UI katmanı | ✅ | ⬜ |
-| `Treasy.Shell` | Micro UI **host** — YARP reverse proxy + HTML rewrite | ❌ | — |
-| `Treasy.MicroUI.Packages` | `SharedDependency` (RCL) + 12 npm paketi (`@treasy/*`) | ❌ | — |
-| `Treasy.MicroUI.Base` | Micro UI iskeleti + sıfırdan kurma rehberi | ❌ | — |
-| `Treasy.OptionsFX.UI` | OptionsFX Micro UI (ilk örnek, pattern referansı) | ❌ | — |
-| `Treasy.MicroUI.Deriv` | Deriv Micro UI | ❌ | — |
+| Repo                        | Ne                                                                    | Klon | `CLAUDE.md` |
+| --------------------------- | --------------------------------------------------------------------- | :--: | :-----------: |
+| `NetTrex.Web.UI`          | **Monolit UI** (`Trex.WebUI`) — tüm modüllerin ekranları  |  ✅  |      ✅      |
+| `Treasy.MM.UI`            | MM Micro UI                                                           |  ✅  |      ✅      |
+| `Treasy.Common.UI`        | **Ortak Micro UI** — Micro UI'lerin paylaştığı UI katmanı |  ✅  |      ⬜      |
+| `Treasy.Shell`            | Micro UI **host** — YARP reverse proxy + HTML rewrite          |  ❌  |      —      |
+| `Treasy.MicroUI.Packages` | `SharedDependency` (RCL) + 12 npm paketi (`@treasy/*`)            |  ❌  |      —      |
+| `Treasy.MicroUI.Base`     | Micro UI iskeleti + sıfırdan kurma rehberi                          |  ❌  |      —      |
+| `Treasy.OptionsFX.UI`     | OptionsFX Micro UI (ilk örnek, pattern referansı)                   |  ❌  |      —      |
+| `Treasy.MicroUI.Deriv`    | Deriv Micro UI                                                        |  ❌  |      —      |
 
 ### Diğer
 
-| Repo | Ne | Klon |
-|------|----|:----:|
-| `PlayWright` | E2E test paketi (Playwright/TypeScript) | ❌ — `repos\` altında **yok**; arşiv kopyası `C:\Users\TREASY-49\Desktop\repo\PlayWright\` |
-| `ai-agent-context-kit` | Bu md metodolojisinin kaynağı — konvansiyon değişikliği önce buraya | ❌ `repos\` altında değil → `C:\Users\TREASY-49\Desktop\repo\ai-agent-context-kit\` |
+| Repo                     | Ne                                                                         |                                                   Klon                                                   |
+| ------------------------ | -------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------: |
+| `PlayWright`           | E2E test paketi (Playwright/TypeScript)                                    | ❌ — `repos\` altında **yok**; arşiv kopyası `C:\Users\TREASY-49\Desktop\repo\PlayWright\` |
+| `ai-agent-context-kit` | Bu md metodolojisinin kaynağı — konvansiyon değişikliği önce buraya |        ❌ `repos\` altında değil → `C:\Users\TREASY-49\Desktop\repo\ai-agent-context-kit\`        |
 
 ---
 
@@ -90,10 +91,12 @@ Repo-özel Hard Rule'lara **ek**tir; ihlal edilmez.
     **Neden:** sıkıştırma anına tepki vermek güvenilmez — kural o anda gözden kaçan ilk şey oluyor.
     Nitekim 2026-08-12'ye kadar `NetTrex.MM`'de hiç hook kurulu olmadığı için **hiçbir compact yazılmadı**;
     2026-08-17 — 2026-10-02 arasında da hook yolları ölü olduğu için **hiçbir repoda compact yazılmadı**.
+
 <!-- HR 12 (2026-09-04'te eklenmişti) 2026-10-02'de yeniden yazıldı: arşiv kopyası 2026-08-13 tarihli
      olduğu için kuralın orijinal metnini taşımıyordu. Kaynaklar: MEMORY.md s.284 (ölçüm) ·
      NetTrex.MM/.ai-agent/outputs/2026-08-31-Eximbank-Teslim/3-Senior-Kod-Incelemesi.md § I.6 (kuralın özeti) ·
      MEMORY.md s.174 (STJ DateTime ölçüm matrisi). Orijinal ifade birebir değildir. -->
+
 12. 🔴 **Tarih kaynağı — üç ayrı karar, üç ayrı mekanizma.**
     - **Kayıt damgası** (`CreateDate`, `UpdateDate` gibi) → `IDateTimeProvider`. `DateTime.Now` / `DateTime.Today` **yazma**.
     - **İş günü kararı** (vade, valör, "geçmiş/gelecek tarih" reddi) → **`GetLogicalDateAsync()`**.
@@ -105,14 +108,26 @@ Repo-özel Hard Rule'lara **ek**tir; ihlal edilmez.
       Offset'li gönderimde STJ sunucu yerel saatine çevirir → **gün sessizce kayar**. `DateOnly` saat/offset/nokta
       biçimlerinin **hepsini** reddeder, yalnız `yyyy-MM-dd` geçer. `DateOnly?` + zorunluluk kontrolü **birlikte**
       kullanılır (gönderilmezse `default` = `0001-01-01`).
-    **Emsal:** MM Manuel Reeskont validator'ü `DateTime.Today` ile "future date" reddi yapıyordu → `IIBUAE-886` (UAE kurulumu).
+      **Emsal:** MM Manuel Reeskont validator'ü `DateTime.Today` ile "future date" reddi yapıyordu → `IIBUAE-886` (UAE kurulumu).
+
+13. 🔴🔴 **InterbankLoan (IL) işinde BİRİNCİ ÖNCELİK `InterbankLoan:Enabled` — araştırmada da kodda da İLK bakılan şey.**
+    IL ayrıca satılan bir MM ürünü; bazı müşterilerde yok → flag `false`, `TxnLoan` ve bağlı tablolar DB'de **yok**.
+    Kullanıcının sözü (2026-11-09): *"InterbankLoan ile ilgili bir geliştirme yaz dersem bu konuyu her zaman ilk ve
+    en önemli önceliğin haline getirmen lazım… araştırmalarında birinci önceliğin olsun."*
+    **IL'e dokunan HER araştırma/plan/kod/review şu 4 soruyla BAŞLAR — cevaplar plana yazılır:**
+    (1) **Okuma:** `IHelper.GetIsEnabledInterbankLoanModule()` (`InterbankLoan:Enabled`, default `false`).
+    (2) **Backend:** flag kapalıyken IL isteği → `PRODUCT_DISABLED`, `TxnLoan`'a / IL veri katmanına **hiç gidilmez**.
+    (3) **UI:** IL seçeneği/ekranı/kolonu yalnız flag açıkken görünür — liste sabit yazılmaz, MM'in ucundan gelir
+        (emsal `GET api/value-maturity-report/products`, `GET api/manual-rediscount/products`); MM'e ulaşılamazsa IL gizlenir.
+    (4) **Test:** flag **açık + kapalı** iki durum da test edilir.
+    MM↔IL ayrımı strategy pattern'le korunur (`IsApplicable == MoneyMarket / InterbankLoan`). Detay: `Treasy.MM.UI` Hard Rule 13.
 
 ---
 
 ## Aktif Cross-Repo İşler
 
-| İş | Kapsadığı repolar | Pano |
-|----|-------------------|------|
+| İş                                                | Kapsadığı repolar                                                                                                                                                 | Pano                                                                                                    |
+| --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
 | **Manuel Reeskont — generic base component** | **Faz 1:** `NetTrex.Web.UI` + `NetTrex.MM` · **Faz 2:** `NetTrex.Fx` (+FI, InvFund) · **Faz 3:** `Treasy.MicroUI.Packages` + MicroUI'ler | [`.ai-agent/feature-research/manuel-reeskont/00-PANO.md`](feature-research/manuel-reeskont/00-PANO.md) |
 
 > 🔴 **Manuel Reeskont'ta `NetTrex.Common` KULLANILMIYOR** (kullanıcı kararı 2026-08-12 → `ADR-MR-015`).
@@ -123,6 +138,7 @@ Repo-özel Hard Rule'lara **ek**tir; ihlal edilmez.
 
 > 🔴 **ColManagement (eski adı Collateral) modülü — geliştirme/review öncesi MD'LER OKUNUR.**
 > Kullanıcı bu modülle ilgili bir iş istediğinde, koda/script'e dokunmadan **önce**:
+>
 > 1. [`.ai-agent/feature-research/ColManagement-Feature/02-DURUM.md`](feature-research/ColManagement-Feature/02-DURUM.md)
 >    — 🔴 **nerede kaldık**, hangi faz, ne bloke, kullanıcının kendi sözleri
 > 2. [`00-YOL-HARITASI.md`](feature-research/ColManagement-Feature/00-YOL-HARITASI.md) — iş ne, fazlar, değişmez kurallar
@@ -133,6 +149,22 @@ Repo-özel Hard Rule'lara **ek**tir; ihlal edilmez.
 > — token israfı. Hangi işte hangisi gerektiği `00-INDEX.md`'de tablo hâlinde.
 > 🔴 **Modül adı `ColManagement`** (2026-10-08 son karar). Repo adları hâlâ `*.Collateral` — kullanıcı rename edecek.
 > 🔴 **"compact" denince ÖNCE `02-DURUM.md` güncellenir**, sonra `compacts/<chat-slug>/compact-<n>.md`.
+
+> 💰 **MUHASEBE (accounting) — soru/iş ne olursa, cevap vermeden ve koda/script'e/Excel'e dokunmadan ÖNCE MD'LER OKUNUR.**
+> Tetikleyiciler: *muhasebe · accounting · GL · fiş · ters fiş · reeskont kuralı · `AccEngine*` · `AccEntry*` · `AccAccountMap` ·
+> `DefNumberGen` · THP · tekdüzen hesap planı · yatırım/katılım THP · kırılım · muhasebe Excel'i (BRWPLC/MM/OptionsFX/Dost/Dünya/Tera) ·
+> `TargetMainGL` · `Fund Type` · "bu işlem hangi hesaba düşer" · THP kodu (`022010`, `328`, `126000`…)*.
+> **Okuma sırası (ezberden cevap verme):**
+>
+> 1. [`skills/accounting-db-script.md`](skills/accounting-db-script.md) — motor/DB/script; **ADIM 0** onu yönlendirir
+> 2. [`skills/accounting-excel-thp.md`](skills/accounting-excel-thp.md) — Excel/THP/kırılım, Excel değişiklik prosedürü
+> 3. Bilgi tabanı: `NetTrex.MM/.ai-agent/feature-research/Accounting-Engine-research.md` (motor) ·
+>    `NetTrex.MM/.ai-agent/feature-research/Accounting-Excel-THP-research.md` (Excel + THP)
+> 4. Satır satır kırılım gerekirse: `outputs/2026-10-27-Accounting-Excel-THP/kirilim-*.md`; THP kodu arama `thp-*-index.tsv`
+>
+> 🔴 Script **çalıştırılmaz** (`outputs/`'a yazılır, Selim uygular) · Id'ler IDENTITY değil (`DefNumberGen`) · THP **PDF**'tir ve yatırım PDF'i
+> `-layout`'ta **kayar** (ham mod + sayfa doğrula) · Excel'i **versiyonlu kopyada** değiştir, orijinali ezme · yeni öğrenileni **research dosyasına** işle.
+> cwd `NetTrex.MM` ise ilgili skill'ler (`accounting-db-script`, `accounting-excel-thp`) ayrıca otomatik tetiklenir.
 
 > Bir iş **birden fazla repoya** dokunuyorsa panosu **buraya** açılır (`.ai-agent/<is-adi>/`), tek repoya
 > dokunuyorsa o reponun kendi `.ai-agent/`'ında kalır.
@@ -163,28 +195,28 @@ Parola maskelenir. `<chat-slug>` = `compacts/` ile aynı. **Kullanıcı DB eriş
 
 ## Değişiklik Sonrası — MD Görevleri
 
-| Olay | Ne yapılır |
-|------|-----------|
-| **Anlamlı bir iş bitti/ilerledi** (cross-repo iş) | `.ai-agent/<is-adi>/progress/` altına **YENİ NUMARALI** dosya + `_index.md`'ye satır. **Önceki dosyaları asla düzenleme/silme.** |
-| **Cross-repo mimari değişti** (yeni repo, port, paket sürümü, sözleşme, topoloji) | `.ai-agent/PROJECT_CONTEXT.md` |
-| **Yeni karar / tuzak / tercih** (cross-repo) | `.ai-agent/MEMORY.md` — promotion rule dosyanın başında |
-| **Tek repoya özel** her şey | O reponun kendi `.ai-agent/`'ı |
-| **Bağlam ~%70** VEYA `/compact` VEYA sıkıştırma sonrası ilk tur | Hard Rule 10 → `compacts/<chat-slug>/compact-<n>.md` (**yeni** numaralı dosya) |
-| **Oturum kapanışı** ("bitti/kaydet/özet/arşivle") | `.ai-agent/sessions/` — onay beklemeden. Session dosyalarını **silme** (kullanıcı siler). |
+| Olay                                                                                           | Ne yapılır                                                                                                                                           |
+| ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Anlamlı bir iş bitti/ilerledi** (cross-repo iş)                                     | `.ai-agent/<is-adi>/progress/` altına **YENİ NUMARALI** dosya + `_index.md`'ye satır. **Önceki dosyaları asla düzenleme/silme.** |
+| **Cross-repo mimari değişti** (yeni repo, port, paket sürümü, sözleşme, topoloji) | `.ai-agent/PROJECT_CONTEXT.md`                                                                                                                       |
+| **Yeni karar / tuzak / tercih** (cross-repo)                                             | `.ai-agent/MEMORY.md` — promotion rule dosyanın başında                                                                                          |
+| **Tek repoya özel** her şey                                                            | O reponun kendi `.ai-agent/`'ı                                                                                                                      |
+| **Bağlam ~%70** VEYA `/compact` VEYA sıkıştırma sonrası ilk tur                  | Hard Rule 10 → `compacts/<chat-slug>/compact-<n>.md` (**yeni** numaralı dosya)                                                               |
+| **Oturum kapanışı** ("bitti/kaydet/özet/arşivle")                                   | `.ai-agent/sessions/` — onay beklemeden. Session dosyalarını **silme** (kullanıcı siler).                                                 |
 
 ---
 
 ## Çalışma Alanları
 
-| Klasör | Ne için |
-|--------|---------|
-| [.ai-agent/START-HERE.md](START-HERE.md) | Yeni session açılış protokolü — okuma sırası, "nerede kaldık" |
-| [.ai-agent/PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) | **Genel mimari** — repo topolojisi, portlar, hangi modül nasıl kullanılır, ADR'ler |
-| [.ai-agent/MEMORY.md](MEMORY.md) | Cross-repo karar / tuzak / tercih (inbox — promotion rule geçerli) |
-| [.ai-agent/feature-research/manuel-reeskont/](feature-research/manuel-reeskont/) | Aktif cross-repo iş: analiz + mimari + sözleşme + progress |
-| [.ai-agent/skills/](skills/) | Cross-repo prosedürler |
-| [.ai-agent/compacts/](compacts/) | Sıkıştırma öncesi detay kurtarma (komut, hatanın aynısı, karar gerekçesi). **Yeni oturumda ve sıkıştırma sonrasında OKUNUR** — kullanıcının kendi kelimeleriyle ne istediği burada |
-| [.ai-agent/sql-log/](sql-log/_index.md) | 🔴 **DB erişim denetim kaydı** — sohbet başına klasör, istisnasız her sorgu + çıktısı |
-| [.ai-agent/sessions/](sessions/) | Oturum kapanış arşivleri |
-| [.ai-agent/imports/](imports/) | Kullanıcının cross-repo analiz için bıraktığı dosyalar |
-| [.ai-agent/outputs/](outputs/) | Büyük çıktılar — sohbete basmak yerine buraya yaz, yolu bildir |
+| Klasör                                                                         | Ne için                                                                                                                                                                                                    |
+| ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [.ai-agent/START-HERE.md](START-HERE.md)                                         | Yeni session açılış protokolü — okuma sırası, "nerede kaldık"                                                                                                                                      |
+| [.ai-agent/PROJECT_CONTEXT.md](PROJECT_CONTEXT.md)                               | **Genel mimari** — repo topolojisi, portlar, hangi modül nasıl kullanılır, ADR'ler                                                                                                               |
+| [.ai-agent/MEMORY.md](MEMORY.md)                                                 | Cross-repo karar / tuzak / tercih (inbox — promotion rule geçerli)                                                                                                                                        |
+| [.ai-agent/feature-research/manuel-reeskont/](feature-research/manuel-reeskont/) | Aktif cross-repo iş: analiz + mimari + sözleşme + progress                                                                                                                                               |
+| [.ai-agent/skills/](skills/)                                                     | Cross-repo prosedürler                                                                                                                                                                                     |
+| [.ai-agent/compacts/](compacts/)                                                 | Sıkıştırma öncesi detay kurtarma (komut, hatanın aynısı, karar gerekçesi). **Yeni oturumda ve sıkıştırma sonrasında OKUNUR** — kullanıcının kendi kelimeleriyle ne istediği burada |
+| [.ai-agent/sql-log/](sql-log/_index.md)                                          | 🔴 **DB erişim denetim kaydı** — sohbet başına klasör, istisnasız her sorgu + çıktısı                                                                                                      |
+| [.ai-agent/sessions/](sessions/)                                                 | Oturum kapanış arşivleri                                                                                                                                                                                 |
+| [.ai-agent/imports/](imports/)                                                   | Kullanıcının cross-repo analiz için bıraktığı dosyalar                                                                                                                                              |
+| [.ai-agent/outputs/](outputs/)                                                   | Büyük çıktılar — sohbete basmak yerine buraya yaz, yolu bildir                                                                                                                                        |

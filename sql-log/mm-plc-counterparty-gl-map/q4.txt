@@ -1,0 +1,10 @@
+Id|Name|Type|StateId|Rule
+--|----|----|-------|----
+12661|UseExternalGLAccount = 0|0|18|TxnModel.UseExternalGLCode === false
+12660|UseExternalGLAccount = 1|0|18|TxnModel.UseExternalGLCode === true
+12378|Pas|0|18|TxnModel.ProductId === 7
+12360|Kamu Mevduat Bankalari|0|18|TxnModel.CorporateDetailType === 33
+12359|Mali Kesim|0|18|TxnModel.CorporateType === 4
+12355|Market = OTC|0|18|TxnModel.MarketCode === 'OTC'
+12351|Customer Location = DOM|0|18|TxnModel.CustomerLocation === 'DOM'
+12349|IsAccountNeeded = 1|0|18|TxnModel.IsAccountNeeded === true

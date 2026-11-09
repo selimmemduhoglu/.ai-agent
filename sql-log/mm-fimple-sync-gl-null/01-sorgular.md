@@ -220,3 +220,67 @@ HAVING (SUM(CASE WHEN e.Source LIKE 'Incoming%Payment%' AND e.Source NOT LIKE '%
         AND SUM(CASE WHEN e.Source LIKE 'Outgoing%AgentPayment%' THEN 1 ELSE 0 END) > 0)
 ORDER BY m.Id DESC;
 ```
+
+## 19 — Vade (maturation) fişlerinde ödeme bacağı Source'u: BRW vs PLC
+Amaç: Osman'ın "vadede BRW'de outgoing, PLC'de incoming bacağı doğuyor" iddiasını doğrulamak.
+Vade fişi (AccEntryMain.Type=4 varsayımı) hangi yönde ödeme bacağı üretiyor? (TMMBRW=borrow, TMMPLC=placement)
+```sql
+SET NOCOUNT ON;
+SELECT TOP (20) LEFT(t.LogicalReference,6) AS Pfx, m.Type AS MType, e.Source, COUNT(*) AS Adet
+FROM dbo.TxnMM t
+JOIN dbo.AccEntryMain m ON m.TxnId = t.Id
+JOIN dbo.AccEntry e ON e.AccEntryMainId = m.Id
+WHERE e.Source LIKE '%Payment%' AND t.LogicalReference LIKE 'TMM%'
+GROUP BY LEFT(t.LogicalReference,6), m.Type, e.Source
+ORDER BY COUNT(*) DESC;
+```
+
+## 20 — Vadesi gelmiş işlemlerde Fimple'a giden TxnSync GL durumu
+Amaç: Vade günü Fimple'daki işlem kaydında hangi bacak boş kalıyor (Osman'ın tarif ettiği boşluk)?
+```sql
+SET NOCOUNT ON;
+SELECT TOP (20) LEFT(t.LogicalReference,6) AS Pfx,
+       CASE WHEN s.IncomingPaymentAccountingGL IS NULL THEN 'null' ELSE 'dolu' END AS SyncIn,
+       CASE WHEN s.OutgoingPaymentAccountingGL IS NULL THEN 'null' ELSE 'dolu' END AS SyncOut,
+       COUNT(*) AS Adet
+FROM dbo.TxnMM t JOIN dbo.TxnSync s ON s.LogicalReference = t.LogicalReference
+WHERE t.IsMatured = 1 AND t.LogicalReference LIKE 'TMM%'
+GROUP BY LEFT(t.LogicalReference,6),
+         CASE WHEN s.IncomingPaymentAccountingGL IS NULL THEN 'null' ELSE 'dolu' END,
+         CASE WHEN s.OutgoingPaymentAccountingGL IS NULL THEN 'null' ELSE 'dolu' END
+ORDER BY COUNT(*) DESC;
+```
+
+## 21 — Açılış bacağının GL'i ile vade bacağının GL'i aynı mı? (mirror varsayımı testi)
+Amaç: Osman "işlem kapanmadığı için hangi GL'in çalışacağını bilmiyoruz" dedi. Mirror, vade bacağının GL'inin
+açılış bacağıyla AYNI olacağını varsayıyor. Bu varsayım gerçek veride ne sıklıkta tutuyor?
+```sql
+SET NOCOUNT ON;
+SELECT TOP (20) LEFT(t.LogicalReference,6) AS Pfx,
+       CASE WHEN o.GLCode = c.GLCode THEN 'AYNI' ELSE 'FARKLI' END AS AcilisVsVade,
+       COUNT(*) AS Adet
+FROM dbo.TxnMM t
+JOIN (SELECT m.TxnId, MAX(e.GLCode) AS GLCode FROM dbo.AccEntryMain m
+      JOIN dbo.AccEntry e ON e.AccEntryMainId = m.Id
+      WHERE m.Type = 1 AND e.Source LIKE '%Payment%' GROUP BY m.TxnId) o ON o.TxnId = t.Id
+JOIN (SELECT m.TxnId, MAX(e.GLCode) AS GLCode FROM dbo.AccEntryMain m
+      JOIN dbo.AccEntry e ON e.AccEntryMainId = m.Id
+      WHERE m.Type = 4 AND e.Source LIKE '%Payment%' GROUP BY m.TxnId) c ON c.TxnId = t.Id
+WHERE t.LogicalReference LIKE 'TMM%'
+GROUP BY LEFT(t.LogicalReference,6), CASE WHEN o.GLCode = c.GLCode THEN 'AYNI' ELSE 'FARKLI' END
+ORDER BY COUNT(*) DESC;
+```
+
+## 22 — InterbankLoan vade fişinde ödeme bacağı Source'u (TxnLoan)
+Amaç: Step 17'nin loan updater'ı ancak vade fişi IncomingPayment/OutgoingPayment Source'lu bacak üretirse çalışır.
+Loan vade (Type=4) ve açılış (Type=1) fişlerinde hangi Source'lar var?
+```sql
+SET NOCOUNT ON;
+SELECT TOP (20) t.TxnTypeCode, m.Type AS MType, ISNULL(e.Source,'<NULL>') AS Src, COUNT(*) AS Adet
+FROM dbo.TxnLoan t
+JOIN dbo.AccEntryMain m ON m.TxnId = t.Id
+JOIN dbo.AccEntry e ON e.AccEntryMainId = m.Id
+WHERE m.Type IN (1, 4) AND e.Source LIKE '%Payment%'
+GROUP BY t.TxnTypeCode, m.Type, e.Source
+ORDER BY COUNT(*) DESC;
+```

@@ -16,8 +16,17 @@ ItemCode · AccountRule · component type · muhasebe kuralı ekle/sil*
 NetTrex.MM/.ai-agent/feature-research/Accounting-Engine-research.md
 ```
 
-Motorun yapısı, tablo zinciri, `DefNumberGen`, script anatomisi, gerçek `Revaluation` GL kuralı ve
-**doğrulanmamış maddeler** orada. **Ezberden cevap verme** — bu dosya + DB tek doğru kaynak.
+Motorun yapısı, tablo zinciri, `DefNumberGen`, script anatomisi, gerçek `Revaluation` GL kuralı,
+**AccAccountMap seçim algoritması (§4.10)** ve **doğrulanmamış maddeler** orada. **Ezberden cevap verme** — bu dosya + DB tek doğru kaynak.
+
+🔴 **Soru Excel / THP / kırılım / "hangi hesaba düşer" ise ikinci ayak** (2026-10-27):
+
+```text
+NetTrex.MM/.ai-agent/feature-research/Accounting-Excel-THP-research.md   (Excel anatomisi · THP · kırılım tabloları · tutarsızlıklar)
+repos/.ai-agent/skills/accounting-excel-thp.md                          (Excel değişiklik prosedürü + Gotcha E-01…E-10)
+```
+
+Yani muhasebe işi **iki bilgi dosyasından** beslenir: motor/DB → `Accounting-Engine-research.md`, Excel/THP → `Accounting-Excel-THP-research.md`.
 
 DB'ye bakman gerekiyorsa → [`mssql-read`](mssql-read.md) skill'i (🔴 yalnız `SELECT`, her sorgu log'lanır).
 
@@ -240,7 +249,26 @@ LCY işlemde `FxPosition` köprüsü **gerekmez** (2 satır).
 ### `ComponentTypeCode` kodları
 
 `502`/`503` Opening (BRW/PLC) · `504`/`505` Maturation · `507` ve `506`+`110` Payment ·
-**`510` Revaluation** · `512` (anlamı doğrulanmadı)
+**Revaluation = `512` (Dost/Dünya Excel Shared) / `510` (Tera Excel Shared)** · `511` Commission (yalnız Tera) ·
+OptionsFX: `515–518` BUY/SELL CALL/PUT · `519/520` Premium · `508/509` MTM · `521–524` Cash Settlement/Derivative Realized.
+🔴 **Workbook'a bağlı** — script yazarken **o workbook'un Shared sayfasından** kopyala; hangisi canlı `AccEngineComponentType` →
+`mssql-read` ile doğrula (**tespit edilmedi**). Ayrıntı: `Accounting-Excel-THP-research.md` §2.1
+
+---
+
+## 6.5 `AccAccountMap` seçimi — özet (detay: research **§4.10**)
+
+Engine **NetTrex.Core** repo'sundadır (NuGet `NetTrex.Core.Accounting.Engine`), modülün **kendi process'inde** koşar; Accounting API yalnız DB okur + Redis doldurur.
+`NetTrex.Accounting/Code/Accounting/*Engine*` **eski nesildir** — davranışı oradan okuma.
+
+```text
+adaylar = Source == rule.GLCode (ordinal, harf duyarlı) AND IsEnabled AND (Path NULL OR EventPath.Contains(Path))
+sıra    = ORDER BY Order (stabil; eşitse listedeki = DB dönüş sırası, ikinci kriter YOK)
+seçim   = sırayla ilk "tüm Rule1..Rule10'u geçen" satır (kuralsız = her zaman geçer) ; hiçbiri → GLCode aynen kalır
+sonra   = MM HandleMap: Source == (Target) AND Ccy == Fcy  → para birimi bölme (SingleOrDefault, Path/Order yok)
+```
+
+Yeni satır yazarken: `Source` harfi harfine · `Path` slash'sız · catch-all **en yüksek Order** · yazdıktan sonra **map cache'ini temizle** (24 saat TTL).
 
 ---
 
@@ -277,6 +305,23 @@ LCY işlemde `FxPosition` köprüsü **gerekmez** (2 satır).
 | **A-14** | Kok `Path`'ler slash'li/slash'siz **karisik** (`TREX/FI` vs `TREX/MM/`); `LIKE 'TREX/X%'` yanlis koke uzanir. `= X` / `= X/` / `LIKE X/%` uclusunu kullan |
 | **A-15** | Ayni `ItemCode` baska agacin altinda olabilir (`TREX/SEC1/FI`) - silinmeyenleri script **ekrana bassin** |
 | **A-09** | MM `AccountingType.Manuel = 5`'in motordaki karşılığı **tespit edilmedi** — manuel fiş tipi sorusunda varsayma |
+| **A-19** | 🔴 Güncel engine **`NetTrex.Core`**'da; `NetTrex.Accounting/Code/Accounting/*Engine*` **eski nesil** (Roslyn, map mantığı yok). Motor davranışı sorusunda oraya bakma |
+| **A-20** | Map seçiminde **Path öncelik vermez**, yalnız eler (`EventPath.Contains(Path)`); sıra **Order**; eşit Order'da ikinci kriter yok (DB dönüş sırası) |
+| **A-21** | `Source` karşılaştırması motorda **ordinal** (`FxPositionLCY` ≠ `FXPositionLCY`), DB/popup'ta **harf duyarsız** — popup'ta görünen satır seçilen satır **değil** |
+| **A-22** | Kuralsız map satırı her zaman geçer → sonrasındaki satırları gölgeler; catch-all'u en yüksek `Order`'a koy |
+| **A-23** | Map cache (`Netix.AccAccountingMapDefinition`, 24 saat) yalnız **Verify**/Sync'te temizlenir; script'le yazılan satır cache temizlenmeden **motora görünmez** |
+| **A-25** | 🔴 Map satırının `RuleIdN`'i **verified olmayan ya da var olmayan** dynamic rule'a işaret ederse kural **sessizce atlanır** → satır **daha geniş** eşleşir (kural kalmazsa catch-all). Yanlış koşulda seçilen satırda önce rule'ların `StateId`'sine bak |
+| **A-26** | `AccountingSqlGenerator.ts` (`imports/`) idempotency anahtarı **`Order`/`IsEnabled`/`Description`'ı içermez** — yalnız bunları değiştirip tekrar koşturmak **no-op**. Güncelleme için UPDATE script'i yaz (+ cache temizle) |
+| **A-27** | `NetTrex.Core` **kütüphane**; ona HTTP isteği atılmaz. MM → Accounting API'ye yalnız `/AccAccountingMap/Select` (**boş gövde**) gider; model hiç gönderilmez, seçim MM process'inde |
+| **A-28** | 🔴 Dynamic rule JS'i (`TxnModel.X`) **derlenmez**: modelde olmayan property → `undefined` → kural **sessizce hep false**, hata yok. Canlı olay (2026-10-26): kural `12660/12661` `UseExternalGLCode` okuyordu (model: `UseExternalGLAccount`) → 110 `CounterPartyGLAccount` map satırı seçilmedi, fişte GL **sembolik adıyla** kaldı. Yeni kuralda property adını `AccountingEngineModel.cs`'den doğrula; sonra canlı işlemde fişte `AccAccountMapId` dolu mu bak |
+| **A-29** | Excel `Shared` sayfası dynamic rule gövdesinin **kaynağı** (generator oradan SQL basar). DB'deki kuralı düzeltirsen Excel'i de düzelt, yoksa yeniden üretimde bug döner. Tarama: `AccEntry.GLCode` sembolik (`*GLAccount`/`CounterPartyGLAccount`) **ve** `AccAccountMapId IS NULL` = map seçilememiş fiş |
+| **A-30** | Map çıktı alanları **bağımsız**: `GLCode` = `TargetRule` > `Target` > (map yoksa AccountRule.GLCode); `Customer*/Account/WorkGroup/Type` her biri map `*SourceRule` > `AccountRule.*Source` > null. Müşteri kolonları Target'ı **ezmez**, yanına eklenir. Map seçilemezse müşteri/hesap da **boş** kalır. Ödeme map satırları (Rule6=`*AccountingType`, Rule7=`*GLType`): Linked=GL+müşteri+hesap, Ledger=yalnız GL, Cash=GL JS'ten (`*CorrespondentAccountGLCode`). Detay → `Accounting-Engine-research.md` §4.12 |
+| **A-31** | Ödeme map satırlarında **V2V = Vostro** (`PaymentInstructionType` Id 3), A2A = Nostro (Id 2), B2B = BankToBank (Id 1). B2B/A2A `Outgoing|IncomingCorrespondent*` (bizim muhabir hesabımız), Vostro `TheirBeneficiary|TheirSender*` (karşı bankanın bizdeki hesabı) okur. Ekran: We Send=Outgoing, We Receive=Incoming, They Send=TheirSender, They Receive=TheirBeneficiary. Detay → `Accounting-Engine-research.md` §4.12.3 |
+| **A-32** | 🔴 **Excel/THP işi ayrı skill:** kırılım, "hangi hesaba düşer", AccountMap/Shared Excel değişikliği → [`accounting-excel-thp`](accounting-excel-thp.md). `Target`/`TargetMainGL` uyuşmazlığı, THP PDF kayması, workbook başına component kodu orada |
+| **A-33** | `TargetMainGL` fişe **taşınır**, GL'i belirlemez; fişe yazılan hesap `Target`. 2026-10-27 taramasında Excel'lerde **15 satırda** `Target` ≠ `TargetMainGL` prefix (iş birimi teyidi bekliyor) |
+| **A-34** | Kural kolonu (`Rule1..10`) anlamı satır ailesine göre değişir: ürün satırlarında R4=Market…R10=Fund Type, ödeme kaynaklarında (kök Path) R4=PaymentInstructionType…R7=GLType. Rule **adına** göre düşün, kolon numarasına göre değil |
+| **A-35** | Excel'de `Fund Type` (EquityCapital/ParticipationAccounts/InvestmentAgency) **yalnız katılım** workbook'larında; THP son hanesi `0/2/4`. Yatırım (Tera) bunun yerine `Teminatlı/Teminatsız` + TCMB/TAKAS/BIST market'i kullanır |
+| **A-24** | MM `HandleMap` ikinci remap'tir (`Source == Target-GL && Ccy == Fcy`, `SingleOrDefault`): yeni kuralda `Ccy` kolonu kullanma, `(Source,Ccy)` tekrarı exception atar |
 
 ---
 
@@ -287,3 +332,5 @@ LCY işlemde `FxPosition` köprüsü **gerekmez** (2 satır).
   `DubaiScriptGeliştirmesi/BRWPLC-DUBAI` (1.175 satırlık script + 3 temizlik seviyesi) ·
   `Commission/Commission-Accounting` · `Tawarruq`
 - **Kod:** `NetTrex.MM` accounting pipeline'ları, `AccEntryMainEntity`, `AccountingType` enum'ı
+- **Excel + THP (2026-10-27):** `imports/AccountingExcels/` (4 workbook + `AccountingSqlGenerator.ts`), `imports/THP/` (2 PDF) →
+  `Accounting-Excel-THP-research.md` · [`accounting-excel-thp`](accounting-excel-thp.md)

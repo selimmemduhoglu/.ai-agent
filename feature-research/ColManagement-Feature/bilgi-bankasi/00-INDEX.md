@@ -27,9 +27,10 @@
 | *"Tabloları / Excel v6'yı / muhasebeyi / ödemeyi tasarla"* | 🔴 **`10-toplanti-2026-10-08.md`** — patron kararları `02` ve `09`'un önüne geçer |
 | *"Script yaz"* | `05-kurulum-scriptleri.md` → `06-ev-konvansiyonlari.md` → `02-veri-modeli.md` |
 | *"Backend projesini yaz"* | `03-uc-proje-karsilastirma.md` → `06-ev-konvansiyonlari.md` → `02-veri-modeli.md` |
-| *"UI projesini yaz"* | `03-uc-proje-karsilastirma.md` (UI bölümü) + `NetTrex.Collateral/.ai-agent/00-FAZ-PLANI.md` |
+| *"UI ekranını tasarla/anlat"* | 🔴 **`11-ui-ekran-rehberi.md`** — PO'nun kendi prototipi + toplantı #3'ün alan listesi, iş kuralları |
+| *"UI projesini yaz"* | `11-ui-ekran-rehberi.md` → `03-uc-proje-karsilastirma.md` (UI bölümü) |
 | *"Excel'i güncelle"* | `02-veri-modeli.md` → `07-kararlar-ve-sorular.md` |
-| *"Nerede kalmıştık"* | `07-kararlar-ve-sorular.md` → `NetTrex.Collateral/.ai-agent/00-FAZ-PLANI.md` |
+| *"Nerede kalmıştık"* | `../02-DURUM.md` |
 
 ---
 
@@ -47,6 +48,7 @@
 | [`08-tuzaklar.md`](08-tuzaklar.md) | Ölçülmüş tuzaklar — tekrarlanmaması gerekenler | 3 repo + 3 DB ölçümü |
 | [`09-tablolar-neden-var.md`](09-tablolar-neden-var.md) | 🔑 **Domain anlatımı** — teminat nedir, 3 katman neden var, her tablo ne işe yarar, ilişkilerin mantığı, uçtan uca örnek | Doküman + ses kaydı |
 | [`10-toplanti-2026-10-08.md`](10-toplanti-2026-10-08.md) | 🔴 **Patron toplantısı** — ad kesinleşti, scaffolding, tablo revizyonu (Revaluation silindi, master-detail, MarginRule tartışmalı), muhasebe/nazım, Fimple yok, ödeme sistemi | Ses kaydı 2 |
+| [`11-ui-ekran-rehberi.md`](11-ui-ekran-rehberi.md) | 🔴 **3 ekranın alan-seviyesi speki** (Annex/Definition/Transaction), Verify/Delete/Reverse akışı, forward-batch-yok kuralı, Product kataloğu kararı (A-21) | PO'nun dinamik HTML prototipi + ses kaydı 3 |
 
 ---
 
@@ -54,11 +56,12 @@
 
 | Dosya | Ne |
 |---|---|
-| `../Hazine_Teminat_Yonetimi_Fonksiyonel_Teknik_Analiz(1) (1).docx` | **Fonksiyonel + teknik analiz v1.4, 30.09.2026.** §10'da 19 tablonun tam kolon speki |
-| `../2026-10-07-Collateral-DB-Sema-v5.xlsx` | 🔑 **Asıl çalışma dosyası** — 32 sheet. ⚠️ Her güncellemede **versiyon +1 ve yeni dosya adı**; `00_Surum_Gecmisi`’ne ne/neden satırı 
-| `../Collateral-toplantı-ses-kaydı.pdf` | İş birimi toplantısı, 53 sayfa ASR transcript'i |
-| `../Scripts/Ornek_Deriv_Scripts_DDL/Kurulum Scriptleri/` | 🔑 **DerivSwp'un gerçek kurulum script'leri** — Collateral script'lerinin şablonu |
-| `C:\Users\TREASY-49\source\repos\NetTrex.Collateral\.ai-agent\00-FAZ-PLANI.md` | Faz planı, ilerleme, repo-özel kararlar |
+| `../Document/Hazine_Teminat_Yonetimi_Fonksiyonel_Teknik_Analiz(1) (1).docx` | **Fonksiyonel + teknik analiz v1.4, 30.09.2026.** §10'da 19 tablonun tam kolon speki |
+| `../Excels/2026-10-07-Collateral-DB-Sema-v5.xlsx` | 🔑 **Asıl çalışma dosyası** — 32 sheet, `00_UML_Diyagram` canlı. ⚠️ Her güncellemede **versiyon +1 ve yeni dosya adı**; `00_Surum_Gecmisi`'ne ne/neden satırı |
+| `../Ses-Kayıtları-transcript/` | İş birimi toplantıları — 1, 2 (pdf), 3 (docx) ASR transcript'leri |
+| `../Dinamik-Ekran/index.html` | 🔑 **PO'nun kendi hazırladığı UI prototipi** — alan/kontrol/zorunluluk işaretli, `11-ui-ekran-rehberi.md`'nin kaynağı |
+| `../Scripts/Ornek_Deriv_Scripts_DDL/Kurulum Scriptleri/` | 🔑 **DerivSwp'un gerçek kurulum script'leri** — ColManagement script'lerinin şablonu |
+| `C:\Users\TREASY-49\source\repos\Treasy.ColManagement\.ai-agent\` | Repo-özel build komutu, repo-özel tuzak, bu işe pointer |
 | `C:\Users\TREASY-49\source\repos\.ai-agent\skills\db-script.md` | SQL script yazarken **zorunlu** okunacak ev konvansiyonu |
 
 ---

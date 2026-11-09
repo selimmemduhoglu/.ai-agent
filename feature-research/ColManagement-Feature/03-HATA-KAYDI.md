@@ -164,6 +164,13 @@
 | H-093 | `Country` | MM tablo `defCountry` (`Code`/`Name`); OFX tablo `Country` (`CountryCode`/`CountryName`) ve OFX'te **besleyen topic yok** | OFX'te ülke tablosu boş kalır | 🔴 | ✅ topic var | ✅ OFX entity + MM `country-insert` handler'ı + alan eşleyen mapper | Tablo adı Faz 4'te (MM `defCountry` mı OFX `Country` mı) |
 | H-094 | `FloatingRateType` | MM'in **kendi modül tablosu**; `InterestRateService.GetFloatingRateAsync` buna bağlı | Tasarımda (Excel) yok | — | — | ⏸ MM'den aynen (entity · config · DataManager) | Excel v6'da tablo kararı |
 | H-095 | MM `UiCultureActionFilterAttribute` | Tanımlı, hiçbir yerde kullanılmıyor | Ölü kod | — | 🔴 | ➖ | Sil |
+| H-096 | Annex Create/Update handler | Mapster `Adapt` `ProductScopes`/`MarginRules` navigation'larını da kopyalıyor; handler ayrıca elle insert ettiği için **çift ekleme** riski — map sonrası `entity.ProductScopes = null; entity.MarginRules = null;` eklendi | Graf ile insert edilirse unique ihlali / mükerrer satır | — | — | 📝 önlem kondu, çalışma zamanında **denenmedi** | Annex Create/Update ilk canlı denemede satır sayısı kontrol edilsin |
+| H-097 | `FloatingRateType` seed (MM'den) | EUR ESTR satırlarının `PointId`/`ChartId`'leri USD SOFR'unkilerle **aynı** | Piyasa verisi yanlış eğriden okunabilir | — | 🔴 | ⏸ MM'den aynen | İş birimine sor; MM'de de düzeltilmeli |
+| H-098 | UI Txn formu `/customer`, `/annex`, `/portfolio` `select-f-key` | UI bu uçları çağırıyor; backend'de karşılığı **tespit edilmedi** (bu turda bakılmadı) | Form açılır ama dropdown'lar boş gelebilir | — | — | ✅ | **2026-10-22 kapandı:** gerçekten yoktu. UI rotaları mevcut uçlara hizalandı (`customers/overview`, `portfolios/f-key`, `currencies/f-key`), `annex/f-key` + `collateral-definition/f-key` yazıldı → progress/29 |
+| H-099 | Annex / CollateralDefinition / Txn list handler'ları `.Include(x => x.Customer)` | `Customer` navigation'ı `IsRequired()` → EF **INNER JOIN**; `Customer` satırı olmayan (orphan FK) kayıt grid'den **sessizce düşer** (MEMORY tuzağı). Yeni f-key uçlarında `CustomerName` bu yüzden projeksiyona alınmadı | Referans veri senkronu eksikken (bkz. 2026-10-22: `Customer` tablosu boştu) kayıt girilirse liste boş görünür | — | — | 📝 | Kullanıcı geliştirme sonunda karar verecek |
+| H-100 | Annex Product Scope — Interbank Loan görünürlüğü | Manuel Reeskont gibi MM `GET /manual-rediscount/products`'a bakılıyor; uç **yalnız `main-manuel-reeskont-development`** branch'inde (main'de yok) → uç 404 verdikçe IL ürünü listede **görünmez** | IL açık müşteride annex'e IL kapsamı eklenemez | MM | — | 📝 | Manuel Reeskont MM merge'ü ile kendiliğinden kapanır |
+| H-101 | MicroUI paket `Treasy.MicroUI.SharedDependency.targets` — Rebuild | `Clean` `wwwroot/bundles`'ı siler; `TreasyBundleLocalizationJson` `BeforeTargets=Build` → StaticWebAssets çözümünden **sonra** → `--no-incremental` build *"No file exists for the asset … bundleslocalizationen.json"* ile kırılır | Rebuild / temiz CI build kırık; MM.UI'da da aynı csproj | ✅ ColManagement.UI'da lokal target | Treasy.MM.UI aynı | 📝 | Paket (`Treasy.MicroUI.Packages`) düzeltmesi kullanıcıda |
+| H-102 | `CalendarHelper.PreWorkingDay` / `NextWorkingDay` (MM'den birebir) | Çalışma günü bulana kadar gün kaydırıyor, **üst sınır yok**. Calendar tablosu boş/eksik yılda (ColManagement'ta 0 satır) `Today w/o deleted`, `Yesterday` vb. filtreler **sonsuz döngü** — istek asılı kalıyor | Liste ekranı yanıt vermez | MM aynı | — | 📝 | Veri: referans kopya script'i Calendar'ı dolduruyor. Kod guard'ı kullanıcı kararı |
 
 ## G. Belirsiz / ölçülmedi
 
@@ -174,4 +181,4 @@
 
 ---
 
-*Son numara: **H-095**. Yeni madde → H-096.*
+*Son numara: **H-102**. Yeni madde → H-103.*

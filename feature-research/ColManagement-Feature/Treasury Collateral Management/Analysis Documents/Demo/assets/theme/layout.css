@@ -1,0 +1,222 @@
+.application-header-wrapper {
+    height: 56px;
+    padding-left: 10px;
+    padding-right: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 8px solid #0a89d4;
+}
+
+.header-right-section {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.header-left-section {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    justify-content: start;
+    align-items: center;
+}
+
+.header-icon {
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-section-item {
+    margin-left: 15px;
+}
+
+.user-profile-wrapper {
+    border: 1px solid #878787;
+    border-radius: 50%;
+    padding: 7px;
+    margin: auto;
+}
+
+.user-profile-image {
+    background-color: #0a89d4;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: #fff;
+}
+
+.user-name-wrapper {
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.user-profile-badges{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    max-height: 8rem;
+    overflow-y: scroll;
+}
+
+
+#application-header-name a {
+    text-decoration: none;
+}
+
+#application-header-name:hover {
+    background-color: transparent;
+}
+
+#application-header-name img {
+    width: 140px;
+}
+
+.button-container {
+    width: 100%;
+    display: grid;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#UserBadge .dx-button-content {
+    background-color: #0a89d4;
+    color: #fff;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+#UserBadgeContainer .dx-button-has-text {
+    min-width: 36px;
+}
+
+#UserBadgeContainer .dx-button {
+    border-radius: 50%;
+}
+
+#UserBadgeContainer .dx-button-text {
+    font-weight: 300;
+}
+
+#UserBadgeContainer .dx-button-has-text .dx-button-content {
+    padding: 0;
+}
+
+.popup-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 25px;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-target.dx-overlay-shader {
+    background-color: transparent;
+}
+
+.bread-crumb-container {
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+.sun-and-moon > .moon, .sun-and-moon > .sun, .sun-and-moon > .sun-beams {
+    transform-origin: center;
+}
+
+.sun-and-moon > .moon, .sun-and-moon > .sun {
+    fill: #121316;
+}
+
+#theme-toggle {
+    text-decoration: none;
+    border: none;
+    background-color: transparent;
+}
+
+#theme-toggle:focus {
+    outline: 0;
+    outline: 0;
+}
+
+#theme-toggle:hover {
+    border-radius: 50%;
+    height: 36px;
+    background-color: rgba(190, 194, 195, 0.12);
+}
+
+[data-theme="dark"] #theme-toggle:hover {
+    border-radius: 50%;
+    height: 36px;
+    background-color: rgba(190, 194, 195, 0.12);
+}
+
+
+.sun-and-moon > .sun-beams {
+    stroke: #121316;
+    stroke-width: 2px;
+}
+
+#theme-toggle:hover > .sun-and-moon > .moon,
+#theme-toggle:hover > .sun-and-moon > .sun,
+#theme-toggle:hover > .sun-and-moon > .sun-beams {
+    fill: #0a89d4;
+    stroke: #0a89d4;
+}
+
+[data-theme="dark"] #theme-toggle:hover > .sun-and-moon > .moon,
+[data-theme="dark"] #theme-toggle:hover > .sun-and-moon > .sun,
+[data-theme="dark"] #theme-toggle:hover > .sun-and-moon > .sun-beams {
+    fill: #f5f5f5;
+    stroke: #f5f5f5;
+}
+
+[data-theme="dark"] .sun-and-moon > .sun {
+    transform: scale(1.75);
+}
+
+[data-theme="dark"] .sun-and-moon > .sun-beams {
+    opacity: 0;
+}
+
+[data-theme="dark"] .sun-and-moon > .moon > circle {
+    transform: translateX(-7px);
+}
+
+.sun-and-moon > .sun {
+    transition: transform .25s var(--ease-elastic-3);
+}
+
+.sun-and-moon > .sun-beams {
+    transition: transform .25s var(--ease-elastic-4), opacity .5s var(--ease-3);
+}
+
+.sun-and-moon .moon > circle {
+    transition: transform .15s var(--ease-out-5);
+}
+
+[data-theme="dark"] .sun-and-moon > .sun {
+    transition-timing-function: var(--ease-3);
+    transition-duration: .15s;
+    transform: scale(1.75);
+}
+
+[data-theme="dark"] .sun-and-moon > .sun-beams {
+    transition-duration: .15s;
+    transform: rotateZ(-25deg);
+}
+
+[data-theme="dark"] .sun-and-moon > circle {
+    transition-duration: .15s;
+    transition-delay: .15s;
+    fill: #f5f5f5;
+}

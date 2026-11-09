@@ -113,7 +113,7 @@ Common → modül çağrıları cluster-internal (`http://nettrex-mm-web:5041/ap
 | Katman | Mekanizma |
 |--------|-----------|
 | **`NetTrex.Web.UI`** | `BaseController` üstünde `[CustomAuthorize]` (policy `"Dynamic"`) → `PermissionHandler` → **`HasPermissionAsync(controllerName, actionName)`**. 🔴 **Permission = ControllerAdı/ActionAdı** → ekran bazlı yetki için **ekran başına ayrı controller** gerekir |
-| **Micro UI** | Aynı `CustomAuthorize`/`PermissionHandler` altyapısı **pakette var** ama 🔴 `Treasy.MM.UI`'de **hiç kullanılmıyor** — erişim fiilen **menü** üzerinden. Shell'de `SkipAuthorization: true` |
+| **Micro UI** | `[CustomAuthorize]` attribute'u kullanılmıyor AMA 🔴 **grid toolbar butonları (`+`, edit, verify…) `Pure.DevExtreme` içinde `HasPermissionAsync(Controller, Action)` ile açılıp kapanıyor** (ölçüldü 2026-10-15) — `SkipAuthorization: false` (docker) iken Common DB'de `FrameworkPermissionAction` satırı yoksa `+` pasif, `ControllerAction` menü düğümleri de boş gelir. Micro UI ekranı için de `_Maker/_Checker/_Displayer` permission script'i **şart** (ApplicationName `Trex.WebUI`, `Controller/Action`; emsal `ProductDefinition_*`). Shell'de `SkipAuthorization: true` (yalnız lokal) |
 | **Modül API** | Netix.Core global policy + scope-based `HasScopeHandler`; controller'larda açık `[Authorize]` **tespit edilmedi** |
 | **Common → modül** | 🔴 **Token TAŞINMIYOR** — çağrılar anonim/cluster-internal. Kullanıcı kimliği **request body'deki `CurrentUserId`** ile taşınır (`entity.StateMaker = request.CurrentUserId` deseni) |
 

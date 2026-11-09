@@ -1,0 +1,165 @@
+﻿/* Digital Clock */
+
+:root {
+    --digital-clock-current-time-font-size: 2rem;
+    --digital-clock-analog-indicator-width: 250px;
+    --digital-clock-analog-indicator-hand-size-multiplyer: 1;
+    --digital-clock-analog-indicator-hand-thickness: 4px;
+    --digital-clock-gap: 12px;
+    --digital-clock-time-steps-font-size: 20px;
+    --digital-clock-inset: 12px;
+    --digital-clock-shadow: 4px;
+    --digital-clock-hour-indicator-color: #ff3d58;
+    --digital-clock-minute-indicator-color: #00a6ff;
+    --digital-clock-second-indicator-color: #222;
+    --digital-clock-indicator-point-color: #222;
+}
+
+[data-theme='dark'] {
+    --digital-clock-hour-indicator-color: #ff3d58;
+    --digital-clock-minute-indicator-color: #00a6ff;
+    --digital-clock-second-indicator-color: #fff;
+    --digital-clock-indicator-point-color: #fff;
+}
+
+[widget-name='DigitalClock'] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--digital-clock-gap);
+}
+
+    [widget-name='DigitalClock'].compact-mode {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+    [widget-name='DigitalClock'] [widget-value='currentTime'] {
+        font-size: var(--digital-clock-current-time-font-size);
+    }
+
+    [widget-name='DigitalClock'] [widget-value='analogContainer'] {
+        position: relative;
+        width: var(--digital-clock-analog-indicator-width);
+        max-width: var(--digital-clock-analog-indicator-width);
+        min-width: var(--digital-clock-analog-indicator-width);
+    }
+
+        [widget-name='DigitalClock'] [widget-value='analogContainer'] .clock {
+            position: relative;
+            width:100%;
+            height: auto;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0px 0px var(--digital-clock-shadow) rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        [widget-name='DigitalClock'] [widget-value='analogContainer'] .hand {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+        [widget-name='DigitalClock'] [widget-value='analogContainer'] [widget-value='hour'] i {
+            background-color: var(--digital-clock-hour-indicator-color)
+        }
+        [widget-name='DigitalClock'] [widget-value='analogContainer'] [widget-value='minute'] i {
+            background-color: var(--digital-clock-minute-indicator-color)
+        }
+        [widget-name='DigitalClock'] [widget-value='analogContainer'] [widget-value='second'] i {
+            background-color: var(--digital-clock-second-indicator-color)
+        }
+
+        [widget-name='DigitalClock'] [widget-value='analogContainer'] .clock span {
+            position: absolute;
+            transform: rotate(calc(30deg * var(--i)));
+            inset: var(--digital-clock-inset);
+            text-align: center;
+        }
+
+        [widget-name='DigitalClock'] [widget-value='analogContainer'] .clock::before {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--digital-clock-indicator-point-color);
+            z-index: 2;
+        }
+
+            [widget-name='DigitalClock'] [widget-value='analogContainer'] .hand i {
+                position: absolute;
+                width: var(--digital-clock-analog-indicator-hand-thickness);
+                height: calc(var(--h)*var(--digital-clock-analog-indicator-hand-size-multiplyer));
+                border-radius: 8px;
+            }
+
+                [widget-name='DigitalClock'] [widget-value='analogContainer'] .clock span b {
+                    transform: rotate(calc(-30deg * var(--i)));
+                    display: inline-block;
+                    font-size: var(--digital-clock-time-steps-font-size);
+                }
+
+/* UnverifiedRecords */
+[widget-name='UnverifiedRecords'] [aria-colindex='2'] {
+    font-size: 1.25rem !important;
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2 !important;
+}
+
+/* Live Rate Board */
+:root {
+    --currency-symbol-background-color: #f8c1c130;
+}
+
+[widget-name='LiveRateBoard'] [widget-value='currency-symbol']{
+    width:48px;
+    height:48px;
+    aspect-ratio:1;
+    border-radius:50%;
+    background-color: var(--currency-symbol-background-color);
+}
+
+
+.increased-rate-value {
+    color: #008000;
+}
+
+    .increased-rate-value .arrow {
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADKSURBVHjaYtTaLs1ABEiG0nPRJa56PEHhsxBhmCUQT4OyrwHxcXyKmQgYJgHE64CYDYrXQcXIMhCbAcgWkGzgNKh38QUB0QamIUUErkhKI9ZAGyCeTERkTYaqxWsgKA2txhdG6GGsvUNGGpeBRMUiGhCFGsqGzUBQQJsxkA5AemaiG5hDIBIIgQSgK0FmMDACs549kN5FZLjhA7+A2A2U9YSAOBeLAk4gnoBDczoOcSFGPIUDPxB/wCHHiKtwYGKgMhg1cBAaCBBgAJTUIL3ToPZfAAAAAElFTkSuQmCC');
+        color: #008000;
+    }
+
+.decreased-rate-value {
+    color: #cc0000;
+}
+
+    .decreased-rate-value .arrow {
+        color: #cc0000;
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADJSURBVHjaYvzPgBfgkhYA4o8QFahKmBioDEYNHIQGsgBxIBCLkqgvAYi/g1mMjMjir0EJzR6If/6HpChKMMgMe3DKBeIcKhiY8x/MYoDj+RQYNgdkGLqBbEB8kgzDToL1YjEQhKWB+BUJhj0H64Eahs1AELYhMpJ+gtUiGYbLQBBOI8LANLBaIg1kAAc0vkiAqSPBQFAkHcNi2DGoHMkGgrAENOCRI0ECRQ2JBoKwJTQCfkLZDPgMZPxPXN5NhtJzMSsJVBMAAgwAyWSY2svfmrwAAAAASUVORK5CYII=');
+    }
+
+.arrow {
+    display: inline-block;
+    height: 10px;
+    width: 20px;
+    background-repeat: no-repeat;
+    background-size: 10px 10px;
+    background-position-x:center;
+}
+
+/* Unverified Records */
+
+/* The pie "no data" overlay is absolutely positioned at top/left:50%; without a positioned
+   ancestor it centres against the page (drifting off-card) and only snaps into place when a
+   hover transform on the card establishes a containing block. Anchor it to the widget root. */
+[widget-name='UnverifiedRecords'] {
+    position: relative;
+}

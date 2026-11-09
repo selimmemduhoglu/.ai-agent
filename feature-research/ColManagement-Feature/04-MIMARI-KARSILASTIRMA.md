@@ -127,3 +127,7 @@ doküman yönetimi; ayrıca §3-9/10'daki Kafka sorunlarının düzeltilmesi.
 - B producer ömrü: `Code/Kafka/Treasy.ColManagement.Kafka.Core/Producer/ServiceCollectionExtensions.cs` (`AddScoped<IMessageProducer, KafkaMessageProducer>`)
 - B referanslar: `Common.Core.csproj` → `Common.Repository`; `Common.Configuration.csproj` → `Batch.Core`; `Common.Operation.csproj` → `Kafka.Core`
 - A zincir ve `CoreDataSlice`: `NetTrex.Collateral/.ai-agent/PROJECT_CONTEXT.md` §3, `Data.Core/ColManagementCoreData.cs`
+
+Aret'İn değilde kendi mimarimizden devam ediyoruz ve bu durumda Aret in mimarisinden bizim sistemimizin daha iyi olması için bunlar yapılabilir kontrol edilerek uygulanabilir.
+
+![1791793384802](image/04-MIMARI-KARSILASTIRMA/1791793384802.png)

@@ -1,0 +1,1328 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Treasy - Collateral</title>
+<link href="assets/logo/favicon.png" rel="icon">
+<link href="assets/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="assets/lib/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+<link href="assets/lib/fontawesome/css/solid.min.css" rel="stylesheet">
+<link id="themeDark" href="assets/lib/devextreme/css/dx.material.blue.dark.compact.css" rel="stylesheet">
+<link id="themeLight" href="assets/lib/devextreme/css/dx.material.blue.light.compact.css" rel="stylesheet" disabled>
+<link href="assets/theme/main.css" rel="stylesheet">
+<link href="assets/theme/layout.css" rel="stylesheet">
+<script src="assets/lib/jquery/jquery.min.js"></script>
+<script src="assets/lib/devextreme/js/exceljs.min.js"></script>
+<script src="assets/lib/devextreme/js/filesaver.min.js"></script>
+<script src="assets/lib/devextreme/js/dx.all.js"></script>
+<style>
+/* Shell values measured on the live Treasy UAT (Treasy.Pure layout) */
+html[data-theme="dark"] body{background:#131517}
+html[data-theme="light"] body{background:#e6e6e6}
+body{margin:0;overflow:hidden;font-family:Roboto,RobotoFallback,"Noto Kufi Arabic",Helvetica,Arial,sans-serif}
+#LayoutMenuDrawer{height:calc(100vh - 56px)}
+#LayoutMenuDrawerContent{width:300px;padding:20px;margin-top:10px;border-radius:4px;height:calc(100vh - 66px);position:relative}
+#LayoutMenuDrawerContent .dx-treeview-search{margin-bottom:18px}
+#LayoutMenuDrawerContent .dx-treeview-node{padding-left:0}
+#LayoutMenuDrawerContent .dx-treeview-node .dx-treeview-node{padding-left:30px}
+#LayoutMenuDrawerContent .dx-treeview-toggle-item-visibility{left:auto!important;right:4px;transform:rotate(180deg)}
+#LayoutMenuDrawerContent .dx-treeview-item{padding:10px 8px;min-height:36px}
+#LayoutMenuDrawerContent .dx-scrollable{height:calc(100% - 110px)!important}
+.menu-label-container{display:flex;align-items:center;gap:5px}
+.menu-icon-color{color:#0a89d4;font-size:17px;width:25px}
+.menu-footer-custom{position:absolute;bottom:25px;left:20px;display:flex;align-items:center;gap:10px}
+.menu-footer-logo img{width:100px}
+.menu-footer-version{color:#898caa;font-size:12px}
+.menu-footer-workspace{font-size:12px;font-weight:700}
+#content{height:calc(100vh - 56px)}
+.scroll-position{height:calc(100vh - 115px)}
+.bread-crumb-container{font-size:14px;font-weight:500}
+.screen-filter{position:relative;min-height:40px}
+.screen-filter .state-form{width:420px}
+.screen-filter .advance-button-location{top:0;right:0}
+.advance-filters{margin-top:10px}
+.page-container .dx-datagrid.dx-gridbase-container{height:calc(100vh - 260px)}
+.page-container.adv-open .dx-datagrid.dx-gridbase-container{height:calc(100vh - 470px);min-height:300px}
+.cell-neg{color:#e34635;font-weight:600}
+.cell-pos{color:#67a03f;font-weight:600}
+.val-badge{border-radius:10px;padding:2px 8px;font-size:12px;color:#fff;display:inline-block;min-width:90px;text-align:center}
+.val-PENDING{background:#E58E13}.val-VALIDATED{background:#67A03F}.val-REJECTED{background:#393433}.val-AUTOMATIC{background:#4BAAF4}
+.limit-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px}
+.limit-grid .k{font-size:12px;opacity:.7}.limit-grid .v{font-size:15px;font-weight:500}
+.demo-note{font-size:12px;color:#E58E13;margin-top:12px}
+.user-switch{min-width:220px}
+/* Collateral Annex */
+.annex-section > .dx-form-group-caption{text-transform:uppercase;font-size:12px;font-weight:600;letter-spacing:.4px}
+/* more air between form sections (every section except the first) */
+.dx-box-item:not(:first-child) > .dx-box-item-content > .annex-section{margin-top:24px}
+.annex-sub-bar{display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-bottom:8px}
+.ccy-suffix .dx-button-text{opacity:.75;text-transform:none}
+.field-locked.dx-texteditor{opacity:.75}
+/* Collateral Transaction */
+.st-pay .req-pay .dx-field-item-label-text::after{content:" *";color:#f44336}
+.st-fx .req-fx .dx-field-item-label-text::after{content:" *";color:#f44336}
+.limit-item{margin-top:24px}
+.pay-accordion > .dx-field-item-content > .dx-form-group > .dx-form-group-caption{display:flex;align-items:center;cursor:pointer;user-select:none;padding:10px 12px;border:1px solid rgba(128,128,128,.35);border-radius:4px 4px 0 0;background:rgba(128,128,128,.10)}
+.pay-accordion > .dx-field-item-content > .dx-form-group > .dx-form-group-caption:hover{background:rgba(128,128,128,.18)}
+.pay-accordion > .dx-field-item-content > .dx-form-group > .dx-form-group-caption .pay-acc-chev{margin-left:auto;font-size:13px;opacity:.75}
+.pay-accordion.acc-closed > .dx-field-item-content > .dx-form-group > .dx-form-group-caption{border-radius:4px}
+.pay-accordion > .dx-field-item-content > .dx-form-group > .dx-form-group-content{border:1px solid rgba(128,128,128,.35);border-top:0;border-radius:0 0 4px 4px;padding:12px 12px 4px;margin-top:0}
+.limit-box{border:1px solid rgba(128,128,128,.35);border-radius:4px}
+.limit-head{display:flex;align-items:center;gap:6px;padding:8px 14px;border-bottom:1px solid rgba(128,128,128,.35)}
+.lh-title{font-weight:600}.lh-sep{opacity:.7}.lh-active{color:#3dd68c;font-weight:600;font-size:12px}
+.lh-right{margin-left:auto;display:flex;align-items:center;gap:4px}
+.lh-pill{display:inline-flex;align-items:center;gap:8px;padding:4px 14px;border:1px solid rgba(128,128,128,.6);border-radius:16px;margin-right:6px;font-weight:500}
+.lh-dot{width:8px;height:8px;border-radius:50%;background:#8a8a8a;display:inline-block}
+.lh-pill.warn{border-color:#f5a524;color:#f5a524}.lh-pill.warn .lh-dot{background:#f5a524}
+.lh-btn{color:#0a89d4;cursor:pointer;padding:4px 10px;border-left:1px solid rgba(128,128,128,.35)}
+.limit-body{display:grid;grid-template-columns:1fr 1fr 1.4fr;align-items:center;padding:14px 14px 16px}
+.limit-box.collapsed .limit-body{display:none}
+.lb-cust{display:flex;align-items:center;gap:12px;padding-right:16px;border-right:1px solid rgba(128,128,128,.25)}
+.lb-icon{width:40px;height:40px;border-radius:6px;background:rgba(10,137,212,.15);color:#0a89d4;display:flex;align-items:center;justify-content:center;font-size:18px}
+.lb-name{font-weight:600}.lb-no{opacity:.7;font-size:13px}
+.lb-list{padding:0 22px;border-right:1px solid rgba(128,128,128,.25)}
+.lb-row{display:flex;justify-content:space-between;font-size:12.5px;font-weight:500;padding:2px 0}
+.c-used{color:#f5a524}.c-avail{color:#3dd68c}.c-risk{color:#f04438}
+.lb-usage{padding-left:22px}
+.lu-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.lu-pct{font-size:18px;font-weight:700}
+.lu-info{color:#3b9cff;cursor:help}
+.lu-bar{height:7px;border-radius:4px;background:rgba(128,128,128,.35);overflow:hidden}.lu-fill{height:100%;width:0;background:#f5a524}
+.lu-legend{display:flex;gap:16px;font-size:12px;margin-top:6px}
+.txn-det-sum{margin:4px 0 10px;font-size:13px}
+/* Collateral Definition: conditional required mark (interest on / fixed / floating) */
+.st-int .req-int .dx-field-item-label-text::after,.st-fixed .req-fixed .dx-field-item-label-text::after,.st-float .req-float .dx-field-item-label-text::after{content:" *";color:#f44336}
+.popup-title-row{display:flex;align-items:center;width:100%;gap:12px}
+.popup-title-row .dx-toolbar-label > div{display:flex;align-items:center;gap:2px}
+/* Developer Mode */
+.popup-dev-switch{display:flex;align-items:center;gap:8px;margin-left:auto;margin-right:8px;padding:3px 12px;border:1px solid rgba(128,128,128,.45);border-radius:18px;font-size:13px;font-weight:500}
+.popup-dev-switch.on{border-color:#0a89d4;color:#0a89d4}
+.dev-q{display:none;align-items:center;justify-content:center;width:18px;height:18px;margin-left:8px;border:1.5px solid #0a89d4;border-radius:50%;color:#0a89d4;
+  font-size:11px;font-weight:700;line-height:1;cursor:pointer;user-select:none;vertical-align:middle;flex:0 0 auto;text-transform:none;letter-spacing:0}
+.dev-q:hover,.dev-q.active{background:#0a89d4;color:#fff}
+body.dev-on .dev-q{display:inline-flex}
+/* DevExtreme fixes the label width before the "?" is appended: reserve room for it instead of letting it slide under the editor */
+body.dev-on .dx-field-item-label-content{position:relative;box-sizing:content-box;padding-right:28px}
+body.dev-on .dx-field-item-label-content > .dev-q{position:absolute;right:2px;top:50%;transform:translateY(-50%);margin-left:0}
+.dev-panel{display:none;gap:12px;align-items:flex-start;padding:12px 16px;margin:0 0 16px;border:1px solid rgba(10,137,212,.35);border-radius:4px;background:rgba(10,137,212,.08)}
+body.dev-on .dev-panel{display:flex}
+.dev-panel-icon{color:#0a89d4;font-size:16px;margin-top:2px}
+.dev-panel-title{font-weight:600;color:#0a89d4;margin-bottom:3px}
+.dev-panel-text{font-size:13px;line-height:1.45}
+.dev-panel-meta{font-family:Consolas,monospace;font-size:12px;color:#E58E13;margin-bottom:3px}
+.dev-panel-rule{margin-top:4px;opacity:.85;font-style:italic}
+</style>
+</head>
+<body class="dx-viewport">
+
+<div class="application-header-wrapper dx-theme-background-color">
+  <div class="header-left-section">
+    <div id="menuToggle"></div>
+    <div id="application-header-name"><a class="manuel-theme-color" href="#"><span><img id="logo-img" src="assets/logo/logo-treasy-white.png" alt="Treasy"></span></a></div>
+  </div>
+  <div>
+    <div class="header-right-section">
+      <div class="right-section-item"><div id="themeToggle"></div></div>
+      <div class="header-icon right-section-item manuel-theme-color"><i class="fa-solid fa-bell" aria-hidden="true"></i></div>
+      <div id="UserBadgeContainer" class="right-section-item"><div id="UserBadge"></div></div>
+    </div>
+  </div>
+</div>
+<div id="UserBadgePopup"></div>
+
+<div id="LayoutMenuDrawer">
+  <div id="content" class="p-2">
+    <main role="main" class="application-body d-flex flex-column gap-2">
+      <div class="d-flex flex-row align-items-center justify-content-between bread-crumb-container dx-theme-background-color">
+        <div id="page-title"></div>
+        <div><span>Logical Date :</span> <span class="ml-1" id="current-logical-date"></span></div>
+      </div>
+      <div class="scroll-position"><div id="pageContainer" class="datagrid-container-custom dx-theme-background-color page-container"></div></div>
+    </main>
+  </div>
+</div>
+
+<div id="popupDefault"></div>
+<div id="popupHistory"></div>
+<div id="popupSub"></div>
+
+<script>
+"use strict";
+/* ================= PARAMETERS ================= */
+const P = {
+  currencies: ["TRY","USD","EUR","GBP"],
+  // CollateralAnnex / CollateralAnnexRule / CollateralAnnexProduct (Treasy_Collateral_Veri_Modeli.xlsx)
+  annexStatus: [{id:"ACTIVE",name:"Active"},{id:"PASSIVE",name:"Passive"}],
+  directions: [{id:"BOTH",name:"Both"},{id:"POST_ONLY",name:"Post Only"},{id:"RECEIVE_ONLY",name:"Receive Only"}],
+  partyTypes: [{id:"OWN",name:"Own"},{id:"COUNTERPARTY",name:"Counterparty"}],
+  roundingMethods: [{id:"NEAREST",name:"Nearest"},{id:"UP",name:"Up"},{id:"DOWN",name:"Down"}],
+  marginTypes: [{id:"VM",name:"VM - Variation Margin"},{id:"IM",name:"IM - Initial Margin"},{id:"IA",name:"IA - Independent Amount"},{id:"OTHER",name:"Other"}],
+  products: [
+    {id:"FX",name:"FX",subs:[{id:"FWD_SWAP_NDF",name:"Forward / Swap / NDF"}]},
+    {id:"IR",name:"Interest Rate",subs:[{id:"IRS_CCS",name:"IRS / CCS"}]},
+    {id:"MM",name:"Money Market",subs:[{id:"BORROW_LEND",name:"Borrowing / Lending"}]},
+    {id:"REPO",name:"Repo",subs:[{id:"REPO_REVREPO",name:"Repo / Reverse Repo"}]},
+    {id:"SECLEND",name:"Securities Lending",subs:[{id:"BORROW_LEND",name:"Borrowing / Lending"}]}],
+  portfolios: [{id:59032,code:"VB_BNK_COL",name:"COLLATERAL BANKING"},{id:59040,code:"BH_BNK_COL",name:"COLLATERAL BANKING BAHRAIN"}],
+  counterparties: [
+    {id:87341,code:"TKAS",name:"TAKASBANK"},{id:87348,code:"VBTPP",name:"TAKASBANK PARA PIYASASI"},
+    {id:90112,code:"FABA",name:"FIRST ABU DHABI BANK"},{id:90207,code:"BARCCR",name:"BARCLAYS BANK PLC"},
+    {id:90215,code:"BNPACS",name:"BNP PARIBAS"},{id:90230,code:"DEUTCS",name:"DEUTSCHE BANK AG"},
+    {id:90244,code:"CITICS",name:"CITIBANK NA"},{id:90251,code:"SCBLCS",name:"STANDARD CHARTERED BANK"}],
+  // CollateralDefinition (Treasy_Collateral_Veri_Modeli.xlsx). Parameter values: earlier Collateral prototype (Colletral/index.html)
+  collateralTypes: [{id:1,code:"CASH",name:"Cash"}],            // Security: not in scope yet
+  settlementTypes: [{id:"CAPITALIZE",name:"Capitalize"},{id:"PAYOUT",name:"Pay Out"}],
+  rateTypes: [{id:1,code:"FIXED",name:"Fixed"},{id:2,code:"FLOATING",name:"Floating"}],
+  floatingRates: [{id:1,code:"ESTR",name:"€STR",currency:"EUR"},{id:2,code:"SOFR",name:"SOFR",currency:"USD"},{id:3,code:"SONIA",name:"SONIA",currency:"GBP"},{id:4,code:"TLREF",name:"TLREF",currency:"TRY"}],
+  interestMethods: [{id:1,code:"SIMPLE_LINEAR",name:"Simple Linear"},{id:2,code:"DAILY_COMP",name:"Daily Compounded"}],
+  dateBases: [{id:"A360",name:"ACT/360"},{id:"A365",name:"ACT/365"},{id:"3360",name:"30/360"}],
+  // mirror of NetTrexCommon.dbo.Currency (only the columns the demo uses). BasisCode -> DateBasis.BasisCode is the
+  // default Date Basis of the currency. Demo values follow money market convention; production reads the table.
+  currencyRef: [
+    {Code:"TRY",Name:"Turkish Lira",BasisCode:"A365",Decimals:2,IsoCode:"949"},
+    {Code:"USD",Name:"US Dollar",BasisCode:"A360",Decimals:2,IsoCode:"840"},
+    {Code:"EUR",Name:"Euro",BasisCode:"A360",Decimals:2,IsoCode:"978"},
+    {Code:"GBP",Name:"Pound Sterling",BasisCode:"A365",Decimals:2,IsoCode:"826"}],
+  payFreqs: [{id:1,code:"MONTHLY",name:"Monthly"},{id:2,code:"QUARTERLY",name:"Quarterly"},{id:3,code:"ON_RETURN",name:"On Return"}],
+  businessDayRules: [{id:"MODIFIED_FOLLOWING",name:"Modified Following"},{id:"FOLLOWING",name:"Following"},{id:"PRECEDING",name:"Preceding"}],
+  // TxnTransaction / TxnTransactionDetail (Treasy_Collateral_Veri_Modeli.xlsx)
+  txnTypes: [{id:"INCREASE",name:"Increase"},{id:"DECREASE",name:"Decrease"}],           // Artış (bakiye +) / Azalış (bakiye -)
+  amountTypes: [{id:1,code:"Collateral",name:"Collateral"},{id:2,code:"Nema",name:"Nema"}],   // CollateralAmountType
+  // payment panel: only the values seen on the live Treasy payment panel; the full lists come from the payment module
+  paySettlementTypes: [{id:1,name:"Gross Settlement"},{id:2,name:"Net Settlement"}],
+  payInstructionTypes: [{id:1,name:"Bank to Bank"},{id:2,name:"Account to Account"},{id:3,name:"Vostro Account"}],
+  // correspondent rows (columns of the Treasy.Pure Payment component drop-down grids). Only bank names are known;
+  // account / customer / GL / SWIFT values come from the payment module in production.
+  // Demo values: our nostro per currency is representative (TCMB for TRY); the real list comes from the payment module.
+  ourCorrespondents: [{Id:1,AccountNumber:"",BankName:"TÜRKİYE CUMHURİYET MERKEZ BANKASI",CustomerId:"",CurrencyCode:"TRY",AccountGLCode:""},
+    ...["USD","EUR","GBP"].map((c,i)=>({Id:2+i,AccountNumber:"",BankName:`NOSTRO ${c} (demo)`,CustomerId:"",CurrencyCode:c,AccountGLCode:""}))],
+  theirCorrespondents: [{Id:1,SwiftCode:"",BankName:"Test",AccountNumber:"",CurrencyCode:"",CustomerId:null}],   // filled below: counterparty x currency (SSI)
+  // same list/order as the live "Records to be listed" filter (subset relevant to definitions + transactions)
+  stateFilter: ["Today w/o deleted","Today","Active Records","All Records","Unverified Records","Verified Records","Rejected Records","Deleted Records","Last Seven Days"]
+};
+const byId = (a,id) => a.find(x => String(x.id) === String(id));
+const nameOf = (a,id) => (byId(a,id)||{}).name || "";
+const ccyItems = P.currencies.map(c=>({id:c,name:c}));
+const cptyText = c => c ? `${c.code} - ${c.name}` : "";
+const portfolioText = f => f ? `${f.code} - ${f.name}` : "";
+
+/* ================= HELPERS ================= */
+const pad = n => String(n).padStart(2,"0");
+const isoToday = () => { const d=new Date(); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
+const nowStamp = () => { const d=new Date(); return `${isoToday()} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`; };
+const toDate = s => s ? new Date(String(s).length===10 ? s+"T00:00:00" : String(s).replace(" ","T")) : null;
+const toIso = d => d instanceof Date ? `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}` : (d||"");
+const fmtNum = n => Number(n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+const round2 = n => Math.round(n*100)/100;
+const ccyList = s => String(s||"").split(";").map(x=>x.trim()).filter(Boolean);   // CashEligibilityCurrencies is stored ';'-separated
+const fmtStamp = s => s ? `${String(s).slice(0,10).split("-").reverse().join(".")} ${String(s).slice(11)}`.trim() : "";
+const fmtRate = n =>Number(n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:4});
+let CURRENT_USER = "VB37070";
+const user = () => CURRENT_USER;
+const notify = (message,type="info") => DevExpress.ui.notify({message,type,displayTime:3500,width:"auto",minWidth:320,position:{at:"bottom right",my:"bottom right",offset:"-20 -20"}});
+const confirmDlg = msg => DevExpress.ui.dialog.confirm(`<div style="max-width:420px">${msg}</div>`,"Confirmation");
+
+/* ================= FLOW (Treasy state names) ================= */
+const PENDING = ["Input","Edit","Delete"];
+const isPending = r => PENDING.includes(r.state);
+const isDead = r => r.state==="Delete Verified" || r.state==="Input Rejected";
+const isLive = r => !isDead(r) && r.state!=="Input"; // approved at least once
+function badgeCls(s){ const [a,b]=s.split(" "); const base = a==="Input"?"badge-input":a==="Edit"?"badge-edit":"badge-delete"; return base + (b==="Verified"?" verified":b==="Rejected"?" rejected":""); }
+function flowInit(state,maker,date,createdBy,createdDate){ return {state,stateMaker:maker,stateDate:date,createdBy:createdBy||maker,createdDate:createdDate||date,prevStateName:"",prevStateMaker:"",prevStateDate:""}; }
+function setState(r,state,maker){ r.prevStateName=r.state; r.prevStateMaker=r.stateMaker; r.prevStateDate=r.stateDate; r.state=state; r.stateMaker=maker; r.stateDate=nowStamp(); }
+const HIST = {annex:{},account:{},txn:{}};
+function addHist(kind,r,action){ (HIST[kind][r.id]=HIST[kind][r.id]||[]).push({action,stateName:r.state,stateMaker:r.stateMaker,stateDate:toDate(r.stateDate),snapshot:JSON.stringify({...r,...(r.pending||{})})}); }
+function stateFilterPass(r,f){
+  const d = String(r.stateDate).slice(0,10), today = isoToday();
+  const week = new Date(); week.setDate(week.getDate()-7);
+  switch(f){
+    case "Today w/o deleted": return d===today && r.state!=="Delete Verified";
+    case "Today": return d===today;
+    case "Active Records": return !isDead(r);
+    case "Unverified Records": return isPending(r);
+    case "Verified Records": return r.state.endsWith("Verified") && r.state!=="Delete Verified";
+    case "Rejected Records": return r.state.endsWith("Rejected");
+    case "Deleted Records": return r.state==="Delete Verified";
+    case "Last Seven Days": return toDate(r.stateDate) >= week;
+    default: return true;
+  }
+}
+
+/* ================= SEED DATA ================= */
+let seq = 1000;
+const ISDA = ["ISDA 2002 Master Agreement","2016 Credit Support Annex for Variation Margin"], GMRA = ["GMRA 2011","GMRA 2011"];
+let ruleSeq = 0, prodSeq = 0;
+const mkRules = (ccy,mta,rnd,parties=["OWN","COUNTERPARTY"]) => parties.map(p=>({id:++ruleSeq,party:p,currency:ccy,threshold:0,mta,rounding:rnd,method:"NEAREST"}));
+const mkProds = list => list.map(([product,subProduct,marginType])=>({id:++prodSeq,product,subProduct,marginType,included:true}));
+// [code, name, cptyId, [masterAgreement, collateralDocument], baseCcy, direction, validFrom, disputeTolerance, rules, products]
+const ANNEX = [
+  ["TKASPPSWPCAG","TAKASBANK PARA PIYASASI SWAP",87348,["TAKASBANK PP SWAP","TAKASBANK PP SWAP"],"USD","POST_ONLY","2016-10-31",0,mkRules("USD",0,0,["OWN"]),mkProds([["FX","FWD_SWAP_NDF","VM"]])],
+  ["TKASTEMTRY","TAKASBANK TEMINAT HESAPLARI",87341,["TAKASBANK UYELIK VE GARANTI FONU","TAKASBANK UYELIK VE GARANTI FONU"],"TRY","POST_ONLY","2016-10-31",0,mkRules("TRY",0,0,["OWN"]),mkProds([["MM","BORROW_LEND","OTHER"]])],
+  ["BKMUYTEMTR","BKM UYELIK TEMINAT",87341,["BKM UYELIK","BKM UYELIK"],"TRY","POST_ONLY","2016-10-31",0,mkRules("TRY",0,0,["OWN"]),mkProds([["MM","BORROW_LEND","OTHER"]])],
+  ["BARCCSCAGG","BARCLAYS SWAP CAGG",90207,ISDA,"USD","BOTH","2016-10-31",50000,mkRules("USD",250000,10000),mkProds([["IR","IRS_CCS","VM"],["FX","FWD_SWAP_NDF","VM"]])],
+  ["BARCCRCAGG","BARCLAYS REPO CAGG",90207,GMRA,"USD","BOTH","2016-10-31",50000,mkRules("USD",100000,10000),mkProds([["REPO","REPO_REVREPO","VM"]])],
+  ["CITICSCAGG","CITIBANK SWAP CAGG",90244,ISDA,"USD","BOTH","2016-10-31",50000,mkRules("USD",250000,10000),mkProds([["IR","IRS_CCS","VM"],["FX","FWD_SWAP_NDF","VM"]])],
+  ["SCBLCSCAGG","STANDARD CHARTERED SWAP CAGG",90251,ISDA,"USD","BOTH","2016-10-31",50000,mkRules("USD",500000,10000),mkProds([["IR","IRS_CCS","VM"]])],
+  ["FABACAGG","FIRST ABU DHABI BANK",90112,GMRA,"USD","BOTH","2019-04-15",25000,mkRules("USD",100000,10000),mkProds([["REPO","REPO_REVREPO","VM"]])]
+].map((a,i)=>annexCompat({id:i+1,code:a[0],name:a[1],cptyId:a[2],masterAgreement:a[3][0],collateralDocument:a[3][1],baseCurrency:a[4],direction:a[5],validFrom:a[6],validTo:"",
+  disputeTolerance:a[7],status:"ACTIVE",rules:a[8],products:a[9],...flowInit("Input Verified","VB41120","2024-11-12 10:15:00","VB37070","2024-11-12 09:40:00")}));
+// Collateral Definition / Deal screens still read shortName, currency and active from the agreement
+function annexCompat(a){ return Object.assign(a,{shortName:a.code,currency:a.baseCurrency,active:a.status==="ACTIVE"}); }
+
+const TAKAS = [
+  ["BAPUY","BAP UYELIK TEMINAT TL",46638.16,1725.25],["DFDER","IVP GARANTI FONU TL",7824649.81,289455.91],
+  ["CEKUY","CEK UYELIK TEMINAT TL",15999.57,591.88],["FI-MJ-P-CCP","BAP PIY UYE ISLEM TEMINAT TL",14204.56,525.42],
+  ["KMD","KM PIY UYELIK TEMINAT TL",46046.00,1609.72],["TRV","TRV PIY UYELIK TEMINAT TL",46638.26,1725.30],
+  ["DFFI","BAP PIY UYE GF TL TEMINAT HESABI",483038.12,17868.91],["UKT","BKM UYELIK TEMINAT TL",17574.37,650.11],
+  ["OTCUY","OTC UYELIK TEMINAT TL",46638.44,1725.34],["OTCGF","OTC GARANTI FONU TL",1214015.45,44909.85]];
+/* Collateral Definition (CollateralDefinition). The store keeps its historical name ACCOUNT (kind "account"). */
+const ACCOUNT = [];
+const NO_INTEREST = {isInterestCalculated:false,settlementType:null,rateTypeId:null,floatingRateTypeId:null,spread:null,fixedRate:null,interestMethodId:null,dateBasis:null,payFreqId:null,businessDayRule:null,isNegativeRateAllowed:false};
+const defBase = {collateralTypeId:1,status:"ACTIVE",direction:"POST_ONLY",currencies:"TRY",valuationCurrency:"TRY",validFrom:"2016-10-31",validTo:"",...NO_INTEREST};
+const accFlow = () => flowInit("Input Verified","VB41120","2024-11-12 11:00:00","VB37070","2024-11-12 10:30:00");
+TAKAS.forEach((t,i)=>ACCOUNT.push(defCompat({id:100+i,...defBase,code:("TKAS"+t[0].replace(/-/g,"")+"TR").slice(0,15),name:t[1],agreementId:t[0]==="UKT"?3:2,cptyId:87341,
+  takasCode:t[0],...accFlow()})));
+ACCOUNT.push(defCompat({id:120,...defBase,code:"FABREPOUSD",name:"FAB REPO CALL USD",agreementId:8,cptyId:90112,direction:"BOTH",currencies:"USD",valuationCurrency:"USD",validFrom:"2019-04-15",
+  ...accFlow()}));
+ACCOUNT.push(defCompat({id:121,...defBase,code:"BARCCRM",name:"BARCLAYS REPO CALL USD",agreementId:5,cptyId:90207,direction:"BOTH",currencies:"USD",valuationCurrency:"USD",
+  ...accFlow()}));
+ACCOUNT.push(defCompat({id:122,...defBase,code:"BARCSWPUSD",name:"BARCLAYS SWAP CALL USD",agreementId:4,cptyId:90207,status:"PASSIVE",direction:"BOTH",currencies:"USD;EUR",valuationCurrency:"USD",
+  isInterestCalculated:true,settlementType:"CAPITALIZE",rateTypeId:2,floatingRateTypeId:2,spread:0,interestMethodId:2,dateBasis:"A360",payFreqId:1,businessDayRule:"MODIFIED_FOLLOWING",isNegativeRateAllowed:false,
+  ...accFlow()}));
+ACCOUNT.push(defCompat({id:123,...defBase,code:"CITICSUSD",name:"CITIBANK SWAP CSA CASH USD",agreementId:6,cptyId:90244,direction:"BOTH",currencies:"USD;EUR;GBP",valuationCurrency:"USD",validFrom:"2016-10-31",
+  isInterestCalculated:true,settlementType:"PAYOUT",rateTypeId:1,fixedRate:4.25,interestMethodId:1,dateBasis:"A360",payFreqId:1,businessDayRule:"MODIFIED_FOLLOWING",isNegativeRateAllowed:false,
+  ...accFlow()}));
+// short aliases read by the agreement screen and the transaction form
+function defCompat(a){ return Object.assign(a,{shortName:a.code,currency:a.valuationCurrency,annexId:a.agreementId,active:a.status==="ACTIVE"}); }
+
+/* ================= COLLATERAL TRANSACTION (TxnTransaction + TxnTransactionDetail) =================
+   One transaction = one lasting collateral position (definition + portfolio); every movement is a detail row.
+   Balance sign: + collateral held by the bank (received), - collateral at the counterparty (posted).
+   Increase adds TransactionAmount, Decrease subtracts it. Only verified details count. */
+const TXN = [];
+let txnSeq = 1000, detSeq = 0;
+const txnSign = d => d.transactionType==="INCREASE" ? 1 : -1;
+const detCounts = d => d.state==="Input Verified";
+const detOrder = (a,b) => (a.valueDate+a.inputDateTime).localeCompare(b.valueDate+b.inputDateTime);
+// CurrentBalance = balance after the movement (valuation currency); null for movements that do not count yet
+function recalcBalances(list){ let s = 0; list.slice().sort(detOrder).forEach(d=>{ if(detCounts(d)){ s = round2(s+txnSign(d)*d.transactionAmount); d.currentBalance = s; } else d.currentBalance = null; }); return s; }
+const txnBalance = t => round2((t.details||[]).filter(detCounts).reduce((s,d)=>s+txnSign(d)*d.transactionAmount,0));
+const NO_PAYMENT = {settlementTypeId:null,paymentInstructionTypeId:null,outgoingCorrespondentId:null,theirBeneficiaryCorrespondentId:null,
+  incomingCorrespondentId:null,theirSenderCorrespondentId:null,sendConfirmation:false,sendPayment:false,sendNoticeToReceive:false,instructions:""};
+// ---- FX: rate chart of the system parameter FxRateChartId (demo rates against the local currency) ----
+const LOCAL_CCY = "TRY";
+// demo stand-in for the chart of FxRateChartId; production reads that chart for the trade date
+const FX_RATES = {   // [valid from, rate against TRY]: the rate of a date is the latest row on or before it
+  USD:[["2024-01-01",30.10],["2024-07-01",32.80],["2025-01-01",35.40],["2025-07-01",39.90],["2026-01-01",42.50],["2026-10-01",44.00]],
+  EUR:[["2024-01-01",33.20],["2024-07-01",35.40],["2025-01-01",37.00],["2025-07-01",46.70],["2026-01-01",49.90],["2026-10-01",47.74]],
+  GBP:[["2024-01-01",38.30],["2024-07-01",41.50],["2025-01-01",44.30],["2025-07-01",54.00],["2026-01-01",57.30],["2026-10-01",55.80]]};
+function chartRate(ccy,date){
+  if(!ccy || ccy===LOCAL_CCY) return 1;
+  const rows = FX_RATES[ccy]||[], d = date ? (date instanceof Date ? toIso(date) : String(date).slice(0,10)) : isoToday();
+  const hit = rows.filter(r=>r[0]<=d).pop() || rows[0]; return hit ? hit[1] : null;
+}
+// FX Rate = currency -> valuation currency rate of the trade date (cross over the local currency); empty when both are the same
+function defaultFx(ccy,valCcy,date){
+  if(!ccy || !valCcy || ccy===valCcy) return null;
+  const c = chartRate(ccy,date), v = chartRate(valCcy,date);
+  return c && v ? Math.round(c/v*1e6)/1e6 : null;
+}
+// Transaction Amount (valuation currency) = Amount × FX Rate; Amount itself when the currencies are the same
+function txnAmount(amount,ccy,valCcy,fxRate){
+  if(amount==null || amount==="") return null;
+  if(ccy===valCcy) return round2(Number(amount));
+  return Number(fxRate) > 0 ? round2(Number(amount)*Number(fxRate)) : null;
+}
+// SSI of the demo: one their-side correspondent per counterparty + currency
+P.counterparties.forEach(cp=>P.currencyRef.forEach(c=>P.theirCorrespondents.push({Id:P.theirCorrespondents.length+1,SwiftCode:"",BankName:`${cp.name} ${c.Code} (demo)`,AccountNumber:"",CurrencyCode:c.Code,CustomerId:cp.id})));
+// payment values of a movement from the counterparty + currency (standing settlement instructions); empty until both are known
+function paySsi(cptyId,ccy){
+  if(!cptyId||!ccy) return {...NO_PAYMENT};
+  const ours = P.ourCorrespondents.find(x=>x.CurrencyCode===ccy), theirs = P.theirCorrespondents.find(x=>x.CustomerId===cptyId&&x.CurrencyCode===ccy);
+  return {...NO_PAYMENT,settlementTypeId:2,paymentInstructionTypeId:1,outgoingCorrespondentId:ours?ours.Id:null,incomingCorrespondentId:ours?ours.Id:null,
+    theirBeneficiaryCorrespondentId:theirs?theirs.Id:null,theirSenderCorrespondentId:theirs?theirs.Id:null,sendConfirmation:true};
+}
+// seed movements carry the SSI payment values like a movement entered on screen (kept also when Settlement Required is off)
+function mkDetail(def,o){
+  const amount = Number(o.amount), ccy = o.ccy||def.valuationCurrency, fx = defaultFx(ccy,def.valuationCurrency,o.trade);
+  return {id:++detSeq,transactionType:o.type,amountType:o.amountType||1,marginTypeId:o.marginType||"VM",tradeDate:o.trade,valueDate:o.value||o.trade,
+    cashCurrency:ccy,amount,fxRate:fx,transactionAmount:txnAmount(amount,ccy,def.valuationCurrency,fx),valuationCurrency:def.valuationCurrency,currentBalance:null,
+    isSettlementRequired:!!o.settle,...paySsi(def.cptyId,ccy),inputDateTime:o.at,trader:o.trader||"VB37070",
+    ...flowInit(o.state||"Input Verified",o.checker||"VB41120",o.at,o.trader||"VB37070",o.at)};
+}
+function mkTxn(defId,portfolioId,details,o={}){
+  const def = byId(ACCOUNT,defId); const first = details[0];
+  const t = {id:++seq,definitionId:defId,cptyId:def.cptyId,agreementId:def.agreementId||null,portfolioId,
+    logicalReference:"CTX"+String(++txnSeq).padStart(10,"0"),businessKey:txnSeq,inputDateTime:first.inputDateTime,trader:first.trader,details,pending:null,
+    ...flowInit(o.state||"Input Verified",o.checker||"VB41120",o.stateDate||first.inputDateTime,first.trader,first.inputDateTime)};
+  recalcBalances(t.details); TXN.push(t); return t;
+}
+ACCOUNT.filter(a=>a.takasCode).forEach(a=>{
+  const t = TAKAS.find(x=>x[0]===a.takasCode); const prev = round2(t[2]-t[3]);
+  const batch = {trader:"TAKASBANK_BATCH",checker:"TAKASBANK_BATCH"};
+  // the bank's collateral at Takasbank: opening balance and monthly nema both increase the posted balance (Decrease: balance moves further below zero)
+  mkTxn(a.id,59032,[
+    mkDetail(a,{type:"DECREASE",amountType:1,marginType:"OTHER",trade:"2024-07-31",amount:prev,at:"2024-08-01 07:05:12",...batch}),
+    a.takasCode==="UKT" // UKT has no Takasbank WS: manual nema entry
+      ? mkDetail(a,{type:"DECREASE",amountType:2,marginType:"OTHER",trade:"2024-09-02",amount:t[3],at:"2024-09-02 10:12:40"})
+      : mkDetail(a,{type:"DECREASE",amountType:2,marginType:"OTHER",trade:"2024-08-30",amount:t[3],at:"2024-09-02 07:05:30",...batch})]);
+});
+const BARC = byId(ACCOUNT,121), FAB = byId(ACCOUNT,120), CITI = byId(ACCOUNT,123);
+mkTxn(121,59032,[mkDetail(BARC,{type:"DECREASE",trade:"2025-02-27",amount:552131,settle:true,at:"2025-02-27 16:40:00"})]);
+const fabTxn = mkTxn(120,59032,[mkDetail(FAB,{type:"INCREASE",trade:"2025-03-10",amount:100000,settle:true,at:"2025-03-10 15:40:11"})]);
+// pending movement waiting for the checker (maker VB37070)
+setState(fabTxn,"Edit","VB37070"); fabTxn.stateDate="2025-03-10 15:48:03";
+fabTxn.pending = {details:[...fabTxn.details,mkDetail(FAB,{type:"DECREASE",trade:"2025-03-10",value:"2025-03-12",amount:18901.94,settle:true,at:"2025-03-10 15:48:03",state:"Input",checker:"VB37070"})]};
+mkTxn(123,59032,[
+  mkDetail(CITI,{type:"INCREASE",trade:"2026-10-01",amount:2500000,settle:true,at:"2026-10-01 10:20:00"}),
+  mkDetail(CITI,{type:"DECREASE",trade:"2026-10-15",ccy:"EUR",amount:400000,settle:true,at:"2026-10-15 11:05:00"}),
+  mkDetail(CITI,{type:"INCREASE",amountType:2,marginType:"OTHER",trade:"2026-10-27",amount:7965.28,at:"2026-10-27 17:30:00"})]);
+ANNEX.forEach(r=>addHist("annex",r,"Insert")); ACCOUNT.forEach(r=>addHist("account",r,"Insert")); TXN.forEach(r=>addHist("txn",r,"Insert"));
+
+/* ================= COMMON GRID PARTS ================= */
+const FLOW_COLUMNS = [
+  {dataField:"state",caption:"State Name",minWidth:130,alignment:"center",cellTemplate:(c,o)=>$(`<span class="badge ${badgeCls(o.value)}">${o.value}</span>`).appendTo(c)},
+  {dataField:"stateMaker",caption:"State Maker",width:120},
+  {dataField:"stateDate",caption:"State Date",dataType:"datetime",format:"dd.MM.yyyy HH:mm:ss",width:150},
+  {dataField:"createdBy",caption:"Created By",width:120},
+  {dataField:"createdDate",caption:"Created Date",dataType:"datetime",format:"dd.MM.yyyy HH:mm:ss",width:150},
+  {dataField:"prevStateName",caption:"Previous State Name",width:150},
+  {dataField:"prevStateMaker",caption:"Previous State Maker",width:150},
+  {dataField:"prevStateDate",caption:"Previous State Date",dataType:"datetime",format:"dd.MM.yyyy HH:mm:ss",width:160}
+];
+const flowView = r => ({state:r.state,stateMaker:r.stateMaker,stateDate:toDate(r.stateDate),createdBy:r.createdBy,createdDate:toDate(r.createdDate),prevStateName:r.prevStateName,prevStateMaker:r.prevStateMaker,prevStateDate:toDate(r.prevStateDate)});
+const numCol = (dataField,caption,extra={}) => ({dataField,caption,dataType:"number",format:"#,##0.00",alignment:"right",...extra});
+const signCell = (c,o) => $("<span>").addClass(o.value<0?"cell-neg":o.value>0?"cell-pos":"").text(o.value===null||o.value===undefined?"":fmtNum(o.value)).appendTo(c);
+
+/* ================= SCREENS ================= */
+const SCREENS = {};
+let ACTIVE = null, GRID = null, TOOLBAR = {}, ADV_FORM = null, STATE_FILTER = "Active Records";
+
+SCREENS.annex = {
+  title:"Collateral Annex", kind:"annex", store:()=>ANNEX, label:r=>r.code,
+  advItems:[
+    {dataField:"code",label:{text:"Annex Code"}},
+    {dataField:"name",label:{text:"Annex Name"}},
+    {dataField:"cptyId",label:{text:"Counterparty"},editorType:"dxSelectBox",editorOptions:{items:P.counterparties,valueExpr:"id",displayExpr:"name",searchEnabled:true,showClearButton:true,placeholder:"Select..."}},
+    {dataField:"status",label:{text:"Status"},editorType:"dxSelectBox",editorOptions:{items:P.annexStatus,valueExpr:"id",displayExpr:"name",showClearButton:true,placeholder:"Select..."}},
+    {dataField:"baseCurrency",label:{text:"Base Currency"},editorType:"dxSelectBox",editorOptions:{items:P.currencies,showClearButton:true,placeholder:"Select..."}},
+    {dataField:"direction",label:{text:"Direction"},editorType:"dxSelectBox",editorOptions:{items:P.directions,valueExpr:"id",displayExpr:"name",showClearButton:true,placeholder:"Select..."}},
+    {dataField:"product",label:{text:"Product"},editorType:"dxSelectBox",editorOptions:{items:P.products,valueExpr:"id",displayExpr:"name",showClearButton:true,placeholder:"Select..."}},
+    {dataField:"masterAgreement",label:{text:"Master Agreement"}}
+  ],
+  match(r,f){ const has=(v,q)=>!q||String(v||"").toUpperCase().includes(String(q).toUpperCase());
+    return has(r.code,f.code)&&has(r.name,f.name)&&has(r.masterAgreement,f.masterAgreement)&&(!f.cptyId||r.cptyId===f.cptyId)&&(!f.status||r.status===f.status)
+      &&(!f.baseCurrency||r.baseCurrency===f.baseCurrency)&&(!f.direction||r.direction===f.direction)&&(!f.product||(r.products||[]).some(p=>p.product===f.product&&p.included)); },
+  view:r=>{ return {id:r.id,code:r.code,name:r.name,cpty:nameOf(P.counterparties,r.cptyId),status:nameOf(P.annexStatus,r.status),
+    masterAgreement:r.masterAgreement,collateralDocument:r.collateralDocument,baseCurrency:r.baseCurrency,direction:nameOf(P.directions,r.direction),
+    validFrom:toDate(r.validFrom),validTo:toDate(r.validTo),disputeTolerance:r.disputeTolerance,
+    products:(r.products||[]).filter(p=>p.included).map(p=>`${nameOf(P.products,p.product)} (${p.marginType})`).join(", "),
+    ...flowView(r)}; },
+  columns:[
+    {dataField:"code",caption:"Annex Code",width:150},{dataField:"name",caption:"Annex Name",minWidth:220},{dataField:"cpty",caption:"Counterparty",width:200},
+    {dataField:"status",caption:"Status",width:90},{dataField:"masterAgreement",caption:"Master Agreement",width:210},{dataField:"collateralDocument",caption:"Collateral Document",width:260},
+    {dataField:"baseCurrency",caption:"Base Currency",width:110},{dataField:"direction",caption:"Direction",width:110},
+    {dataField:"validFrom",caption:"Valid From",dataType:"date",format:"dd.MM.yyyy",width:105},{dataField:"validTo",caption:"Valid To",dataType:"date",format:"dd.MM.yyyy",width:105},
+    numCol("disputeTolerance","Dispute Tolerance",{width:140}),{dataField:"products",caption:"Products",width:240}]
+};
+SCREENS.account = {
+  title:"Collateral Definition", kind:"account", store:()=>ACCOUNT, label:r=>r.code,
+  advItems:[
+    {dataField:"code",label:{text:"Code"}},
+    {dataField:"name",label:{text:"Name"}},
+    {dataField:"agreementId",label:{text:"Collateral Annex"},editorType:"dxSelectBox",editorOptions:{items:ANNEX,valueExpr:"id",displayExpr:a=>a?`${a.code} - ${a.name}`:"",searchEnabled:true,showClearButton:true,placeholder:"Select..."}},
+    {dataField:"cptyId",label:{text:"Counterparty"},editorType:"dxSelectBox",editorOptions:{items:P.counterparties,valueExpr:"id",displayExpr:"name",searchEnabled:true,showClearButton:true,placeholder:"Select..."}},
+    {dataField:"status",label:{text:"Status"},editorType:"dxSelectBox",editorOptions:{items:P.annexStatus,valueExpr:"id",displayExpr:"name",showClearButton:true,placeholder:"Select..."}},
+    {dataField:"currency",label:{text:"Eligible Currency"},editorType:"dxSelectBox",editorOptions:{items:P.currencies,showClearButton:true,placeholder:"Select..."}},
+    {dataField:"valuationCurrency",label:{text:"Valuation Currency"},editorType:"dxSelectBox",editorOptions:{items:P.currencies,showClearButton:true,placeholder:"Select..."}},
+    {dataField:"interest",label:{text:"Interest Calculated"},editorType:"dxSelectBox",editorOptions:{items:[{id:true,name:"Yes"},{id:false,name:"No"}],valueExpr:"id",displayExpr:"name",showClearButton:true,placeholder:"Select..."}}
+  ],
+  match(r,f){ const has=(v,q)=>!q||String(v||"").toUpperCase().includes(String(q).toUpperCase());
+    return has(r.code,f.code)&&has(r.name,f.name)&&(!f.agreementId||r.agreementId===f.agreementId)&&(!f.cptyId||r.cptyId===f.cptyId)&&(!f.status||r.status===f.status)
+      &&(!f.currency||ccyList(r.currencies).includes(f.currency))&&(!f.valuationCurrency||r.valuationCurrency===f.valuationCurrency)&&(f.interest==null||r.isInterestCalculated===f.interest); },
+  view:r=>{ const ag=byId(ANNEX,r.agreementId), fl=byId(P.floatingRates,r.floatingRateTypeId), on=r.isInterestCalculated;
+    const sp = Number(r.spread)||0, spTxt = sp ? ` ${sp>0?"+":""}${fmtRate(sp)} %` : "";
+    const rate = !on ? "" : r.rateTypeId===1 ? `${fmtRate(r.fixedRate)} %${spTxt}` : fl ? `${fl.name}${spTxt||" +0.00 %"}` : "";
+    return {id:r.id,code:r.code,name:r.name,agreement:ag?ag.code:"",cpty:nameOf(P.counterparties,r.cptyId),collateralType:nameOf(P.collateralTypes,r.collateralTypeId),status:nameOf(P.annexStatus,r.status),
+      direction:nameOf(P.directions,r.direction),currencies:ccyList(r.currencies).join(", "),valuationCurrency:r.valuationCurrency,validFrom:toDate(r.validFrom),validTo:toDate(r.validTo),
+      interest:on,settlement:on?nameOf(P.settlementTypes,r.settlementType):"",rateType:on?nameOf(P.rateTypes,r.rateTypeId):"",rate,
+      interestMethod:on?nameOf(P.interestMethods,r.interestMethodId):"",dateBasis:on?nameOf(P.dateBases,r.dateBasis):"",payFreq:on?nameOf(P.payFreqs,r.payFreqId):"",
+      businessDayRule:on?nameOf(P.businessDayRules,r.businessDayRule):"",negative:on?r.isNegativeRateAllowed:null,...flowView(r)}; },
+  columns:[
+    {dataField:"code",caption:"Code",width:140},{dataField:"name",caption:"Name",minWidth:230},{dataField:"agreement",caption:"Collateral Annex",width:160},
+    {dataField:"cpty",caption:"Counterparty",width:200},{dataField:"collateralType",caption:"Collateral Type",width:120},{dataField:"status",caption:"Status",width:90},
+    {dataField:"direction",caption:"Eligibility Direction",width:150},{dataField:"currencies",caption:"Eligible Currencies",width:150},{dataField:"valuationCurrency",caption:"Valuation Currency",width:140},
+    {dataField:"validFrom",caption:"Valid From",dataType:"date",format:"dd.MM.yyyy",width:105},{dataField:"validTo",caption:"Valid To",dataType:"date",format:"dd.MM.yyyy",width:105},
+    {dataField:"interest",caption:"Interest Calculated",dataType:"boolean",width:140},{dataField:"settlement",caption:"Interest Settlement",width:140},
+    {dataField:"rateType",caption:"Rate Type",width:95},{dataField:"rate",caption:"Rate",width:140},{dataField:"interestMethod",caption:"Interest Method",width:140},
+    {dataField:"dateBasis",caption:"Date Basis",width:95},{dataField:"payFreq",caption:"Payment Frequency",width:140},{dataField:"businessDayRule",caption:"Business Day Rule",width:150},
+    {dataField:"negative",caption:"Negative Rate Allowed",dataType:"boolean",width:160}]
+};
+SCREENS.txn = {
+  title:"Collateral Transaction", kind:"txn", store:()=>TXN, label:r=>r.logicalReference,
+  advItems:[
+    {dataField:"logicalReference",label:{text:"Logical Reference"}},
+    {dataField:"definitionId",label:{text:"Collateral Definition"},editorType:"dxSelectBox",editorOptions:{items:ACCOUNT,valueExpr:"id",displayExpr:a=>a?`${a.code} - ${a.name}`:"",searchEnabled:true,showClearButton:true,placeholder:"Select..."}},
+    {dataField:"cptyId",label:{text:"Counterparty"},editorType:"dxSelectBox",editorOptions:{items:P.counterparties,valueExpr:"id",displayExpr:"name",searchEnabled:true,showClearButton:true,placeholder:"Select..."}},
+    {dataField:"agreementId",label:{text:"Collateral Annex"},editorType:"dxSelectBox",editorOptions:{items:ANNEX,valueExpr:"id",displayExpr:a=>a?`${a.code} - ${a.name}`:"",searchEnabled:true,showClearButton:true,placeholder:"Select..."}},
+    {dataField:"portfolioId",label:{text:"Portfolio"},editorType:"dxSelectBox",editorOptions:{items:P.portfolios,valueExpr:"id",displayExpr:portfolioText,showClearButton:true,placeholder:"Select..."}},
+    {dataField:"valuationCurrency",label:{text:"Valuation Currency"},editorType:"dxSelectBox",editorOptions:{items:P.currencies,showClearButton:true,placeholder:"Select..."}},
+    {dataField:"amountType",label:{text:"Amount Type (any movement)"},editorType:"dxSelectBox",editorOptions:{items:P.amountTypes,valueExpr:"id",displayExpr:"name",showClearButton:true,placeholder:"Select..."}},
+    {dataField:"trdFrom",label:{text:"Last Trade Date From"},editorType:"dxDateBox",editorOptions:{displayFormat:"dd.MM.yyyy",showClearButton:true}},
+    {dataField:"trdTo",label:{text:"Last Trade Date To"},editorType:"dxDateBox",editorOptions:{displayFormat:"dd.MM.yyyy",showClearButton:true}}
+  ],
+  match(t,f){ const has=(v,q)=>!q||String(v||"").toUpperCase().includes(String(q).toUpperCase()); const def=byId(ACCOUNT,t.definitionId)||{};
+    const v={...t,...(t.pending||{})}; const last=(v.details||[]).slice().sort(detOrder).pop()||{};
+    return has(t.logicalReference,f.logicalReference)&&(!f.definitionId||t.definitionId===f.definitionId)&&(!f.cptyId||t.cptyId===f.cptyId)&&(!f.agreementId||t.agreementId===f.agreementId)
+      &&(!f.portfolioId||t.portfolioId===f.portfolioId)&&(!f.valuationCurrency||def.valuationCurrency===f.valuationCurrency)
+      &&(!f.amountType||(v.details||[]).some(d=>d.amountType===f.amountType))&&(!f.trdFrom||last.tradeDate>=toIso(f.trdFrom))&&(!f.trdTo||last.tradeDate<=toIso(f.trdTo)); },
+  view:t=>{ const def=byId(ACCOUNT,t.definitionId)||{}, ag=byId(ANNEX,t.agreementId); const v={...t,...(t.pending||{})};
+    const all=(v.details||[]).slice().sort(detOrder), last=all[all.length-1]||{}, pend=all.filter(d=>d.state==="Input").length;
+    return {id:t.id,logicalReference:t.logicalReference,definition:def.code,cpty:nameOf(P.counterparties,t.cptyId),agreement:ag?ag.code:"",
+      portfolio:(byId(P.portfolios,t.portfolioId)||{}).code,valuationCurrency:def.valuationCurrency,balance:txnBalance(t),pending:pend,
+      lastType:nameOf(P.txnTypes,last.transactionType),lastAmountType:nameOf(P.amountTypes,last.amountType),lastAmount:last.amount,lastCcy:last.cashCurrency,lastTrade:toDate(last.tradeDate),
+      inputDateTime:toDate(t.inputDateTime),trader:t.trader,...flowView(t)}; },
+  columns:[
+    {dataField:"logicalReference",caption:"Logical Reference",width:150},
+    {dataField:"definition",caption:"Collateral Definition",width:160},
+    {dataField:"cpty",caption:"Counterparty",width:200},{dataField:"agreement",caption:"Collateral Annex",width:160},{dataField:"portfolio",caption:"Portfolio",width:120},
+    {dataField:"valuationCurrency",caption:"Valuation Ccy",width:105},numCol("balance","Current Balance",{width:160,cellTemplate:signCell}),
+    {dataField:"pending",caption:"Pending",dataType:"number",alignment:"center",width:85},
+    {dataField:"lastType",caption:"Last Movement",width:120},{dataField:"lastAmountType",caption:"Last Amount Type",width:130},numCol("lastAmount","Last Amount",{width:140}),
+    {dataField:"lastCcy",caption:"Last Ccy",width:80},{dataField:"lastTrade",caption:"Last Trade Date",dataType:"date",format:"dd.MM.yyyy",width:120,sortOrder:"desc"},
+    {dataField:"inputDateTime",caption:"Input Date Time",dataType:"datetime",format:"dd.MM.yyyy HH:mm:ss",width:150},{dataField:"trader",caption:"Trader",width:130}]
+};
+
+/* ================= SCREEN RENDER ================= */
+function renderScreen(key){
+  ACTIVE = SCREENS[key]; STATE_FILTER = "Active Records";
+  $("#page-title").text(ACTIVE.title);
+  document.title = "Treasy - " + ACTIVE.title;
+  try{ localStorage.setItem("collateralDemoScreen",key); }catch(e){}
+  const $pc = $("#pageContainer").empty().removeClass("adv-open");
+  const $f = $('<div class="screen-filter content-header-custom">').appendTo($pc);
+  $('<div class="state-form">').appendTo($f).dxForm({labelLocation:"left",colCount:1,formData:{state:STATE_FILTER},items:[{dataField:"state",label:{text:"Records to be listed"},editorType:"dxSelectBox",
+    editorOptions:{items:P.stateFilter,width:200,stylingMode:"filled",onValueChanged:e=>{STATE_FILTER=e.value;refresh();}}}]});
+  $('<div class="advance-button-location">').appendTo($f).dxButton({text:"Advance Search",icon:"search",stylingMode:"outlined",onClick:()=>{ $adv.toggle(); $pc.toggleClass("adv-open",$adv.is(":visible")); GRID.updateDimensions(); }});
+  const $adv = $('<div class="advance-filters dx-theme-background-color">').appendTo($pc);
+  $('<div class="advance-header">Advance Search</div>').appendTo($adv);
+  ADV_FORM = $("<div>").appendTo($adv).dxForm({labelLocation:"top",colCount:4,formData:{},items:ACTIVE.advItems.map(i=>({...i,editorOptions:{stylingMode:"filled",...(i.editorOptions||{})}}))}).dxForm("instance");
+  const $af = $('<div class="advance-footer">').appendTo($adv);
+  $("<div>").appendTo($af).dxButton({text:"Clear",icon:"remove",stylingMode:"outlined",width:120,onClick:()=>{ADV_FORM.resetValues();refresh();}});
+  $("<div>").appendTo($af).dxButton({text:"Search",icon:"search",stylingMode:"outlined",width:120,onClick:refresh});
+  GRID = $('<div id="masterGrid" class="datagrid-medium">').appendTo($pc).dxDataGrid({
+    dataSource:[], keyExpr:"id", columns:[...ACTIVE.columns,...FLOW_COLUMNS],
+    selection:{mode:"single"}, hoverStateEnabled:true, rowAlternationEnabled:true, showBorders:true, showRowLines:true,
+    columnAutoWidth:false, allowColumnResizing:true, columnResizingMode:"widget", allowColumnReordering:true,
+    filterRow:{visible:true,applyFilter:"auto"}, headerFilter:{visible:true}, groupPanel:{visible:true}, columnChooser:{enabled:true}, export:{enabled:false},
+    paging:{pageSize:20}, pager:{visible:true,showPageSizeSelector:true,allowedPageSizes:[20,50,100],showInfo:true},
+    scrolling:{useNative:false,showScrollbar:"always"},
+    onToolbarPreparing:buildToolbar,
+    onSelectionChanged:updateToolbar,
+    onRowDblClick:e=>openForm("view",e.key)
+  }).dxDataGrid("instance");
+  refresh();
+}
+function refresh(){
+  if(!ACTIVE) return;
+  const f = ADV_FORM ? ADV_FORM.option("formData") : {};
+  const rows = ACTIVE.store().filter(r=>stateFilterPass(r,STATE_FILTER)&&ACTIVE.match(r,f)).map(ACTIVE.view);
+  const sel = GRID.getSelectedRowKeys();
+  GRID.option("dataSource",rows);
+  GRID.selectRows(sel.filter(k=>rows.some(r=>r.id===k)));
+  updateToolbar();
+}
+function selected(){ const k = GRID && GRID.getSelectedRowKeys()[0]; return k ? ACTIVE.store().find(r=>r.id===k) : null; }
+
+/* ================= TOOLBAR (same icons/order as Treasy grid builder) ================= */
+function buildToolbar(e){
+  TOOLBAR = {};
+  const btn = (key,icon,hint,onClick,location="before") => ({location,widget:"dxButton",options:{icon,hint,stylingMode:"outlined",onInitialized:x=>TOOLBAR[key]=x.component,onClick}});
+  const before = [
+    btn("refresh","refresh","Refresh",()=>{refresh();notify("Refreshed.","info");}),
+    btn("view","unselectall","View",()=>openForm("view")),
+    btn("new","fa-solid fa-plus","New",()=>openForm("new")),
+    btn("edit","edit","Edit",()=>{ const r=selected(); if(isPending(r)) confirmDlg("The transaction is in the validation phase, do you want to continue?").then(ok=>ok&&openForm("edit")); else openForm("edit"); }),
+    btn("verify","check","Verify",()=>decide(selected(),true)),
+    btn("reject","remove","Reject",()=>decide(selected(),false)),
+    btn("delete","trash","Delete",()=>deleteRecord(selected())),
+    btn("history","clock","History",()=>showHistory(selected()))
+  ];
+  const after = [
+    btn("clear","clearformat","Clear Column Filters",()=>GRID.clearFilter(),"after"),
+    btn("layout","smalliconslayout","Column Layout",()=>notify("Column layout is not part of the demo.","warning"),"after"),
+    btn("print","print","Print",()=>window.print(),"after"),
+    btn("excel","xlsxfile","Export all data to Excel",exportExcel,"after"),
+    btn("columns","column-chooser","Column Chooser",()=>GRID.showColumnChooser(),"after")
+  ];
+  // keep DevExtreme's own group panel item, drop its default column chooser
+  const own = e.toolbarOptions.items.filter(i=>i.name==="groupPanel");
+  own.forEach(i=>i.location="after");
+  e.toolbarOptions.items = [...before,...own,...after];
+}
+function updateToolbar(){
+  const r = selected(); if(!TOOLBAR.view) return;
+  const closed = r && isDead(r);
+  const st = {view:!!r, edit:!!r&&!closed&&r.state!=="Delete", verify:!!r&&isPending(r), reject:!!r&&isPending(r), delete:!!r&&!closed&&!isPending(r), history:!!r};
+  Object.entries(st).forEach(([k,v])=>TOOLBAR[k]&&TOOLBAR[k].option("disabled",!v));
+}
+function exportExcel(){
+  const wb = new ExcelJS.Workbook(); const ws = wb.addWorksheet(ACTIVE.title.slice(0,31));
+  DevExpress.excelExporter.exportDataGrid({component:GRID,worksheet:ws,autoFilterEnabled:true}).then(()=>wb.xlsx.writeBuffer()).then(b=>saveAs(new Blob([b],{type:"application/octet-stream"}),ACTIVE.title.replace(/ /g,"")+".xlsx"));
+}
+
+/* ================= APPROVAL ================= */
+function decide(r,approve){
+  if(!r) return;
+  if(r.stateMaker===user()){ notify("You cannot verify or reject a transaction you entered.","error"); return; }
+  const kind = ACTIVE.kind;
+  const was = r.state;
+  // transaction: the movements waiting in the pool share the decision of their transaction
+  const newDet = kind==="txn" && was==="Edit" && r.pending ? r.pending.details.filter(d=>d.state==="Input") : [];
+  if(was==="Input"){ setState(r,approve?"Input Verified":"Input Rejected",user()); }
+  if(was==="Edit"){ if(approve) Object.assign(r,r.pending); r.pending=null; setState(r,approve?"Edit Verified":"Edit Rejected",user()); }
+  if(was==="Delete"){ setState(r,approve?"Delete Verified":"Delete Rejected",user()); }
+  if(kind==="txn" && was!=="Delete"){ const fin = d => setState(d,approve?"Input Verified":"Input Rejected",user());
+    if(was==="Input" || approve) r.details.filter(d=>d.state==="Input").forEach(fin);
+    else newDet.forEach(d=>{ fin(d); r.details.push(d); });   // rejected movement stays in the history, without effect on the balance
+    recalcBalances(r.details); }
+  addHist(kind,r,approve?"Verify":"Reject");
+  notify(`${ACTIVE.label(r)} ${approve?"has been verified.":"has been rejected."}`,approve?"success":"warning");
+  refresh(); return true;
+}
+function deleteRecord(r){
+  if(!r) return;
+  const kind = ACTIVE.kind;
+  if(kind==="annex" && ACCOUNT.some(a=>a.annexId===r.id&&!isDead(a))){ notify("This agreement is used by a collateral definition and cannot be deleted.","error"); return; }
+  if(kind==="account" && TXN.some(t=>t.definitionId===r.id&&!isDead(t))){ notify("This collateral definition has active transactions and cannot be deleted. Set it passive instead.","error"); return; }
+  const msg = kind==="txn" ? `Transaction ${r.logicalReference} and its movements will be deleted and sent to the validation pool. Do you want to continue?` : "The record will be deleted and sent to the validation pool. Do you want to continue?";
+  return confirmDlg(msg).then(ok=>{ if(!ok) return; setState(r,"Delete",user()); addHist(kind,r,"Delete"); notify(`${ACTIVE.label(r)} The transaction fell into the validation pool.`,"success"); POPUP.hide(); refresh(); });
+}
+
+/* ================= POPUP FORM ================= */
+let POPUP, FORM;
+const MODE_TXT = {new:"New",edit:"Edit",view:"View"};
+function openForm(mode,key){
+  const r = mode==="new" ? null : (key ? ACTIVE.store().find(x=>x.id===key) : selected());
+  if(mode!=="new" && !r) return;
+  const builder = FORM_BUILDERS[ACTIVE.kind](mode,r);
+  const canDecide = r && isPending(r) && r.stateMaker!==user() && mode!=="new";
+  const canDelete = r && mode!=="new" && !isDead(r) && !isPending(r);
+  const fbtn = (icon,text,onClick,location="after") => ({widget:"dxButton",toolbar:"bottom",location,options:{icon,text,type:"default",stylingMode:"text",onClick}});
+  const items = [
+    {widget:"dxButton",toolbar:"bottom",location:"before",options:{icon:"fa-solid fa-file-circle-plus",hint:"Documents",type:"default",stylingMode:"text",onClick:()=>notify("Documents are not part of the demo.","warning")}},
+    {widget:"dxButton",toolbar:"bottom",location:"before",options:{icon:"fa-solid fa-comment",hint:"Notes",type:"default",stylingMode:"text",onClick:()=>notify("Notes are not part of the demo.","warning")}}
+  ];
+  if(canDecide){ items.push(fbtn("check","Verify",()=>{ if(decide(r,true)) POPUP.hide(); })); items.push(fbtn("remove","Reject",()=>{ if(decide(r,false)) POPUP.hide(); })); }
+  if(canDelete) items.push(fbtn("trash","Delete",()=>deleteRecord(r)));
+  if(mode!=="view") items.push(fbtn("save","Save",builder.save));
+  items.push(fbtn(mode==="view"?"isblank":"clear",mode==="view"?"OK":"Cancel",()=>POPUP.hide()));
+  POPUP.option({
+    width:builder.width, height:"auto", maxHeight:"95vh",
+    titleTemplate:()=>{ const $t=$(`<div class="popup-title-row"><div class="dx-toolbar-label"><div>${ACTIVE.title.replace(/s$/,"")}<span class="popup-title-span">[ ${MODE_TXT[mode]} ]</span></div></div></div>`);
+      if(builder.devDoc){ DEV_TITLE_Q=devQ("__table"); DEV_TITLE_Q.appendTo($t.find(".dx-toolbar-label > div")); devSwitch().appendTo($t); } return $t; },
+    toolbarItems:items,
+    contentTemplate:c=>{ const $s=$("<div>").appendTo(c); const $p=builder.devDoc?devPanel().appendTo($s):null; const $f=$("<div>").appendTo($s);
+      FORM=$f.dxForm(builder.form).dxForm("instance"); if(builder.devDoc){ FORM._devDoc=builder.devDoc; FORM._devPanel=$p; } builder.ready && builder.ready(FORM);
+      if(builder.devDoc){ devAttach(FORM,builder.devDoc,$p); DEV_TITLE_Q&&DEV_TITLE_Q.off("click").on("click",e=>{ e.stopPropagation(); devShow($p,builder.devDoc,"__table",DEV_TITLE_Q); }); }
+      $s.dxScrollView({height:"100%"}); }
+  });
+  POPUP.show();
+}
+
+/* ================= DEVELOPER MODE =================
+   Switch in the popup title. When on, every label, the popup title and the grid sections get a "?" icon;
+   clicking it shows that field's data model definition in the panel at the top of the form. */
+let DEV_MODE = false, DEV_TITLE_Q = null;
+const DEV_HINT = "Açıklamasını görmek için bir alanın yanındaki ? ikonuna tıklayın.";
+function devSwitch(){
+  const $w = $('<div class="popup-dev-switch">').toggleClass("on",DEV_MODE);
+  $("<div>").appendTo($w).dxSwitch({value:DEV_MODE,onValueChanged:e=>{ DEV_MODE=e.value; $("body").toggleClass("dev-on",e.value); $(".popup-dev-switch").toggleClass("on",e.value); }});
+  $("<span>Developer Mode</span>").appendTo($w);
+  return $w;
+}
+const devQ = key => $('<span class="dev-q" role="button" tabindex="0" title="Açıklama">?</span>').attr("data-dev-key",key);
+function devPanel(){
+  return $(`<div class="dev-panel"><i class="fa-solid fa-circle-info dev-panel-icon"></i><div class="dev-panel-body"><div class="dev-panel-title">Developer Mode</div><div class="dev-panel-text">${DEV_HINT}</div></div></div>`);
+}
+function devShow($panel,doc,key,$q){
+  const x = doc[key]; if(!x) return;
+  $panel.closest(".dx-overlay-content").find(".dev-q.active").removeClass("active"); $q&&$q.addClass("active");
+  const meta = [x.col,x.type,x.nul,x.fk,x.enumv].filter(Boolean).join(" · ");
+  $panel.find(".dev-panel-title").text(x.label);
+  $panel.find(".dev-panel-text").empty().append(
+    meta?$('<div class="dev-panel-meta">').text(meta):null,
+    $("<div>").text(x.desc),
+    x.rule?$('<div class="dev-panel-rule">').text("Ekran kuralı: "+x.rule):null);
+}
+// doc keys: form dataField, "__table" (popup title) and section captions (doc[key].section = caption text)
+function devAttach(form,doc,$panel){
+  const $root = form.$element();
+  Object.keys(doc).forEach(key=>{
+    const x = doc[key]; let $host = null;
+    if(x.section) $host = $root.find(".dx-form-group-caption").filter((i,el)=>$(el).text().trim().startsWith(x.section)).first();   // caption may carry a suffix, e.g. "(last movement)"
+    else { const ed = form.getEditor(key); if(ed) $host = ed.$element().closest(".dx-field-item").find(".dx-field-item-label-content").first(); }
+    if(!$host || !$host.length) return;
+    $host.find(".dev-q").remove();
+    const $q = devQ(key).appendTo($host);
+    $q.on("click keydown",e=>{ if(e.type==="keydown"&&e.key!=="Enter") return; e.preventDefault(); e.stopPropagation(); devShow($panel,doc,key,$q); });
+  });
+}
+
+/* ================= SUB FORM (child rows edited inside a parent form) ================= */
+let SUBPOPUP, SUBFORM;
+function subForm(o){
+  const btn = (icon,text,onClick,location="after") => ({widget:"dxButton",toolbar:"bottom",location,options:{icon,text,type:"default",stylingMode:"text",onClick}});
+  const items = [];
+  if(o.onDelete) items.push(btn("trash","Delete",()=>{ o.onDelete(); SUBPOPUP.hide(); },"before"));
+  // o.titleText / o.saveText: full title and action label (e.g. "Add Margin Rule" / "Add"); otherwise "<title> [ New|Edit ]" and "Save"
+  const saveBtn = btn(o.saveIcon||"save",o.saveText||"Save",()=>{ if(!SUBFORM.validate().isValid) return; o.onSave({...SUBFORM.option("formData")}); SUBPOPUP.hide(); });
+  const cancelBtn = btn(o.cancelIcon||"clear","Cancel",()=>SUBPOPUP.hide());
+  // o.readOnly: preview only, a single Close button
+  if(o.readOnly) items.push(btn("isblank","Close",()=>SUBPOPUP.hide()));
+  else items.push(...(o.cancelFirst?[cancelBtn,saveBtn]:[saveBtn,cancelBtn]));
+  SUBPOPUP.option({width:o.width,height:"auto",
+    titleTemplate:()=>$(`<div class="popup-title-row"><div class="dx-toolbar-label"><div>${o.titleText||`${o.title}<span class="popup-title-span">[ ${o.isNew?"New":"Edit"} ]</span>`}</div></div></div>`),
+    toolbarItems:items,
+    contentTemplate:c=>{ const $p=o.devDoc?devPanel().appendTo(c):null;
+      SUBFORM=$("<div>").appendTo(c).dxForm({formData:o.data,labelLocation:o.labelLocation||"left",colCount:o.colCount||1,showColonAfterLabel:false,readOnly:!!o.readOnly,items:o.items,
+      onFieldDataChanged:e=>o.onChange&&o.onChange(e,e.component)}).dxForm("instance"); o.devDoc&&devAttach(SUBFORM,o.devDoc,$p); }});
+  SUBPOPUP.show();
+}
+const ro = {readOnly:true};
+const sb = (items,extra={}) => ({items,valueExpr:"id",displayExpr:"name",placeholder:"Select...",...extra});
+const reqRule = [{type:"required"}];
+function saveCommon(kind,mode,r,v,list,label){
+  if(mode==="new"){ const n={id:++seq,...v,...flowInit("Input",user(),nowStamp())}; list.push(n); addHist(kind,n,"Insert"); POPUP.hide(); refresh(); GRID.selectRows([n.id]); notify(`${label(n)} The transaction fell into the validation pool.`,"success"); return; }
+  if(r.state==="Input"){ Object.assign(r,v); setState(r,"Input",user()); }
+  else { r.pending=v; setState(r,"Edit",user()); }
+  addHist(kind,r,"Update"); POPUP.hide(); refresh(); notify(`${label(r)} The transaction fell into the validation pool.`,"success");
+}
+
+/* ================= DEVELOPER MODE DOCS (Treasy_Collateral_Veri_Modeli.xlsx, "Açıklama" column) ================= */
+const DEVDOC_ANNEX = {
+  __table:{label:"Collateral Annex",col:"dbo.CollateralAnnex",desc:"Karşı taraf ile imzalanan teminat ekinin (annex) ana bilgileri: çerçeve sözleşme, teminat dokümanı, baz para birimi, teminat yönü, geçerlilik tarihleri ve itiraz toleransı.",
+    rule:"Kayıt; Product Information (CollateralAnnexProduct) ve Margin Terms (CollateralAnnexRule) satırlarıyla birlikte tek onay akışında kaydedilir."},
+  code:{label:"Annex Code",col:"Code",type:"nvarchar(100)",nul:"NOT NULL",desc:"Kaydın iş tarafındaki tekil kodu.",rule:"Tekil olmalıdır, büyük harfe çevrilir. Bir Collateral Definition'da kullanılan annex'te değiştirilemez."},
+  name:{label:"Annex Name",col:"Name",type:"nvarchar(250)",nul:"NOT NULL",desc:"Kaydın adı."},
+  cptyId:{label:"Counterparty",col:"CounterpartyId",type:"int",nul:"NOT NULL",fk:"FK Customer.Id",desc:"İlgili karşı taraf (Customer).",rule:"Bir Collateral Definition'da kullanılan annex'te değiştirilemez."},
+  status:{label:"Status",col:"Status",type:"int",nul:"NOT NULL",enumv:"Enum: Aktif / Pasif",desc:"Kaydın durumu.",rule:"Pasif annex Collateral Definition'da seçilemez."},
+  masterAgreement:{label:"Master Agreement",col:"MasterAgreement",type:"nvarchar(250)",nul:"NOT NULL",desc:"Bağlı olunan çerçeve sözleşme (ör. ISDA, GMRA)."},
+  collateralDocument:{label:"Collateral Document",col:"CollateralDocument",type:"nvarchar(250)",nul:"NOT NULL",desc:"Teminat dokümanı (ör. CSA)."},
+  baseCurrency:{label:"Base Currency",col:"BaseCurrencyCode",type:"nvarchar(3)",nul:"NOT NULL",desc:"Exposure ve teminat değerlerinin karşılaştırıldığı baz para birimi.",
+    rule:"Dispute Tolerance bu para birimindedir. Collateral Definition'da annex seçilince Valuation Currency için önerilir. Kullanılan annex'te değiştirilemez."},
+  direction:{label:"Direction",col:"Direction",type:"int",nul:"NOT NULL",enumv:"Enum: Both / PostOnly / ReceiveOnly (CollateralDirectionType)",desc:"Teminatın karşılıklı, yalnızca verilen veya yalnızca alınan olduğu bilgisi."},
+  validFrom:{label:"Valid From",col:"ValidFrom",type:"date",nul:"NOT NULL",desc:"Annex'in geçerlilik başlangıç tarihi.",rule:"Yeni kayıtta varsayılan değer bugündür."},
+  validTo:{label:"Valid To",col:"ValidTo",type:"date",nul:"NULL",desc:"Annex'in geçerlilik bitiş tarihi; süresiz ise boş.",rule:"Valid From'dan önce olamaz."},
+  disputeTolerance:{label:"Dispute Tolerance",col:"DisputeToleranceAmount",type:"decimal(38,10)",nul:"NOT NULL",desc:"Bu tutarın altındaki farklar için itiraz süreci başlatılmaz (baz para birimi cinsinden).",rule:"Negatif olamaz."},
+  __prod:{section:"Product Information",label:"Product Information",col:"dbo.CollateralAnnexProduct",fk:"FK CollateralAnnexId",desc:"Teminat ekinin (annex) kapsadığı ürün / alt ürünler, kapsama dahil olup olmadıkları ve bu ürünler için uygulanacak margin tipi.",
+    rule:"Product + Sub Product tekildir. Kapsama dahil (Included) en az bir ürün zorunludur."},
+  __rule:{section:"Margin Terms",label:"Margin Terms",col:"dbo.CollateralAnnexRule",fk:"FK CollateralAnnexId",desc:"Taraf bazında (banka / karşı taraf) eşik tutarı, asgari transfer tutarı ve yuvarlama kuralları.",
+    rule:"Annex + PartyType tekildir: en fazla bir Own ve bir Counterparty satırı. En az bir kural zorunludur."}
+};
+const DEVDOC_RULE = {
+  party:{label:"Party",col:"PartyType",type:"int",nul:"NOT NULL",enumv:"Enum: Own / Counterparty",desc:"Kuralın banka (Own) veya karşı taraf için geçerli olduğu bilgisi.",rule:"Annex'te zaten tanımlı olan taraf listede çıkmaz."},
+  currency:{label:"Currency",col:"CurrencyCode",type:"nvarchar(3)",nul:"NOT NULL",desc:"Kural tutarlarının para birimi.",rule:"Annex'in Base Currency'sinden gelir, değiştirilemez. Base Currency değişirse tüm kuralların para birimi de güncellenir."},
+  threshold:{label:"Threshold",col:"ThresholdAmount",type:"decimal(38,10)",nul:"NOT NULL",desc:"Teminat istenmeden taşınabilecek azami açık pozisyon (eşik tutarı)."},
+  mta:{label:"MTA",col:"MinimumTransferAmount",type:"decimal(38,10)",nul:"NOT NULL",desc:"Bu tutarın altındaki teminat transferleri yapılmaz (MTA)."},
+  rounding:{label:"Rounding Amount",col:"RoundingAmount",type:"decimal(38,10)",nul:"NOT NULL",desc:"Çağrı tutarının yuvarlanacağı birim."},
+  method:{label:"Rounding Method",col:"RoundingMethodType",type:"int",nul:"NOT NULL",enumv:"Enum: Nearest / Up / Down (RoundingMethodType)",desc:"Yuvarlama yöntemi: en yakın, yukarı veya aşağı."}
+};
+const DEVDOC_PRODUCT = {
+  product:{label:"Product",col:"ProductCode",type:"nvarchar(50)",nul:"NOT NULL",desc:"Annex kapsamındaki ürün kodu."},
+  subProduct:{label:"Sub Product",col:"SubProductCode",type:"nvarchar(50)",nul:"NOT NULL",desc:"Annex kapsamındaki alt ürün kodu.",rule:"Liste seçilen ürüne göre dolar; tek alt ürün varsa otomatik seçilir. Aynı ürün + alt ürün annex'te ikinci kez eklenemez."},
+  marginType:{label:"Margin Type",col:"MarginTypeId",type:"int",nul:"NOT NULL",fk:"FK MarginType.Id",desc:"Ürün için uygulanacak margin tipi."},
+  included:{label:"Included",col:"IsIncluded",type:"bit",nul:"NOT NULL",enumv:"Default: true",desc:"Ürün / alt ürünün annex kapsamına dahil (true) veya hariç (false) olduğu bilgisi."}
+};
+
+const DEVDOC_DEF = {
+  __table:{label:"Collateral Definition",col:"dbo.CollateralDefinition",desc:"Teminat tanımı; teminat tipi ile nakit teminatın uygunluk, geçerlilik ve faiz (hesaplama, faiz ödeme şekli, iş günü kuralı) parametrelerini içerir.",
+    rule:"Şu an yalnızca Cash teminat tipi kapsamdadır; Security sonraki fazda eklenecek. Teminat işlemleri (TxnTransaction) bu tanıma bağlanır."},
+  code:{label:"Code",col:"Code",type:"nvarchar(50)",nul:"NOT NULL",desc:"Kaydın iş tarafındaki tekil kodu.",rule:"Tekil olmalıdır, büyük harfe çevrilir. İşlemi olan tanımda değiştirilemez."},
+  name:{label:"Name",col:"Name",type:"nvarchar(250)",nul:"NOT NULL",desc:"Kaydın adı."},
+  agreementId:{label:"Collateral Annex",col:"CollateralAnnexId",type:"bigint",nul:"NULL",fk:"FK CollateralAnnex.Id",desc:"Teminatın bağlı olduğu teminat eki (annex).",
+    rule:"Yalnızca aktif ve onaylanmış annex'ler listelenir. Seçilince Counterparty, Eligibility Direction, Valuation Currency (annex Base Currency) ve Valid From annex'ten gelir ve kilitlenir; Valid To annex'ten gelir ama değiştirilebilir; Eligible Currencies boşsa annex'in Base Currency'si önerilir."},
+  cptyId:{label:"Counterparty",col:"CounterpartyId",type:"int",nul:"NOT NULL",fk:"FK Customer.Id",desc:"İlgili karşı taraf (Customer).",rule:"Collateral Annex seçiliyse annex'in karşı tarafı olur ve değiştirilemez."},
+  collateralTypeId:{label:"Collateral Type",col:"CollateralTypeId",type:"int",nul:"NOT NULL",fk:"FK CollateralType.Id",desc:"Teminatın tipi (ör. nakit, menkul kıymet); CollateralType parametre tablosuna referans.",
+    rule:"Şu an yalnızca Cash seçilebilir (Security sonraki fazda)."},
+  status:{label:"Status",col:"Status",type:"int",nul:"NOT NULL",enumv:"Enum: Aktif / Pasif",desc:"Kaydın durumu.",rule:"Pasif tanım teminat işleminde seçilemez."},
+  direction:{label:"Eligibility Direction",col:"CashEligibilityDirection",type:"int",nul:"NULL",enumv:"Enum: Both / PostOnly / ReceiveOnly (CollateralDirectionType)",desc:"Nakit teminatın hangi yönde kabul edildiği.",
+    rule:"Cash tipinde zorunludur. Collateral Annex seçiliyse annex'in yönü (Direction) gelir ve değiştirilemez."},
+  currencies:{label:"Eligible Currencies",col:"CashEligibilityCurrencies",type:"nvarchar(1000)",nul:"NULL",desc:"Kabul edilen para birimleri; birden fazla ise ';' ile ayrılır.",rule:"Cash tipinde en az bir para birimi zorunludur. Ör. USD;EUR;GBP"},
+  valuationCurrency:{label:"Valuation Currency",col:"CashValuationCurrencyCode",type:"nvarchar(3)",nul:"NULL",desc:"Nakit teminatın değerleme para birimi.",
+    rule:"Cash tipinde zorunludur. Collateral Annex seçiliyse annex'in Base Currency'si gelir ve değiştirilemez. Faiz bu para birimine çevrilmiş bakiye üzerinden hesaplanır; Floating Rate Index listesi bu para birimine göre süzülür. Seçilen para biriminin NetTrexCommon.dbo.Currency.BasisCode değeri Date Basis alanına varsayılan olarak gelir."},
+  validFrom:{label:"Valid From",col:"CashValidFrom",type:"date",nul:"NULL",desc:"Nakit teminat tanımının geçerlilik başlangıcı.",rule:"Cash tipinde zorunludur. Collateral Annex seçiliyse annex'in Valid From değeri gelir ve değiştirilemez; annex yoksa yeni kayıtta varsayılan değer bugündür."},
+  validTo:{label:"Valid To",col:"CashValidTo",type:"date",nul:"NULL",desc:"Nakit teminat tanımının geçerlilik bitişi.",rule:"Collateral Annex seçilince annex'in Valid To değeri varsayılan olarak gelir; kullanıcı değiştirebilir. Valid From'dan önce olamaz."},
+  isInterestCalculated:{label:"Interest Calculated",col:"IsInterestCalculated",type:"bit",nul:"NOT NULL",enumv:"Default: false",desc:"Nakit teminat için faiz hesaplanıp hesaplanmayacağı.",
+    rule:"Kapalıysa alttaki faiz alanları pasif ve boş kalır. Açıksa gün sonu batch'i faizi bilgi amaçlı hesaplar (CollateralDailyCalculation); muhasebe kaydı ve ödeme oluşmaz. Takasbank nema hesaplarında kapalıdır."},
+  settlementType:{label:"Interest Settlement",col:"InterestSettlementType",type:"int",nul:"NULL",enumv:"Enum: Capitalize / PayOut (InterestSettlementType)",
+    desc:"Hesaplanan faizin teminat bakiyesine eklenmesi (Capitalize) veya bakiyeye eklenmeden ödenmesi (PayOut).",rule:"Interest Calculated açıkken zorunludur. Faz 1'de yalnızca sözleşme bilgisidir; bakiyeye ekleme ya da ödeme tetiklemez."},
+  rateTypeId:{label:"Rate Type",col:"CashRateTypeId",type:"int",nul:"NULL",fk:"FK RateType.Id",desc:"Nakit teminata uygulanacak faiz tipi.",rule:"Interest Calculated açıkken zorunludur. Fixed: Fixed Rate görünür ve zorunludur, Interest Method Simple Linear seçilir. Floating: aynı yerde Floating Rate Index görünür ve zorunludur, Interest Method Daily Compounded seçilir. Spread her iki tipte de girilebilir."},
+  floatingRateTypeId:{label:"Floating Rate Index",col:"CashFloatingRateTypeId",type:"int",nul:"NULL",fk:"FK FloatingRateType.Id",desc:"Değişken faizde kullanılacak referans endeks.",
+    rule:"Yalnızca Rate Type = Floating iken, Fixed Rate'in yerinde görünür ve zorunludur. Yalnızca Valuation Currency ile aynı para birimindeki endeksler listelenir (FloatingRateType.CurrencyCode)."},
+  spread:{label:"Spread",col:"CashSpread",type:"decimal(18,10)",nul:"NULL",desc:"Referans orana eklenen marj.",rule:"Interest Calculated açıkken Rate Type'tan bağımsız olarak her zaman girilebilir (Fixed ve Floating). Yüzde olarak tutulur, negatif olabilir. Boş bırakılırsa 0 kabul edilir."},
+  fixedRate:{label:"Fixed Rate",col:"CashFixedRate",type:"decimal(18,10)",nul:"NULL",desc:"Sabit faizli nakit teminatta uygulanan oran.",rule:"Rate Type Floating değilken görünür (Floating seçilince yerini Floating Rate Index alır). Rate Type = Fixed iken zorunludur, yüzde olarak tutulur. Negative Rate Allowed kapalıysa negatif olamaz."},
+  interestMethodId:{label:"Interest Method",col:"CashInterestMethodId",type:"int",nul:"NULL",fk:"FK InterestMethod.Id",desc:"Faiz hesaplama yöntemi.",rule:"Interest Calculated açıkken zorunludur. Rate Type seçilince varsayılan gelir: Fixed için Simple Linear, Floating için Daily Compounded; kullanıcı değiştirebilir."},
+  dateBasis:{label:"Date Basis",col:"CashDateBasisCode",type:"nvarchar(4)",nul:"NULL",fk:"FK DateBasis.BasisCode",desc:"Faiz hesaplamasında kullanılan gün sayım esası.",
+    rule:"Interest Calculated açıkken zorunludur. Varsayılan değer, seçilen Valuation Currency'nin NetTrexCommon.dbo.Currency.BasisCode alanından gelir (Currency.BasisCode → DateBasis.BasisCode). Valuation Currency seçildiğinde, değiştiğinde ya da Interest Calculated açıldığında doldurulur. Kullanıcı istediği zaman değiştirebilir; elle seçilen değer Valuation Currency değişince korunur, yalnızca boşsa ya da önceki para biriminin varsayılan değerindeyse güncellenir."},
+  payFreqId:{label:"Payment Frequency",col:"CashPaymentFrequencyId",type:"int",nul:"NULL",fk:"FK PaymentFrequency.Id",desc:"Faiz ödeme sıklığı.",rule:"Interest Calculated açıkken zorunludur."},
+  businessDayRule:{label:"Business Day Rule",col:"CashBusinessDayRuleType",type:"int",nul:"NULL",enumv:"Enum: ModifiedFollowing / Following / Preceding (PaymentDayCalculationType)",
+    desc:"Ödeme tarihi tatile denk geldiğinde uygulanacak tarih kaydırma kuralı.",rule:"Interest Calculated açıkken zorunludur."},
+  isNegativeRateAllowed:{label:"Negative Rate Allowed",col:"IsNegativeRateAllowed",type:"bit",nul:"NOT NULL",enumv:"Default: false",desc:"Negatif faiz oranına izin verilip verilmediği.",
+    rule:"Kapalıyken uygulanan oran sıfırın altına inmez."},
+  __general:{section:"General Information",label:"General Information",col:"dbo.CollateralDefinition",desc:"Teminat tanımının genel bilgileri.",rule:"Tüm teminat tipleri için ortaktır."},
+  __cash:{section:"Cash Eligibility",label:"Cash Eligibility",col:"dbo.CollateralDefinition · Cash* alanları",desc:"Nakit teminatın kabul yönü, değerleme para birimi ve geçerlilik tarihleri. Kabul edilen para birimleri (CashEligibilityCurrencies) General Information bölümünde girilir.",rule:"Collateral Type = Cash iken gösterilir."},
+  __interest:{section:"Cash Interest Terms",label:"Cash Interest Terms",col:"dbo.CollateralDefinition · faiz alanları",desc:"Nakit teminata uygulanacak faiz parametreleri.",
+    rule:"Faiz Faz 1'de bilgi amaçlı hesaplanır (gün sonu batch'i, CollateralDailyCalculation); muhasebe kaydı ve ödeme oluşturmaz."}
+};
+
+const DEVDOC_TXN = {
+  __table:{label:"Collateral Transaction",col:"dbo.TxnTransaction + dbo.TxnTransactionDetail",desc:"Teminat işleminin başlık bilgileri: teminat tanımı, karşı taraf, portföy, teminat eki (annex) ve iş referansları. Her hareket TxnTransactionDetail satırıdır.",
+    rule:"Bir transaction, tanım + portföy için açılan kalıcı teminat pozisyonudur; yeni hareket mevcut transaction'a eklenir. Hareket, transaction ile birlikte onay havuzuna düşer. Günlük faiz (CollateralDailyCalculation) hareket bazında hesaplanır; TransactionId ve TransactionDetailId'ye bağlanır."},
+  definitionId:{label:"Collateral Definition",col:"CollateralDefinitionId",type:"bigint",nul:"NOT NULL",fk:"FK CollateralDefinition.Id",desc:"İşlemin bağlı olduğu teminat tanımı.",
+    rule:"Yalnızca aktif ve onaylanmış tanımlar listelenir. Kayıttan sonra değiştirilemez. Counterparty, Collateral Annex ve Valuation Currency tanımdan gelir."},
+  cptyId:{label:"Counterparty",col:"CounterpartyId",type:"int",nul:"NOT NULL",fk:"FK Customer.Id",desc:"İlgili karşı taraf (Customer).",rule:"Collateral Definition'ın karşı tarafıdır, değiştirilemez (REL-14: CollateralDefinition.CounterpartyId ile tutarlı olmalı)."},
+  agreementId:{label:"Collateral Annex",col:"CollateralAnnexId",type:"bigint",nul:"NULL",fk:"FK CollateralAnnex.Id",desc:"İşlemin bağlı olduğu teminat eki (annex).",rule:"Collateral Definition'daki annex'ten gelir, değiştirilemez."},
+  portfolioId:{label:"Portfolio",col:"PortfolioId",type:"int",nul:"NOT NULL",fk:"FK Portfolio.Id",desc:"İşlemin kaydedildiği portföy.",rule:"Aynı tanım + portföy için ikinci transaction açılamaz. Kayıttan sonra değiştirilemez."},
+  logicalReference:{label:"Logical Reference",col:"LogicalReference",type:"nvarchar(50)",nul:"NOT NULL",desc:"İşlemin mantıksal (iş) referans numarası.",rule:"Kayıtta sistem atar (demoda CTX + sıra no)."},
+  businessKey:{label:"Business Key",col:"BusinessKey",type:"bigint",nul:"NOT NULL",desc:"İşlemin iş anahtarı.",rule:"Kayıtta sistem atar."},
+  trader:{label:"Trader",col:"Trader",type:"nvarchar(80)",nul:"NOT NULL",desc:"İşlemi giren dealer / kullanıcı.",rule:"Oturum açan kullanıcı; değiştirilemez."},
+  inputDateTime:{label:"Input Date Time",col:"InputDateTime",type:"datetime",nul:"NOT NULL",desc:"İşlemin sisteme giriş zamanı.",rule:"Kayıt anında sistem atar."},
+  transactionType:{label:"Transaction Type",col:"TxnTransactionDetail.TransactionType",type:"int",nul:"NOT NULL",enumv:"Enum: Increase / Decrease (TransactionType)",desc:"Teminat bakiyesinin artışı (Increase) veya azalışı (Decrease).",
+    rule:"Increase bakiyeyi artırır (+), Decrease azaltır (-). Bakiye + ise teminat bankada, - ise karşı taraftadır: alınan teminat ve ona işleyen nema Increase; verilen teminat ve ona işleyen nema (ör. Takasbank) Decrease."},
+  amountType:{label:"Amount Type",col:"TxnTransactionDetail.AmountTypeId",type:"int",nul:"NOT NULL",fk:"FK CollateralAmountType.Id",desc:"Tutarın niteliği: teminat (Collateral), faiz veya nema.",
+    enumv:"Değerler: Collateral / Nema",rule:"Nema seçilince Margin Type için Other önerilir."},
+  marginTypeId:{label:"Margin Type",col:"TxnTransactionDetail.MarginTypeId",type:"int",nul:"NOT NULL",fk:"FK MarginType.Id",desc:"Hareketin margin tipi.",rule:"Modelde NOT NULL; faiz / nema hareketlerinde Other kullanılır."},
+  isSettlementRequired:{label:"Settlement Required",col:"TxnTransactionDetail.IsSettlementRequired",type:"bit",nul:"NOT NULL",enumv:"Default: false",desc:"Hareket için ödeme / takas (settlement) yapılması gerekip gerekmediği.",
+    rule:"Payment alanlarını pasifleştirmez ve temizlemez; yalnızca zorunluluğu belirler. Kapalıysa ödeme alanları doldurulmak zorunda değildir ve hareket yalnızca teminat bakiyesini günceller (ör. Takasbank ay sonu neması). Açıksa Settlement Type, Payment Instr. Type ve dört muhabir alanı zorunludur."},
+  tradeDate:{label:"Trade Date",col:"TxnTransactionDetail.TradeDate",type:"date",nul:"NOT NULL",desc:"İşlem tarihi.",rule:"Varsayılan değer bugündür."},
+  valueDate:{label:"Value Date",col:"TxnTransactionDetail.ValueDate",type:"date",nul:"NOT NULL",desc:"Valör tarihi.",rule:"Trade Date'ten önce olamaz. Kullanıcı elle değiştirene kadar Trade Date'i izler. Bakiye valör sırasına göre hesaplanır."},
+  cashCurrency:{label:"Currency",col:"TxnTransactionDetail.CurrencyCode",type:"nvarchar(3)",nul:"NOT NULL",desc:"Nakit teminatın para birimi.",rule:"Collateral Definition'ın Eligible Currencies listesinden seçilir; varsayılan Valuation Currency'dir."},
+  amount:{label:"Amount",col:"TxnTransactionDetail.Amount",type:"decimal(38,10)",nul:"NOT NULL",desc:"Hareket tutarı (CurrencyCode cinsinden).",rule:"Sıfırdan büyük olmalıdır; yön Transaction Type ile verilir."},
+  fxRate:{label:"FX Rate",col:"TxnTransactionDetail.FXRate",type:"decimal(38,10)",nul:"NULL",desc:"Hareket para biriminden (Currency) değerleme para birimine (Valuation Currency) çevrim kuru.",
+    rule:"Currency = Valuation Currency ise boş kalır ve kilitlenir. Farklıysa sistem parametrelerinde tanımlı FxRateChartId kur tablosundan, Trade Date günündeki kur varsayılan olarak gelir (iki para birimi de tabloda yerel para birimine karşı tutulduğundan çapraz hesaplanır: Currency kuru ÷ Valuation Currency kuru); kullanıcı değiştirebilir ve bu durumda zorunludur. Currency ya da Trade Date değişince kur tablodan yeniden gelir."},
+  transactionAmount:{label:"Transaction Amount",col:"TxnTransactionDetail.TransactionAmount",type:"decimal(38,10)",nul:"NOT NULL",desc:"Transfer edilecek işlem tutarı (değerleme para birimi karşılığı).",rule:"Hesaplanır: Amount × FX Rate. Currency = Valuation Currency ise (FX Rate boş) Amount'a eşittir."},
+  valuationCurrency:{label:"Valuation Currency",col:"TxnTransactionDetail.ValuationCurrencyCode",type:"nvarchar(3)",nul:"NOT NULL",desc:"Bakiyenin değerleme para birimi.",rule:"Collateral Definition'ın Valuation Currency'sinden gelir."},
+  currentBalance:{label:"Current Balance",col:"TxnTransactionDetail.CurrentBalance",type:"decimal(38,10)",nul:"NOT NULL",desc:"Hareket öncesi / sonrası mevcut teminat bakiyesi.",
+    rule:"O ana kadar oluşan teminat hareketleri sonucundaki kalan bakiyedir (bu hareket dahil). Yalnızca onaylı hareketler, valör sırasıyla toplanır; Increase (+), Decrease (-). Model açıklamasındaki 'öncesi / sonrası' ifadesi buna göre düzeltilmeli."},
+  settlementTypeId:{label:"Settlement Type",col:"TxnTransactionDetail.SettlementTypeId",type:"int",nul:"NULL",fk:"FK SettlementType.Id",desc:"Ödeme / takas tipi.",enumv:"Değerler: Gross Settlement / Net Settlement",rule:"Yeni transaction'da boş gelir; Counterparty (Collateral Definition'dan) ve Currency seçilince karşı tarafın o para birimindeki ödeme talimatından (SSI) dolar, ikisinden biri değişince yeniden doldurulur. Her zaman düzenlenebilir. Settlement Required açıkken zorunludur."},
+  paymentInstructionTypeId:{label:"Payment Instr. Type",col:"TxnTransactionDetail.PaymentInstructionTypeId",type:"int",nul:"NULL",fk:"FK PaymentInstructionType.Id",desc:"Ödeme talimatı tipi.",enumv:"Değerler: Bank to Bank / Account to Account / Vostro Account",rule:"Yeni transaction'da boş gelir; Counterparty (Collateral Definition'dan) ve Currency seçilince karşı tarafın o para birimindeki ödeme talimatından (SSI) dolar, ikisinden biri değişince yeniden doldurulur. Her zaman düzenlenebilir. Settlement Required açıkken zorunludur."},
+  outgoingCorrespondentId:{label:"We Send",col:"TxnTransactionDetail.OutgoingCorrespondentId",type:"int",nul:"NULL",desc:"Giden ödemede kullanılan muhabir banka.",
+    rule:"Yeni transaction'da boş gelir; Counterparty (Collateral Definition'dan) ve Currency seçilince karşı tarafın o para birimindeki ödeme talimatından (SSI) dolar, ikisinden biri değişince yeniden doldurulur. Her zaman düzenlenebilir. Settlement Required açıkken zorunludur. Treasy.Pure Payment bileşenindeki gibi açılır grid'den seçilir (Account Number, Bank Name, Customer Id, Currency, GL Code). Muhabir hesap no, GL kodu ve muhasebe tipi (OutgoingCorrespondentAccountNumber / ...GLCode / OutgoingPayment...) seçilen muhabirden sistemce doldurulur, ekranda gösterilmez."},
+  theirBeneficiaryCorrespondentId:{label:"They Receive",col:"TxnTransactionDetail.TheirBeneficiaryCorrespondentId",type:"int",nul:"NULL",desc:"Karşı tarafın lehtar muhabir bankası.",
+    rule:"Yeni transaction'da boş gelir; Counterparty (Collateral Definition'dan) ve Currency seçilince karşı tarafın o para birimindeki ödeme talimatından (SSI) dolar, ikisinden biri değişince yeniden doldurulur. Her zaman düzenlenebilir. Settlement Required açıkken zorunludur. Treasy.Pure Payment bileşenindeki gibi açılır grid'den seçilir (SWIFT Code, Bank Name, Account Number, Currency). Ad, SWIFT kodu, hesap no ve GL kodu (TheirBeneficiaryCorrespondent...) seçilen kayıttan doldurulur."},
+  incomingCorrespondentId:{label:"We Receive",col:"TxnTransactionDetail.IncomingCorrespondentId",type:"int",nul:"NULL",desc:"Gelen ödemede kullanılan muhabir banka.",
+    rule:"Yeni transaction'da boş gelir; Counterparty (Collateral Definition'dan) ve Currency seçilince karşı tarafın o para birimindeki ödeme talimatından (SSI) dolar, ikisinden biri değişince yeniden doldurulur. Her zaman düzenlenebilir. Settlement Required açıkken zorunludur. Treasy.Pure Payment bileşenindeki gibi açılır grid'den seçilir (Account Number, Bank Name, Customer Id, Currency, GL Code). Muhabir hesap no, GL kodu ve muhasebe tipi (IncomingCorrespondent... / IncomingPayment...) sistemce doldurulur."},
+  theirSenderCorrespondentId:{label:"They Send",col:"TxnTransactionDetail.TheirSenderCorrespondentId",type:"int",nul:"NULL",desc:"Karşı tarafın gönderici muhabir bankası.",
+    rule:"Yeni transaction'da boş gelir; Counterparty (Collateral Definition'dan) ve Currency seçilince karşı tarafın o para birimindeki ödeme talimatından (SSI) dolar, ikisinden biri değişince yeniden doldurulur. Her zaman düzenlenebilir. Settlement Required açıkken zorunludur. Treasy.Pure Payment bileşenindeki gibi açılır grid'den seçilir (SWIFT Code, Bank Name, Account Number, Currency). Ad, SWIFT kodu, hesap no ve GL kodu (TheirSenderCorrespondent...) seçilen kayıttan doldurulur."},
+  sendConfirmation:{label:"Send Confirmation",col:"TxnTransactionDetail.SendConfirmation",type:"bit",nul:"NOT NULL",desc:"Teyit mesajı gönderilip gönderilmeyeceği.",rule:"Counterparty ve Currency seçilince işaretli gelir (SSI). Mesaj durumu SwiftConfirmationMessageStatus alanında izlenir."},
+  sendPayment:{label:"Send Payment",col:"TxnTransactionDetail.SendPayment",type:"bit",nul:"NOT NULL",desc:"Ödeme mesajı gönderilip gönderilmeyeceği.",rule:"Mesaj durumu SwiftPaymentMessageStatus / DomesticPaymentMessageStatus alanlarında izlenir."},
+  sendNoticeToReceive:{label:"Send Notice To Receive",col:"TxnTransactionDetail.SendNoticeToReceive",type:"bit",nul:"NOT NULL",desc:"Tahsilat ihbarı (notice to receive) gönderilip gönderilmeyeceği."},
+  instructions:{label:"Instructions",col:"TxnTransactionDetail.Instructions",type:"nvarchar(1000)",nul:"NULL",desc:"Serbest metin ödeme talimatları.",rule:"Treasy.Pure Payment bileşeninde en fazla 400 karakter (taInstructions MaxLength 400); modelde nvarchar(1000). Limit tek değere indirilmeli."},
+  __general:{section:"General Information",label:"General Information",col:"dbo.TxnTransaction",desc:"Teminat işleminin başlık bilgileri.",rule:"Yeni transaction'da girilir; mevcut transaction'a hareket eklerken salt okunurdur."},
+  __detail:{section:"Detail Information",label:"Detail Information",col:"dbo.TxnTransactionDetail",desc:"Teminat işlemine ait gelen / giden hareket: tutar, tutar tipi, kur ve bakiye.",
+    rule:"Kaydedildiğinde transaction'a yeni bir detay satırı eklenir; tüm hareketler Transaction Detail tab'ında listelenir."},
+  __payment:{section:"Payment Instructions",label:"Payment Instructions",col:"dbo.TxnTransactionDetail · ödeme alanları",desc:"Ödeme / mesajlaşma ve muhabir bilgileri.",rule:"Treasy.Pure Payment bileşeninin akordeon modu gibi açılır / kapanır (başlığa tıklayın); varsayılan açık. Kapalıyken kayıt bir ödeme alanına takılırsa panel kendiliğinden açılır. Alanlar her zaman düzenlenebilir. Yeni transaction'da boş gelir, Counterparty ve Currency seçilince karşı tarafın ödeme talimatından (SSI) dolar; zorunluluk yalnızca Settlement Required açıkken geçerlidir. Mesaj durumları ve GL / muhasebe alanları sistemce doldurulur."}
+};
+
+/* Payment panel as an accordion (Treasy.Pure Payment component, EnabledAccordion = true): the group caption is the header */
+function payAccordion(form){
+  const $g = form.$element().find(".pay-accordion").first(); if(!$g.length) return;
+  const $cap = $g.find("> .dx-field-item-content > .dx-form-group > .dx-form-group-caption").first();
+  if(!$cap.find(".pay-acc-chev").length) $('<i class="fa-solid fa-chevron-up pay-acc-chev"></i>').appendTo($cap);
+  $cap.attr({role:"button",tabindex:0,"aria-expanded":"true"}).off(".acc").on("click.acc keydown.acc",e=>{
+    if(e.type==="keydown"&&e.key!=="Enter"&&e.key!==" ") return;
+    if($(e.target).closest(".dev-q").length) return;   // the developer-mode "?" keeps its own click
+    e.preventDefault(); payToggle($g); });
+}
+function payToggle($g,open){
+  const $body = $g.find("> .dx-field-item-content > .dx-form-group > .dx-form-group-content").first(), isOpen = !$g.hasClass("acc-closed");
+  if(open===undefined) open = !isOpen; if(open===isOpen) return;
+  $g.toggleClass("acc-closed",!open);
+  $g.find("> .dx-field-item-content > .dx-form-group > .dx-form-group-caption").attr("aria-expanded",String(open)).find(".pay-acc-chev").toggleClass("fa-chevron-up",open).toggleClass("fa-chevron-down",!open);
+  open ? $body.stop(true,true).slideDown(300) : $body.stop(true,true).slideUp(300);
+}
+// a save blocked by a payment field must not stay hidden behind a closed panel
+function openPayIfInvalid(v){
+  const $g = FORM.$element().find(".pay-accordion").first();
+  if($g.hasClass("acc-closed") && v.brokenRules.some(r=>r.validator && $.contains($g[0],r.validator.$element()[0]))){ payToggle($g,true); notify("Payment Instructions has missing fields.","warning"); }
+}
+
+const FORM_BUILDERS = {
+  annex(mode,r){
+    const d = r ? {...r,...(r.pending||{})} : {status:"ACTIVE",direction:"BOTH",baseCurrency:"TRY",validFrom:isoToday(),validTo:"",disputeTolerance:0,rules:[],products:[]};
+    const data = {...d,validFrom:toDate(d.validFrom),validTo:toDate(d.validTo)};
+    const view = mode==="view";
+    const used = r && ACCOUNT.some(a=>a.annexId===r.id);
+    // working copies: rules/products are saved together with the annex (one approval flow)
+    const rules = (d.rules||[]).map(x=>({...x})), prods = (d.products||[]).map(x=>({...x}));
+    let ruleGrid, prodGrid, addRuleBtn;
+    const baseCcy = () => (FORM && FORM.option("formData").baseCurrency) || d.baseCurrency;
+    const amt = (v,c) => `${fmtNum(v)} ${c||""}`.trim();
+    const editCol = (onEdit) => ({type:"buttons",width:50,visible:!view,buttons:[{icon:"edit",hint:"Edit",onClick:e=>onEdit(e.row.data)}]});
+    const refreshRules = () => { ruleGrid&&ruleGrid.option("dataSource",rules.slice().sort((a,b)=>a.party.localeCompare(b.party)).reverse());
+      addRuleBtn&&addRuleBtn.option("disabled",view||P.partyTypes.every(p=>rules.some(x=>x.party===p.id))); };
+    const refreshProds = () => prodGrid&&prodGrid.option("dataSource",prods.slice());
+    const sectionBlock = (btnText,onAdd,setBtn,buildGrid) => ({itemType:"simpleItem",colSpan:2,label:{visible:false},template:(_,el)=>{
+      const $w=$('<div class="annex-sub">').appendTo(el);
+      const $bar=$('<div class="annex-sub-bar">').appendTo($w);
+      const b=$("<div>").appendTo($bar).dxButton({text:btnText,icon:"add",stylingMode:"outlined",type:"default",visible:!view,onClick:onAdd}).dxButton("instance"); setBtn&&setBtn(b);
+      buildGrid($("<div>").appendTo($w));
+    }});
+    const ruleForm = (rule) => {
+      // amounts start empty (0.00 is only a placeholder); currency always follows the annex Base Currency
+      const isNew = !rule; const v = rule ? {...rule,currency:baseCcy()} : {party:P.partyTypes.find(p=>!rules.some(x=>x.party===p.id)).id,currency:baseCcy(),threshold:null,mta:null,rounding:null,method:"NEAREST"};
+      // commit on every keystroke / paste: the amount is kept even if the user clicks Add without leaving the field
+      const amount = {format:"#,##0.00",min:0,placeholder:"0.00",valueChangeEvent:"keyup input change"};
+      subForm({titleText:isNew?"Add Margin Rule":"Edit Margin Rule",saveText:isNew?"Add":"Update",saveIcon:"check",cancelFirst:true,
+        width:700,colCount:2,labelLocation:"top",data:v,isNew,
+        items:[
+          {dataField:"party",label:{text:"Party"},editorType:"dxSelectBox",editorOptions:sb(P.partyTypes.filter(p=>p.id===v.party||!rules.some(x=>x.party===p.id))),validationRules:reqRule},
+          {dataField:"threshold",label:{text:"Threshold"},editorType:"dxNumberBox",editorOptions:amount,validationRules:reqRule},
+          {dataField:"mta",label:{text:"MTA"},editorType:"dxNumberBox",editorOptions:amount,validationRules:reqRule},
+          {dataField:"rounding",label:{text:"Rounding Amount"},editorType:"dxNumberBox",editorOptions:amount,validationRules:reqRule},
+          {dataField:"method",label:{text:"Rounding Method"},editorType:"dxSelectBox",editorOptions:sb(P.roundingMethods),validationRules:reqRule},
+          {dataField:"currency",label:{text:"Currency"},isRequired:true,editorOptions:{readOnly:true,elementAttr:{class:"field-locked"}}}],
+        devDoc:DEVDOC_RULE,
+        onSave:f=>{ const n={...f,threshold:Number(f.threshold)||0,mta:Number(f.mta)||0,rounding:Number(f.rounding)||0};
+          if(isNew) rules.push({id:++ruleSeq,...n}); else Object.assign(rule,n); refreshRules(); },
+        onDelete:isNew?null:()=>{ rules.splice(rules.indexOf(rule),1); refreshRules(); }});
+    };
+    const subsOf = p => (byId(P.products,p)||{subs:[]}).subs;
+    const prodForm = (prod) => {
+      const isNew = !prod; const v = prod ? {...prod} : {product:null,subProduct:null,marginType:"VM",included:true};
+      subForm({title:"Product Scope",width:560,data:v,isNew,
+        items:[
+          {dataField:"product",label:{text:"Product"},editorType:"dxSelectBox",editorOptions:sb(P.products),validationRules:reqRule},
+          {dataField:"subProduct",label:{text:"Sub Product"},editorType:"dxSelectBox",editorOptions:sb(subsOf(v.product),{placeholder:v.product?"Select...":"Select a product first"}),validationRules:[...reqRule,
+            {type:"custom",message:"This product / sub product is already defined in the annex.",validationCallback:e=>{ const p=SUBFORM.option("formData").product; return !prods.some(x=>x!==prod&&x.product===p&&x.subProduct===e.value); }}]},
+          {dataField:"marginType",label:{text:"Margin Type"},editorType:"dxSelectBox",editorOptions:sb(P.marginTypes),validationRules:reqRule},
+          {dataField:"included",label:{text:"Included"},editorType:"dxSwitch",editorOptions:{switchedOnText:"Yes",switchedOffText:"No"}}],
+        devDoc:DEVDOC_PRODUCT,
+        onChange:(e,form)=>{ if(e.dataField==="product"){ const ed=form.getEditor("subProduct"); const s=subsOf(e.value); ed.option({items:s,placeholder:"Select..."}); form.updateData("subProduct",s.length===1?s[0].id:null); } },
+        onSave:f=>{ if(isNew) prods.push({id:++prodSeq,...f,included:!!f.included}); else Object.assign(prod,{...f,included:!!f.included}); refreshProds(); },
+        onDelete:isNew?null:()=>{ prods.splice(prods.indexOf(prod),1); refreshProds(); }});
+    };
+    return { width:960, devDoc:DEVDOC_ANNEX,
+      form:{formData:data,labelLocation:"left",readOnly:view,colCount:1,showColonAfterLabel:false,items:[
+        {itemType:"group",caption:"General Information",colCount:2,cssClass:"annex-section",items:[
+          {dataField:"code",label:{text:"Annex Code"},editorOptions:{maxLength:100,readOnly:used||view},validationRules:[...reqRule,{type:"custom",message:"Annex Code already exists.",validationCallback:e=>!ANNEX.some(a=>a.code===String(e.value).trim().toUpperCase()&&a.id!==(r&&r.id)&&!isDead(a))}]},
+          {dataField:"name",label:{text:"Annex Name"},editorOptions:{maxLength:250},validationRules:reqRule},
+          {dataField:"cptyId",label:{text:"Counterparty"},editorType:"dxSelectBox",editorOptions:sb(P.counterparties,{searchEnabled:true,readOnly:used||view}),validationRules:reqRule},
+          {dataField:"status",label:{text:"Status"},editorType:"dxSelectBox",editorOptions:sb(P.annexStatus),validationRules:reqRule},
+          {dataField:"masterAgreement",label:{text:"Master Agreement"},editorOptions:{maxLength:250},validationRules:reqRule},
+          {dataField:"collateralDocument",label:{text:"Collateral Document"},editorOptions:{maxLength:250},validationRules:reqRule},
+          {dataField:"baseCurrency",label:{text:"Base Currency"},editorType:"dxSelectBox",editorOptions:{items:P.currencies,placeholder:"Select...",readOnly:used||view},validationRules:reqRule},
+          {dataField:"direction",label:{text:"Direction"},editorType:"dxSelectBox",editorOptions:sb(P.directions),validationRules:reqRule},
+          {dataField:"validFrom",label:{text:"Valid From"},editorType:"dxDateBox",editorOptions:{displayFormat:"dd/MM/yyyy"},validationRules:reqRule},
+          {dataField:"validTo",label:{text:"Valid To"},editorType:"dxDateBox",editorOptions:{displayFormat:"dd/MM/yyyy",showClearButton:true},validationRules:[
+            {type:"custom",reevaluate:true,message:"Valid To cannot be earlier than Valid From.",validationCallback:e=>{ const f=FORM.option("formData").validFrom; return !e.value||!f||toIso(e.value)>=toIso(f); }}]},
+          {dataField:"disputeTolerance",label:{text:"Dispute Tolerance"},editorType:"dxNumberBox",editorOptions:{format:"#,##0.00",min:0,
+            buttons:[{name:"ccy",location:"after",options:{text:d.baseCurrency||"",stylingMode:"text",focusStateEnabled:false,hoverStateEnabled:false,activeStateEnabled:false,elementAttr:{class:"ccy-suffix"}}}]},validationRules:reqRule}
+        ]},
+        {itemType:"group",caption:"Product Information",colCount:2,cssClass:"annex-section",items:[
+          sectionBlock("Add Product",()=>prodForm(null),null,$g=>{ prodGrid=$g.dxDataGrid({dataSource:[],keyExpr:"id",showBorders:true,showRowLines:true,columnAutoWidth:false,
+            noDataText:"No product defined. At least one product is required.",onRowDblClick:e=>!view&&prodForm(e.data),
+            columns:[{caption:"Product",calculateCellValue:x=>nameOf(P.products,x.product)},
+              {caption:"Sub Product",calculateCellValue:x=>nameOf(subsOf(x.product),x.subProduct)},
+              {caption:"Margin Type",calculateCellValue:x=>x.marginType==="OTHER"?"Other":x.marginType},
+              {dataField:"included",caption:"Included",dataType:"boolean",width:90,alignment:"center"},editCol(prodForm)]}).dxDataGrid("instance"); refreshProds(); })
+        ]},
+        {itemType:"group",caption:"Margin Terms",colCount:2,cssClass:"annex-section",items:[
+          sectionBlock("Add Rule",()=>ruleForm(null),b=>addRuleBtn=b,$g=>{ ruleGrid=$g.dxDataGrid({dataSource:[],keyExpr:"id",showBorders:true,showRowLines:true,columnAutoWidth:false,
+            noDataText:"No margin rule defined. At least one rule is required.",onRowDblClick:e=>!view&&ruleForm(e.data),
+            columns:[{dataField:"party",caption:"Party",calculateCellValue:x=>nameOf(P.partyTypes,x.party)},
+              {caption:"Threshold",alignment:"right",calculateCellValue:x=>amt(x.threshold,x.currency)},
+              {caption:"MTA",alignment:"right",calculateCellValue:x=>amt(x.mta,x.currency)},
+              {caption:"Rounding Amount",alignment:"right",calculateCellValue:x=>amt(x.rounding,x.currency)},
+              {dataField:"method",caption:"Method",calculateCellValue:x=>nameOf(P.roundingMethods,x.method)},editCol(ruleForm)]}).dxDataGrid("instance"); refreshRules(); })
+        ]}
+      ],
+      onFieldDataChanged:e=>{
+        if(e.dataField==="baseCurrency"){ const ed=e.component.getEditor("disputeTolerance"); const b=ed&&ed.getButton("ccy"); b&&b.option("text",e.value||"");
+          rules.forEach(x=>x.currency=e.value); refreshRules(); }
+      }},
+      save:()=>{ if(!FORM.validate().isValid) return; const f=FORM.option("formData");
+        if(!prods.some(p=>p.included)){ notify("At least one included product is required.","error"); return; }
+        if(!rules.length){ notify("At least one margin rule is required.","error"); return; }
+        saveCommon("annex",mode,r,annexCompat({code:f.code.trim().toUpperCase(),name:f.name.trim(),cptyId:f.cptyId,status:f.status,masterAgreement:f.masterAgreement.trim(),
+          collateralDocument:f.collateralDocument.trim(),baseCurrency:f.baseCurrency,direction:f.direction,validFrom:toIso(f.validFrom),validTo:toIso(f.validTo),
+          disputeTolerance:Number(f.disputeTolerance)||0,rules:rules.map(x=>({...x})),products:prods.map(x=>({...x}))}),ANNEX,x=>x.code); }
+    };
+  },
+  account(mode,r){
+    const d = r ? {...r,...(r.pending||{})} : {collateralTypeId:1,status:"ACTIVE",direction:null,currencies:"",valuationCurrency:null,validFrom:isoToday(),validTo:"",agreementId:null,cptyId:null,...NO_INTEREST};
+    // fields inherited from the selected annex: always shown as the annex holds them, read-only
+    const AG_FIELDS = ["direction","valuationCurrency","validFrom"];
+    const fromAg = ag => ({cptyId:ag.cptyId,direction:ag.direction,valuationCurrency:ag.baseCurrency,validFrom:toDate(ag.validFrom)});
+    const ag0 = d.agreementId && byId(ANNEX,d.agreementId);
+    const data = {...d,currencies:ccyList(d.currencies),validFrom:toDate(d.validFrom),validTo:toDate(d.validTo),...(ag0?fromAg(ag0):{})};
+    const view = mode==="view";
+    const used = r && TXN.some(t=>t.definitionId===r.id);
+    const agreements = ANNEX.filter(a=>(a.status==="ACTIVE"&&isLive(a))||(d.agreementId&&a.id===d.agreementId));
+    const fd = () => FORM.option("formData");
+    const agOf = () => byId(ANNEX,fd().agreementId);
+    const filled = v => v!==null && v!==undefined && v!=="" && !(Array.isArray(v)&&!v.length);
+    // required only while the condition holds; the red * is driven by CSS classes set in applyState()
+    const reqIf = (cond,message="Required") => ({type:"custom",reevaluate:true,message,validationCallback:e=>!cond()||filled(e.value)});
+    const intOn = () => !!fd().isInterestCalculated, isFixed = () => intOn()&&fd().rateTypeId===1, isFloat = () => intOn()&&fd().rateTypeId===2;
+    const pct = (extra={}) => ({format:"#,##0.0000",placeholder:"0.0000",valueChangeEvent:"keyup input change",
+      buttons:[{name:"pct",location:"after",options:{text:"%",stylingMode:"text",focusStateEnabled:false,hoverStateEnabled:false,activeStateEnabled:false,elementAttr:{class:"ccy-suffix"}}}],...extra});
+    const INT_FIELDS = ["settlementType","rateTypeId","interestMethodId","dateBasis","payFreqId","businessDayRule","isNegativeRateAllowed"];
+    const applyState = form => {
+      const f = form.option("formData"), on = !!f.isInterestCalculated, fixed = on&&f.rateTypeId===1, flo = on&&f.rateTypeId===2;
+      form.$element().toggleClass("st-int",on).toggleClass("st-fixed",fixed).toggleClass("st-float",flo);
+      // Floating shows the index, anything else shows the fixed rate (same cell)
+      const showFloat = f.rateTypeId===2;
+      if(form.itemOption("interest.floatingRateTypeId").visible!==showFloat){
+        form.beginUpdate(); form.itemOption("interest.fixedRate","visible",!showFloat); form.itemOption("interest.floatingRateTypeId","visible",showFloat); form.endUpdate();
+        // the group is re-rendered: restore "?" icons and editor state once the new editors exist
+        setTimeout(()=>{ form._devDoc && devAttach(form,form._devDoc,form._devPanel); applyState(form); },0);
+        return; }
+      const fixEd = form.getEditor("fixedRate"), floEd = form.getEditor("floatingRateTypeId");   // the hidden one has no editor
+      floEd && floEd.option("items",P.floatingRates.filter(x=>!f.valuationCurrency||x.currency===f.valuationCurrency));
+      form.getEditor("cptyId").option("readOnly",view||used||!!f.agreementId);
+      AG_FIELDS.forEach(k=>form.getEditor(k).option("readOnly",view||!!f.agreementId));
+      if(view) return;
+      INT_FIELDS.forEach(k=>form.getEditor(k).option("disabled",!on));
+      fixEd && fixEd.option("disabled",!fixed);
+      floEd && floEd.option("disabled",!flo);
+      form.getEditor("spread").option("disabled",!on);   // spread does not depend on Rate Type
+    };
+    let busy = false;   // updateData inside onFieldDataChanged must not re-enter the dependency rules
+    let lastCcy = d.valuationCurrency;
+    // Date Basis defaults to Currency.BasisCode of the Valuation Currency, unless the user picked another basis by hand
+    const basisOf = ccy => (P.currencyRef.find(c=>c.Code===ccy)||{}).BasisCode;
+    const defaultBasis = (form,ccy) => { const f = form.option("formData"), def = basisOf(ccy);
+      if(f.isInterestCalculated && def && (!f.dateBasis || f.dateBasis===basisOf(lastCcy))) form.updateData("dateBasis",def); };
+    const onChange = e => {
+      if(busy) return; busy = true; const form = e.component, f = form.option("formData");
+      try{
+        if(e.dataField==="agreementId"){ const ag = byId(ANNEX,e.value);
+          // Valid To is copied from the annex as a default but stays editable
+          if(ag) form.updateData({...fromAg(ag),validTo:toDate(ag.validTo),currencies:f.currencies&&f.currencies.length?f.currencies:[ag.baseCurrency]}); }
+        if(e.dataField==="isInterestCalculated"){ if(!e.value){ const {isInterestCalculated,...rest} = NO_INTEREST; form.updateData(rest); } else defaultBasis(form,f.valuationCurrency); }
+        // Fixed -> Simple Linear, Floating -> Daily Compounded (user can still change it)
+        if(e.dataField==="rateTypeId"){ if(e.value===1) form.updateData({floatingRateTypeId:null,interestMethodId:1}); if(e.value===2) form.updateData({fixedRate:null,interestMethodId:2}); }
+        const ccy = form.option("formData").valuationCurrency;   // may have been set by the agreement above
+        if(ccy!==lastCcy){ const fl = byId(P.floatingRates,f.floatingRateTypeId); if(fl&&fl.currency!==ccy) form.updateData("floatingRateTypeId",null);
+          defaultBasis(form,ccy); lastCcy = ccy; }
+      } finally { busy = false; }
+      if(["agreementId","isInterestCalculated","rateTypeId","valuationCurrency"].includes(e.dataField)) applyState(form);
+    };
+    const S = (dataField,text,editorType,editorOptions,extra={}) => ({dataField,label:{text},editorType,editorOptions,...extra});
+    return { width:1040, devDoc:DEVDOC_DEF,
+      form:{formData:data,labelLocation:"left",readOnly:view,colCount:1,showColonAfterLabel:false,onFieldDataChanged:onChange,items:[
+        {itemType:"group",caption:"General Information",colCount:2,cssClass:"annex-section",items:[
+          S("code","Code",undefined,{maxLength:50,readOnly:used||view},{validationRules:[...reqRule,{type:"custom",message:"Code already exists.",
+            validationCallback:e=>!ACCOUNT.some(a=>a.code===String(e.value).trim().toUpperCase()&&a.id!==(r&&r.id)&&!isDead(a))}]}),
+          S("name","Name",undefined,{maxLength:250},{validationRules:reqRule}),
+          S("agreementId","Collateral Annex","dxSelectBox",sb(agreements,{displayExpr:a=>a?`${a.code} - ${a.name}`:"",searchEnabled:true,showClearButton:true,readOnly:used||view})),
+          S("cptyId","Counterparty","dxSelectBox",sb(P.counterparties,{searchEnabled:true}),{validationRules:reqRule}),
+          S("collateralTypeId","Collateral Type","dxSelectBox",sb(P.collateralTypes,{readOnly:used||view}),{validationRules:reqRule}),
+          S("status","Status","dxSelectBox",sb(P.annexStatus),{validationRules:reqRule}),
+          S("currencies","Eligible Currencies","dxTagBox",{items:P.currencies,showSelectionControls:true,applyValueMode:"instantly",placeholder:"Select...",multiline:false},
+            {validationRules:[{type:"custom",message:"At least one eligible currency is required.",validationCallback:e=>filled(e.value)}],isRequired:true})
+        ]},
+        {itemType:"group",caption:"Cash Eligibility",colCount:2,cssClass:"annex-section",items:[
+          S("direction","Eligibility Direction","dxSelectBox",sb(P.directions),{validationRules:[...reqRule,{type:"custom",reevaluate:true,
+            message:"Eligibility Direction must match the Collateral Annex direction.",validationCallback:e=>{ const ag=agOf(); return !ag||ag.direction==="BOTH"||e.value===ag.direction; }}]}),
+          S("valuationCurrency","Valuation Currency","dxSelectBox",{items:P.currencies,placeholder:"Select..."},{validationRules:reqRule}),
+          S("validFrom","Valid From","dxDateBox",{displayFormat:"dd/MM/yyyy"},{validationRules:reqRule}),
+          S("validTo","Valid To","dxDateBox",{displayFormat:"dd/MM/yyyy",showClearButton:true},{validationRules:[{type:"custom",reevaluate:true,message:"Valid To cannot be earlier than Valid From.",
+            validationCallback:e=>!e.value||!fd().validFrom||toIso(e.value)>=toIso(fd().validFrom)}]})
+        ]},
+        {itemType:"group",name:"interest",caption:"Cash Interest Terms",colCount:2,cssClass:"annex-section int-terms",items:[
+          S("isInterestCalculated","Interest Calculated","dxSwitch",{switchedOnText:"Yes",switchedOffText:"No"}),
+          S("settlementType","Interest Settlement","dxSelectBox",sb(P.settlementTypes),{cssClass:"req-int",validationRules:[reqIf(intOn)]}),
+          S("rateTypeId","Rate Type","dxSelectBox",sb(P.rateTypes),{cssClass:"req-int",validationRules:[reqIf(intOn)]}),
+          // Fixed Rate and Floating Rate Index share one cell: DevExtreme drops the hidden one from the layout
+          S("fixedRate","Fixed Rate","dxNumberBox",pct(),{visible:d.rateTypeId!==2,cssClass:"req-fixed",validationRules:[reqIf(isFixed),{type:"custom",reevaluate:true,message:"Negative rate is not allowed for this definition.",
+            validationCallback:e=>!isFixed()||fd().isNegativeRateAllowed||!(Number(e.value)<0)}]}),
+          S("floatingRateTypeId","Floating Rate Index","dxSelectBox",sb(P.floatingRates,{displayExpr:x=>x?`${x.name} (${x.currency})`:"",noDataText:"No index for the valuation currency"}),
+            {visible:d.rateTypeId===2,cssClass:"req-float",validationRules:[reqIf(isFloat)]}),
+          S("spread","Spread","dxNumberBox",pct()),
+          S("interestMethodId","Interest Method","dxSelectBox",sb(P.interestMethods),{cssClass:"req-int",validationRules:[reqIf(intOn)]}),
+          S("dateBasis","Date Basis","dxSelectBox",sb(P.dateBases),{cssClass:"req-int",validationRules:[reqIf(intOn)]}),
+          S("payFreqId","Payment Frequency","dxSelectBox",sb(P.payFreqs),{cssClass:"req-int",validationRules:[reqIf(intOn)]}),
+          S("businessDayRule","Business Day Rule","dxSelectBox",sb(P.businessDayRules),{cssClass:"req-int",validationRules:[reqIf(intOn)]}),
+          S("isNegativeRateAllowed","Negative Rate Allowed","dxSwitch",{switchedOnText:"Yes",switchedOffText:"No"})
+        ]}
+      ]},
+      ready:applyState,
+      save:()=>{ if(!FORM.validate().isValid) return; const f=fd(), on=!!f.isInterestCalculated;
+        const v = {code:f.code.trim().toUpperCase(),name:f.name.trim(),agreementId:f.agreementId||null,cptyId:f.cptyId,collateralTypeId:f.collateralTypeId,status:f.status,
+          direction:f.direction,currencies:f.currencies.join(";"),valuationCurrency:f.valuationCurrency,validFrom:toIso(f.validFrom),validTo:toIso(f.validTo),
+          ...(on ? {isInterestCalculated:true,settlementType:f.settlementType,rateTypeId:f.rateTypeId,floatingRateTypeId:f.rateTypeId===2?f.floatingRateTypeId:null,
+            spread:Number(f.spread)||0,fixedRate:f.rateTypeId===1?Number(f.fixedRate):null,interestMethodId:f.interestMethodId,dateBasis:f.dateBasis,
+            payFreqId:f.payFreqId,businessDayRule:f.businessDayRule,isNegativeRateAllowed:!!f.isNegativeRateAllowed} : {...NO_INTEREST}),
+          takasCode:r?r.takasCode:undefined,legacy:r?r.legacy:undefined};
+        saveCommon("account",mode,r,defCompat(v),ACCOUNT,x=>x.code); }
+    };
+  },
+  txn(mode,r){
+    const view = mode==="view", isNew = mode==="new";
+    const d = r ? {...r,...(r.pending||{})} : null;
+    const details = d ? d.details.map(x=>({...x})) : [];
+    const usable = ACCOUNT.filter(a=>(a.status==="ACTIVE"&&isLive(a))||(r&&a.id===r.definitionId));
+    const lastDet = details.slice().sort(detOrder).pop();
+    // view: show the latest movement; new / edit: an empty movement to be added to the transaction
+    const mv = view && lastDet ? {...lastDet} : {transactionType:null,amountType:1,marginTypeId:"VM",tradeDate:isoToday(),valueDate:isoToday(),cashCurrency:null,
+      amount:null,fxRate:null,isSettlementRequired:false,...NO_PAYMENT};
+    const data = {definitionId:d?d.definitionId:null,cptyId:d?d.cptyId:null,agreementId:d?d.agreementId:null,portfolioId:d?d.portfolioId:null,
+      logicalReference:r?r.logicalReference:"(assigned on save)",businessKey:r?String(r.businessKey):"(assigned on save)",
+      trader:r?r.trader:user(),inputDateTime:r?fmtStamp(r.inputDateTime):"(system)",
+      ...mv,tradeDate:toDate(mv.tradeDate),valueDate:toDate(mv.valueDate),valuationCurrency:"",transactionAmount:null,currentBalance:null};
+    // adding a movement to an existing transaction: the definition is already known, default Cash Currency = Valuation Currency
+    if(!view && d && !data.cashCurrency){ const def0 = byId(ACCOUNT,d.definitionId); data.cashCurrency = def0 ? def0.valuationCurrency : null; }
+    if(!view && d && data.fxRate==null){ const def0 = byId(ACCOUNT,d.definitionId); data.fxRate = defaultFx(data.cashCurrency,def0&&def0.valuationCurrency,data.tradeDate); }
+    if(!view && d) Object.assign(data,paySsi(d.cptyId,data.cashCurrency));
+    const fd = () => FORM.option("formData");
+    const defOf = () => byId(ACCOUNT,fd().definitionId);
+    const filled = v => v!==null && v!==undefined && v!=="";
+    const payOn = () => !!fd().isSettlementRequired;
+    const sameAsVal = () => { const def = defOf(); return !!(def && fd().cashCurrency===def.valuationCurrency); };
+    const reqIf = (cond,message="Required") => ({type:"custom",reevaluate:true,message,validationCallback:e=>!cond()||filled(e.value)});
+    const sfx = text => [{name:"sfx",location:"after",options:{text,stylingMode:"text",focusStateEnabled:false,hoverStateEnabled:false,activeStateEnabled:false,elementAttr:{class:"ccy-suffix"}}}];
+    const setSfx = (form,field,text) => { const b = form.getEditor(field) && form.getEditor(field).getButton("sfx"); b && b.option("text",text||""); };
+    const balanceBefore = () => round2(details.filter(detCounts).reduce((s,x)=>s+txnSign(x)*x.transactionAmount,0));
+    let valueTouched = false, detGrid = null, $limit = null;
+    const PAY_FIELDS = ["settlementTypeId","paymentInstructionTypeId","outgoingCorrespondentId","theirBeneficiaryCorrespondentId","incomingCorrespondentId","theirSenderCorrespondentId","sendConfirmation","sendPayment","sendNoticeToReceive","instructions"];
+
+    // derived values: counterparty / agreement / valuation currency from the definition, amounts, projected balance, limit box
+    const refreshDerived = form => {
+      const f = form.option("formData"), def = defOf(), vc = def ? def.valuationCurrency : "";
+      const sameCcy = !!(def && f.cashCurrency && f.cashCurrency===vc);
+      if(!view && sameCcy && f.fxRate!=null) form.updateData("fxRate",null);
+      const ta = def && f.cashCurrency ? txnAmount(f.amount,f.cashCurrency,vc,f.fxRate) : null;
+      const after = view ? f.currentBalance : (ta!=null&&f.transactionType ? round2(balanceBefore()+(f.transactionType==="INCREASE"?1:-1)*ta) : null);
+      form.updateData({cptyId:def?def.cptyId:null,agreementId:def?(def.agreementId||null):null,valuationCurrency:vc,transactionAmount:ta,currentBalance:after});
+      setSfx(form,"amount",f.cashCurrency); setSfx(form,"transactionAmount",vc); setSfx(form,"currentBalance",vc);
+      form.getEditor("cashCurrency").option("items",def?ccyList(def.currencies):[]);
+      if(!view){ form.getEditor("fxRate").option("readOnly",sameCcy);
+        ["transactionType","amountType","marginTypeId","isSettlementRequired","tradeDate","valueDate","cashCurrency","amount","fxRate"].forEach(k=>form.getEditor(k).option("disabled",!def));
+        }
+      form.$element().toggleClass("st-pay",!!f.isSettlementRequired).toggleClass("st-fx",!sameCcy);
+      limitFill(def);
+    };
+    // ---- limit status box (layout of the Treasy limit component; limit figures: data source is an open decision) ----
+    const limitFill = def => { if(!$limit) return; const cp = def ? byId(P.counterparties,def.cptyId) : null;
+      $limit.find(".lb-name").text(cp?cp.name:"-"); $limit.find(".lb-no").text(`Customer no : ${cp?cp.id:"-"}`);
+      $limit.find(".lh-pill").removeClass("warn").find(".pill-text").text("Limit not checked"); };
+    const limitTemplate = (_,el) => {
+      $limit = $(`<div class="limit-box">
+        <div class="limit-head"><span class="lh-title">Limit status</span><span class="lh-sep">:</span><span class="lh-active">Limit control active</span>
+          <div class="lh-right"><span class="lh-pill" title="Limit data source: open decision (KGR)"><i class="lh-dot"></i><span class="pill-text">Limit not checked</span></span>
+            <span class="lh-btn" data-a="refresh" title="Check limit"><i class="fa-solid fa-rotate"></i></span><span class="lh-btn" data-a="more" title="More"><i class="fa-solid fa-ellipsis-vertical"></i></span>
+            <span class="lh-btn" data-a="toggle" title="Collapse"><i class="fa-solid fa-chevron-up"></i></span></div></div>
+        <div class="limit-body">
+          <div class="lb-cust"><div class="lb-icon"><i class="fa-solid fa-building-columns"></i></div><div><div class="lb-name">-</div><div class="lb-no">Customer no : -</div></div></div>
+          <div class="lb-list">${[["Country Limit",""],["Total Limit",""],["Used Limit","c-used"],["Available Limit","c-avail"],["Risk Amount","c-risk"]].map(([k,c])=>`<div class="lb-row"><span>${k}</span><span class="lb-v ${c}">-</span></div>`).join("")}</div>
+          <div class="lb-usage"><div class="lu-top"><span><span class="lu-pct">%0</span> used</span><i class="fa-solid fa-circle-info lu-info" title="Limit data source: open decision (KGR)"></i></div>
+            <div class="lu-bar"><div class="lu-fill"></div></div><div class="lu-legend"><span class="c-used">● % 0 used</span><span class="c-avail">● % 0 available</span></div></div>
+        </div></div>`).appendTo(el);
+      $limit.on("click",".lh-btn",e=>{ const a = $(e.currentTarget).data("a");
+        if(a==="toggle"){ $limit.toggleClass("collapsed"); $(e.currentTarget).find("i").toggleClass("fa-chevron-up fa-chevron-down"); }
+        if(a==="more") notify("Limit actions are not part of the demo.","warning");
+        if(a==="refresh"){ if(!defOf()){ notify("Please select a collateral definition first.","warning"); return; }
+          $limit.find(".lh-pill").addClass("warn").find(".pill-text").text("Limit service not connected");
+          notify("Limit data source (KGR) is an open decision: no limit figures in the demo.","warning"); } });
+    };
+    // ---- Transaction Detail tab: all movements of the transaction ----
+    const detailTemplate = (_,el) => {
+      const $w = $('<div class="txn-det">').appendTo(el);
+      const bal = d ? txnBalance(d) : 0, def = d ? byId(ACCOUNT,d.definitionId) : null;
+      $(`<div class="txn-det-sum">${d?`Current balance: <b class="${bal<0?"cell-neg":bal>0?"cell-pos":""}">${fmtNum(bal)} ${def?def.valuationCurrency:""}</b> · ${details.filter(detCounts).length} verified movement(s)`:"No movement yet: the first movement is entered on the Transaction tab."}</div>`).appendTo($w);
+      detGrid = $("<div>").appendTo($w).dxDataGrid({dataSource:details.slice().sort(detOrder).reverse().map(x=>({...x,tradeDate:toDate(x.tradeDate),valueDate:toDate(x.valueDate),stateDate:toDate(x.stateDate),prevStateDate:toDate(x.prevStateDate),createdDate:toDate(x.createdDate)})),
+        keyExpr:"id",showBorders:true,showRowLines:true,rowAlternationEnabled:true,columnAutoWidth:false,allowColumnResizing:true,height:420,scrolling:{useNative:false,showScrollbar:"always"},
+        noDataText:"No movement",onRowDblClick:e=>previewMovement(e.key),
+        columns:[
+          {type:"buttons",width:50,buttons:[{icon:"fa-solid fa-eye",hint:"Preview",onClick:e=>previewMovement(e.row.key)}]},
+          {dataField:"transactionType",caption:"Transaction Type",width:125,calculateDisplayValue:x=>nameOf(P.txnTypes,x.transactionType)},
+          {dataField:"amountType",caption:"Amount Type",width:105,calculateDisplayValue:x=>nameOf(P.amountTypes,x.amountType)},
+          {dataField:"marginTypeId",caption:"Margin Type",width:100,calculateDisplayValue:x=>x.marginTypeId==="OTHER"?"Other":x.marginTypeId},
+          {dataField:"tradeDate",caption:"Trade Date",dataType:"date",format:"dd.MM.yyyy",width:100},{dataField:"valueDate",caption:"Value Date",dataType:"date",format:"dd.MM.yyyy",width:100},
+          {dataField:"cashCurrency",caption:"Currency",width:85},numCol("amount","Amount",{width:130}),{dataField:"fxRate",caption:"FX Rate",dataType:"number",format:"#,##0.0000",alignment:"right",width:90},
+          numCol("transactionAmount","Transaction Amount",{width:150}),{dataField:"valuationCurrency",caption:"Valuation Ccy",width:105},
+          numCol("currentBalance","Current Balance",{width:150,cellTemplate:signCell}),{dataField:"isSettlementRequired",caption:"Settlement Required",dataType:"boolean",width:140},
+          {dataField:"settlementTypeId",caption:"Settlement Type",width:130,calculateDisplayValue:x=>nameOf(P.paySettlementTypes,x.settlementTypeId)},
+          {dataField:"trader",caption:"Trader",width:130},
+          ...FLOW_COLUMNS]}).dxDataGrid("instance");
+    };
+    const S = (dataField,text,editorType,editorOptions,extra={}) => ({dataField,label:{text},editorType,editorOptions,...extra});
+    const roTxt = (dataField,text,extra={}) => S(dataField,text,undefined,{readOnly:true,elementAttr:{class:"field-locked"}},extra);
+    const onChange = e => {
+      const form = e.component, f = form.option("formData");
+      if(e.dataField==="tradeDate" && !valueTouched) form.updateData("valueDate",e.value);
+      if(e.dataField==="definitionId"){ const def = defOf(); const ccys = def ? ccyList(def.currencies) : [];
+        form.updateData("cashCurrency",ccys.includes(def&&def.valuationCurrency)?def.valuationCurrency:(ccys[0]||null)); }
+      if(e.dataField==="amountType" && (e.value===2) && f.marginTypeId==="VM") form.updateData("marginTypeId","OTHER");
+      // FX Rate: empty when Currency = Valuation Currency; otherwise the rate of the trade date from the FxRateChartId chart (user can overwrite)
+      if(!view && ["definitionId","cashCurrency","tradeDate"].includes(e.dataField)){ const def = defOf();
+        form.updateData("fxRate",defaultFx(fd().cashCurrency,def&&def.valuationCurrency,fd().tradeDate)); }
+
+      if(["definitionId","cashCurrency","amount","fxRate","tradeDate","transactionType","isSettlementRequired"].includes(e.dataField)) refreshDerived(form);
+      if(!view && (e.dataField==="definitionId"||e.dataField==="cashCurrency")){ const def = defOf(); form.updateData(paySsi(def?def.cptyId:null,fd().cashCurrency)); }
+    };
+    const general = {itemType:"group",caption:"General Information",colCount:2,cssClass:"annex-section",items:[
+      S("definitionId","Collateral Definition","dxSelectBox",sb(usable,{displayExpr:a=>a?`${a.code} - ${a.name} (${a.valuationCurrency})`:"",searchEnabled:true,readOnly:!isNew}),{validationRules:reqRule}),
+      S("cptyId","Counterparty","dxSelectBox",sb(P.counterparties,{readOnly:true,placeholder:"From collateral definition",elementAttr:{class:"field-locked"}}),{isRequired:true}),
+      S("agreementId","Collateral Annex","dxSelectBox",sb(ANNEX,{displayExpr:a=>a?`${a.code} - ${a.name}`:"",readOnly:true,placeholder:"From collateral definition",elementAttr:{class:"field-locked"}})),
+      S("portfolioId","Portfolio","dxSelectBox",sb(P.portfolios,{displayExpr:portfolioText,readOnly:!isNew}),{validationRules:[...reqRule,{type:"custom",reevaluate:true,
+        message:"A transaction already exists for this definition and portfolio. Open it and add the movement there.",
+        validationCallback:e=>!isNew||!TXN.some(t=>t.definitionId===fd().definitionId&&t.portfolioId===e.value&&!isDead(t))}]}),
+      roTxt("logicalReference","Logical Reference"),roTxt("businessKey","Business Key"),roTxt("trader","Trader"),roTxt("inputDateTime","Input Date Time")]};
+    const detail = {itemType:"group",caption:view?"Detail Information (last movement)":"Detail Information",colCount:2,cssClass:"annex-section",items:[
+      S("transactionType","Transaction Type","dxSelectBox",sb(P.txnTypes),{validationRules:reqRule}),
+      S("amountType","Amount Type","dxSelectBox",sb(P.amountTypes),{validationRules:reqRule}),
+      S("marginTypeId","Margin Type","dxSelectBox",sb(P.marginTypes),{validationRules:reqRule}),
+      S("isSettlementRequired","Settlement Required","dxSwitch",{switchedOnText:"Yes",switchedOffText:"No"}),
+      S("tradeDate","Trade Date","dxDateBox",{displayFormat:"dd/MM/yyyy"},{validationRules:reqRule}),
+      S("valueDate","Value Date","dxDateBox",{displayFormat:"dd/MM/yyyy"},{validationRules:[...reqRule,{type:"custom",reevaluate:true,message:"Value Date cannot be earlier than Trade Date.",
+        validationCallback:e=>!e.value||!fd().tradeDate||toIso(e.value)>=toIso(fd().tradeDate)}]}),
+      S("cashCurrency","Currency","dxSelectBox",{items:[],placeholder:"Select...",noDataText:"Select a collateral definition first"},{validationRules:reqRule}),
+      S("amount","Amount","dxNumberBox",{format:"#,##0.00",placeholder:"0.00",valueChangeEvent:"keyup input change",buttons:sfx(mv.cashCurrency||"")},
+        {validationRules:[...reqRule,{type:"custom",message:"Amount must be greater than zero.",validationCallback:e=>Number(e.value)>0}]}),
+      S("fxRate","FX Rate","dxNumberBox",{format:"#,##0.000000",placeholder:"0.000000",valueChangeEvent:"keyup input change"},
+        {cssClass:"req-fx",validationRules:[reqIf(()=>!sameAsVal()),{type:"custom",reevaluate:true,message:"FX Rate must be greater than zero.",
+          validationCallback:e=>sameAsVal()||!filled(e.value)||Number(e.value)>0}]}),
+      S("transactionAmount","Transaction Amount","dxNumberBox",{format:"#,##0.00",readOnly:true,elementAttr:{class:"field-locked"},buttons:sfx("")}),
+      roTxt("valuationCurrency","Valuation Currency"),
+      S("currentBalance","Current Balance","dxNumberBox",{format:"#,##0.00",readOnly:true,elementAttr:{class:"field-locked"},buttons:sfx("")})]};
+    const limitItem = {itemType:"simpleItem",label:{visible:false},cssClass:"limit-item",template:limitTemplate};
+    // correspondent drop-down box with a grid, like ddbWeSend / ddbTheirReceive of the Payment component
+    const corrBox = (rows,ours) => ({dataSource:rows,valueExpr:"Id",displayExpr:"BankName",showClearButton:true,placeholder:"Select...",dropDownOptions:{width:450},
+      contentTemplate:ev=>{ const $g=$("<div>"); $g.dxDataGrid({dataSource:rows,keyExpr:"Id",hoverStateEnabled:true,showBorders:true,height:220,filterRow:{visible:true},selection:{mode:"single"},
+        selectedRowKeys:ev.component.option("value")!=null?[ev.component.option("value")]:[],
+        columns:(ours?[["AccountNumber","Account Number"],["BankName","Bank Name"],["CustomerId","Customer Id"],["CurrencyCode","Currency Code"],["AccountGLCode","Account GL Code"]]
+                     :[["SwiftCode","Swift Code"],["BankName","Bank Name"],["AccountNumber","Account Number"],["CurrencyCode","Currency Code"]]).map(([dataField,caption])=>({dataField,caption})),
+        onSelectionChanged:x=>{ const k=x.selectedRowKeys[0]; if(k!==undefined){ ev.component.option("value",k); ev.component.close(); } }}); return $g; }});
+    const arrow = (cls,icon) => ({itemType:"simpleItem",colSpan:1,label:{visible:false},template:()=>$(`<div class="arrow-icon ${cls}"><i class="fa-solid ${icon}"></i></div>`)});
+    const row = (items,extraCls="") => ({itemType:"group",colSpan:2,colCount:13,cssClass:("arrow-group "+extraCls).trim(),items});
+    // payment panel layout; preview = read-only copy for the movement preview (no accordion, no validation)
+    const payGroup = (preview=false) => { const pay = {colSpan:6,cssClass:"req-pay",validationRules:preview?[]:[reqIf(payOn)]};
+      return {itemType:"group",caption:"Payment Instructions",colCount:2,cssClass:"annex-section pay-section"+(preview?"":" pay-accordion"),items:[
+      row([S("settlementTypeId","Settlement Type","dxSelectBox",sb(P.paySettlementTypes,{showClearButton:true}),pay),
+        {itemType:"empty",colSpan:1},
+        S("paymentInstructionTypeId","Payment Instr. Type","dxSelectBox",sb(P.payInstructionTypes,{showClearButton:true}),pay)]),
+      row([S("outgoingCorrespondentId","We Send","dxDropDownBox",corrBox(P.ourCorrespondents,true),pay),
+        arrow("arrow-icon-red","fa-right-long"),
+        S("theirBeneficiaryCorrespondentId","They Receive","dxDropDownBox",corrBox(P.theirCorrespondents,false),pay)],"payment-outgoing-group"),
+      row([S("incomingCorrespondentId","We Receive","dxDropDownBox",corrBox(P.ourCorrespondents,true),pay),
+        arrow("arrow-icon-green","fa-left-long"),
+        S("theirSenderCorrespondentId","They Send","dxDropDownBox",corrBox(P.theirCorrespondents,false),pay)],"payment-incoming-group"),
+      {itemType:"group",colSpan:2,colCount:3,cssClass:"arrow-group",items:[
+        S("sendConfirmation","Send Confirmation","dxCheckBox",{}),S("sendPayment","Send Payment","dxCheckBox",{}),S("sendNoticeToReceive","Send Notice To Receive","dxCheckBox",{})]},
+      {itemType:"group",colSpan:2,items:[S("instructions","Instructions","dxTextArea",{maxLength:400,height:50})]}]}; };
+    const payment = payGroup();
+    // ---- movement preview (Transaction Detail tab): the movement and its payment instructions, read-only ----
+    const previewMovement = id => { const x = details.find(m=>m.id===id); if(!x) return;
+      const num = (dataField,text,fmt,ccy) => S(dataField,text,"dxNumberBox",{format:fmt,buttons:sfx(ccy||"")});
+      subForm({titleText:`Movement Preview<span class="popup-title-span">[ ${nameOf(P.txnTypes,x.transactionType)} · ${fmtNum(x.amount)} ${x.cashCurrency} ]</span>`,
+        width:1100,readOnly:true,devDoc:DEVDOC_TXN,
+        data:{...x,tradeDate:toDate(x.tradeDate),valueDate:toDate(x.valueDate)},
+        items:[
+          {itemType:"group",caption:"Detail Information",colCount:2,cssClass:"annex-section",items:[
+            S("transactionType","Transaction Type","dxSelectBox",sb(P.txnTypes)),S("amountType","Amount Type","dxSelectBox",sb(P.amountTypes)),
+            S("marginTypeId","Margin Type","dxSelectBox",sb(P.marginTypes)),S("isSettlementRequired","Settlement Required","dxSwitch",{switchedOnText:"Yes",switchedOffText:"No"}),
+            S("tradeDate","Trade Date","dxDateBox",{displayFormat:"dd/MM/yyyy"}),S("valueDate","Value Date","dxDateBox",{displayFormat:"dd/MM/yyyy"}),
+            S("cashCurrency","Currency"),num("amount","Amount","#,##0.00",x.cashCurrency),
+            num("fxRate","FX Rate","#,##0.000000"),num("transactionAmount","Transaction Amount","#,##0.00",x.valuationCurrency),
+            S("valuationCurrency","Valuation Currency"),num("currentBalance","Current Balance","#,##0.00",x.valuationCurrency)]},
+          payGroup(true)]});
+    };
+    return { width:1180, devDoc:DEVDOC_TXN,
+      form:{formData:data,labelLocation:"left",readOnly:view,colCount:1,showColonAfterLabel:false,onFieldDataChanged:onChange,items:[
+        {itemType:"tabbed",tabPanelOptions:{deferRendering:false,animationEnabled:true,onSelectionChanged:()=>setTimeout(()=>detGrid&&detGrid.updateDimensions(),50)},tabs:[
+          {title:"Transaction",items:[general,detail,limitItem,payment]},
+          {title:"Transaction Detail",badge:String(details.length||""),items:[{itemType:"simpleItem",label:{visible:false},template:detailTemplate}]}]}]},
+      ready:form=>{ refreshDerived(form); payAccordion(form);
+        form.getEditor("valueDate").on("valueChanged",ev=>{ if(ev.event) valueTouched = true; }); },
+      save:()=>{ const v = FORM.validate(); if(!v.isValid){ openPayIfInvalid(v); return; } const f = fd(), def = defOf(), on = !!f.isSettlementRequired;
+        const pay = Object.fromEntries(PAY_FIELDS.map(k=>[k,k==="instructions"?(f[k]||"").trim():(typeof NO_PAYMENT[k]==="boolean"?!!f[k]:f[k])]));   // kept also when Settlement Required is off
+        const det = {id:++detSeq,transactionType:f.transactionType,amountType:f.amountType,marginTypeId:f.marginTypeId,tradeDate:toIso(f.tradeDate),valueDate:toIso(f.valueDate),
+          cashCurrency:f.cashCurrency,amount:Number(f.amount),fxRate:f.cashCurrency===def.valuationCurrency?null:Number(f.fxRate),
+          transactionAmount:txnAmount(f.amount,f.cashCurrency,def.valuationCurrency,f.fxRate),valuationCurrency:def.valuationCurrency,
+          currentBalance:null,isSettlementRequired:on,...pay,inputDateTime:nowStamp(),trader:user(),...flowInit("Input",user(),nowStamp())};
+        if(isNew){ saveCommon("txn","new",null,{definitionId:def.id,cptyId:def.cptyId,agreementId:def.agreementId||null,portfolioId:f.portfolioId,
+            logicalReference:"CTX"+String(++txnSeq).padStart(10,"0"),businessKey:txnSeq,inputDateTime:nowStamp(),trader:user(),details:[det],pending:null},TXN,x=>x.logicalReference); return; }
+        saveCommon("txn","edit",r,{details:[...details,det]},TXN,x=>x.logicalReference); }
+    };
+  }
+};
+
+/* ================= HISTORY / LIMIT ================= */
+let HPOPUP;
+function showHistory(r){
+  if(!r) return;
+  HPOPUP.option({title:`${ACTIVE.title.replace(/s$/,"")} History`,contentTemplate:c=>{
+    $("<div>").appendTo(c).dxDataGrid({dataSource:(HIST[ACTIVE.kind][r.id]||[]).map((h,i)=>({no:i+1,...h})),showBorders:true,rowAlternationEnabled:true,columnAutoWidth:true,
+      columns:[{dataField:"no",caption:"#",width:50},{dataField:"action",caption:"Action"},{dataField:"stateName",caption:"State Name",alignment:"center",cellTemplate:(c2,o)=>$(`<span class="badge ${badgeCls(o.value)}">${o.value}</span>`).appendTo(c2)},
+        {dataField:"stateMaker",caption:"State Maker"},{dataField:"stateDate",caption:"State Date",dataType:"datetime",format:"dd.MM.yyyy HH:mm:ss"}]});
+  }});
+  HPOPUP.show();
+}
+/* ================= SHELL ================= */
+const MENU = [
+  {ID:"md",Text:"Market Data",Icon:"fa-solid fa-chart-line"},
+  {ID:"tr",Text:"Treasury",Icon:"fa-solid fa-money-bill-1",IsExpanded:true,Children:[
+    {ID:"fx",Text:"FX//PM Transactions",Icon:"fa-solid fa-money-bill-transfer"},
+    {ID:"mm",Text:"Money & Market",Icon:"fa-solid fa-handshake"},
+    {ID:"col",Text:"Collateral Management",Icon:"fa-solid fa-shield-halved",IsExpanded:true,Children:[
+      {ID:"txn",Text:"Collateral Transaction",Icon:"fa-solid fa-arrow-right-arrow-left",Screen:"txn"}]}]},
+  {ID:"rp",Text:"Reports",Icon:"fa-solid fa-file-lines"},
+  {ID:"df",Text:"Definitions",Icon:"fa-solid fa-gears",IsExpanded:true,Children:[
+    {ID:"dcol",Text:"Collateral",Icon:"fa-solid fa-shield-halved",IsExpanded:true,Children:[
+      {ID:"annex",Text:"Collateral Annex",Icon:"fa-solid fa-file-contract",Screen:"annex"},
+      {ID:"account",Text:"Collateral Definition",Icon:"fa-solid fa-building-columns",Screen:"account"}]}]},
+  {ID:"ae",Text:"Accounting Engine",Icon:"fa-solid fa-calculator"}
+];
+let TREE, DRAWER;
+function setTheme(theme){
+  document.documentElement.setAttribute("data-theme",theme);
+  document.getElementById("themeDark").disabled = theme!=="dark";
+  document.getElementById("themeLight").disabled = theme!=="light";
+  $("#logo-img").attr("src",theme==="dark"?"assets/logo/logo-treasy-white.png":"assets/logo/logo-treasy-dark.png");
+  $("#treasy-logo").attr("src",theme==="dark"?"assets/logo/logo-treasy-white.png":"assets/logo/logo-treasy-dark.png");
+  try{ localStorage.setItem("ai-theme",theme==="dark"?"material.blue.dark.compact":"material.blue.light.compact"); }catch(e){}
+  setTimeout(()=>{ GRID && GRID.updateDimensions(); DRAWER && DRAWER.repaint(); },50);
+}
+function showScreen(key){
+  renderScreen(key);
+  TREE && TREE.selectItem(key);
+}
+$(function(){
+  $("#menuToggle").dxButton({icon:"menu",stylingMode:"text",onClick:()=>DRAWER.toggle()});
+  $("#themeToggle").dxButton({icon:"fa-solid fa-moon",stylingMode:"text",hint:"Theme",onClick:()=>setTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark")});
+  const avatar = $("#UserBadge").dxButton({text:"P",width:36,height:36,onClick:()=>$("#UserBadgePopup").dxPopup("instance").show()}).dxButton("instance");
+  $("#UserBadgePopup").dxPopup({visible:false,height:"auto",showTitle:false,maxWidth:"280px",hideOnOutsideClick:true,wrapperAttr:{class:"popup-target"},
+    position:{of:"#UserBadge",at:"left bottom",my:"left top",collision:"fit"},
+    contentTemplate:c=>{
+      $(`<div class="popup-wrapper"><div class="user-profile-wrapper manuel-theme-color"><div class="user-profile-image">P</div></div><div class="user-name-wrapper manuel-theme-color">PARTNER.TREASY.001</div></div>`).appendTo(c);
+      $('<div class="user-switch mt-3">').appendTo(c).dxSelectBox({items:[{id:"VB37070",name:"VB37070 (Maker)"},{id:"VB41120",name:"VB41120 (Checker)"}],valueExpr:"id",displayExpr:"name",value:CURRENT_USER,
+        label:"Demo User",labelMode:"floating",stylingMode:"filled",onValueChanged:e=>{ CURRENT_USER=e.value; updateToolbar(); notify(`Logged in as ${e.value}`,"info"); }});
+    }});
+  DRAWER = $("#LayoutMenuDrawer").dxDrawer({opened:true,closeOnOutsideClick:false,position:"left",revealMode:"slide",openedStateMode:"shrink",
+    template:()=>{
+      const $p = $('<div><div id="LayoutMenuDrawerContent" class="dx-theme-background-color"></div></div>');
+      TREE = $p.find("#LayoutMenuDrawerContent").dxTreeView({items:MENU,keyExpr:"ID",displayExpr:"Text",itemsExpr:"Children",expandedExpr:"IsExpanded",searchEnabled:true,searchExpr:"Text",
+        selectionMode:"single",selectByClick:false,expandEvent:"click",width:300,
+        itemTemplate:i=>`<div class="menu-label-container">${i.Icon?`<i class="${i.Icon} menu-icon-color"></i>`:""}<span>${i.Text}</span></div>`,
+        onItemClick:e=>{ if(e.itemData.Screen) showScreen(e.itemData.Screen); else if(!e.itemData.Children) notify(`${e.itemData.Text} is not part of the Collateral demo.`,"warning"); }
+      }).dxTreeView("instance");
+      $(`<div class="menu-footer-custom"><div class="menu-footer-logo"><img id="treasy-logo" src="assets/logo/logo-treasy-white.png" alt="Logo"></div><div class="menu-footer-version">V1.37.0.0</div><div class="menu-footer-workspace manuel-theme-color">DEMO</div></div>`).appendTo($p.find("#LayoutMenuDrawerContent"));
+      return $p;
+    }
+  }).dxDrawer("instance");
+  $("#current-logical-date").text(isoToday().split("-").reverse().join("/"));
+  POPUP = $("#popupDefault").dxPopup({visible:false,showCloseButton:true,dragEnabled:true,resizeEnabled:true,showTitle:true,wrapperAttr:{class:"netix-popup"}}).dxPopup("instance");
+  SUBPOPUP = $("#popupSub").dxPopup({visible:false,showCloseButton:true,dragEnabled:true,showTitle:true,maxHeight:"90vh",wrapperAttr:{class:"netix-popup"}}).dxPopup("instance");
+  HPOPUP = $("#popupHistory").dxPopup({visible:false,showCloseButton:true,width:"auto",maxWidth:"75vw",height:"60vh",dragEnabled:true}).dxPopup("instance");
+  let theme = "dark"; try{ theme = (localStorage.getItem("ai-theme")||"").includes("light") ? "light" : "dark"; }catch(e){}
+  setTheme(theme);
+  let start = "txn"; try{ start = localStorage.getItem("collateralDemoScreen")||"txn"; }catch(e){}
+  showScreen(SCREENS[start]?start:"txn");
+});
+</script>
+</body>
+</html>

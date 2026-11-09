@@ -4,7 +4,9 @@
 > kendi sözleri burada. Plan dosyaları ([`00-YOL-HARITASI.md`](00-YOL-HARITASI.md),
 > [`fazlar/`](fazlar/)) **statiktir** — durum oralarda tekrarlanmaz, iki kopya ayrışır.
 >
-> **Son güncelleme:** 2026-10-09
+> **Son güncelleme:** 2026-11-02 (V2 revize: backend + DB script v2 — progress/34 — **ve ardından
+> UI (Annex+CollateralDefinition+TxnTransaction) de tamamlandı — progress/35**). Build (backend+UI)
+> 0 hata; kullanıcı DB'yi v2 script setiyle sıfırdan kurup tarayıcıda deneyecek, sıradaki iş bu.
 >
 > 🔴 **Taşırken görülen açıklar DÜZELTİLMEZ** — MM (öncelikli) / OptionsFX'teki gibi aynen taşınır, açık
 > [`03-HATA-KAYDI.md`](03-HATA-KAYDI.md)'ye numaralı yazılır (K-46). Kullanıcı geliştirme bitince bakacak.
@@ -15,13 +17,19 @@
 
 | | |
 |---|---|
-| **Güncel faz** | **Faz 5 — Backend temel yapısı ✅** + OptionsFX hizalaması ✅ + **OptionsFX altyapı portu** ✅ (2026-10-09). 54 proje · 250 `.cs` · build **0 hata** |
-| **Son biten iş** | Push: `main-creation-branch` → **`Treasy.ColManagement`** (eski `NetTrex.Collateral` sunucuda yok; TF401019). Mimari karşılaştırma A (bizim) ↔ B (Aret/FI şablonu) → [`04-MIMARI-KARSILASTIRMA.md`](04-MIMARI-KARSILASTIRMA.md). Kullanıcı: ColManagement **bizim mimariyle** devam |
-| **Sıradaki adım** | Tablodan bağımsız backend işi **bitti** (A ✅ · B ✅). Kalan hepsi tablo/iş kararına bağlı: Annex/Collateral/Txn+TxnDetail entity → uçlar → TxnDetail muhasebe olayı · grid filtreleri · Reconciliation/DailyFlow · EOD batch item'ları · Faz 4 DB script'leri. UI fazında route/ad kararı (K-47: OptionsFX) |
-| **Bloke eden** | Excel v6 → `A-24` (MarginRule) · `A-27` (Detail kolonları) · Faz 4 → `A-08`/`A-09`/`A-10` · Muhasebe → `A-25` (nazım) · `A-26` (ödeme) |
-| **Bekleyen onay** | `A-09` sayaç öneki **77** önerildi · `A-26` ödeme bayrağı · `A-24` MarginRule · `A-25` nazım · `A-22` ⏸ ertelendi |
+| 🔴 **2026-11-02 V2 revize** | Kullanıcı yeni analiz dokümanı (TRS-COL-FA-001 v0.2) + `Treasy_Collateral_Veri_Modeli.xlsx` + `Collateral_Demo.html` getirdi, mevcut koda uyarlanmasını istedi. Analiz → [`06-V2-REVIZE-ANALIZ.md`](06-V2-REVIZE-ANALIZ.md). 4 soru soruldu, kararlar K-58..K-61. **Backend (Data/Common/Api) tamamen yeniden yazıldı, tüm `.sln` 0 hata.** Tablo adları/kolonlar değişti: `Annex`→`CollateralAnnex`, `CollateralDefinition` düzleşti, `TxnTransaction`=başlık/`TxnTransactionDetail`=hareket (K-55 bu revizeyle koda geçti), yeni lookup'lar. **DB script seti v2** yazıldı (`Treasy.ColManagement/.ai-agent/outputs/2026-11-02-ColManagement-Kurulum-v2/`) — kullanıcı DB'yi silip bu setle kuracak. Kayıt → [`progress/34`](progress/34-v2-revize-backend-db.md). ✅ **UI de aynı oturumda tamamlandı** (Annex tek sayfa, Definition düzleşti+IsInterestCalculated/Fixed-Floating toggle, TxnTransaction 2 tab+Movement Preview popup) — `CollateralType` f-key ucu bu turda eklendi, SettlementType/PaymentInstructionType v1 TODO'su bağlandı. Build (backend+UI) 0 hata, tarayıcıda denenmedi → [`progress/35`](progress/35-v2-revize-ui.md) |
+| **Güncel faz** | Faz 5 Backend temel yapısı ✅ · **repo rename → `Treasy.ColManagement`** ✅ (2026-10-11) · Docker/helm/gitignore audit ✅ · Opening muhasebe pipeline portu ✅ (tek-para-birimine çevrildi, 2026-10-14) · 4 numaralı iş (Consumer/Batch/Docker) ✅ · **PO toplantısı #3** ✅ (2026-10-12/13) — Annex/Definition/Transaction alan speki + Opening-Reverse muhasebe kararı kesinleşti · **Treasy.ColManagement.UI Faz 10+11** ✅ (2026-10-14) · **Annex + CollateralDefinition + TxnTransaction backend CRUD tamamı** ✅ (2026-10-14) · **Faz 4 (DB kurulum script'leri) YAZILDI** ✅ (2026-10-14, bkz. aşağıdaki satır) |
+| **Son biten iş** | DB script'leri **MM'in gerçek kodu + canlı DB'siyle** tekrar doğrulandı (kullanıcı talimatı: "DerivSwp değil, MM ve OptionsFX'e göre"). Bulunan/düzeltilen gerçek hatalar: Calendar/Holiday'de MM'de olmayan `CalNo` kolonu silindi · `Currency.Pip` float→decimal(38,10) · 8 referans tablosunda eksik `NOT NULL` (StateId/StateMaker/StateDate) · `defJobCron.Id` IDENTITY oldu (MM'de IDENTITY+History ölçüldü) · **`ModulePrefix` 77→60** (canlı `NetTrexAcc.AccEntryMain` verisinde 77'nin NetTrex.InvFund tarafından zaten kullanıldığı bulundu) · `DefRefNumGen.TypeKey` 30→50 (gerçek SP parametresiyle uyumlu) · `sp_GetNewNumbers`/`sp_GetNewRefNumber` NetTrexMM'den birebir kopyalanıp script 7 olarak eklendi · FrameworkMenu `@parentMenuKey` **'TreasuryKey'** olarak doğrulandı (eski tahmin 'Treasury' yanlıştı) · `TxnTransactionFactory`'e MM'deki Trader fallback deseni eklendi. Ayrıca: `Treasy.ColManagement.sln`'deki yanlışlıkla eklenmiş `Treasy.MM.UI.Business/Core` proje referansları temizlendi · DI eksikleri (`ITxnTransactionFactory`, `IMarketDataCacheInvalidator`) giderildi · docker-compose şifre/secret placeholder'ları dolduruldu · ColManagement.UI'nin Docker build'i kıran 2 gerçek hata bulundu (`@types/jquery` eksik, `vitest` 0 testte patlıyordu) düzeltildi. **Sonuç: WebApi+ConsumerApi+BatchWebApi+UI 4'ü de ayakta ve sağlıklı.** |
+| **2026-10-21 analiz + uyarlama** | INCI veri modeli (`INCI-Treasy_Collateral_Veri_Modeli.xlsx`) karşılaştırıldı → [`05-INCI-VERI-MODELI-KARSILASTIRMA.md`](05-INCI-VERI-MODELI-KARSILASTIRMA.md). Kullanıcı: *"Excel'in daha iyi olduğu yerler… al ve bizim daha iyi olduğumuz yerler içinde bizim ki kalsın… FloatingRateType ve benzeri tabloları al"*. **Uygulandı** (§4 madde 1/3/4/5): MM faiz parametre tabloları + CashTerms Id/kod kolonları · `AnnexMarginRule` → `AnnexId` · Txn/Detail SSI → MM ödeme snapshot bloğu · Detail `MarginType`. Backend+UI build 0 hata. Script: `Treasy.ColManagement/.ai-agent/outputs/2026-10-21-ColManagement-InciModelUyarlama/` (0→1→2→0) — 🔴 **kullanıcı çalıştıracak**. **Ertelendi:** madde 2 (başlıkta hareket yok, K-44) → tasarım soruları kullanıcıda. Onay bekleyen: MM'de olmayan seed `RateType 3 InterestFree` + `InterestMethodFrequency 7 OnReturn` → [`progress/28`](progress/28-inci-model-uyarlama.md) |
+| **2026-10-22 ekran düzeltmeleri** | Kullanıcı lokalde açtı: `+` → `Cannot read properties of undefined (reading 'option') at populateDropdowns`, grid başlıkları key olarak görünüyor, "State" yerine MmTransaction'daki **Records to be listed** isteniyor. **Yapıldı:** popup `show()` editörlere erişimden önce (MM sırası, 3 ekran) · 3 ekranda eksik 54 localization key (en+tr) · MmTransaction State deseni (`StateHelper.Rates.GetFxRateWithParamStates(param,"MM")` + `_CustomStateFilter`) + backend `ApplyStateFilter`/`ApplyMakerCheckerStateFilter` (MM port) · UI Refit rotaları backend'e hizalandı (H-098 kapandı) + `annex/f-key`, `collateral-definition/f-key` yeni uçlar + Currency dropdown'ları. Build 0 hata. 🔴 **DB'de `Currency`/`Customer`/`Portfolio` BOŞ** → kopya script'i `Treasy.ColManagement/.ai-agent/outputs/2026-10-22-ColManagement-ReferansVeri/` (kullanıcı çalıştıracak). Seed'ler (InterestFree/OnReturn) kullanıcı: *"şimdilik kalsın"*. K-44 cevaplandı → **K-55** · [`progress/29`](progress/29-ekran-duzeltmeleri-state-filtre.md) |
+| **2026-10-22 Annex UX turu** | Kullanıcı 11 madde: Annex **tab'sız tek ekran** (2×2 kart) · Direction/MarginType/Party/RoundingMethod **DB'den** (yeni 4 lookup tablosu, Id = enum değeri, iş kolonları değişmedi) · Product/SubProduct **Manuel Reeskont gibi** (MM API ürün tanımları) · ValidFrom varsayılan = mantıksal ayın 1'i · Included Yes/No · kopya script Msg 447 düzeltildi. Validator'lar `Handlers/`+`Validators/` klasörlerine ayrıldı. Rebuild backend+UI **0 hata**. 🔴 Kullanıcı koşacak: `2026-10-22-ColManagement-ReferansVeri` (düzeltilmiş) + `2026-10-22-ColManagement-LookupTablolari` → [`progress/30`](progress/30-annex-ekran-ux-lookup-tablolari.md) |
+| **Bundan önceki iş** | `.ai-agent/outputs/2026-10-14-ColManagement-Kurulum/` — `NetTrexColManagement` DB'sini sıfırdan kuran tam script seti ilk yazımı (DerivSwp bazlı, bkz. yukarı — bu turda MM'e göre düzeltildi) → [`progress/21`](progress/21-db-kurulum-scriptleri.md) |
+| 🔴 **K-54 (2026-10-14)** | **Security kapsam dışı — Faz 1 yalnız Cash.** Annex ProductScope/MarginRule CRUD (backend, Cash/Annex kapsamında) eklendi · `CollateralPosition` artık gerçekten çalışıyor: Create okur (CurrentBalanceBefore), Verify günceller (increase/decrease + Delete-verify'da ters çevirir), Get okur (CurrentBalance) — hepsi **Cash-only**. Bir tur Security-side backend yazılıp **aynı oturumda tamamen geri alındı**, detay → `bilgi-bankasi/07` K-54 |
+| **Sıradaki adım** | Kullanıcı referans veri script'ini koşup ekranları test edecek (alan değişiklikleri test sırasında söylenecek) · `TxnTransactionDetail` akışı **K-55**'e göre (Verify sonrası hareket = Detail, Detail maker-checker, Detail başına fiş) |
+| **Bloke eden** | Faz 4 (DB script) → `A-08`/`A-09`/`A-10` hâlâ açık. Muhasebe → `A-25` (nazım, bu toplantıda da konuşulmadı). `A-26` TxnPaymentInstruction şekli netleşti ama Fimple/manuel ayrımı **hâlâ** açık |
+| **Bekleyen onay** | `A-09` sayaç öneki **77** önerildi · `A-25` nazım · `A-22` ⏸ ertelendi · **yeni:** entity isim/tip onayı (kullanıcı: *"ben isimlendiremelerine ve tiplerine baktıktan sonra da Db'ye script ile atarız"*) |
 | ✅ **Klasör** | `Colleteral-Feature/` → **`ColManagement-Feature/`** (2026-10-09) — tüm referanslar güncellendi |
-| ⚠️ **Doğrulanmadı** | Hiçbir servis **ayağa kalkmadı** — DB · Kafka · Redis · Seq yok. Derleniyor, çalıştırılmadı |
+| ✅ **Ayakta** | 2026-10-15: WebApi (5061) + ConsumerApi (5063, Kafka'ya bağlı) + BatchWebApi (5062, Hangfire çalışıyor) + ColManagement.UI (5105, `/Login`'e dönüyor) — 4'ü de docker'da sağlıklı. DB `NetTrexColManagement` kullanıcı tarafından kuruldu (51 tablo + seed, doğrulandı) |
 | 🔴 **UNIT TEST YOK** | Kullanıcı kararı. 13 test projesi boş iskelet |
 
 ## 1. Faz durumları
@@ -32,26 +40,26 @@
 | **1** | Repo iskeleti + MD omurgası | ✅ 2026-10-05 | [`progress/01-repo-iskeleti.md`](progress/01-repo-iskeleti.md) |
 | **2** | Veri modeli — Excel **v5** | ✅ 2026-10-07 | [`progress/02-excel-v5.md`](progress/02-excel-v5.md) |
 | **3** | **Backend iskeleti** | ✅ 2026-10-08 — 54 proje, build 0 hata | [`progress/04-backend-iskelet.md`](progress/04-backend-iskelet.md) |
-| **4** | DB kurulum script'leri | ⬜ **SIRADAKİ** — Excel'i ve Faz 0 kararlarını bekliyor | — |
+| **4** | DB kurulum script'leri | ✅ **YAZILDI** 2026-10-14 — Excel silindiği için gerçek EF entity/config'lerden türetildi; kullanıcı henüz **çalıştırmadı** | `Treasy.ColManagement/.ai-agent/outputs/2026-10-14-ColManagement-Kurulum/CREATION_SCRIPT.md` (farklı repo, workspace dışı) |
 | **5** | Backend temel yapısı | ✅ **TAMAM** 2026-10-08 · 🔄 2026-10-09 OptionsFX'e hizalandı (K-39) | [`progress/05`](progress/05-backend-altyapi.md) · [`06`](progress/06-auth-fimple-consumer.md) · [`07`](progress/07-mm-tabani-ve-loglama.md) · [`08`](progress/08-temel-yapi-tamam.md) · [`09`](progress/09-optionsfx-hizalama.md) |
-| **6** | Annex ucu | ⬜ | — |
-| **7** | CollateralDefinition ucu | ⬜ | — |
-| **8** | TxnTransaction + bakiye | ⬜ | — |
-| **9** | Değerleme · Limit · Muhasebe · Mesaj | ⬜ | — |
-| **10** | UI iskeleti | ⬜ | — |
-| **11** | UI ekranları | ⬜ | — |
+| **6** | Annex ucu | ✅ **TAMAM** 2026-10-14 — Entity+EF config+Repository+9 Handler+Controller (Select/Get/Create/Update/Delete/Verify/Reject/Undo/History) | [`progress/18`](progress/18-verify-ui-iskelet-annex-crud.md) |
+| **7** | CollateralDefinition ucu | ✅ **TAMAM** 2026-10-14 — Entity+EF config+Repository+9 Handler+Controller (Select/Get/Create/Update/Delete/Verify/Reject/Undo/History), Annex deseni birebir | [`progress/19`](progress/19-definition-transaction-crud.md) |
+| **8** | TxnTransaction + bakiye | 🟡 Entity+EF config+**8 Handler/Controller ✅** (Select/Get/DetailList/Create/Update/Delete/Verify/Reject — Undo yok, FlowEntity deseni) · **`CollateralPosition` artık gerçekten çalışıyor** (Create okur, Verify günceller, Get okur) 2026-10-14, Cash-only (K-54) · `TxnTransactionDetail` yazılmadı (A-27 açık, K-44 beklemede) · Select state filtresi ✅ (2026-10-22, `ApplyStateFilter`) | [`progress/20`](progress/20-annex-grid-ui-security-geri-alma.md) |
+| **9** | Değerleme · Limit · Muhasebe · Mesaj | 🟡 Muhasebe: Opening ✅ (tek-para-birimli, 2026-10-14) + Opening-Reverse ✅ (`Accounting/Delete`), reeskont/maturation/ara ödeme **yok** (K-48) · Değerleme/Limit/Mesaj ⬜ | [`progress/18`](progress/18-verify-ui-iskelet-annex-crud.md) |
+| **10** | UI iskeleti | ✅ **TAMAM** 2026-10-14 — `Treasy.ColManagement.UI` (Core/Business/Web + Docker), MM.UI güncel (`Treasy.Pure.*`) emsal alındı | [`progress/18`](progress/18-verify-ui-iskelet-annex-crud.md) |
+| **11** | UI ekranları | ✅ **TAMAM** 2026-10-14 — Annex/CollateralDefinition/TxnTransaction + **Annex Product Scope/Margin Rule grid'leri** (aynı gün eklendi, DevExtreme popup-edit mode, Add-modal yerine), build+typecheck 0 yeni hata | [`progress/20`](progress/20-annex-grid-ui-security-geri-alma.md) |
 | **12** | Uçtan uca + teslim | ⬜ | — |
 
 ---
 
 ## 2. 🔴 Açık uçlar
 
-### Kullanıcı cevaplayacak — Faz 4'ü (script) BLOKE EDİYOR
-| # | Soru | Öneri |
+### Kullanıcı cevaplayacak — artık Faz 4'ü BLOKE ETMİYOR (kodda zaten kullanılan değerle yazıldı, onay yine de bekleniyor)
+| # | Soru | Öneri / fiilen kullanılan |
 |---|---|---|
-| **A-08** | Modül kodu | **`CM`** (MM=`MM`, DerivSwp=`DV`) — ⚠️ kod iskeletinde **şimdiden** kullanılıyor |
-| **A-09** | `DefNumberGen` sayaç öneki | **iki haneli zorunlu** — MM 55/50/120, OptionsFX 99 dolu |
-| **A-10** | DB adı | **`NetTrexColManagement`** |
+| **A-08** | Modül kodu | **`CM`** (MM=`MM`, DerivSwp=`DV`) — kod iskeletinde kullanılıyor, script'lerde (`2-4-6`) de **`CM`** yazıldı |
+| ~~A-09~~ | `DefNumberGen` sayaç öneki | ✅ **60** (2026-10-15 düzeltildi) — eski değer **77** canlı `NetTrexAcc.AccEntryMain` verisinde NetTrex.InvFund tarafından zaten kullanılıyordu (çakışma), `NumberGeneratorDataManager.cs` güncellendi |
+| **A-10** | DB adı | **`NetTrexColManagement`** — `docker-compose.override.yml`'de zaten bu, script'ler de bunu kullanıyor |
 | **—** | Tablo adlandırma onayı | `ColManagementRevaluation` **düştü** (Revaluation silindi, K-41). Kalan tek: `ColManagementAuditLog` |
 | ~~—~~ | ~~Modül adının nihai onayı~~ | ✅ **ColManagement** — patron toplantısı 2026-10-08 (K-42) |
 
@@ -84,6 +92,12 @@ Tam liste + gerekçeler → [`bilgi-bankasi/07-kararlar-ve-sorular.md`](bilgi-ba
 
 | Tarih | Söz | Sonucu |
 |---|---|---|
+| 2026-10-14 | *"NetTrexColManager için backend ve Frontend kodları yazdık ya artık script yazma zamanına geldik... Ornek_Deriv_Scripts_DDL bu kurulum scirtplerine bak ve DB de şu an NetTrexColManager Db'si yok bu Db yi kurmamız lazım sonra da önceden konuştuğumuz gibi ortak Tabloları da Create etmemiz lazım sonra da ColManager için belirlediğimiz tabloları da Configuration'alra göre tabloları İnsert edecek tabloları yaz... biz çok defa bu scirtpler üzerinde değişiklik yapıcaz bu yüzden de CREATION_SCRIPt diye bir md dosyan olsun"* | DB kurulum script seti + `CREATION_SCRIPT.md` yazıldı (bu satır) — "ortak tablolar" = Faz-4 Grup B (CoreDataSlice paket kopyaları + Customer/Portfolio/CorporateType/…), Excel yerine **gerçek EF kod** kaynak alındı |
+| 2026-10-14 | *"Security ile alakalı hiç bir geliştirme yapmana gerek yok istemiyorum gerek olmadığına kanaat getirdik"* → *"security kısımlarını istemiyorum onlardan vazgeçtik bu dediğimi md'lerde de değiştirebilirsin sadece Cash yapısıyla devam edicez"* | `K-54` — Security tamamen kapsam dışı, Faz 1 yalnız Cash |
+| 2026-10-13 | *"Openin tarafını yazmıştın ya reeskont, maturation ve ara ödeme olmayacak ama opening fişinin reverse'ü kesilecek bu yüzden de reverse'ü de entegre et burada ki Accounting yapısına sonra da entity ve configuration'ları yazmaya başla bağlantıları ile birlikte."* | `K-48` — muhasebede yalnız Opening+Reverse |
+| 2026-10-13 | *"DB'ye script yazmayacağız ama Entity'lerini oluşturabiliriz, sonra ben isimlendirmelerine ve tiplerine baktıktan sonra da DB'ye script ile atarız. Configuration ve entity'lerini yazmaya başlayalım bence."* | Entity/config yazımı **onaylı**, DB script **sonra**, isim/tip onayı **kullanıcıdan bekliyor** |
+| 2026-10-13 | *"Collateral Annex, Collateral Definition ve Collateral Transaction... bunlar aslında 3 ayrı ekran olacak bunlar 1 ekranın tab'i olmayacak bunu söyleyeyim baştan."* | 3 ayrı ekran, tab değil → `11-ui-ekran-rehberi.md` |
+| 2026-10-13 (PO) | *"Bu draft gereksiz bence. Active inactive gibi mi kalacak burası?"* · *"Hayır biz onu increase ve decrease diyeceğiz."* · *"Delete ettikten sonra verify edince ne olacak? Tersine dönecek."* · *"Burada o zaman logical date'le bakacaksın sen... değilse fiş kesmeyeceğim."* | `K-50`/`K-51`/`K-48`/`K-49` |
 | 2026-10-11 | *"ben MM-OptionFx-Deriv ve ColManagement için bizim şu an kullandığımız mimariyi kullanıyorum… Aret Abi… projelerin tüm modüllerin standart bir hale getirmek için bu mimariyi kullanalım dedi… ben zaten şu anki ColManagement projesinin mimarisinde devam edeceğim… hangisinin daha iyi ve daha kötü olduğu noktalar hangileri"* | `04-MIMARI-KARSILASTIRMA.md` |
 | 2026-10-09 | *"MM'de helm nasılsa ya da Docker dosyaları nasılsa sen de buraya aynı şekilde koy… MM projesiyle karşılaştır bakalım gerçekten bitmiş mi, biz doğru yansıtmış mıyız"* | `progress/16` |
 | 2026-10-09 | *"routing adları da Option'dan alınsın? senin bu şekilde bunlar nereden alınsın diye sormanı sevdim sor bana. UI'da da adları aynı şekilde Option'dan alabilirsin ama dediğin gibi UI'a geçince konuşalım"* | `K-47` route = OptionsFX · MM/OFX farkında **sor** |
@@ -133,6 +147,7 @@ Tam liste + gerekçeler → [`bilgi-bankasi/07-kararlar-ve-sorular.md`](bilgi-ba
 
 | Tarih | Karar | Nerede |
 |---|---|---|
+| 2026-10-13 | `K-48`..`K-53` — PO toplantısı #3: Opening+Reverse dışında muhasebe yok · forward batch yok (Verify valör kontrolü) · Status 2 seçenekli · Direction sabit enum · CashTerms'ten settlement/account çıktı · Annex/Definition verify-sonrası-edit kuralı. `A-21`/`A-24` kapandı | [`bilgi-bankasi/11-ui-ekran-rehberi.md`](bilgi-bankasi/11-ui-ekran-rehberi.md) · [`bilgi-bankasi/07`](bilgi-bankasi/07-kararlar-ve-sorular.md) |
 | 2026-10-09 | 🔑 **K-45 Belirsizlikte MM:** Seq → MM · Accounting → OptionsFX · proje/paket → OptionsFX · OptionsFX'in kütüphaneye yaslandığı/kafa karıştıran yer → **MM**. İlk uygulama: QuGet çıktı, takvim MM | [`progress/11`](progress/11-mm-takvim-ve-quget.md) |
 | 2026-10-09 | 🔴 **K-43** Fimple tamamen kullanılıyor (A-23 kapandı) · 🔑 **K-44** Txn değişmez, her hareket TxnDetail | [`bilgi-bankasi/10`](bilgi-bankasi/10-toplanti-2026-10-08.md) §6/§6b |
 | 2026-10-09 | OptionsFX altyapısı taşındı; 18 açık (çift-repo kontrollü) düzeltildi — sayaç öneki 77 önerisi, Hangfire anahtarları `ColManagementEod/Bod` | [`progress/10`](progress/10-optionsfx-altyapi-portu.md) |

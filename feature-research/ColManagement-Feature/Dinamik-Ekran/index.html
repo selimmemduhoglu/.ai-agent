@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Treasury Collateral Management Prototype</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell" id="app">
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Treasury Operations</p>
+        <h1 id="screen-title">Collateral Annex Definition <span>[ New ]</span></h1>
+      </div>
+      <div class="header-actions">
+        <label class="dev-toggle" title="Show control types, binding keys and field states">
+          <input id="developer-mode" type="checkbox">
+          <span>Developer mode</span>
+        </label>
+        <button class="button secondary" id="open-field-map" type="button">Field map</button>
+      </div>
+    </header>
+
+    <nav class="main-tabs" aria-label="Collateral screens">
+      <button class="main-tab active" type="button" data-screen="annex">COLLATERAL ANNEX</button>
+      <button class="main-tab" type="button" data-screen="definition">COLLATERAL DEFINITION</button>
+      <button class="main-tab" type="button" data-screen="transaction">COLLATERAL TRANSACTION</button>
+    </nav>
+
+    <section class="helpbar" aria-live="polite">
+      <span class="help-icon">?</span>
+      <strong id="help-title">Alan açıklaması</strong>
+      <span id="help-text">Bir alanın neden gerekli olduğunu görmek için yanındaki soru işaretini seçin.</span>
+    </section>
+
+    <section class="screen active" id="screen-annex" data-screen-panel="annex">
+      <div class="quadrants">
+        <article class="panel">
+          <header class="panel-header"><h2>Identity and Legal Framework</h2><span>1 / 4</span></header>
+          <div class="field-grid">
+            <div class="field" data-key="annexCode" data-entry="Yazılır" data-control="Text" data-source="User" data-required="Yes">
+              <label for="annex-code">Annex Code <b>*</b><button class="help-button" data-help="Annex Code" type="button">?</button></label>
+              <input id="annex-code" value="CSA-BRCL-VM-001">
+            </div>
+            <div class="field" data-key="annexName" data-entry="Yazılır" data-control="Text" data-source="User" data-required="Yes">
+              <label for="annex-name">Annex Name <b>*</b><button class="help-button" data-help="Annex Name" type="button">?</button></label>
+              <input id="annex-name" value="Barclays VM Collateral Terms">
+            </div>
+            <div class="field" data-key="counterpartyId" data-entry="Listeden seçilir" data-control="Select" data-source="Counterparty master" data-required="Yes">
+              <label for="annex-counterparty">Counterparty <b>*</b><button class="help-button" data-help="Counterparty" type="button">?</button></label>
+              <select id="annex-counterparty"><option value="BRCL">Barclays Bank</option><option value="DB">Deutsche Bank</option><option value="BNPP">BNP Paribas</option></select>
+            </div>
+            <div class="field" data-key="status" data-entry="Listeden seçilir" data-control="Select" data-source="Code list" data-required="Yes">
+              <label for="annex-status">Status <b>*</b><button class="help-button" data-help="Status" type="button">?</button></label>
+              <select id="annex-status"><option>Draft</option><option selected>Active</option><option>Inactive</option></select>
+            </div>
+            <div class="field" data-key="masterAgreement" data-entry="Yazılır" data-control="Text" data-source="User free text" data-required="Yes">
+              <label for="master-agreement">Master Agreement <b>*</b><button class="help-button" data-help="Master Agreement" type="button">?</button></label>
+              <input id="master-agreement" value="ISDA 2002 Master Agreement">
+            </div>
+            <div class="field" data-key="collateralDocument" data-entry="Yazılır" data-control="Text" data-source="User free text" data-required="Yes">
+              <label for="collateral-document">Collateral Document <b>*</b><button class="help-button" data-help="Collateral Document" type="button">?</button></label>
+              <input id="collateral-document" value="2016 CSA for Variation Margin – English Law">
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <header class="panel-header"><h2>Validity, Call and Dispute Control</h2><span>2 / 4</span></header>
+          <div class="field-grid">
+            <div class="field" data-key="baseCurrency" data-entry="Listeden seçilir" data-control="Select" data-source="Currency master" data-required="Yes">
+              <label for="annex-base-currency">Base Currency <b>*</b><button class="help-button" data-help="Base Currency" type="button">?</button></label>
+              <select id="annex-base-currency"><option selected>TRY</option><option>EUR</option><option>USD</option><option>GBP</option></select>
+            </div>
+            <div class="field" data-key="direction" data-entry="Listeden seçilir" data-control="Select" data-source="Code list" data-required="Yes">
+              <label for="annex-direction">Direction <b>*</b><button class="help-button" data-help="Direction" type="button">?</button></label>
+              <select id="annex-direction"><option>Both</option><option>Post Only</option><option>Receive Only</option></select>
+            </div>
+            <div class="field" data-key="validFrom" data-entry="Tarih seçilir" data-control="Date" data-source="User" data-required="Yes">
+              <label for="annex-valid-from">Valid From <b>*</b><button class="help-button" data-help="Valid From" type="button">?</button></label>
+              <input id="annex-valid-from" type="date" value="2026-01-31">
+            </div>
+            <div class="field" data-key="validTo" data-entry="Tarih seçilir" data-control="Date" data-source="User" data-required="No">
+              <label for="annex-valid-to">Valid To<button class="help-button" data-help="Valid To" type="button">?</button></label>
+              <input id="annex-valid-to" type="date">
+            </div>
+            <div class="field" data-key="disputeToleranceAmount" data-entry="Yazılır" data-control="Decimal + Currency" data-source="User" data-required="Yes">
+              <label for="dispute-tolerance">Dispute Tolerance <b>*</b><button class="help-button" data-help="Dispute Tolerance" type="button">?</button></label>
+              <div class="money-input"><input id="dispute-tolerance" type="number" min="0" step="0.01" value="50000"><select aria-label="Dispute tolerance currency"><option>EUR</option><option>TRY</option><option>USD</option></select></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel table-panel" data-zone="products">
+          <header class="panel-header">
+            <div><h2>Product Scope and Margin Coverage</h2><small id="selected-product-hint">Select a row before Add Rule</small></div>
+            <button class="link-button" id="open-product-modal" type="button">+ Add Product</button>
+          </header>
+          <div class="table-wrap">
+            <table id="product-table">
+              <thead><tr><th>Product</th><th>Sub Product</th><th>Margin Type</th><th>Included</th></tr></thead>
+              <tbody>
+                <tr class="selected" data-scope-id="PS-001"><td>FX</td><td>Forward / Swap / NDF</td><td>VM</td><td><span class="status positive">Yes</span></td></tr>
+                <tr data-scope-id="PS-002"><td>Interest Rate</td><td>IRS / CCS</td><td>VM</td><td><span class="status positive">Yes</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="panel table-panel" data-zone="margin">
+          <header class="panel-header"><h2>Party Margin Terms</h2><button class="link-button" id="open-rule-modal" type="button">+ Add Rule</button></header>
+          <div class="context-line">Rule context: <strong id="rule-context">FX · Forward / Swap / NDF · VM</strong></div>
+          <div class="table-wrap">
+            <table id="margin-rule-table">
+              <thead><tr><th>Party</th><th>Threshold</th><th>MTA</th><th>Rounding Amount</th><th>Method</th></tr></thead>
+              <tbody>
+                <tr data-scope-id="PS-001"><td>Own</td><td>0.00 EUR</td><td>250,000 EUR</td><td>10,000 EUR</td><td>Nearest</td></tr>
+                <tr data-scope-id="PS-001"><td>Counterparty</td><td>0.00 EUR</td><td>250,000 EUR</td><td>10,000 EUR</td><td>Nearest</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+      <footer class="form-actions"><button class="button secondary" type="button">CANCEL</button><button class="button primary" data-action="save" type="button">SAVE</button></footer>
+    </section>
+
+    <section class="screen" id="screen-definition" data-screen-panel="definition" hidden>
+      <div class="state-banner"><span>Try the dependencies:</span><strong>Annex</strong> locks inherited fields; <strong>Collateral Type</strong> replaces all 2–4 panels.</div>
+      <div class="quadrants">
+        <article class="panel">
+          <header class="panel-header"><h2>Identity and Contract Context</h2><span>1 / 3</span></header>
+          <div class="field-grid">
+            <div class="field" data-key="collateralCode" data-entry="Yazılır" data-control="Text" data-source="User" data-required="Yes"><label for="definition-code">Collateral Code <b>*</b><button class="help-button" data-help="Collateral Code" type="button">?</button></label><input id="definition-code" value="CASH-MULTI-001"></div>
+            <div class="field" data-key="collateralName" data-entry="Yazılır" data-control="Text" data-source="User" data-required="Yes"><label for="definition-name">Collateral Name <b>*</b><button class="help-button" data-help="Collateral Name" type="button">?</button></label><input id="definition-name" value="Eligible Cash Collateral"></div>
+            <div class="field" data-key="annexId" data-entry="Listeden seçilir" data-control="Select" data-source="Active Annex" data-required="No"><label for="definition-annex">Annex<button class="help-button" data-help="Annex" type="button">?</button></label><select id="definition-annex"><option value="CSA-BRCL-VM-001" selected>CSA-BRCL-VM-001</option><option value="">No Annex / Standalone</option></select></div>
+            <div class="field" data-key="counterpartyId" data-entry="Annex varsa otomatik; yoksa seçilir" data-control="Select" data-source="Annex / Counterparty master" data-required="Yes"><label for="definition-counterparty">Counterparty <b>*</b><button class="help-button" data-help="Counterparty" type="button">?</button></label><select id="definition-counterparty"><option>Barclays Bank</option><option>Deutsche Bank</option><option>BNP Paribas</option></select></div>
+            <div class="field" data-key="collateralType" data-entry="Listeden seçilir" data-control="Select" data-source="Code list" data-required="Yes"><label for="definition-type">Collateral Type <b>*</b><button class="help-button" data-help="Collateral Type" type="button">?</button></label><select id="definition-type"><option>Cash</option><option>Security</option></select></div>
+            <div class="field cash-only" data-key="eligibleCurrencies" data-entry="Çoklu seçilir" data-control="Multi-select" data-source="Currency master" data-required="Yes"><label for="eligible-currencies">Eligible Currencies <b>*</b><button class="help-button" data-help="Eligible Currencies" type="button">?</button></label><select id="eligible-currencies" multiple size="2"><option selected>EUR</option><option selected>USD</option><option selected>GBP</option><option selected>TRY</option></select></div>
+            <div class="field security-only" data-key="securityScope" data-entry="Listeden seçilir" data-control="Select" data-source="Code list" data-required="Yes" hidden><label for="security-scope">Security Scope <b>*</b><button class="help-button" data-help="Security Scope" type="button">?</button></label><select id="security-scope"><option value="rule">Eligibility Rule</option><option value="isin">Specific ISIN</option></select></div>
+            <div class="field" data-key="status" data-entry="Listeden seçilir" data-control="Select" data-source="Code list" data-required="Yes"><label for="definition-status">Status <b>*</b><button class="help-button" data-help="Status" type="button">?</button></label><select id="definition-status"><option selected>Active</option><option>Draft</option><option>Inactive</option></select></div>
+          </div>
+        </article>
+
+        <article class="panel cash-panel" id="cash-eligibility-panel">
+          <header class="panel-header"><h2>Cash Eligibility</h2><span>2 / 3</span></header>
+          <div class="field-grid">
+            <div class="field" data-key="eligibilityDirection" data-entry="Annex varsa otomatik; yoksa seçilir" data-control="Select" data-source="Annex / User" data-required="Yes"><label for="cash-direction">Eligibility Direction <b>*</b><button class="help-button" data-help="Eligibility Direction" type="button">?</button></label><select id="cash-direction"><option>Both</option><option>Post Only</option><option>Receive Only</option></select></div>
+            <div class="field" data-key="valuationCurrency" data-entry="Annex varsa otomatik; yoksa seçilir" data-control="Select" data-source="Annex / Currency master" data-required="Yes"><label for="cash-valuation-currency">Valuation Currency <b>*</b><button class="help-button" data-help="Valuation Currency" type="button">?</button></label><select id="cash-valuation-currency"><option selected>TRY</option><option>EUR</option><option>USD</option></select></div>
+            <div class="field" data-key="validFrom" data-entry="Tarih seçilir" data-control="Date" data-source="Annex / User" data-required="Yes"><label for="cash-valid-from">Valid From <b>*</b><button class="help-button" data-help="Valid From" type="button">?</button></label><input id="cash-valid-from" type="date" value="2026-09-28"></div>
+            <div class="field" data-key="validTo" data-entry="Tarih seçilir" data-control="Date" data-source="Annex / User" data-required="No"><label for="cash-valid-to">Valid To<button class="help-button" data-help="Valid To" type="button">?</button></label><input id="cash-valid-to" type="date"></div>
+          </div>
+        </article>
+
+        <article class="panel cash-panel">
+          <header class="panel-header"><h2>Cash Interest Terms <em>Optional</em></h2><span>3 / 3</span></header>
+          <div class="field-grid">
+            <div class="field" data-key="rateType" data-entry="Listeden seçilir" data-control="Select" data-source="Code list" data-required="No"><label for="rate-type">Rate Type<button class="help-button" data-help="Rate Type" type="button">?</button></label><select id="rate-type"><option>Floating</option><option>Fixed</option><option>Interest Free</option></select></div>
+            <div class="field" data-key="referenceRate" data-entry="Listeden seçilir" data-control="Select" data-source="Rate index master" data-required="Conditional"><label for="reference-rate">Reference Rate<button class="help-button" data-help="Reference Rate" type="button">?</button></label><select id="reference-rate"><option>€STR</option><option>SOFR</option><option>SONIA</option><option>TLREF</option></select></div>
+            <div class="field" data-key="spreadBps" data-entry="Yazılır" data-control="Decimal" data-source="User" data-required="Conditional"><label for="spread">Spread<button class="help-button" data-help="Spread" type="button">?</button></label><div class="suffix-input"><input id="spread" type="number" step="0.01" value="0"><span>bps</span></div></div>
+            <div class="field" data-key="fixedRate" data-entry="Yazılır" data-control="Percentage" data-source="User" data-required="Conditional"><label for="fixed-rate">Fixed Rate<button class="help-button" data-help="Fixed Rate" type="button">?</button></label><div class="suffix-input"><input id="fixed-rate" type="number" step="0.000001" value="0"><span>%</span></div></div>
+            <div class="field" data-key="compoundingMethod" data-entry="Listeden seçilir" data-control="Select" data-source="Code list" data-required="No"><label for="compounding">Compounding Method<button class="help-button" data-help="Compounding Method" type="button">?</button></label><select id="compounding"><option>Daily Compounded</option><option>Simple</option><option>None</option></select></div>
+            <div class="field" data-key="dayCount" data-entry="Listeden seçilir" data-control="Select" data-source="Code list" data-required="No"><label for="day-count">Day Count<button class="help-button" data-help="Day Count" type="button">?</button></label><select id="day-count"><option>ACT/360</option><option>ACT/365</option><option>30/360</option></select></div>
+            <div class="field" data-key="paymentFrequency" data-entry="Listeden seçilir" data-control="Select" data-source="Code list" data-required="No"><label for="payment-frequency">Payment Frequency<button class="help-button" data-help="Payment Frequency" type="button">?</button></label><select id="payment-frequency"><option>Monthly</option><option>Quarterly</option><option>On Return</option></select></div>
+            <div class="field" data-key="businessDayRule" data-entry="Listeden seçilir" data-control="Select" data-source="Code list" data-required="No"><label for="business-day-rule">Business Day Rule<button class="help-button" data-help="Business Day Rule" type="button">?</button></label><select id="business-day-rule"><option>Modified Following</option><option>Following</option><option>Preceding</option></select></div>
+            <div class="field span-2" data-key="negativeRateAllowed" data-entry="İşaretlenir" data-control="Checkbox" data-source="User" data-required="No"><label class="checkbox"><input id="negative-rate" type="checkbox"> Negative Rate Allowed<button class="help-button" data-help="Negative Rate Allowed" type="button">?</button></label></div>
+          </div>
+        </article>
+
+        <article class="panel security-panel" id="security-scope-panel" hidden>
+          <header class="panel-header"><h2 id="security-scope-title">Rule-based Security Eligibility</h2><span>2 / 4</span></header>
+          <div class="field-grid security-rule-fields">
+            <div class="field" data-key="securityType" data-entry="Listeden seçilir" data-control="Select" data-source="Security catalog" data-required="Yes"><label for="security-type-rule">Security Type <b>*</b><button class="help-button" data-help="Security Type" type="button">?</button></label><select id="security-type-rule"><option>Government Bond</option><option>Corporate Bond</option><option>Sukuk</option><option>Equity</option></select></div>
+            <div class="field" data-key="issuerType" data-entry="Listeden seçilir" data-control="Select" data-source="Code list" data-required="Yes"><label for="issuer-type">Issuer Type <b>*</b><button class="help-button" data-help="Issuer Type" type="button">?</button></label><select id="issuer-type"><option>Sovereign</option><option>Supranational</option><option>Bank</option><option>Corporate</option></select></div>
+            <div class="field" data-key="countryOfRisk" data-entry="Listeden seçilir" data-control="Select" data-source="Country master" data-required="No"><label for="country-risk">Country of Risk<button class="help-button" data-help="Country of Risk" type="button">?</button></label><select id="country-risk"><option>Türkiye</option><option>Germany</option><option>United Kingdom</option></select></div>
+            <div class="field" data-key="eligibleCurrency" data-entry="Listeden seçilir" data-control="Select" data-source="Currency master" data-required="Yes"><label for="security-currency-rule">Eligible Currency <b>*</b><button class="help-button" data-help="Eligible Currency" type="button">?</button></label><select id="security-currency-rule"><option>TRY</option><option>EUR</option><option>USD</option></select></div>
+            <div class="field" data-key="minimumRating" data-entry="Listeden seçilir" data-control="Select" data-source="Rating master" data-required="No"><label for="minimum-rating">Minimum Rating<button class="help-button" data-help="Minimum Rating" type="button">?</button></label><select id="minimum-rating"><option>Internal Grade 1</option><option selected>Internal Grade 3</option><option>BBB-</option></select></div>
+            <div class="field" data-key="maximumRemainingMaturity" data-entry="Listeden seçilir" data-control="Select" data-source="Tenor catalog" data-required="No"><label for="maximum-maturity">Maximum Remaining Maturity<button class="help-button" data-help="Maximum Remaining Maturity" type="button">?</button></label><select id="maximum-maturity"><option>5 Years</option><option selected>10 Years</option><option>30 Years</option></select></div>
+          </div>
+          <div class="field-grid security-isin-fields" hidden>
+            <div class="field span-2" data-key="securityId" data-entry="Listeden seçilir" data-control="Search select" data-source="Security master" data-required="Yes"><label for="specific-isin">Security / ISIN <b>*</b><button class="help-button" data-help="Security / ISIN" type="button">?</button></label><select id="specific-isin"><option value="TRT240728T15">TRT240728T15 · Türkiye Government Bond</option><option value="XS0000000001">XS0000000001 · Example Corporate Bond</option></select></div>
+            <div class="field" data-key="issuer" data-entry="Otomatik gelir" data-control="Read-only text" data-source="Security master" data-required="Inherited"><label for="security-issuer">Issuer<button class="help-button" data-help="Issuer" type="button">?</button></label><input id="security-issuer" readonly></div>
+            <div class="field" data-key="currency" data-entry="Otomatik gelir" data-control="Read-only text" data-source="Security master" data-required="Inherited"><label for="security-currency">Currency<button class="help-button" data-help="Currency" type="button">?</button></label><input id="security-currency" readonly></div>
+            <div class="field" data-key="maturityDate" data-entry="Otomatik gelir" data-control="Read-only date" data-source="Security master" data-required="Inherited"><label for="security-maturity">Maturity Date<button class="help-button" data-help="Maturity Date" type="button">?</button></label><input id="security-maturity" readonly></div>
+            <div class="field" data-key="creditRating" data-entry="Otomatik gelir" data-control="Read-only text" data-source="Rating master" data-required="Inherited"><label for="security-rating">Credit Rating<button class="help-button" data-help="Credit Rating" type="button">?</button></label><input id="security-rating" readonly></div>
+            <div class="field" data-key="securityType" data-entry="Otomatik gelir" data-control="Read-only text" data-source="Security master" data-required="Inherited"><label for="security-type-derived">Security Type<button class="help-button" data-help="Security Type" type="button">?</button></label><input id="security-type-derived" readonly></div>
+          </div>
+        </article>
+
+        <article class="panel security-panel" hidden>
+          <header class="panel-header"><h2>Security Valuation and Haircut <em>Optional</em></h2><span>3 / 4</span></header>
+          <div class="field-grid">
+            <div class="field" data-key="eligibilityDirection" data-entry="Annex varsa otomatik; yoksa seçilir" data-control="Select" data-source="Annex / User" data-required="No"><label for="security-direction">Eligibility Direction<button class="help-button" data-help="Eligibility Direction" type="button">?</button></label><select id="security-direction"><option>Both</option><option>Post Only</option><option>Receive Only</option></select></div>
+            <div class="field" data-key="valuationCurrency" data-entry="Annex varsa otomatik; yoksa seçilir" data-control="Select" data-source="Annex / Currency master" data-required="No"><label for="security-valuation-currency">Valuation Currency<button class="help-button" data-help="Valuation Currency" type="button">?</button></label><select id="security-valuation-currency"><option>TRY</option><option>EUR</option><option>USD</option></select></div>
+            <div class="field" data-key="priceSource" data-entry="Listeden seçilir" data-control="Select" data-source="Market data config" data-required="No"><label for="price-source">Price Source<button class="help-button" data-help="Price Source" type="button">?</button></label><select id="price-source"><option>Approved Market Data</option><option>Custodian Price</option></select></div>
+            <div class="field" data-key="priceType" data-entry="Listeden seçilir" data-control="Select" data-source="Code list" data-required="No"><label for="price-type">Price Type<button class="help-button" data-help="Price Type" type="button">?</button></label><select id="price-type"><option>Dirty Price</option><option>Clean Price</option></select></div>
+            <div class="field" data-key="haircutMethod" data-entry="Listeden seçilir" data-control="Select" data-source="Code list" data-required="No"><label for="haircut-method">Haircut Method<button class="help-button" data-help="Haircut Method" type="button">?</button></label><select id="haircut-method"><option>Fixed</option><option>Rating / Maturity Matrix</option><option>External Schedule</option></select></div>
+            <div class="field" data-key="assetHaircutRate" data-entry="Yazılır" data-control="Percentage" data-source="User / Schedule" data-required="Conditional"><label for="asset-haircut">Asset Haircut Rate<button class="help-button" data-help="Asset Haircut Rate" type="button">?</button></label><div class="suffix-input"><input id="asset-haircut" type="number" min="0" max="100" step="0.01" value="2"><span>%</span></div></div>
+            <div class="field" data-key="fxHaircutRate" data-entry="Yazılır" data-control="Percentage" data-source="User / Schedule" data-required="No"><label for="fx-haircut">FX Haircut Rate<button class="help-button" data-help="FX Haircut Rate" type="button">?</button></label><div class="suffix-input"><input id="fx-haircut" type="number" min="0" max="100" step="0.01" value="8"><span>%</span></div></div>
+            <div class="field" data-key="minimumNominal" data-entry="Yazılır" data-control="Decimal" data-source="User" data-required="No"><label for="minimum-nominal">Minimum Nominal<button class="help-button" data-help="Minimum Nominal" type="button">?</button></label><input id="minimum-nominal" type="number" min="0" step="0.01" value="1000000"></div>
+          </div>
+        </article>
+
+        <article class="panel security-panel" hidden>
+          <header class="panel-header"><h2>Security Settlement and Income <em>Optional</em></h2><span>4 / 4</span></header>
+          <div class="field-grid">
+            <div class="field" data-key="settlementInstrument" data-entry="Otomatik gelir" data-control="Read-only text" data-source="System" data-required="No"><label for="security-instrument">Settlement Instrument<button class="help-button" data-help="Settlement Instrument" type="button">?</button></label><input id="security-instrument" value="Securities Transfer" readonly></div>
+            <div class="field" data-key="settlementLocation" data-entry="Listeden seçilir" data-control="Select" data-source="CSD / ICSD master" data-required="No"><label for="settlement-location">Settlement Location<button class="help-button" data-help="Settlement Location" type="button">?</button></label><select id="settlement-location"><option>Takasbank</option><option>Euroclear</option><option>Clearstream</option></select></div>
+            <div class="field" data-key="custodyAccountId" data-entry="Listeden seçilir" data-control="Select" data-source="Custody account master" data-required="No"><label for="custody-account">Custody Account<button class="help-button" data-help="Custody Account" type="button">?</button></label><select id="custody-account"><option>TRY Securities Custody</option><option>Euroclear Main Account</option></select></div>
+            <div class="field" data-key="defaultSsiId" data-entry="Listeden seçilir" data-control="Select" data-source="SSI master" data-required="No"><label for="security-ssi">Default SSI<button class="help-button" data-help="Default SSI" type="button">?</button></label><select id="security-ssi"><option>BIST CUSTODY SSI</option><option>EUROCLEAR SSI</option></select></div>
+            <div class="field" data-key="incomeTreatment" data-entry="Listeden seçilir" data-control="Select" data-source="Code list" data-required="No"><label for="income-treatment">Income Treatment<button class="help-button" data-help="Income Treatment" type="button">?</button></label><select id="income-treatment"><option>Pass Through</option><option>Retain</option></select></div>
+            <div class="field" data-key="corporateActionHandling" data-entry="Listeden seçilir" data-control="Select" data-source="Code list" data-required="No"><label for="corporate-action">Corporate Action Handling<button class="help-button" data-help="Corporate Action Handling" type="button">?</button></label><select id="corporate-action"><option>Instruction Required</option><option>Automatic</option></select></div>
+            <div class="field" data-key="validFrom" data-entry="Tarih seçilir" data-control="Date" data-source="User" data-required="No"><label for="security-valid-from">Valid From<button class="help-button" data-help="Valid From" type="button">?</button></label><input id="security-valid-from" type="date" value="2026-09-28"></div>
+            <div class="field" data-key="validTo" data-entry="Tarih seçilir" data-control="Date" data-source="User" data-required="No"><label for="security-valid-to">Valid To<button class="help-button" data-help="Valid To" type="button">?</button></label><input id="security-valid-to" type="date"></div>
+          </div>
+        </article>
+      </div>
+      <footer class="form-actions"><button class="button secondary" type="button">CANCEL</button><button class="button primary" data-action="save" type="button">SAVE</button></footer>
+    </section>
+
+    <section class="screen" id="screen-transaction" data-screen-panel="transaction" hidden>
+      <nav class="sub-tabs" aria-label="Transaction views">
+        <button class="sub-tab active" type="button" data-tx-view="entry">TRANSACTION</button>
+        <button class="sub-tab" type="button" data-tx-view="detail">TRANSACTION DETAIL</button>
+      </nav>
+
+      <div id="transaction-entry" data-tx-panel="entry">
+        <section class="transaction-section">
+          <header class="section-title"><h2>Definition and Party</h2><small>Definition determines eligible transaction options</small></header>
+          <div class="field-grid four-columns">
+            <div class="field span-2" data-key="definitionId" data-entry="Listeden seçilir" data-control="Search select" data-source="Active Collateral Definition" data-required="Yes"><label for="tx-collateral-code">Collateral Code <b>*</b><button class="help-button" data-help="Collateral Code" type="button">?</button></label><select id="tx-collateral-code"><option value="CASH-MULTI-001">CASH-MULTI-001</option><option value="SEC-GOV-TRY-001">SEC-GOV-TRY-001</option></select></div>
+            <div class="field span-2" data-key="counterpartyId" data-entry="Otomatik gelir" data-control="Read-only text" data-source="Definition" data-required="Inherited"><label for="tx-counterparty">Counterparty<button class="help-button" data-help="Counterparty" type="button">?</button></label><input id="tx-counterparty" readonly></div>
+            <div class="field span-2" data-key="collateralName" data-entry="Otomatik gelir" data-control="Read-only text" data-source="Definition" data-required="Inherited"><label for="tx-collateral-name">Collateral Name<button class="help-button" data-help="Collateral Name" type="button">?</button></label><input id="tx-collateral-name" readonly></div>
+            <div class="field span-2" data-key="collateralType" data-entry="Otomatik gelir" data-control="Read-only text" data-source="Definition" data-required="Inherited"><label for="tx-collateral-type">Collateral Type<button class="help-button" data-help="Collateral Type" type="button">?</button></label><input id="tx-collateral-type" readonly></div>
+            <div class="field span-2" data-key="portfolioId" data-entry="Listeden seçilir" data-control="Select" data-source="Portfolio master" data-required="Yes"><label for="tx-portfolio">Portfolio <b>*</b><button class="help-button" data-help="Portfolio" type="button">?</button></label><select id="tx-portfolio"><option>Collateral Banking</option><option>Treasury Trading</option><option>Liquidity Management</option></select></div>
+            <div class="field span-2" data-key="trader" data-entry="Otomatik gelir" data-control="Read-only text" data-source="Authenticated user" data-required="Inherited"><label for="tx-trader">Trader<button class="help-button" data-help="Trader" type="button">?</button></label><input id="tx-trader" value="HAZINEBIR@INVESTMENTBANK.COM" readonly></div>
+            <div class="field span-2" data-key="inputDate" data-entry="Otomatik gelir" data-control="Read-only date" data-source="System date" data-required="Inherited"><label for="tx-input-date">Input Date<button class="help-button" data-help="Input Date" type="button">?</button></label><input id="tx-input-date" type="date" value="2026-10-12" readonly></div>
+            <div class="field span-2" data-key="annexId" data-entry="Otomatik gelir" data-control="Read-only text" data-source="Definition" data-required="Inherited"><label for="tx-annex">Annex<button class="help-button" data-help="Annex" type="button">?</button></label><input id="tx-annex" readonly></div>
+            <div class="field span-2" data-key="logicalReference" data-entry="Yazılır" data-control="Text" data-source="User / Integration" data-required="No"><label for="tx-logical-reference">Logical Reference<button class="help-button" data-help="Logical Reference" type="button">?</button></label><input id="tx-logical-reference" placeholder="Optional business or source-system reference"></div>
+          </div>
+        </section>
+
+        <section class="transaction-section" id="cash-transaction-section">
+          <header class="section-title"><h2>Cash Amount and Currency Conversion</h2><small>Cash asset haircut is not applied</small></header>
+          <div class="field-grid four-columns">
+            <div class="field span-2" data-key="transactionType" data-entry="Listeden seçilir" data-control="Select" data-source="Code list + Annex Direction" data-required="Yes"><label for="cash-tx-type">Transaction Type <b>*</b><button class="help-button" data-help="Transaction Type" type="button">?</button></label><select id="cash-tx-type"><option>Increase</option><option>Decrease</option></select></div>
+            <div class="field span-2" data-key="marginType" data-entry="Listeden seçilir" data-control="Select" data-source="Annex Product Scope" data-required="Yes"><label for="cash-margin-type">Margin Type <b>*</b><button class="help-button" data-help="Margin Type" type="button">?</button></label><select id="cash-margin-type"><option>VM</option><option>IM</option><option>IA</option><option>Other</option></select></div>
+            <div class="field span-2" data-key="tradeDate" data-entry="Tarih seçilir" data-control="Date" data-source="User" data-required="Yes"><label for="cash-trade-date">Trade Date <b>*</b><button class="help-button" data-help="Trade Date" type="button">?</button></label><input id="cash-trade-date" type="date" value="2026-10-12"></div>
+            <div class="field span-2" data-key="valueDate" data-entry="Tarih seçilir" data-control="Date" data-source="User" data-required="Yes"><label for="cash-value-date">Value Date <b>*</b><button class="help-button" data-help="Value Date" type="button">?</button></label><input id="cash-value-date" type="date" value="2026-10-12"></div>
+            <div class="field span-2" data-key="amount" data-entry="Yazılır" data-control="Decimal" data-source="User" data-required="Yes"><label for="cash-amount">Amount <b>*</b><button class="help-button" data-help="Amount" type="button">?</button></label><input id="cash-amount" type="number" min="0.01" step="0.01" value="1000000"></div>
+            <div class="field span-2" data-key="currency" data-entry="Listeden seçilir" data-control="Select" data-source="Definition Eligible Currencies" data-required="Yes"><label for="cash-currency">Currency <b>*</b><button class="help-button" data-help="Currency" type="button">?</button></label><select id="cash-currency"><option>EUR</option><option>USD</option><option>GBP</option><option>TRY</option></select></div>
+            <div class="field span-2" data-key="currentBalance" data-entry="Otomatik gelir" data-control="Read-only amount" data-source="Transaction ledger" data-required="Derived"><label for="cash-current-balance">Current Balance<button class="help-button" data-help="Current Balance" type="button">?</button></label><input id="cash-current-balance" readonly></div>
+            <div class="field span-2" data-key="minimumAmount" data-entry="Otomatik gelir" data-control="Read-only amount" data-source="Definition" data-required="Inherited"><label for="cash-minimum-amount">Minimum Amount<button class="help-button" data-help="Minimum Amount" type="button">?</button></label><input id="cash-minimum-amount" readonly></div>
+            <div class="field span-2" data-key="valuationCurrency" data-entry="Otomatik gelir" data-control="Read-only text" data-source="Definition / Annex" data-required="Inherited"><label for="cash-tx-valuation-currency">Valuation Currency<button class="help-button" data-help="Valuation Currency" type="button">?</button></label><input id="cash-tx-valuation-currency" readonly></div>
+            <div class="field span-2" data-key="fxConversionRequired" data-entry="Hesaplanır" data-control="Read-only boolean" data-source="Currency comparison" data-required="Derived"><label for="fx-required">FX Conversion Required<button class="help-button" data-help="FX Conversion Required" type="button">?</button></label><input id="fx-required" readonly></div>
+            <div class="field span-2" data-key="fxRate" data-entry="Otomatik gelir" data-control="Read-only decimal" data-source="Market data" data-required="Derived"><label for="cash-fx-rate">FX Rate<button class="help-button" data-help="FX Rate" type="button">?</button></label><input id="cash-fx-rate" readonly></div>
+            <div class="field span-2" data-key="fxAdjustmentRate" data-entry="Otomatik gelir" data-control="Read-only percentage" data-source="Definition / Annex" data-required="Derived"><label for="cash-fx-adjustment">FX Adjustment<button class="help-button" data-help="FX Adjustment" type="button">?</button></label><input id="cash-fx-adjustment" readonly></div>
+            <div class="field span-2" data-key="transactionValue" data-entry="Hesaplanır" data-control="Read-only amount" data-source="Amount × FX Rate" data-required="Derived"><label for="cash-transaction-value">Transaction Value<button class="help-button" data-help="Transaction Value" type="button">?</button></label><input id="cash-transaction-value" readonly></div>
+            <div class="field span-2" data-key="adjustedEligibleValue" data-entry="Hesaplanır" data-control="Read-only amount" data-source="Valuation formula" data-required="Derived"><label for="cash-eligible-value">Adjusted Eligible Value<button class="help-button" data-help="Adjusted Eligible Value" type="button">?</button></label><input id="cash-eligible-value" readonly></div>
+          </div>
+        </section>
+
+        <section class="transaction-section" id="security-transaction-section" hidden>
+          <header class="section-title"><h2>Security Amount and Valuation</h2><small>Asset and FX haircut are applied when configured</small></header>
+          <div class="field-grid four-columns">
+            <div class="field span-2" data-key="transactionType" data-entry="Listeden seçilir" data-control="Select" data-source="Code list + Annex Direction" data-required="Yes"><label for="security-tx-type">Transaction Type <b>*</b><button class="help-button" data-help="Transaction Type" type="button">?</button></label><select id="security-tx-type"><option>Increase</option><option>Decrease</option></select></div>
+            <div class="field span-2" data-key="marginType" data-entry="Listeden seçilir" data-control="Select" data-source="Annex Product Scope" data-required="Yes"><label for="security-margin-type">Margin Type <b>*</b><button class="help-button" data-help="Margin Type" type="button">?</button></label><select id="security-margin-type"><option>VM</option><option>IM</option><option>IA</option><option>Other</option></select></div>
+            <div class="field span-2" data-key="tradeDate" data-entry="Tarih seçilir" data-control="Date" data-source="User" data-required="Yes"><label for="security-trade-date">Trade Date <b>*</b><button class="help-button" data-help="Trade Date" type="button">?</button></label><input id="security-trade-date" type="date" value="2026-10-12"></div>
+            <div class="field span-2" data-key="valueDate" data-entry="Tarih seçilir" data-control="Date" data-source="User" data-required="Yes"><label for="security-value-date">Value Date <b>*</b><button class="help-button" data-help="Value Date" type="button">?</button></label><input id="security-value-date" type="date" value="2026-10-12"></div>
+            <div class="field span-2" data-key="securityId" data-entry="Listeden seçilir" data-control="Search select" data-source="Definition-eligible securities" data-required="Yes"><label for="tx-security-isin">Security / ISIN <b>*</b><button class="help-button" data-help="Security / ISIN" type="button">?</button></label><select id="tx-security-isin"><option value="TRT240728T15">TRT240728T15 · Türkiye Government Bond</option><option value="XS0000000001">XS0000000001 · Example Corporate Bond</option></select></div>
+            <div class="field span-2" data-key="nominal" data-entry="Yazılır" data-control="Decimal" data-source="User" data-required="Yes"><label for="security-nominal">Nominal <b>*</b><button class="help-button" data-help="Nominal" type="button">?</button></label><input id="security-nominal" type="number" min="0.01" step="0.01" value="5000000"></div>
+            <div class="field span-2" data-key="currentBalance" data-entry="Otomatik gelir" data-control="Read-only amount" data-source="Transaction ledger" data-required="Derived"><label for="security-current-balance">Current Balance<button class="help-button" data-help="Current Balance" type="button">?</button></label><input id="security-current-balance" readonly></div>
+            <div class="field span-2" data-key="minimumNominal" data-entry="Otomatik gelir" data-control="Read-only amount" data-source="Definition" data-required="Inherited"><label for="security-minimum-nominal">Minimum Nominal<button class="help-button" data-help="Minimum Nominal" type="button">?</button></label><input id="security-minimum-nominal" readonly></div>
+            <div class="field span-2" data-key="price" data-entry="Otomatik gelir" data-control="Read-only decimal" data-source="Approved price source" data-required="Derived"><label for="security-price">Price / Price Date<button class="help-button" data-help="Price" type="button">?</button></label><input id="security-price" readonly></div>
+            <div class="field span-2" data-key="marketValue" data-entry="Hesaplanır" data-control="Read-only amount" data-source="Nominal × Price factor" data-required="Derived"><label for="security-market-value">Market Value<button class="help-button" data-help="Market Value" type="button">?</button></label><input id="security-market-value" readonly></div>
+            <div class="field span-2" data-key="valuationCurrency" data-entry="Otomatik gelir" data-control="Read-only text" data-source="Definition / Annex" data-required="Inherited"><label for="security-tx-valuation-currency">Valuation Currency<button class="help-button" data-help="Valuation Currency" type="button">?</button></label><input id="security-tx-valuation-currency" readonly></div>
+            <div class="field span-2" data-key="assetHaircutRate" data-entry="Otomatik gelir" data-control="Read-only percentage" data-source="Definition schedule" data-required="Derived"><label for="tx-asset-haircut">Asset Haircut<button class="help-button" data-help="Asset Haircut Rate" type="button">?</button></label><input id="tx-asset-haircut" readonly></div>
+            <div class="field span-2" data-key="fxHaircutRate" data-entry="Otomatik gelir" data-control="Read-only percentage" data-source="Definition schedule" data-required="Derived"><label for="tx-fx-haircut">FX Haircut<button class="help-button" data-help="FX Haircut Rate" type="button">?</button></label><input id="tx-fx-haircut" readonly></div>
+            <div class="field span-2" data-key="adjustedEligibleValue" data-entry="Hesaplanır" data-control="Read-only amount" data-source="Valuation formula" data-required="Derived"><label for="security-eligible-value">Adjusted Eligible Value<button class="help-button" data-help="Adjusted Eligible Value" type="button">?</button></label><input id="security-eligible-value" readonly></div>
+          </div>
+        </section>
+
+        <section class="limit-card" aria-label="Limit status">
+          <header><strong>Limit status</strong><span class="positive-text">Limit control active</span><span class="availability">● Limit available</span><button type="button" id="refresh-limit" title="Refresh limit">↻</button></header>
+          <div class="limit-body">
+            <div class="counterparty-card"><div class="bank-icon">▥</div><div><strong id="limit-counterparty">Barclays Bank</strong><small>Customer no · 460788</small></div></div>
+            <dl><div><dt>Country Limit</dt><dd>1,000,000,000.00</dd></div><div><dt>Total Limit</dt><dd>1,000,000,000.00</dd></div><div><dt>Used Limit</dt><dd class="warning-text">105,619,276.10</dd></div><div><dt>Available Limit</dt><dd class="positive-text">894,380,723.90</dd></div><div><dt>Risk Amount</dt><dd>0.00</dd></div></dl>
+            <div class="utilization"><strong>10.56<small>% used</small></strong><div class="progress"><span></span></div><p><span class="warning-text">● 10.56% used</span><span class="positive-text">● 89.44% available</span></p></div>
+          </div>
+        </section>
+
+        <section class="transaction-section" id="cash-payment-section">
+          <header class="section-title"><h2>Near Payment Instructions</h2><small id="payment-direction-note">Increase: They Send + We Receive are editable</small></header>
+          <div class="field-grid payment-grid">
+            <div class="field payment-left" data-key="settlementType" data-entry="Listeden seçilir" data-control="Select" data-source="Payment configuration" data-required="Conditional"><label for="settlement-type">Settlement Type <b>*</b><button class="help-button" data-help="Settlement Type" type="button">?</button></label><select id="settlement-type"><option>Gross Settlement</option><option>Net Settlement</option><option>Internal Book Transfer</option></select></div>
+            <div class="field payment-right" data-key="paymentInstructionType" data-entry="Listeden seçilir" data-control="Select" data-source="Payment configuration" data-required="Conditional"><label for="payment-instruction-type">Payment Instr. Type <b>*</b><button class="help-button" data-help="Payment Instr. Type" type="button">?</button></label><select id="payment-instruction-type"><option>Bank to Bank</option><option>Internal Transfer</option></select></div>
+            <div class="field payment-left" data-key="weSendSsiId" data-entry="Listeden seçilir" data-control="Select" data-source="SSI master" data-required="Conditional"><label for="we-send">We Send <b>*</b><button class="help-button" data-help="We Send" type="button">?</button></label><select id="we-send"><option>Türkiye Cumhuriyet Merkez Bankası</option><option>Citibank N.A. (New York)</option></select></div>
+            <div class="flow-arrow outflow">→</div>
+            <div class="field payment-right" data-key="theyReceiveSsiId" data-entry="Listeden seçilir" data-control="Select" data-source="Counterparty SSI" data-required="Conditional"><label for="they-receive">They Receive <b>*</b><button class="help-button" data-help="They Receive" type="button">?</button></label><select id="they-receive"><option>BNP Paribas Bank</option><option>Barclays London</option></select></div>
+            <div class="field payment-left" data-key="weReceiveSsiId" data-entry="Listeden seçilir" data-control="Select" data-source="SSI master" data-required="Conditional"><label for="we-receive">We Receive <b>*</b><button class="help-button" data-help="We Receive" type="button">?</button></label><select id="we-receive"><option>Citibank N.A. (New York)</option><option>Türkiye Cumhuriyet Merkez Bankası</option></select></div>
+            <div class="flow-arrow inflow">←</div>
+            <div class="field payment-right" data-key="theySendSsiId" data-entry="Listeden seçilir" data-control="Select" data-source="Counterparty SSI" data-required="Conditional"><label for="they-send">They Send <b>*</b><button class="help-button" data-help="They Send" type="button">?</button></label><select id="they-send"><option>Federal Reserve Bank</option><option>Barclays London</option></select></div>
+            <div class="field span-4 check-group" data-key="outputFlags" data-entry="İşaretlenir" data-control="Checkbox group" data-source="User / Policy" data-required="No"><label class="checkbox"><input id="send-confirmation" type="checkbox" checked> Send Confirmation</label><label class="checkbox"><input id="send-payment" type="checkbox"> Send Payment</label><label class="checkbox"><input id="send-notice" type="checkbox"> Send Notice To Receive</label></div>
+            <div class="field span-4" data-key="instructions" data-entry="Yazılır" data-control="Textarea" data-source="User" data-required="No"><label for="instructions">Instructions<button class="help-button" data-help="Instructions" type="button">?</button></label><textarea id="instructions" rows="3" placeholder="Optional operational instruction"></textarea></div>
+          </div>
+        </section>
+
+        <section class="transaction-section" id="security-settlement-section" hidden>
+          <header class="section-title"><h2>Security Settlement Instructions</h2><small id="security-direction-note">Increase: Receive instruction</small></header>
+          <div class="field-grid four-columns">
+            <div class="field span-2" data-key="settlementLocation" data-entry="Otomatik gelir" data-control="Read-only text" data-source="Definition" data-required="Inherited"><label for="tx-settlement-location">Settlement Location<button class="help-button" data-help="Settlement Location" type="button">?</button></label><input id="tx-settlement-location" readonly></div>
+            <div class="field span-2" data-key="custodyAccountId" data-entry="Listeden seçilir" data-control="Select" data-source="Eligible custody accounts" data-required="Conditional"><label for="tx-custody-account">Custody Account <b>*</b><button class="help-button" data-help="Custody Account" type="button">?</button></label><select id="tx-custody-account"><option>TRY Securities Custody</option><option>Euroclear Main Account</option></select></div>
+            <div class="field span-2" data-key="settlementInstructionId" data-entry="Listeden seçilir" data-control="Select" data-source="SSI master" data-required="Conditional"><label for="tx-security-ssi">Settlement Instruction <b>*</b><button class="help-button" data-help="Settlement Instruction" type="button">?</button></label><select id="tx-security-ssi"><option>BIST CUSTODY SSI</option><option>EUROCLEAR SSI</option></select></div>
+            <div class="field span-2" data-key="deliveryType" data-entry="Otomatik gelir" data-control="Read-only text" data-source="Transaction Type" data-required="Derived"><label for="delivery-type">Delivery Type<button class="help-button" data-help="Delivery Type" type="button">?</button></label><input id="delivery-type" readonly></div>
+            <div class="field span-4" data-key="instructions" data-entry="Yazılır" data-control="Textarea" data-source="User" data-required="No"><label for="security-instructions">Instructions<button class="help-button" data-help="Instructions" type="button">?</button></label><textarea id="security-instructions" rows="3" placeholder="Optional custody instruction"></textarea></div>
+          </div>
+        </section>
+
+        <footer class="form-actions"><button class="button secondary" type="button">CANCEL</button><button class="button secondary" id="save-draft" type="button">SAVE DRAFT</button><button class="button primary" id="verify-transaction" type="button">VERIFY</button></footer>
+      </div>
+
+      <div id="transaction-detail" data-tx-panel="detail" hidden>
+        <section class="transaction-section">
+          <header class="section-title"><h2 id="history-title">Cash Transaction History</h2><small>Saved movements from first transaction to today</small></header>
+          <div class="field-grid four-columns history-summary">
+            <div class="field span-2" data-key="definitionId" data-entry="Otomatik gelir" data-control="Read-only text" data-source="Selected transaction" data-required="Derived"><label for="history-code">Collateral Code</label><input id="history-code" readonly></div>
+            <div class="field span-2" data-key="assetKey" data-entry="Otomatik gelir" data-control="Read-only text" data-source="Selected transaction" data-required="Derived"><label for="history-asset">Currency / ISIN</label><input id="history-asset" readonly></div>
+            <div class="field span-2" data-key="historyStartDate" data-entry="Otomatik gelir" data-control="Read-only date" data-source="Transaction ledger" data-required="Derived"><label for="history-start">History Start Date</label><input id="history-start" readonly></div>
+            <div class="field span-2" data-key="currentBalance" data-entry="Hesaplanır" data-control="Read-only amount" data-source="Transaction ledger" data-required="Derived"><label for="history-balance">Current Balance</label><input id="history-balance" readonly></div>
+          </div>
+          <div class="table-wrap history-table-wrap"><table id="history-table"><thead></thead><tbody></tbody></table></div>
+          <div class="empty-state" id="history-empty" hidden>No verified transaction exists for this selection.</div>
+        </section>
+      </div>
+    </section>
+
+    <div class="modal-backdrop" id="product-modal" hidden>
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="product-modal-title">
+        <header><h2 id="product-modal-title">Add Product Scope</h2><button class="modal-close" type="button" data-close-modal="product-modal">×</button></header>
+        <div class="modal-body field-grid">
+          <div class="field" data-key="productCode" data-entry="Listeden seçilir" data-control="Select" data-source="Product catalog" data-required="Yes"><label for="modal-product">Product <b>*</b></label><select id="modal-product"><option value="">Select...</option><option>FX</option><option>Interest Rate</option><option>Money Market</option><option>Repo</option><option>Securities Lending</option></select></div>
+          <div class="field" data-key="subProductCode" data-entry="Listeden seçilir" data-control="Select" data-source="Product catalog" data-required="Yes"><label for="modal-sub-product">Sub Product <b>*</b></label><select id="modal-sub-product"><option>Forward / Swap / NDF</option><option>IRS / CCS</option><option>Repo / Reverse Repo</option><option>Borrowing / Lending</option></select></div>
+          <div class="field" data-key="marginType" data-entry="Listeden seçilir" data-control="Select" data-source="Code list" data-required="Yes"><label for="modal-margin-type">Margin Type <b>*</b></label><select id="modal-margin-type"><option>VM</option><option>IM</option><option>IA</option><option>Other</option></select></div>
+          <div class="field" data-key="included" data-entry="Listeden seçilir" data-control="Select" data-source="Boolean code list" data-required="Yes"><label for="modal-included">Included <b>*</b></label><select id="modal-included"><option>Yes</option><option>No</option></select></div>
+        </div>
+        <footer><button class="button secondary" type="button" data-close-modal="product-modal">CANCEL</button><button class="button primary" id="add-product" type="button">ADD</button></footer>
+      </section>
+    </div>
+
+    <div class="modal-backdrop" id="rule-modal" hidden>
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="rule-modal-title">
+        <header><div><h2 id="rule-modal-title">Add Party Margin Rule</h2><small id="modal-rule-context">FX · Forward / Swap / NDF · VM</small></div><button class="modal-close" type="button" data-close-modal="rule-modal">×</button></header>
+        <div class="modal-body field-grid">
+          <div class="field" data-key="party" data-entry="Listeden seçilir" data-control="Select" data-source="Code list" data-required="Yes"><label for="modal-party">Party <b>*</b></label><select id="modal-party"><option>Own</option><option>Counterparty</option></select></div>
+          <div class="field" data-key="thresholdAmount" data-entry="Yazılır" data-control="Decimal + Currency" data-source="User" data-required="Yes"><label for="modal-threshold">Threshold <b>*</b></label><input id="modal-threshold" type="number" min="0" step="0.01" value="0"></div>
+          <div class="field" data-key="mtaAmount" data-entry="Yazılır" data-control="Decimal + Currency" data-source="User" data-required="Yes"><label for="modal-mta">MTA <b>*</b></label><input id="modal-mta" type="number" min="0" step="0.01" value="250000"></div>
+          <div class="field" data-key="roundingAmount" data-entry="Yazılır" data-control="Decimal + Currency" data-source="User" data-required="Yes"><label for="modal-rounding">Rounding Amount <b>*</b></label><input id="modal-rounding" type="number" min="0" step="0.01" value="10000"></div>
+          <div class="field" data-key="roundingMethod" data-entry="Listeden seçilir" data-control="Select" data-source="Code list" data-required="Yes"><label for="modal-rounding-method">Rounding Method <b>*</b></label><select id="modal-rounding-method"><option>Nearest</option><option>Up</option><option>Down</option></select></div>
+          <div class="field" data-key="currency" data-entry="Listeden seçilir" data-control="Select" data-source="Annex Base Currency / Currency master" data-required="Yes"><label for="modal-rule-currency">Currency <b>*</b></label><select id="modal-rule-currency"><option>EUR</option><option>TRY</option><option>USD</option></select></div>
+        </div>
+        <footer><button class="button secondary" type="button" data-close-modal="rule-modal">CANCEL</button><button class="button primary" id="add-rule" type="button">ADD</button></footer>
+      </section>
+    </div>
+
+    <aside class="drawer" id="field-map" hidden aria-label="Developer field map">
+      <header><div><p class="eyebrow">Developer handoff</p><h2>Visible field map</h2></div><button id="close-field-map" type="button">×</button></header>
+      <p class="drawer-note">The list follows the active screen and current Cash/Security state. “Yazılır” means free or numeric user input; “Listeden seçilir” means a controlled catalog/code value.</p>
+      <div class="table-wrap"><table><thead><tr><th>Field</th><th>Binding key</th><th>Entry</th><th>Control</th><th>Required</th><th>State</th></tr></thead><tbody id="field-map-body"></tbody></table></div>
+    </aside>
+    <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

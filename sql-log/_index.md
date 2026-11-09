@@ -72,3 +72,10 @@
 - Compact kayıtları → [`compacts/_index.md`](../compacts/_index.md) (aynı `<chat-slug>`)
 | `collateral-db-tablo-id-stratejisi` | 2026-10-07 | NetTrexCollateral için tablo envanteri + IDENTITY/DefNumberGen Id stratejisi (MM · OPTFX · DerivSWP karşılaştırması) |
 | `mm-revaluation-report-manuel-kayit` | 2026-10-09 | txnMmDailyCalculation fiziksel şema (Identity/FK/trigger) — MmRevaluationReport ekranına manuel reeskont satırı |
+| `interbankloan-muhasebe-ayrimi` | 2026-10-14 | InterbankLoan vs MM muhasebe ayrımı: BRWPLC1/LOAN Path paylaşımı, AccAccountMap `TxnModel.ProductId` kuralları, TxnLoan/TxnMM ürün dağılımı (#1-#15, #8 sözdizimi hatası → #11) |
+| `colmanagement-ui-permission` | 2026-10-15 | ColManagement.UI "+" butonu pasif — Common DB'de Annex/CollateralDefinition/TxnTransaction permission action satırı var mı (Maker/Checker/Displayer script gerekçesi) |
+| `accounting-map-analiz` | 2026-10-20 | AccAccountMap seçim mantığı doğrulaması (NetTrex.Core engine): Order eşitliği, Path biçimleri, kuralsız satırlar, Ccy doluluğu, zincirli map, StateId dağılımı (#1-#10, #6 tekrar) |
+| `colmanagement-inci-model-uyarlama` | 2026-10-21 | INCI veri modeli uyarlamasi: MM faiz parametre tablolari (RateType/InterestMethod/InterestMethodFrequency/FloatingRateType/DateBasis) semasi+verisi, NetTrexColManagement mevcut veri sayilari |
+| mm-il-ekran-dokumani | 2026-10-25 | MM + InterbankLoan ekran dokumani (is birimi): lookup/chart/calendar/trigger dogrulamasi (#1-#15) |
+| `mm-plc-counterparty-gl-map` | 2026-10-26 | TMMPLC2610260009 Verify: borç bacağı GL `CounterPartyGLAccount` kalıyor — map satırları + dynamic rule 12660/12661 (`UseExternalGLCode` typo) (#1-#9; #3 log öncesi çalıştırıldı, #2 çalıştırılmadı) |
+| `il-reeskont-urun-ekran` | 2026-11-09 | IL reeskontu: TxnLoan RateType×InterestMethod dağılımı, LoanRevaluation SL/IRR/NPV ↔ accEntry tutarı (fişe giden tutar doğrulaması) |

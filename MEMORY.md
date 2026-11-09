@@ -63,6 +63,14 @@
 
 ## Cross-Repo Kararlar
 
+- 🔴 **Muhasebe motoru NetTrex.Accounting'de DEĞİL, NetTrex.Core'da ve modülün process'inde koşar (2026-10-20, ölçüldü):**
+  MM `AccountingService` → `IAccountEngineFacade` = NuGet `NetTrex.Core.Accounting.Engine` (kaynak `repos/NetTrex.Core`).
+  NetTrex.Accounting'e yalnız 3 HTTP ucu gider (`/AccountingEngineItem/activerecords`, `/AccountingEngineDynamicRule/activerecords`,
+  `/AccAccountingMap/Select`) — API DB okur + Redis doldurur. `NetTrex.Accounting/Code/Accounting/*Engine*` **eski nesil** (map mantığı yok).
+  `AccAccountMap` seçimi: Source (ordinal) → IsEnabled → Path (`EventPath.Contains`) → `OrderBy(Order)` (eşitte ikinci kriter yok) →
+  ilk "tüm Rule1..10'u geçen" satır; popup motor DEĞİL. Detay → `NetTrex.MM/.ai-agent/feature-research/Accounting-Engine-research.md` §4.10,
+  skill `accounting-db-script` A-19..A-24.
+
 - 🔴 **Paylaşılan framework dosyalarına DAVRANIŞ değiştiren dokunuş YOK (2026-08-19, kullanıcı kararı):**
   Bir ekranın ihtiyacı, `Trex.FrameworkCommon` / `Framework.WebUI` gibi **tüm ekranların geçtiği**
   dosyaları değiştirmeyi gerektiriyorsa **değiştirilmez** — ayar/override **ekranın kendi klasörüne**
@@ -110,6 +118,37 @@
 ---
 
 ## Bilinen Tuzaklar (cross-repo)
+
+- 🔴 **Muhasebe Excel + THP araştırması yapıldı; kırılım bilgisi artık yazılı (2026-10-27, kullanıcı isteği):**
+  Kullanıcının sözü: *"ben sana accounting ile ilgili bir şey söylersem burada öğrendiklerinle öncelikli onları okuyarak cevap ver."*
+  → `CLAUDE.md` muhasebe bloğu + `skills/accounting-excel-thp.md` + `NetTrex.MM/.ai-agent/feature-research/Accounting-Excel-THP-research.md`
+  (ham çıktılar `outputs/2026-10-27-Accounting-Excel-THP/`). Kaynak: `imports/AccountingExcels/` (Dost · Dünya · Tera · OptionsFX Dünya) + `imports/THP/` (**PDF**, excel değil).
+  🔑 **Tuzaklar:** (a) **yatırım `THP.pdf` `-layout` çıktısında ad/kod kayıyor** → ham mod (`pdftotext -f N -l N`, `-layout` yok) + sayfa doğrulaması; 6 haneli yaprak adları iki PDF'te de güvenilmez.
+  (b) **Tera = yatırım (8 hane, Teminatlı/TCMB-TAKAS-BIST), Dost/Dünya = katılım (10 hane, Fund Type `0/2/4` son hane)**.
+  (c) **Revaluation component kodu workbook'a bağlı: 512 katılım / 510 Tera** (eski skill "510" diyordu; DB doğrulaması yapılmadı).
+  (d) **Excel'de 15 satırda `Target` ≠ `TargetMainGL` prefix** (Dost 52/65/95/108 · Dünya 56/69/112/125/134 · Tera 49/211 · OptFX 244/379/557/558) — `Target` fişi belirler, **iş birimi teyidi bekliyor, düzeltilmedi**.
+  (e) `TargetMainGL` fişe yalnız taşınır; `Rule1..10` kolonlarının anlamı satır ailesine göre değişir (ödeme kaynakları ≠ ürün satırları).
+  ✅ Excel değişikliği: orijinali ezme, **versiyonlu kopya**; exceljs oku→yaz→oku ölçüldü (Tera): açılır liste/birleşik hücre/tablo sayıları korundu, stil ölçülmedi.
+
+- 🔴 **Dynamic rule JS'inde modelde olmayan property = kural SESSİZCE hep false (2026-10-26, canlıda yaşandı):**
+  AccEngineDynamicRule `12660/12661` `TxnModel.UseExternalGLCode` okuyordu; MM modelinde `UseExternalGLAccount` var →
+  `undefined === true/false` hep false → `CounterPartyGLAccount` map satırlarının **110'u** hiç seçilmedi, fişlerde GL
+  sembolik adıyla (`CounterPartyGLAccount`), `AccAccountMapId NULL`, müşteri/hesap NULL kaldı
+  (`TMMPLC2610260009`, `TMRBRW2610260008`). Kaynak: Excel `Shared` sayfası → generator → DB.
+  ✅ Düzeltme script'i `outputs/2026-10-26-AccEngine-UseExternalGL-Rule-Fix.sql` (+ Excel + cache temizliği; **kullanıcı uygular**).
+  🔑 Tarama: `AccEntry.GLCode='CounterPartyGLAccount' AND AccAccountMapId IS NULL`. Detay → `NetTrex.MM/.ai-agent/feature-research/Accounting-Engine-research.md` §4.12, skill `accounting-db-script` A-28..A-30.
+
+- 🔴 **Micro UI form popup: `contentTemplate` `show()` ANINDA render edilir — editöre show'dan önce dokunma (2026-10-22, yaşandı):**
+  ColManagement.UI `initFormPopup` dropdown doldurmayı `popup.show()`'dan önce yapıyordu → `getSelectBox(...)` `undefined` →
+  *"Cannot read properties of undefined (reading 'option')"*. MM sırası: content → `setPopupOptions` → **`show()`** → dataSource/formData.
+  Aynı turda: `UseDefaultStateFilter` etiketi "State"; MmTransaction deseni (`CustomFilter` + `TreasyStateFilter(list)`) "Records to be listed".
+- 🔴 **MicroUI `dotnet build --no-incremental` (Rebuild) KIRIK — paket target sırası (2026-10-22, ölçüldü):**
+  `Treasy.MicroUI.SharedDependency.targets`: `Clean` `wwwroot/bundles`'ı siler, `TreasyBundleLocalizationJson` `BeforeTargets="Build"` →
+  StaticWebAssets çözümünden SONRA koşar → *"No file exists for the asset … wwwroot\bundles\localization\en.json"*. Normal (incremental)
+  build'de görünmez. Lokal çözüm csproj'da `<Target BeforeTargets="ResolveProjectStaticWebAssets" DependsOnTargets="TreasyBundleLocalizationJson">`
+  (ColManagement.UI'da uygulandı). Treasy.MM.UI aynı csproj → aynı risk; kalıcı yer paket.
+- ⚠️ **`NetTrexColManagement` ile `NetTrexMM` collation FARKLI (`Turkish_CI_AS` / `SQL_Latin1_General_CP1254_CI_AS`)** — DB'ler arası
+  metin karşılaştırması *"Cannot resolve the collation conflict"* verir; `COLLATE DATABASE_DEFAULT` şart (ölçüldü 2026-10-22).
 
 - 🔴 **DIS UCA MAKULLUK SINIRI KOYMAZSAN BUYUK BIR DEGER PROCESS'I DUSURUR (2026-09-04, olculdu):**
   Eximbank ucunda `amount: 67677676766776.67` gonderilince gateway **500** dondu:
